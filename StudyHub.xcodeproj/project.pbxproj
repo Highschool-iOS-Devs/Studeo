@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E178A44224F1CF21003907E2 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E178A44124F1CF21003907E2 /* UserData.swift */; };
 		E339449624F1B71600F11BA9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E339449524F1B71600F11BA9 /* AppDelegate.swift */; };
 		E339449824F1B71600F11BA9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E339449724F1B71600F11BA9 /* SceneDelegate.swift */; };
 		E339449A24F1B71600F11BA9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E339449924F1B71600F11BA9 /* ContentView.swift */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E178A44124F1CF21003907E2 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		E339449224F1B71600F11BA9 /* StudyHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E339449524F1B71600F11BA9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E339449724F1B71600F11BA9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +61,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E178A44324F1CF29003907E2 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				E178A44124F1CF21003907E2 /* UserData.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		E178A44424F1CF4E003907E2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E339449924F1B71600F11BA9 /* ContentView.swift */,
+				E33944C024F1B9F000F11BA9 /* LoginView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		E339448924F1B71600F11BA9 = {
 			isa = PBXGroup;
 			children = (
@@ -78,12 +97,12 @@
 		E339449424F1B71600F11BA9 /* StudyHub */ = {
 			isa = PBXGroup;
 			children = (
+				E178A44424F1CF4E003907E2 /* Views */,
+				E178A44324F1CF29003907E2 /* Data */,
 				E33944BD24F1B85100F11BA9 /* Extensions */,
 				E33944BB24F1B7EF00F11BA9 /* Resources */,
 				E339449524F1B71600F11BA9 /* AppDelegate.swift */,
 				E339449724F1B71600F11BA9 /* SceneDelegate.swift */,
-				E339449924F1B71600F11BA9 /* ContentView.swift */,
-				E33944C024F1B9F000F11BA9 /* LoginView.swift */,
 				E339449B24F1B71B00F11BA9 /* Assets.xcassets */,
 				E33944A024F1B71B00F11BA9 /* LaunchScreen.storyboard */,
 				E33944A324F1B71B00F11BA9 /* Info.plist */,
@@ -212,6 +231,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E178A44224F1CF21003907E2 /* UserData.swift in Sources */,
 				E339449624F1B71600F11BA9 /* AppDelegate.swift in Sources */,
 				E339449824F1B71600F11BA9 /* SceneDelegate.swift in Sources */,
 				E339449A24F1B71600F11BA9 /* ContentView.swift in Sources */,
