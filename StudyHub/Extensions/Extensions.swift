@@ -37,7 +37,6 @@ struct WhiteStyle: ButtonStyle {
             .scaleEffect(configuration.isPressed ? 0.9:1.0)
     }
 }
-
 //NOTE: - Custom colors
 
 extension Color {
@@ -47,4 +46,7 @@ extension Color {
     public static var buttonPressedBlue: Color {
         return Color(red: 0.0/255.0, green: 119.0/255.0, blue: 255.0/255.0)
     }
+    public static var light: Color {
+           return Color(red: 0.0/255.0, green: 119.0/255.0, blue: 255.0/255.0)
+       }
 }
