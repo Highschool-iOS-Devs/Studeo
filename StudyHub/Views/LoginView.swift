@@ -9,8 +9,11 @@
 import SwiftUI
 
 struct LoginView: View {
+    
     @State private var username: String = ""
     @State private var password: String = ""
+    @EnvironmentObject var userData: UserData
+    
     var body: some View {
         VStack {
             Text("Login")
