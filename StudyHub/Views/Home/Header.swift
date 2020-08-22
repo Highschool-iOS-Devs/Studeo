@@ -39,12 +39,20 @@ struct Header: View {
             } .padding(.trailing, 22)
             
             Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
-                Image("clock")
-                    .renderingMode(.original)
-                    .resizable()
-                    .frame(width: 25, height: 25)
-                    .aspectRatio(contentMode: .fit)
-                    .clipShape(Circle())
+                ZStack {
+                    Color(.white)
+                        .frame(width: 40, height: 40)
+                        .clipShape(Circle())
+                        .shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
+                        .shadow(color: Color.white.opacity(0.7), radius: 10, x: -5, y: -5)
+                    Image("clock")
+                        .renderingMode(.original)
+                        .resizable()
+                        .frame(width: 25, height: 25)
+                        .aspectRatio(contentMode: .fit)
+                        .clipShape(Circle())
+                    
+                }
             }
             
         } .padding(.horizontal, 12)
