@@ -15,14 +15,16 @@ struct LoginView: View {
     @EnvironmentObject var userData: UserData
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack() {
             Text("Login")
-                .font(Font.custom("Montserrat-SemiBold", size: 34.0))
-                .padding(.top, 64)
-                .padding(.horizontal, 157)
+                .font(Font.custom("Montserrat-SemiBold", size: 34))
+                .offset(x: 0, y: 30)
+
             Image("studying")
                 .resizable()
+                .aspectRatio(contentMode: .fit)
                 .frame(width: 280, height: 280)
+            .offset(x: 0, y: 30)
                 .padding(.horizontal, 42)
             TextField("Username", text: $username)
                 .textFieldStyle(CustomTextField())
@@ -36,6 +38,9 @@ struct LoginView: View {
                 .font(.caption)
                 .offset(x: 100)
                 .padding(.bottom, 61)
+            
+            Spacer()
+            
             VStack(spacing: 35) {
                 Button(action: {
                     print("Tapped Sign-in button")
@@ -53,7 +58,7 @@ struct LoginView: View {
                 }
                 .buttonStyle(WhiteStyle())
                 .padding(.horizontal, 75)
-            }.padding(.bottom, 170)
+            }.padding(.bottom, 50)
         }
     }
 }

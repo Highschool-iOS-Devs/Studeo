@@ -43,6 +43,7 @@ struct WhiteStyle: ButtonStyle {
 struct CustomTextField: TextFieldStyle {
     func _body(configuration: TextField<_Label>) -> some View {
         configuration
+            .frame(width: 250, height: 10)
             .font(Font.custom("Montserrat-Regular", size: 15.0))
             .padding()
             .background(Color.gray.opacity(0.2))

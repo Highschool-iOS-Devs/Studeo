@@ -90,6 +90,7 @@
 		6214049924F23819000B8F54 /* SubViews */ = {
 			isa = PBXGroup;
 			children = (
+				629F228224F2D2FD00A7E02E /* CustomButtonStyles.swift */,
 				6214049A24F23844000B8F54 /* TabBar.swift */,
 				629F227E24F2D22D00A7E02E /* TabRouter.swift */,
 			);
@@ -100,7 +101,6 @@
 			isa = PBXGroup;
 			children = (
 				629F228124F2D2FD00A7E02E /* TimerView.swift */,
-				629F228224F2D2FD00A7E02E /* CustomButtonStyles.swift */,
 			);
 			path = "Timer Screen";
 			sourceTree = "<group>";

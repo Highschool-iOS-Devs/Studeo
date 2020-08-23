@@ -16,12 +16,10 @@ struct RegistrationView: View {
     @EnvironmentObject var userData: UserData
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack() {
             Text("Registration")
-                .lineLimit(nil)
-                .font(Font.custom("Montserrat-SemiBold", size: 34.0))
-                .padding(.top, 64)
-                .padding(.horizontal, 30)
+                .font(Font.custom("Montserrat-SemiBold", size: 34))
+                .offset(x: 0, y: 30)
             Image("5293")
                 .resizable()
                 .scaledToFit()
@@ -41,6 +39,8 @@ struct RegistrationView: View {
                 .textFieldStyle(CustomTextField())
                 .padding(.horizontal, 46)
                 .padding(.bottom, 30)
+            
+            Spacer()
             VStack(spacing: 35) {
                 Button(action: {
                     print("Tapped Sign-Up button")
@@ -58,7 +58,7 @@ struct RegistrationView: View {
                 }
                 .buttonStyle(WhiteStyle())
                 .padding(.horizontal, 75)
-            }.padding(.bottom, 170)
+            }.padding(.bottom, 50)
         }
     }
 }
