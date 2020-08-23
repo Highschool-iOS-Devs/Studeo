@@ -16,49 +16,50 @@ struct RegistrationView: View {
     @EnvironmentObject var userData: UserData
     
     var body: some View {
-        VStack() {
-            Text("Registration")
-                .font(Font.custom("Montserrat-SemiBold", size: 34))
-                .offset(x: 0, y: 30)
-            Image("5293")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 383, height: 200)
-                .padding(.horizontal, 12)
-                .padding(.top, 12)
-                .padding(.bottom, 30)
-            TextField("Username", text: $username)
-                .textFieldStyle(CustomTextField())
-                .padding(.horizontal, 46)
-                .padding(.bottom, 20)
-            TextField("Email", text: $email)
-                .textFieldStyle(CustomTextField())
-                .padding(.horizontal, 46)
-                .padding(.bottom, 20)
-            TextField("Password", text: $password)
-                .textFieldStyle(CustomTextField())
-                .padding(.horizontal, 46)
-                .padding(.bottom, 30)
-            
-            Spacer()
-            VStack(spacing: 35) {
-                Button(action: {
-                    print("Tapped Sign-Up button")
-                }) {
-                    Text("Sign Up")
-                        .font(Font.custom("Montserrat-SemiBold", size: 14.0))
+        GeometryReader { geometry in
+            VStack() {
+                Text("Registration")
+                    .font(Font.custom("Montserrat-SemiBold", size: 34))
+                    .offset(x: 0, y: 23)
+                Image("5293")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: geometry.size.width-30, height: geometry.size.height/3.25)
+                    .padding(.horizontal)
+                    .padding(.top, 12)
+                    .padding(.bottom, 10)
+                
+                VStack(spacing: 20){
+                    TextField("Username", text: self.$username)
+                        .textFieldStyle(CustomTextField())
+                    TextField("Email", text: self.$email)
+                        .textFieldStyle(CustomTextField())
+                    TextField("Password", text: self.$password)
+                        .textFieldStyle(CustomTextField())
                 }
-                .buttonStyle(BlueStyle())
-                .padding(.horizontal, 75)
-                Button(action: {
-                    print("Tapped Sign-In button")
-                }) {
-                    Text("Sign In")
-                        .font(Font.custom("Montserrat-SemiBold", size: 14.0))
+                .padding(.horizontal, 46)
+                .padding(.bottom, 30)
+
+                VStack(spacing: 35) {
+                    Button(action: {
+                        print("Tapped Sign-Up button")
+                    }) {
+                        Text("Sign Up")
+                            .font(Font.custom("Montserrat-SemiBold", size: 14.0))
+                    }
+                    .buttonStyle(BlueStyle())
+                    Button(action: {
+                        print("Tapped Sign-In button")
+                    }) {
+                        Text("Sign In")
+                            .font(Font.custom("Montserrat-SemiBold", size: 14.0))
+                    }
+                    .buttonStyle(WhiteStyle())
                 }
-                .buttonStyle(WhiteStyle())
                 .padding(.horizontal, 75)
-            }.padding(.bottom, 50)
+                .padding(.bottom, 50)
+                Spacer()
+            }
         }
     }
 }
