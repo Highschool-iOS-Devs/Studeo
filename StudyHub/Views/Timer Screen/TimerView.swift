@@ -69,7 +69,9 @@ struct TimerView: View {
                 
                 Button(action: handleTap) {
                     Image(systemName: timerIsRunning ? "pause.fill" : "play.fill")
-                }.buttonStyle(PauseResumeButton())
+                        .animation(nil)
+                }
+                .buttonStyle(PauseResumeButton())
                 
                 Button(action: addSeconds) {
                     Text("+30s")
