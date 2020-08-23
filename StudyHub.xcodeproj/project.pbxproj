@@ -12,6 +12,8 @@
 		629F227F24F2D22D00A7E02E /* TabRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629F227E24F2D22D00A7E02E /* TabRouter.swift */; };
 		629F228324F2D2FD00A7E02E /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629F228124F2D2FD00A7E02E /* TimerView.swift */; };
 		629F228424F2D2FD00A7E02E /* CustomButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629F228224F2D2FD00A7E02E /* CustomButtonStyles.swift */; };
+		629F228724F30D4900A7E02E /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629F228624F30D4900A7E02E /* LeaderboardView.swift */; };
+		629F228924F31CB700A7E02E /* LeaderboardTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629F228824F31CB700A7E02E /* LeaderboardTabBar.swift */; };
 		E1439BB124F26441005E9354 /* ChatData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1439BB024F26440005E9354 /* ChatData.swift */; };
 		E178A44224F1CF21003907E2 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E178A44124F1CF21003907E2 /* UserData.swift */; };
 		E178A44724F1D341003907E2 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = E178A44624F1D341003907E2 /* Home.swift */; };
@@ -42,6 +44,8 @@
 		629F227E24F2D22D00A7E02E /* TabRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabRouter.swift; sourceTree = "<group>"; };
 		629F228124F2D2FD00A7E02E /* TimerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		629F228224F2D2FD00A7E02E /* CustomButtonStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButtonStyles.swift; sourceTree = "<group>"; };
+		629F228624F30D4900A7E02E /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
+		629F228824F31CB700A7E02E /* LeaderboardTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardTabBar.swift; sourceTree = "<group>"; };
 		E1439BB024F26440005E9354 /* ChatData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatData.swift; sourceTree = "<group>"; };
 		E178A44124F1CF21003907E2 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		E178A44624F1D341003907E2 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
@@ -105,6 +109,15 @@
 			path = "Timer Screen";
 			sourceTree = "<group>";
 		};
+		629F228524F30D3600A7E02E /* Leaderboard */ = {
+			isa = PBXGroup;
+			children = (
+				629F228624F30D4900A7E02E /* LeaderboardView.swift */,
+				629F228824F31CB700A7E02E /* LeaderboardTabBar.swift */,
+			);
+			path = Leaderboard;
+			sourceTree = "<group>";
+		};
 		E178A44324F1CF29003907E2 /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -117,6 +130,7 @@
 		E178A44424F1CF4E003907E2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				629F228524F30D3600A7E02E /* Leaderboard */,
 				629F228024F2D2FD00A7E02E /* Timer Screen */,
 				6214049924F23819000B8F54 /* SubViews */,
 				6214049624F235F8000B8F54 /* Settings */,
@@ -298,6 +312,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				629F228724F30D4900A7E02E /* LeaderboardView.swift in Sources */,
 				629F228324F2D2FD00A7E02E /* TimerView.swift in Sources */,
 				E178A44A24F1D49F003907E2 /* Header.swift in Sources */,
 				E178A44224F1CF21003907E2 /* UserData.swift in Sources */,
@@ -313,6 +328,7 @@
 				E33944BF24F1B86A00F11BA9 /* Extensions.swift in Sources */,
 				E178A44724F1D341003907E2 /* Home.swift in Sources */,
 				629F228424F2D2FD00A7E02E /* CustomButtonStyles.swift in Sources */,
+				629F228924F31CB700A7E02E /* LeaderboardTabBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
