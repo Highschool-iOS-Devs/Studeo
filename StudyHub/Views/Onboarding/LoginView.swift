@@ -15,27 +15,21 @@ struct LoginView: View {
     @EnvironmentObject var userData: UserData
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             Text("Login")
                 .font(Font.custom("Montserrat-SemiBold", size: 34.0))
-                .padding(.top, 56)
+                .padding(.top, 64)
                 .padding(.horizontal, 157)
             Image("studying")
                 .resizable()
                 .frame(width: 280, height: 280)
                 .padding(.horizontal, 42)
             TextField("Username", text: $username)
-                .font(Font.custom("Montserrat-Regular", size: 15.0))
-                .padding()
-                .background(Color.gray.opacity(0.2))
-                .cornerRadius(10.0)
+                .textFieldStyle(CustomTextField())
                 .padding(.horizontal, 46)
                 .padding(.bottom, 20)
-            TextField("Password", text: $username)
-                .font(Font.custom("Montserrat-Regular", size: 15.0))
-                .padding()
-                .background(Color.gray.opacity(0.2))
-                .cornerRadius(10.0)
+            TextField("Password", text: $password)
+                .textFieldStyle(CustomTextField())
                 .padding(.horizontal, 46)
                 .padding(.bottom, 10)
             Text("Forgot password?")

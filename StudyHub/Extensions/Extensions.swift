@@ -37,6 +37,19 @@ struct WhiteStyle: ButtonStyle {
             .scaleEffect(configuration.isPressed ? 0.9:1.0)
     }
 }
+
+//NOTE: - Custom Text Field
+
+struct CustomTextField: TextFieldStyle {
+    func _body(configuration: TextField<_Label>) -> some View {
+        configuration
+            .font(Font.custom("Montserrat-Regular", size: 15.0))
+            .padding()
+            .background(Color.gray.opacity(0.2))
+            .cornerRadius(10.0)
+    }
+}
+
 //NOTE: - Custom colors
 
 extension Color {
