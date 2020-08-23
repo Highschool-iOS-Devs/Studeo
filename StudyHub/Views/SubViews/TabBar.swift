@@ -24,9 +24,13 @@ struct TabBar: View {
             }
             else if tabRouter.currentView == .settings{
                 SettingView()
+                    .transition(.move(edge: .bottom))
+                    .animation(.timingCurve(0.06,0.98,0.69,1))
             }
             else if tabRouter.currentView == .home{
                 Home()
+                .transition(.move(edge: .bottom))
+                .animation(.timingCurve(0.06,0.98,0.69,1))
             }
             tabBarView(tabRouter: tabRouter, currentView: $tabRouter.currentView)
         }
@@ -99,8 +103,7 @@ struct tabBarView: View {
             .background(Color.white.shadow(radius: 2))
             .overlay(
                 
-                tabBigButton()
-                    .foregroundColor(self.currentView == .home ? Color("secondary") : Color("secondary").opacity(0.8))
+                tabBigButton(currentView: $currentView)
                     .onTapGesture {
                         self.currentView = .home
                 }
@@ -113,16 +116,22 @@ struct tabBarView: View {
 }
 
 struct tabBigButton: View {
+    @Binding var currentView: TabRouter.tabViews
+    
     var body: some View {
         ZStack {
             Circle()
-                .fill(Color("Secondary"))
+                .fill(LinearGradient(gradient: Gradient(colors: [Color.gradientLight, Color.gradientDark]), startPoint: .topTrailing, endPoint: .bottomLeading))
                 .frame(width: 70, height: 70)
+               
             Image(systemName: "house.fill")
                 .frame(alignment: .center)
-                .foregroundColor(.white)
+                .foregroundColor(Color.white)
                 .font(.system(size: 28))
         }
         .offset(x: 0, y: -30)
+        .animation(Animation
+                    .easeInOut
+                  )
     }
 }
