@@ -35,7 +35,7 @@ struct Header: View {
                     .frame(width: 50, height: 50)
                     .aspectRatio(contentMode: .fit)
                     .clipShape(Circle())
-                    .overlay(Circle().stroke(LinearGradient(gradient: Gradient(colors: [.buttonPressedBlue, .customBlue]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 5))
+                    .overlay(Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 5))
             } .padding(.trailing, 22)
             
             Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {

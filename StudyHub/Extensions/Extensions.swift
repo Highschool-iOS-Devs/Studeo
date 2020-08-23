@@ -17,7 +17,7 @@ struct BlueStyle: ButtonStyle {
             .frame(minWidth: 0, maxWidth: .infinity)
             .padding()
             .foregroundColor(.white)
-            .background(configuration.isPressed ? Color.buttonPressedBlue:Color.customBlue)
+            .background(configuration.isPressed ? Color.buttonPressedBlue:Color.buttonBlue)
             .cornerRadius(10)
             .shadow(radius: 5)
             .scaleEffect(configuration.isPressed ? 0.9:1.0)
@@ -30,7 +30,7 @@ struct WhiteStyle: ButtonStyle {
         configuration.label
             .frame(minWidth: 0, maxWidth: .infinity)
             .padding()
-            .foregroundColor(Color.customBlue)
+            .foregroundColor(Color.buttonBlue)
             .background(configuration.isPressed ? Color.buttonPressedBlue:Color.white)
             .cornerRadius(10)
             .shadow(radius: 5)
@@ -53,13 +53,16 @@ struct CustomTextField: TextFieldStyle {
 //NOTE: - Custom colors
 
 extension Color {
-    public static var customBlue: Color {
-        return Color(red: 0.0/255.0, green: 153.0/255.0, blue: 255.0/255.0)
+    public static var buttonBlue: Color {
+        return Color(#colorLiteral(red: 0, green: 0.6, blue: 1, alpha: 1))
     }
     public static var buttonPressedBlue: Color {
-        return Color(red: 0.0/255.0, green: 119.0/255.0, blue: 255.0/255.0)
+        return Color(#colorLiteral(red: 0, green: 0.4666666667, blue: 1, alpha: 1))
     }
-    public static var light: Color {
-           return Color(red: 0.0/255.0, green: 119.0/255.0, blue: 255.0/255.0)
+    public static var gradientLight: Color {
+        return Color(#colorLiteral(red: 0, green: 0.9333333333, blue: 1, alpha: 1))
        }
+    public static var gradientDark: Color {
+        return Color(#colorLiteral(red: 0, green: 0.5843137255, blue: 1, alpha: 1))
+    }
 }
