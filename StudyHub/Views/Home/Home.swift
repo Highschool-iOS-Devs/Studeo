@@ -51,7 +51,7 @@ struct Home: View {
                     Image("friends")
                         .renderingMode(.original)
                         .resizable()
-                        .frame(width: 300, height: 300)
+                        .frame(width: 350, height: 350)
                         .padding(.horizontal, 12)
                     
                     VStack {
@@ -60,13 +60,12 @@ struct Home: View {
                             Spacer()
                             Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
                                 Text("Add Friends")
-                                    .foregroundColor(.white)
-                                    .padding() .background(Color("blue"))
-                                    .cornerRadius(10)
                                 
                                 
                                 
-                            }
+                                
+                            } .buttonStyle(BlueStyle())
+                                .frame(width: 125)
                         }
                     } .padding(.all, 22)
                 }
