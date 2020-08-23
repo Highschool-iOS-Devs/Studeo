@@ -1,6 +1,15 @@
 {
   "colors" : [
     {
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "light"
+        }
+      ],
       "color" : {
         "color-space" : "srgb",
         "components" : {
@@ -10,6 +19,15 @@
           "red" : "0.898"
         }
       },
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
       "idiom" : "universal"
     }
   ],

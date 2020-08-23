@@ -18,7 +18,7 @@ struct SecondsButton: ButtonStyle {
                 .foregroundColor(.white)
         }
         .padding(8)
-        .scaleEffect(configuration.isPressed ? 0.8 : 1.0)
+        .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
     }
 }
 
@@ -34,7 +34,7 @@ struct PauseResumeButton: ButtonStyle {
                 .foregroundColor(.white)
         }
         .padding(8)
-        .scaleEffect(configuration.isPressed ? 0.8 : 1.0)
+        .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
     }
     
 }
@@ -61,7 +61,7 @@ struct AddMinutesStyle: ButtonStyle {
             .frame(width: 50, height: 50)
             .background(Color("timerminutes"))
             .cornerRadius(10)
-            .scaleEffect(configuration.isPressed ? 0.8 : 1.0)
+            .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
     }
 }
 

@@ -1,6 +1,15 @@
 {
   "colors" : [
     {
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "light"
+        }
+      ],
       "color" : {
         "color-space" : "srgb",
         "components" : {
@@ -9,6 +18,19 @@
           "green" : "0.498",
           "red" : "0.498"
         }
+      },
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "color" : {
+        "platform" : "ios",
+        "reference" : "labelColor"
       },
       "idiom" : "universal"
     }
