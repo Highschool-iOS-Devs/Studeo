@@ -9,40 +9,28 @@
 import SwiftUI
 
 struct TabBar: View {
-    @State var currentSelected = "Chat"
-    
+    @ObservedObject var tabRouter = TabRouter()
     var body: some View {
-        VStack {
-            Spacer()
-            HStack {
-                tabItemView(SFImage: "message.fill", text: "Chat")
-                tabItemView(SFImage: "book.fill", text: "Books")
-                    .padding(.trailing, 30)
-                tabItemView(SFImage: "person.2.fill", text: "Groups")
-                    .padding(.leading, 30)
-                tabItemView(SFImage: "gear", text: "Settings")
-    
-            }
-            .frame(width: screenSize.width, height: screenSize.height/10)
-            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-            .background(Color.white.shadow(radius: 2))
-        .overlay(
-            
-            ZStack {
-                Circle()
-                    .fill(Color("Secondary"))
-                    .frame(width: 70, height: 70)
-                Image(systemName: "house.fill")
-                    .frame(alignment: .center)
-                    .foregroundColor(.white)
-                    .font(.system(size: 28))
-            }
-        .offset(x: 0, y: -30)
-            )
         
-            
-           
-        }.edgesIgnoringSafeArea(.all)
+        ZStack {
+            if tabRouter.currentView == .chats{
+                Text("Chat View")
+            }
+            else if tabRouter.currentView == .books{
+                Text("Books View")
+            }
+            else if tabRouter.currentView == .groups{
+                Text("Groups View")
+            }
+            else if tabRouter.currentView == .settings{
+                SettingView()
+            }
+            else if tabRouter.currentView == .home{
+                Home()
+            }
+            tabBarView(tabRouter: tabRouter)
+        }
+        
     }
 }
 
@@ -66,9 +54,73 @@ struct tabItemView: View {
             
         }
         .frame(width:60)
-        .foregroundColor(Color.black.opacity(0.25))
         .padding(.top, 15)
         
     }
 }
  
+
+struct tabBarView: View {
+    var tabRouter:TabRouter
+    
+    var body: some View {
+        VStack {
+            Spacer()
+            HStack {
+                tabItemView(SFImage: "message.fill", text: "Chat")
+                    .foregroundColor(tabRouter.currentView == .chats ? Color("barHighlight") : Color.black.opacity(0.25))
+                .onTapGesture {
+                    self.tabRouter.currentView = .chats
+            }
+          
+                tabItemView(SFImage: "book.fill", text: "Books")
+                    .padding(.trailing, 30)
+                .foregroundColor(tabRouter.currentView == .books ? Color("barHighlight") : Color.black.opacity(0.25))
+                .onTapGesture {
+                        self.tabRouter.currentView = .books
+                }
+                tabItemView(SFImage: "person.2.fill", text: "Groups")
+                    .padding(.leading, 30)
+                .foregroundColor(tabRouter.currentView == .groups ? Color("barHighlight") : Color.black.opacity(0.25))
+                .onTapGesture {
+                        self.tabRouter.currentView = .groups
+                }
+                tabItemView(SFImage: "gear", text: "Settings")
+                    .foregroundColor(tabRouter.currentView == .settings ? Color("barHighlight") : Color.black.opacity(0.25))
+                .onTapGesture {
+                        self.tabRouter.currentView = .settings
+                }
+                
+            }
+            .frame(width: screenSize.width, height: screenSize.height/10)
+            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+            .background(Color.white.shadow(radius: 2))
+            .overlay(
+                
+                tabBigButton()
+                    .foregroundColor(tabRouter.currentView == .home ? Color("secondary") : Color("secondary").opacity(0.8))
+                    .onTapGesture {
+                    self.tabRouter.currentView = .home
+                }
+            )
+            
+            
+            
+        }.edgesIgnoringSafeArea(.all)
+    }
+}
+
+struct tabBigButton: View {
+    var body: some View {
+        ZStack {
+            Circle()
+                .fill(Color("Secondary"))
+                .frame(width: 70, height: 70)
+            Image(systemName: "house.fill")
+                .frame(alignment: .center)
+                .foregroundColor(.white)
+                .font(.system(size: 28))
+        }
+        .offset(x: 0, y: -30)
+    }
+}
