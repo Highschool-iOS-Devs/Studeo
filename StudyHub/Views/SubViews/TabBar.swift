@@ -28,7 +28,7 @@ struct TabBar: View {
             else if tabRouter.currentView == .home{
                 Home()
             }
-            tabBarView(tabRouter: tabRouter)
+            tabBarView(tabRouter: tabRouter, currentView: $tabRouter.currentView)
         }
         
     }
@@ -43,14 +43,19 @@ struct TabBar_Previews: PreviewProvider {
 struct tabItemView: View {
     var SFImage:String
     var text:String
+    var tabType: TabRouter.tabViews
+    @Binding var currentView: TabRouter.tabViews
+    
     var body: some View {
         VStack {
             Image(systemName: SFImage)
                 .font(.system(size: 20))
                 .padding(.bottom, 5)
+                .foregroundColor(self.currentView == tabType ? Color("barHighlight") : Color.black.opacity(0.25))
             
             Text(text)
                 .font(.custom("Montserrat-Bold", size: 10))
+                .foregroundColor(self.currentView == tabType ? Color("barHighlight") : Color.black.opacity(0.25))
             
         }
         .frame(width:60)
@@ -62,33 +67,30 @@ struct tabItemView: View {
 
 struct tabBarView: View {
     var tabRouter:TabRouter
+    @Binding var currentView: TabRouter.tabViews
     
     var body: some View {
         VStack {
             Spacer()
             HStack {
-                tabItemView(SFImage: "message.fill", text: "Chat")
-                    .foregroundColor(tabRouter.currentView == .chats ? Color("barHighlight") : Color.black.opacity(0.25))
+                tabItemView(SFImage: "message.fill", text: "Chat", tabType: .chats, currentView: self.$currentView)
                 .onTapGesture {
-                    self.tabRouter.currentView = .chats
+                    self.currentView = .chats
             }
           
-                tabItemView(SFImage: "book.fill", text: "Books")
+                tabItemView(SFImage: "book.fill", text: "Books", tabType: .books, currentView: self.$currentView)
                     .padding(.trailing, 30)
-                .foregroundColor(tabRouter.currentView == .books ? Color("barHighlight") : Color.black.opacity(0.25))
                 .onTapGesture {
-                        self.tabRouter.currentView = .books
+                        self.currentView = .books
                 }
-                tabItemView(SFImage: "person.2.fill", text: "Groups")
+                tabItemView(SFImage: "person.2.fill", text: "Groups", tabType: .groups, currentView: self.$currentView)
                     .padding(.leading, 30)
-                .foregroundColor(tabRouter.currentView == .groups ? Color("barHighlight") : Color.black.opacity(0.25))
                 .onTapGesture {
-                        self.tabRouter.currentView = .groups
+                        self.currentView = .groups
                 }
-                tabItemView(SFImage: "gear", text: "Settings")
-                    .foregroundColor(tabRouter.currentView == .settings ? Color("barHighlight") : Color.black.opacity(0.25))
+                tabItemView(SFImage: "gear", text: "Settings", tabType: .settings, currentView: self.$currentView)
                 .onTapGesture {
-                        self.tabRouter.currentView = .settings
+                        self.currentView = .settings
                 }
                 
             }
@@ -98,9 +100,9 @@ struct tabBarView: View {
             .overlay(
                 
                 tabBigButton()
-                    .foregroundColor(tabRouter.currentView == .home ? Color("secondary") : Color("secondary").opacity(0.8))
+                    .foregroundColor(self.currentView == .home ? Color("secondary") : Color("secondary").opacity(0.8))
                     .onTapGesture {
-                    self.tabRouter.currentView = .home
+                        self.currentView = .home
                 }
             )
             
