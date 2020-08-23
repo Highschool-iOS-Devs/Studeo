@@ -27,6 +27,7 @@
 		E33944BA24F1B7EB00F11BA9 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E33944B124F1B7EB00F11BA9 /* Montserrat-Medium.ttf */; };
 		E33944BF24F1B86A00F11BA9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33944BE24F1B86A00F11BA9 /* Extensions.swift */; };
 		E33944C124F1B9F000F11BA9 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33944C024F1B9F000F11BA9 /* LoginView.swift */; };
+		E33944C324F1E9F000F11BA9 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33944C224F1E9F000F11BA9 /* RegistrationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		E33944B124F1B7EB00F11BA9 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
 		E33944BE24F1B86A00F11BA9 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		E33944C024F1B9F000F11BA9 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		E33944C224F1E9F000F11BA9 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				E33944C024F1B9F000F11BA9 /* LoginView.swift */,
+				E33944C224F1E9F000F11BA9 /* RegistrationView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -256,6 +259,7 @@
 				E178A44A24F1D49F003907E2 /* Header.swift in Sources */,
 				E178A44224F1CF21003907E2 /* UserData.swift in Sources */,
 				E339449624F1B71600F11BA9 /* AppDelegate.swift in Sources */,
+				E33944C324F1E9F000F11BA9 /* RegistrationView.swift in Sources */,
 				E339449824F1B71600F11BA9 /* SceneDelegate.swift in Sources */,
 				E339449A24F1B71600F11BA9 /* ContentView.swift in Sources */,
 				E33944C124F1B9F000F11BA9 /* LoginView.swift in Sources */,
