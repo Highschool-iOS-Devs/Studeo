@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6214049B24F23844000B8F54 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6214049A24F23844000B8F54 /* TabBar.swift */; };
 		629F227B24F2474000A7E02E /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629F227A24F2474000A7E02E /* SettingView.swift */; };
+		E1439BB124F26441005E9354 /* ChatData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1439BB024F26440005E9354 /* ChatData.swift */; };
 		E178A44224F1CF21003907E2 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E178A44124F1CF21003907E2 /* UserData.swift */; };
 		E178A44724F1D341003907E2 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = E178A44624F1D341003907E2 /* Home.swift */; };
 		E178A44A24F1D49F003907E2 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = E178A44924F1D49F003907E2 /* Header.swift */; };
@@ -35,6 +36,7 @@
 /* Begin PBXFileReference section */
 		6214049A24F23844000B8F54 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		629F227A24F2474000A7E02E /* SettingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		E1439BB024F26440005E9354 /* ChatData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatData.swift; sourceTree = "<group>"; };
 		E178A44124F1CF21003907E2 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		E178A44624F1D341003907E2 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		E178A44924F1D49F003907E2 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				E178A44124F1CF21003907E2 /* UserData.swift */,
+				E1439BB024F26440005E9354 /* ChatData.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -281,6 +284,7 @@
 				E178A44A24F1D49F003907E2 /* Header.swift in Sources */,
 				E178A44224F1CF21003907E2 /* UserData.swift in Sources */,
 				E339449624F1B71600F11BA9 /* AppDelegate.swift in Sources */,
+				E1439BB124F26441005E9354 /* ChatData.swift in Sources */,
 				E33944C324F1E9F000F11BA9 /* RegistrationView.swift in Sources */,
 				E339449824F1B71600F11BA9 /* SceneDelegate.swift in Sources */,
 				E339449A24F1B71600F11BA9 /* ContentView.swift in Sources */,
