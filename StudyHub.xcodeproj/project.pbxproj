@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		6214049B24F23844000B8F54 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6214049A24F23844000B8F54 /* TabBar.swift */; };
 		629F227B24F2474000A7E02E /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629F227A24F2474000A7E02E /* SettingView.swift */; };
+		629F227F24F2D22D00A7E02E /* TabRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629F227E24F2D22D00A7E02E /* TabRouter.swift */; };
+		629F228324F2D2FD00A7E02E /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629F228124F2D2FD00A7E02E /* TimerView.swift */; };
+		629F228424F2D2FD00A7E02E /* CustomButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629F228224F2D2FD00A7E02E /* CustomButtonStyles.swift */; };
 		E1439BB124F26441005E9354 /* ChatData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1439BB024F26440005E9354 /* ChatData.swift */; };
 		E178A44224F1CF21003907E2 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E178A44124F1CF21003907E2 /* UserData.swift */; };
 		E178A44724F1D341003907E2 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = E178A44624F1D341003907E2 /* Home.swift */; };
@@ -36,6 +39,9 @@
 /* Begin PBXFileReference section */
 		6214049A24F23844000B8F54 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		629F227A24F2474000A7E02E /* SettingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		629F227E24F2D22D00A7E02E /* TabRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabRouter.swift; sourceTree = "<group>"; };
+		629F228124F2D2FD00A7E02E /* TimerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
+		629F228224F2D2FD00A7E02E /* CustomButtonStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButtonStyles.swift; sourceTree = "<group>"; };
 		E1439BB024F26440005E9354 /* ChatData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatData.swift; sourceTree = "<group>"; };
 		E178A44124F1CF21003907E2 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		E178A44624F1D341003907E2 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
@@ -85,8 +91,18 @@
 			isa = PBXGroup;
 			children = (
 				6214049A24F23844000B8F54 /* TabBar.swift */,
+				629F227E24F2D22D00A7E02E /* TabRouter.swift */,
 			);
 			path = SubViews;
+			sourceTree = "<group>";
+		};
+		629F228024F2D2FD00A7E02E /* Timer Screen */ = {
+			isa = PBXGroup;
+			children = (
+				629F228124F2D2FD00A7E02E /* TimerView.swift */,
+				629F228224F2D2FD00A7E02E /* CustomButtonStyles.swift */,
+			);
+			path = "Timer Screen";
 			sourceTree = "<group>";
 		};
 		E178A44324F1CF29003907E2 /* Data */ = {
@@ -101,6 +117,7 @@
 		E178A44424F1CF4E003907E2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				629F228024F2D2FD00A7E02E /* Timer Screen */,
 				6214049924F23819000B8F54 /* SubViews */,
 				6214049624F235F8000B8F54 /* Settings */,
 				E339449924F1B71600F11BA9 /* ContentView.swift */,
@@ -281,6 +298,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				629F228324F2D2FD00A7E02E /* TimerView.swift in Sources */,
 				E178A44A24F1D49F003907E2 /* Header.swift in Sources */,
 				E178A44224F1CF21003907E2 /* UserData.swift in Sources */,
 				E339449624F1B71600F11BA9 /* AppDelegate.swift in Sources */,
@@ -290,9 +308,11 @@
 				E339449A24F1B71600F11BA9 /* ContentView.swift in Sources */,
 				E33944C124F1B9F000F11BA9 /* LoginView.swift in Sources */,
 				6214049B24F23844000B8F54 /* TabBar.swift in Sources */,
+				629F227F24F2D22D00A7E02E /* TabRouter.swift in Sources */,
 				629F227B24F2474000A7E02E /* SettingView.swift in Sources */,
 				E33944BF24F1B86A00F11BA9 /* Extensions.swift in Sources */,
 				E178A44724F1D341003907E2 /* Home.swift in Sources */,
+				629F228424F2D2FD00A7E02E /* CustomButtonStyles.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
