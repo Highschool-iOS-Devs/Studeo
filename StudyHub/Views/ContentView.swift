@@ -13,6 +13,11 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             Home()
+            VStack {
+                Spacer(minLength: 559)
+            TabBar()
+                .edgesIgnoringSafeArea(.all)
+            }.padding(.vertical, 12)
         }
     }
 }
