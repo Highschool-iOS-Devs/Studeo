@@ -51,6 +51,35 @@ struct CustomTextField: TextFieldStyle {
     }
 }
 
+struct SearchTextField: TextFieldStyle {
+//    var colorScheme: ColorScheme
+    
+    func _body(configuration: TextField<_Label>) -> some View {
+        HStack {
+            configuration
+            Spacer()
+            Divider()
+            Button(action: {
+                
+            }) {
+                Image("dropdown")
+                    .renderingMode(.original)
+                    .resizable()
+                    .frame(width: 15, height: 15)
+                    .scaledToFit()
+            }
+        }
+        .font(Font.custom("Montserrat-Regular", size: 15.0))
+        .padding()
+        .background(Color.gray.opacity(0.1))
+        .cornerRadius(10.0)
+        .frame(height: 25)
+        .padding(.top, 22)
+        .padding([.horizontal, .bottom], 44)
+    }
+}
+
+
 //NOTE: - Custom colors
 
 extension Color {
