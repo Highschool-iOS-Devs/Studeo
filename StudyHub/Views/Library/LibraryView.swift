@@ -12,15 +12,17 @@ struct LibraryView: View {
     @State private var search = ""
     
     var body: some View {
-        VStack {
-            LibraryHeader()
-            TextField("Search Books", text: $search)
-                .textFieldStyle(SearchTextField())
-            ScrollView(showsIndicators: false) {
-                LibraryCollectionView(collectionTitle: "Popular")
-                LibraryCollectionView(collectionTitle: "For You")
-                LibraryCollectionView(collectionTitle: "Popular")
-                LibraryCollectionView(collectionTitle: "For You")
+        GeometryReader { geo in
+            VStack {
+                LibraryHeader()
+                TextField("Search Books", text: self.$search)
+                    .textFieldStyle(SearchTextField())
+                ScrollView(showsIndicators: false) {
+                    LibraryCollectionView(collectionTitle: "Popular", geo)
+                    LibraryCollectionView(collectionTitle: "For You", geo)
+                    LibraryCollectionView(collectionTitle: "Popular", geo)
+                    LibraryCollectionView(collectionTitle: "For You", geo)
+                }
             }
         }
     }
@@ -29,6 +31,8 @@ struct LibraryView: View {
 struct LibraryCollectionView: View {
     
     var collectionTitle: String
+    
+    var geometry: GeometryProxy
     
     let books: [String] = Array(repeating: "bookexample", count: 5)
     
@@ -44,11 +48,16 @@ struct LibraryCollectionView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
                     ForEach(0 ..< books.count, id:\.self) { book in
-                        BookImage(self.books[book])
+                        BookImage(self.books[book], geometry: self.geometry)
                     }
                 }
             }
         }.padding([.bottom, .horizontal], 30)
+    }
+    
+    init(collectionTitle: String, _ geo: GeometryProxy) {
+        self.collectionTitle = collectionTitle
+        self.geometry = geo
     }
 }
 
