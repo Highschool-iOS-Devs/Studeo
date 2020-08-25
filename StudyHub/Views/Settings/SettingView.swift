@@ -20,7 +20,8 @@ struct SettingView: View {
                     .font(.custom("Montserrat-Bold", size: 28))
                     .padding(.top, 10)
                 }
-                .offset(x: 0, y: -50)
+                .offset(x: 0, y: 40)
+               
                 
                 Spacer()
                 
@@ -29,7 +30,7 @@ struct SettingView: View {
                     Text("Account Settings")
                         .font(.custom("Montserrat-Bold", size: 16))
                         .foregroundColor(.black)
-                        .padding(.bottom, 25)
+                        .padding(.bottom, 35)
                         .padding(.top, 40)
                     VStack(spacing: 30) {
                        
@@ -39,16 +40,17 @@ struct SettingView: View {
                         settingRowView(settingText: "Language", settingState: "English")
                         settingRowView(settingText: "Password settings", settingState: "")
                         settingRowView(settingText: "Sign out", settingState: "")
+                        settingRowView(settingText: "About", settingState: "")
                         settingRowView(settingText: "Help", settingState: "")
                     }
                     Spacer()
                 }   .padding(.horizontal, 30)
                     .frame(maxWidth: screenSize.width-60)
-                    .frame(height: 600)
+                    .frame(height: 700)
                     .background(Color.white)
                     .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
                     .shadow(radius: 10)
-                    .offset(x: 0, y: 20)
+                    .offset(x: 0, y: screenSize.height/10)
 
             }
         }
