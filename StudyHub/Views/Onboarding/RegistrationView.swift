@@ -7,12 +7,15 @@
 //
 
 import SwiftUI
-
+import Firebase
+import FirebaseAuth
 struct RegistrationView: View {
     
     @State private var username: String = ""
     @State private var password: String = ""
     @State private var email: String = ""
+    @State var error: Bool = false
+    
     @EnvironmentObject var userData: UserData
     
     var body: some View {
@@ -41,7 +44,7 @@ struct RegistrationView: View {
                 .padding(.bottom, 30)
 
                 VStack(spacing: 35) {
-                    Button(action: {
+                   Button(action: {
                         print("Tapped Sign-Up button")
                     }) {
                         Text("Sign Up")
@@ -50,17 +53,56 @@ struct RegistrationView: View {
                     .buttonStyle(BlueStyle())
                     Button(action: {
                         print("Tapped Sign-In button")
+                        
                     }) {
-                        Text("Sign In")
+                        Text("Sign Up")
                             .font(Font.custom("Montserrat-SemiBold", size: 14.0))
-                    }
+                        }
                     .buttonStyle(WhiteStyle())
                 }
-                .padding(.horizontal, 75)
-                .padding(.bottom, 50)
-                Spacer()
             }
         }
+    }
+        func loadData() {
+            Auth.auth().createUser(withEmail: self.email, password: self.password) { authResult, error in
+                               if error != nil {
+                                withAnimation{
+                              self.error.toggle()
+                               }
+                               } else {
+                              self.userData.name = self.username
+                              
+                              let pushManager = PushNotificationManager(userID: Auth.auth().currentUser!.uid)
+                              pushManager.registerForPushNotifications()
+                              let defaults = UserDefaults.standard
+                              let token = defaults.string(forKey: "fcmToken")
+                                FirebaseManager.db.collection("users").document(Auth.auth().currentUser!.uid).setData([
+                                  "name": self.name,
+                                  "id": Auth.auth().currentUser!.uid,
+                                  "hours": [0.0],
+                                  "image": "",
+                                  "school": [0.0,0.0],
+                                  "hoursDate": [Date],
+                                  "interactedPeople": [Auth.auth().currentUser!.uid],
+                                  "interactedChatRooms": ["\(UUID())"],
+                                  "fcmToken": token,
+                              ]) { err in
+                                  if let err = err {
+                                      print("Error writing document: \(err)")
+                                      withAnimation() {
+                                          print("bad")
+                                          self.error.toggle()
+                                          print(error)
+                                      }
+                                  } else {
+                                      
+                                      print("Document successfully written!")
+                                     // self.presentationMode.wrappedValue.dismiss()
+                                  }
+                              }
+                          }
+                              
+    }
     }
 }
 

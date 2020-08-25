@@ -20,6 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.enableAutoToolbar = false
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
+        
+          if Auth.auth().currentUser?.uid != nil {
+            
+        }
         return true
     }
 
