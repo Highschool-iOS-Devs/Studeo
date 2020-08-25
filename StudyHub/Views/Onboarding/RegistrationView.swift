@@ -46,6 +46,7 @@ struct RegistrationView: View {
                 VStack(spacing: 35) {
                    Button(action: {
                         print("Tapped Sign-Up button")
+                    self.sendData()
                     }) {
                         Text("Sign Up")
                             .font(Font.custom("Montserrat-SemiBold", size: 14.0))
@@ -63,7 +64,7 @@ struct RegistrationView: View {
             }
         }
     }
-        func loadData() {
+        func sendData() {
             Auth.auth().createUser(withEmail: self.email, password: self.password) { authResult, error in
                                if error != nil {
                                 withAnimation{
