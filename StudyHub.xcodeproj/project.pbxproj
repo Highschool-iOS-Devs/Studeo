@@ -14,6 +14,9 @@
 		629F228424F2D2FD00A7E02E /* CustomButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629F228224F2D2FD00A7E02E /* CustomButtonStyles.swift */; };
 		629F228724F30D4900A7E02E /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629F228624F30D4900A7E02E /* LeaderboardView.swift */; };
 		629F228924F31CB700A7E02E /* LeaderboardTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629F228824F31CB700A7E02E /* LeaderboardTabBar.swift */; };
+		BE244CEA24F573B700280E49 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE244CE824F573B700280E49 /* LibraryView.swift */; };
+		BE244CEB24F573B700280E49 /* LibraryHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE244CE924F573B700280E49 /* LibraryHeader.swift */; };
+		BE244CED24F573C400280E49 /* BookImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE244CEC24F573C400280E49 /* BookImage.swift */; };
 		E1439BB124F26441005E9354 /* ChatData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1439BB024F26440005E9354 /* ChatData.swift */; };
 		E178A44224F1CF21003907E2 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E178A44124F1CF21003907E2 /* UserData.swift */; };
 		E178A44724F1D341003907E2 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = E178A44624F1D341003907E2 /* Home.swift */; };
@@ -47,6 +50,9 @@
 		629F228224F2D2FD00A7E02E /* CustomButtonStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButtonStyles.swift; sourceTree = "<group>"; };
 		629F228624F30D4900A7E02E /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
 		629F228824F31CB700A7E02E /* LeaderboardTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardTabBar.swift; sourceTree = "<group>"; };
+		BE244CE824F573B700280E49 /* LibraryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
+		BE244CE924F573B700280E49 /* LibraryHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryHeader.swift; sourceTree = "<group>"; };
+		BE244CEC24F573C400280E49 /* BookImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookImage.swift; sourceTree = "<group>"; };
 		E1439BB024F26440005E9354 /* ChatData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatData.swift; sourceTree = "<group>"; };
 		E178A44124F1CF21003907E2 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		E178A44624F1D341003907E2 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
@@ -96,6 +102,7 @@
 		6214049924F23819000B8F54 /* SubViews */ = {
 			isa = PBXGroup;
 			children = (
+				BE244CEC24F573C400280E49 /* BookImage.swift */,
 				629F228224F2D2FD00A7E02E /* CustomButtonStyles.swift */,
 				6214049A24F23844000B8F54 /* TabBar.swift */,
 				629F227E24F2D22D00A7E02E /* TabRouter.swift */,
@@ -120,6 +127,15 @@
 			path = Leaderboard;
 			sourceTree = "<group>";
 		};
+		BE244CE724F573B700280E49 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				BE244CE824F573B700280E49 /* LibraryView.swift */,
+				BE244CE924F573B700280E49 /* LibraryHeader.swift */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
 		E178A44324F1CF29003907E2 /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +148,7 @@
 		E178A44424F1CF4E003907E2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BE244CE724F573B700280E49 /* Library */,
 				629F228524F30D3600A7E02E /* Leaderboard */,
 				629F228024F2D2FD00A7E02E /* Timer Screen */,
 				6214049924F23819000B8F54 /* SubViews */,
@@ -316,9 +333,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				629F228724F30D4900A7E02E /* LeaderboardView.swift in Sources */,
+				BE244CED24F573C400280E49 /* BookImage.swift in Sources */,
 				629F228324F2D2FD00A7E02E /* TimerView.swift in Sources */,
 				E178A44A24F1D49F003907E2 /* Header.swift in Sources */,
 				E178A44224F1CF21003907E2 /* UserData.swift in Sources */,
+				BE244CEB24F573B700280E49 /* LibraryHeader.swift in Sources */,
 				E339449624F1B71600F11BA9 /* AppDelegate.swift in Sources */,
 				E330B22E24F4A72E00AF8F54 /* IntroView.swift in Sources */,
 				E1439BB124F26441005E9354 /* ChatData.swift in Sources */,
@@ -331,6 +350,7 @@
 				629F227B24F2474000A7E02E /* SettingView.swift in Sources */,
 				E33944BF24F1B86A00F11BA9 /* Extensions.swift in Sources */,
 				E178A44724F1D341003907E2 /* Home.swift in Sources */,
+				BE244CEA24F573B700280E49 /* LibraryView.swift in Sources */,
 				629F228424F2D2FD00A7E02E /* CustomButtonStyles.swift in Sources */,
 				629F228924F31CB700A7E02E /* LeaderboardTabBar.swift in Sources */,
 			);
