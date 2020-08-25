@@ -10,33 +10,43 @@ import SwiftUI
 
 struct LeaderboardView: View {
     @ObservedObject var leaderboardTab = LeaderBoardTabRouter()
-    
+
     var body: some View {
         ZStack {
             Ellipse()
                 .fill(Color.buttonBlue)
-                .frame(width: 500, height: 300)
+                .frame(width: screenSize.width+200, height: screenSize.height * 0.4)
                 .offset(x: 0, y: -340)
+            
             VStack {
                 Text("Leaderboard")
+                    .padding(.top, 10)
+                    
                     .font(.custom("Montserrat-SemiBold", size: 28))
-                    .padding(.bottom, 30)
+      
                 dateSelectionView(currentDateTab: $leaderboardTab.currentDateTab)
+                    .padding(.top, screenSize.height > 812 ? 25 : 0)
                 
                 SelfRankView()
-                    .padding(.top, 20)
+                    .padding(.top, screenSize.height > 812 ? 70 : 20)
+                
                 Spacer()
                 if leaderboardTab.currentDateTab == .allTime{
                     LeaderRankView()
-                    Spacer()
+                        .padding(.top, 10)
+                
                     
-                    VStack(spacing: 30) {
-                        LeaderboardRow()
-                        LeaderboardRow()
-                        LeaderboardRow()
-                        LeaderboardRow()
-                        LeaderboardRow()
+                    ScrollView(showsIndicators: false) {
+                        VStack(spacing: 30) {
+                            LeaderboardRow()
+                            LeaderboardRow()
+                            LeaderboardRow()
+                            LeaderboardRow()
+                            LeaderboardRow()
+                            
+                        }
                     }
+                .offset(x: 0, y: 40)
                 }
                 else if leaderboardTab.currentDateTab == .week{
                     
@@ -49,6 +59,8 @@ struct LeaderboardView: View {
             .font(.custom("Montserrat-SemiBold", size: 16))
             .foregroundColor(.white)
             
+        }.onAppear {
+            print(screenSize.height)
         }
         
     }
@@ -183,6 +195,14 @@ struct LeaderRankView: View {
     var body: some View {
         VStack{
             ProfilePicture(pictureSize: 70)
+                .overlay(
+                    Image("crown")
+                    .resizable()
+                        .aspectRatio(contentMode: .fit)
+                    .frame(width: 25, height: 25)
+                    .offset(x: 0, y: -40)
+            )
+                
             Text("Steven Keiser")
                 .foregroundColor(.black)
                 .font(.custom("Montserrat-SemiBold", size: 12))
