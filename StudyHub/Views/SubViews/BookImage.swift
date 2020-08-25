@@ -10,24 +10,28 @@ import SwiftUI
 
 struct BookImage: View {
     var bookName: String
+    var geometry: GeometryProxy
     
     var body: some View {
         Image(bookName)
             .resizable()
             .scaledToFit()
-            .frame(width: 160, height: 250)
+            .frame(width: geometry.size.width * 0.35)
             .clipShape(RoundedRectangle(cornerRadius: 20))
             .shadow(radius: 10)
             .padding(20)
     }
     
-    init(_ book: String) {
+    init(_ book: String, geometry: GeometryProxy) {
         self.bookName = book
+        self.geometry = geometry
     }
 }
 
 struct BookImage_Previews: PreviewProvider {
     static var previews: some View {
-        BookImage("bookexample")
+        GeometryReader { geo in
+            BookImage("bookexample", geometry: geo)
+        }
     }
 }

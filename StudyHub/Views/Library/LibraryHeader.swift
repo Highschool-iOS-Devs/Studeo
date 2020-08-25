@@ -14,7 +14,6 @@ struct LibraryHeader: View {
             Text("Library")
                 .frame(minWidth: 150, alignment: .leading)
                 .font(.custom("Montserrat-Semibold", size: 27))
-                .foregroundColor(Color(.black))
                 .multilineTextAlignment(.leading)
             Spacer()
             
