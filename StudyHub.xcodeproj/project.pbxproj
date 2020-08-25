@@ -20,6 +20,8 @@
 		E178A44224F1CF21003907E2 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E178A44124F1CF21003907E2 /* UserData.swift */; };
 		E178A44724F1D341003907E2 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = E178A44624F1D341003907E2 /* Home.swift */; };
 		E178A44A24F1D49F003907E2 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = E178A44924F1D49F003907E2 /* Header.swift */; };
+		E1FD834924F54AAC0024D2A3 /* PushNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FD834724F54AAB0024D2A3 /* PushNotificationManager.swift */; };
+		E1FD834A24F54AAC0024D2A3 /* PushNotificationSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FD834824F54AAC0024D2A3 /* PushNotificationSender.swift */; };
 		E339449624F1B71600F11BA9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E339449524F1B71600F11BA9 /* AppDelegate.swift */; };
 		E339449824F1B71600F11BA9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E339449724F1B71600F11BA9 /* SceneDelegate.swift */; };
 		E339449A24F1B71600F11BA9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E339449924F1B71600F11BA9 /* ContentView.swift */; };
@@ -57,6 +59,8 @@
 		E178A44124F1CF21003907E2 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		E178A44624F1D341003907E2 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		E178A44924F1D49F003907E2 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
+		E1FD834724F54AAB0024D2A3 /* PushNotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationManager.swift; sourceTree = "<group>"; };
+		E1FD834824F54AAC0024D2A3 /* PushNotificationSender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationSender.swift; sourceTree = "<group>"; };
 		E339449224F1B71600F11BA9 /* StudyHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E339449524F1B71600F11BA9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E339449724F1B71600F11BA9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -139,6 +143,8 @@
 			isa = PBXGroup;
 			children = (
 				629F228D24F36AC100A7E02E /* FirebaseManager.swift */,
+				E1FD834724F54AAB0024D2A3 /* PushNotificationManager.swift */,
+				E1FD834824F54AAC0024D2A3 /* PushNotificationSender.swift */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -164,6 +170,7 @@
 		E178A44424F1CF4E003907E2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E19C1A0D24F5494900B28F4C /* Chat */,
 				629F228524F30D3600A7E02E /* Leaderboard */,
 				629F228024F2D2FD00A7E02E /* Timer Screen */,
 				6214049924F23819000B8F54 /* SubViews */,
@@ -191,6 +198,14 @@
 				E178A44924F1D49F003907E2 /* Header.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		E19C1A0D24F5494900B28F4C /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Chat;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		E339448924F1B71600F11BA9 = {
@@ -398,6 +413,7 @@
 				629F228724F30D4900A7E02E /* LeaderboardView.swift in Sources */,
 				629F228324F2D2FD00A7E02E /* TimerView.swift in Sources */,
 				E178A44A24F1D49F003907E2 /* Header.swift in Sources */,
+				E1FD834A24F54AAC0024D2A3 /* PushNotificationSender.swift in Sources */,
 				E178A44224F1CF21003907E2 /* UserData.swift in Sources */,
 				E339449624F1B71600F11BA9 /* AppDelegate.swift in Sources */,
 				E1439BB124F26441005E9354 /* ChatData.swift in Sources */,
@@ -408,6 +424,7 @@
 				6214049B24F23844000B8F54 /* TabBar.swift in Sources */,
 				629F227F24F2D22D00A7E02E /* TabRouter.swift in Sources */,
 				629F228E24F36AC100A7E02E /* FirebaseManager.swift in Sources */,
+				E1FD834924F54AAC0024D2A3 /* PushNotificationManager.swift in Sources */,
 				629F227B24F2474000A7E02E /* SettingView.swift in Sources */,
 				E33944BF24F1B86A00F11BA9 /* Extensions.swift in Sources */,
 				E178A44724F1D341003907E2 /* Home.swift in Sources */,
