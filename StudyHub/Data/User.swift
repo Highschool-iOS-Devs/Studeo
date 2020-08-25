@@ -11,17 +11,21 @@ import SwiftUI
 struct User: Identifiable {
     var id: String
     var name: String
+    var image: String
     var hours: [Double]
     var hoursDate: [Date]
     var interests: [String]
+    var groups: [String]
     var isMentor: Bool
     
-    init(id: String, name: String, hours: [Double], hoursDate: [Date], interests: [String], isMentor: Bool) {
+    init(id: String, name: String, image: String, hours: [Double], hoursDate: [Date], interests: [String], groups: [String], isMentor: Bool) {
         self.id = id
         self.name = name
+        self.image = image
         self.hours = hours
         self.hoursDate = hoursDate
         self.interests = interests
+        self.groups = groups
         self.isMentor = isMentor
         
         
