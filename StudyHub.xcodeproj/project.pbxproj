@@ -178,12 +178,12 @@
 		E178A44424F1CF4E003907E2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E339449924F1B71600F11BA9 /* ContentView.swift */,
 				E19C1A0D24F5494900B28F4C /* Chat */,
 				629F228524F30D3600A7E02E /* Leaderboard */,
 				629F228024F2D2FD00A7E02E /* Timer Screen */,
 				6214049924F23819000B8F54 /* SubViews */,
 				6214049624F235F8000B8F54 /* Settings */,
-				E339449924F1B71600F11BA9 /* ContentView.swift */,
 				E178A44824F1D493003907E2 /* Home */,
 				E178A44524F1D2BC003907E2 /* Onboarding */,
 			);

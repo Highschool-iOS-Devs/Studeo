@@ -7,11 +7,15 @@
 //
 
 import SwiftUI
+import Firebase
+import FirebaseAuth
 
 struct LoginView: View {
     
     @State private var username: String = ""
     @State private var password: String = ""
+    @State private var email: String = ""
+    @State var error: Bool = false
     @EnvironmentObject var userData: UserData
     
     var body: some View {
@@ -30,6 +34,8 @@ struct LoginView: View {
                 VStack(spacing: 20) {
                     TextField("Username", text: self.$username)
                         .textFieldStyle(CustomTextField())
+                    TextField("Email", text: self.$email)
+                    .textFieldStyle(CustomTextField())
                     TextField("Password", text: self.$password)
                         .textFieldStyle(CustomTextField())
                 }
@@ -61,7 +67,26 @@ struct LoginView: View {
             }
         }
     }
-}
+             func sendData() {
+                Auth.auth().signIn(withEmail: self.email, password: self.password) { [] authResult, error in
+                     
+                    if error != nil {
+                         print("ooof")
+                         print(error)
+                     withAnimation() {
+                     self.error.toggle()
+                    }
+                    } else {
+                        let pushManager = PushNotificationManager(userID: Auth.auth().currentUser!.uid)
+                      
+                        pushManager.registerForPushNotifications()
+                        self.userData.name = self.username
+                        //self.presentationMode.wrappedValue.dismiss()
+                    }
+                    
+                }
+            }
+        }
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
