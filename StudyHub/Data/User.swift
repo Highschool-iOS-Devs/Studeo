@@ -37,3 +37,13 @@ struct User: Identifiable {
         self.interactedChatRooms = interactedChatRooms
     }
 }
+struct BasicUser: Identifiable {
+    var id: String
+    var name: String
+    var count: Int
+    init(id: String, name: String, count: Int) {
+        self.id = id
+        self.name = name
+        self.count = count
+    }
+}

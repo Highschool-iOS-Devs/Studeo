@@ -8,7 +8,6 @@
 
 import SwiftUI
 import Firebase
-
 struct ChatList: View {
     @State var people = [ChattedWith]()
     @EnvironmentObject var userData: UserData
@@ -52,7 +51,7 @@ struct ChatList: View {
                 
                         if self.auth {
                             Color(.white)
-                            AuthView()
+                            RegistrationView()
                         }
             if Auth.auth().currentUser?.uid != nil {
                 if hasData {
