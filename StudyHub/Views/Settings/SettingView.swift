@@ -12,7 +12,7 @@ let screenSize = UIScreen.main.bounds.size
 
 struct SettingView: View {
     var body: some View {
-        NavigationView{
+        ScrollView {
             VStack {
                 VStack {
                     profilePictureCircle()
@@ -20,9 +20,9 @@ struct SettingView: View {
                     .font(.custom("Montserrat-Bold", size: 28))
                     .padding(.top, 10)
                 }
-                .offset(x: 0, y: -50)
+               
                 
-                Spacer()
+                Spacer(minLength: 75)
                 
                 VStack(alignment:.leading) {
                     
@@ -31,6 +31,7 @@ struct SettingView: View {
                         .foregroundColor(.black)
                         .padding(.bottom, 25)
                         .padding(.top, 40)
+                        .padding(.horizontal, 22)
                     VStack(spacing: 30) {
                        
                         settingRowView(settingText: "Notifications", settingState: "On")
@@ -42,15 +43,15 @@ struct SettingView: View {
                         settingRowView(settingText: "Help", settingState: "")
                     }
                     Spacer()
-                }   .padding(.horizontal, 30)
-                    .frame(maxWidth: screenSize.width-60)
-                    .frame(height: 600)
+                }
+                    
+                    
                     .background(Color.white)
                     .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
-                    .shadow(radius: 10)
-                    .offset(x: 0, y: 20)
+                    .shadow(radius: 5)
+                .padding(.horizontal, 10)
 
-            }
+            } .padding(.vertical, 22)
         }
     }
     
@@ -90,6 +91,7 @@ struct SettingView: View {
                 Text(settingText)
                     .font(.custom("Montserrat-SemiBold", size: 12))
                     .opacity(0.4)
+                    
                 Spacer()
                 
                 Text(settingState)
@@ -98,12 +100,13 @@ struct SettingView: View {
                     .lineLimit(1)
                     .opacity(0.4)
                     .padding(.trailing, 5)
+                
                 Image(systemName: "chevron.right")
                     .font(Font.system(size: 13).weight(.semibold))
                 
                 
                 
-            }
+            } .padding(.horizontal, 22)
            
             
         }
