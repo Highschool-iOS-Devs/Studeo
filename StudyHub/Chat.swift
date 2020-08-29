@@ -93,7 +93,7 @@ struct ChatV2: View {
                         .foregroundColor(Color("teal"))
                         .frame(width: 50, height: 50)
                         .onTapGesture {
-                           
+                            
                             var db: Firestore!
                             db = Firestore.firestore()
                             self.total = self.total + 1
