@@ -51,7 +51,7 @@ struct SettingView: View {
                     .shadow(radius: 5)
                 .padding(.horizontal, 10)
 
-            } .padding(.vertical, 22)
+            } .padding(.bottom, 85)
         }
     }
     

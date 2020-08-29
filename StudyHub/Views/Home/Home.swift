@@ -53,7 +53,7 @@ struct Home: View {
                 Spacer()
                 
             }
-        }
+        } .padding(.bottom, 85)
     }
 }
 
