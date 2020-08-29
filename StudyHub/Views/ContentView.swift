@@ -15,21 +15,21 @@ struct ContentView: View {
         
         ZStack {
             GeometryReader { geometry in
-                if self.tabRouter.currentView == .chats{
+                if self.tabRouter.currentView == .chats {
                       ChatList()
                   }
-                else if self.tabRouter.currentView == .books{
+                else if self.tabRouter.currentView == .books {
                       Text("Books View")
                   }
-                else if self.tabRouter.currentView == .groups{
+                else if self.tabRouter.currentView == .groups {
                       Text("Groups View")
                   }
-                else if self.tabRouter.currentView == .settings{
+                else if self.tabRouter.currentView == .settings {
                       SettingView()
                           .transition(.move(edge: .bottom))
                           .animation(.timingCurve(0.06,0.98,0.69,1))
                   }
-                else if self.tabRouter.currentView == .home{
+                else if self.tabRouter.currentView == .home {
                       Home()
                       .transition(.move(edge: .bottom))
                       .animation(.timingCurve(0.06,0.98,0.69,1))
@@ -38,7 +38,7 @@ struct ContentView: View {
             
                 tabBarView(tabRouter: self.tabRouter, currentView: self.$tabRouter.currentView)
                     .edgesIgnoringSafeArea(.bottom)
-             .offset(y: geometry.size.height/35)
+             .offset(y: geometry.size.height/50)
             }.padding(.vertical, 12)
         
         }
