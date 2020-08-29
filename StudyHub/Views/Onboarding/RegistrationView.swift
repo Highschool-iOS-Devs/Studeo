@@ -61,7 +61,7 @@ struct RegistrationView: View {
                         }
                     .buttonStyle(WhiteStyle())
                     }  .padding(.horizontal, 46)
-            }
+            } .padding(.bottom, 22)
         }
     }
         func sendData() {

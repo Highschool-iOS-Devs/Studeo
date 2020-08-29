@@ -53,7 +53,7 @@ struct LoginView: View {
                             .font(Font.custom("Montserrat-SemiBold", size: 14.0))
                     }
                     .buttonStyle(BlueStyle())
-                    .padding(.horizontal, 75)
+                    .padding(.horizontal, 46)
                     Button(action: {
                         print("Tapped Sign-Up button")
                     }) {
@@ -61,10 +61,10 @@ struct LoginView: View {
                             .font(Font.custom("Montserrat-SemiBold", size: 14.0))
                     }
                     .buttonStyle(WhiteStyle())
-                    .padding(.horizontal, 75)
+                    .padding(.horizontal, 46)
                 }
                 Spacer()
-            }
+            } .padding(.bottom, 22)
         }
     }
              func sendData() {
