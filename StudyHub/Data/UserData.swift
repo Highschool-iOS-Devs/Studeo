@@ -44,6 +44,9 @@ final class UserData: ObservableObject {
     
     @Published
     var fcmToken: String = ""
+    
+    @Published
+    var tabBar: Int = 0
 }
 
 import Foundation
