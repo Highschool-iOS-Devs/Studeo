@@ -183,7 +183,8 @@ struct ChatList: View {
                             }
                         }
              //   print(self.index)
-                       
+}
+}
                 
     
     
