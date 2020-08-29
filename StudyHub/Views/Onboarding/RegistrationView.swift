@@ -60,7 +60,7 @@ struct RegistrationView: View {
                             .font(Font.custom("Montserrat-SemiBold", size: 14.0))
                         }
                     .buttonStyle(WhiteStyle())
-                }
+                    }  .padding(.horizontal, 46)
             }
         }
     }
