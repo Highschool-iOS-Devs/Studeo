@@ -14,29 +14,35 @@ struct ContentView: View {
     var body: some View {
         
         ZStack {
-                  if tabRouter.currentView == .chats{
+            GeometryReader { geometry in
+                if self.tabRouter.currentView == .chats{
                       ChatList()
                   }
-                  else if tabRouter.currentView == .books{
+                else if self.tabRouter.currentView == .books{
                       Text("Books View")
                   }
-                  else if tabRouter.currentView == .groups{
+                else if self.tabRouter.currentView == .groups{
                       Text("Groups View")
                   }
-                  else if tabRouter.currentView == .settings{
+                else if self.tabRouter.currentView == .settings{
                       SettingView()
                           .transition(.move(edge: .bottom))
                           .animation(.timingCurve(0.06,0.98,0.69,1))
                   }
-                  else if tabRouter.currentView == .home{
+                else if self.tabRouter.currentView == .home{
                       Home()
                       .transition(.move(edge: .bottom))
                       .animation(.timingCurve(0.06,0.98,0.69,1))
                   }
-                  tabBarView(tabRouter: tabRouter, currentView: $tabRouter.currentView)
            
+            
+                tabBarView(tabRouter: self.tabRouter, currentView: self.$tabRouter.currentView)
+                    .edgesIgnoringSafeArea(.bottom)
+             .offset(y: geometry.size.height/35)
             }.padding(.vertical, 12)
+        
         }
+}
 }
 
 struct ContentView_Previews: PreviewProvider {

@@ -20,6 +20,7 @@ struct RegistrationView: View {
     
     var body: some View {
         GeometryReader { geometry in
+            ScrollView {
             VStack() {
                 Text("Registration")
                     .font(Font.custom("Montserrat-SemiBold", size: 34))
@@ -61,7 +62,8 @@ struct RegistrationView: View {
                         }
                     .buttonStyle(WhiteStyle())
                     }  .padding(.horizontal, 46)
-            } .padding(.bottom, 22)
+            } .padding(.bottom, 62)
+        }
         }
     }
         func sendData() {
