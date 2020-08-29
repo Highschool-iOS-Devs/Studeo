@@ -81,7 +81,7 @@ struct ChatList: View {
                     }
                     .sheet(isPresented: $tapped) {
                         if self.activeSheet == .first {
-                            FindSetup()
+                            AddChat()
                                 .environmentObject(UserData.shared)
                         }
                         else if self.activeSheet == .second {
