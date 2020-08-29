@@ -23,3 +23,19 @@ struct ChatData: Identifiable {
         
     }
 }
+
+struct ChattedWith: Identifiable {
+    var id: String
+    var name: String
+    var count: Int
+    var chatRoom: String
+    
+    init(id: String, name: String, count: Int, chatRoom: String) {
+        self.id = id
+        self.name = name
+        self.count = count
+        self.chatRoom = chatRoom
+        
+        
+    }
+}
