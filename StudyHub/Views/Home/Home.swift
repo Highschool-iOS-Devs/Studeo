@@ -47,28 +47,9 @@ struct Home: View {
                     Spacer()
                 } .padding(.horizontal, 12)
                 
-                ZStack {
-                    Image("friends")
-                        .renderingMode(.original)
-                        .resizable()
-                        .frame(width: 350, height: 350)
-                        .padding(.horizontal, 12)
-                    
-                    VStack {
-                        Spacer()
-                        HStack {
-                            Spacer()
-                            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
-                                Text("Add Friends")
-                                
-                                
-                                
-                                
-                            } .buttonStyle(BlueStyle())
-                                .frame(width: 125)
-                        }
-                    } .padding(.all, 22)
-                }
+                CTA(imgName: "friends", cta: "Add Friends")
+                
+                CTA(imgName: "Group", cta: "Add Group")
                 Spacer()
                 
             }
