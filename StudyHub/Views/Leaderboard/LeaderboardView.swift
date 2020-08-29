@@ -17,10 +17,11 @@ struct LeaderboardView: View {
                 .fill(Color.buttonBlue)
                 .frame(width: 500, height: 300)
                 .offset(x: 0, y: -340)
+           
             VStack {
                 Text("Leaderboard")
                     .font(.custom("Montserrat-SemiBold", size: 28))
-                    .padding(.bottom, 30)
+                    .padding(.vertical, 22)
                 dateSelectionView(currentDateTab: $leaderboardTab.currentDateTab)
                 
                 SelfRankView()
@@ -29,14 +30,15 @@ struct LeaderboardView: View {
                 if leaderboardTab.currentDateTab == .allTime{
                     LeaderRankView()
                     Spacer()
-                    
+                     ScrollView {
                     VStack(spacing: 30) {
                         LeaderboardRow()
                         LeaderboardRow()
                         LeaderboardRow()
                         LeaderboardRow()
                         LeaderboardRow()
-                    }
+                    } .padding(.bottom, 22)
+                }
                 }
                 else if leaderboardTab.currentDateTab == .week{
                     
