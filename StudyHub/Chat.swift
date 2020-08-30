@@ -90,7 +90,7 @@ struct ChatV2: View {
                     }
                     Spacer()
                     Ellipse()
-                        .foregroundColor(Color("teal"))
+                        .foregroundColor(Color(.systemBlue))
                         .frame(width: 50, height: 50)
                         .onTapGesture {
                             
