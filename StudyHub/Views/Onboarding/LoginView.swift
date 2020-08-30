@@ -73,14 +73,46 @@ struct LoginView: View {
                     if error != nil {
                          print("ooof")
                          print(error)
-                     withAnimation() {
-                     self.error.toggle()
-                    }
+                        withAnimation() {
+                            self.error.toggle()
+                        }
                     } else {
+                        
+                        var db: Firestore!
+                        db = Firestore.firestore()
+                        
+                        let defaults = UserDefaults.standard
                         let pushManager = PushNotificationManager(userID: Auth.auth().currentUser!.uid)
-                      
+                        
                         pushManager.registerForPushNotifications()
                         self.userData.name = self.username
+                        let token = defaults.string(forKey: "fcmToken")
+                        db.collection("users").document(Auth.auth().currentUser!.uid).setData([
+                            "name": self.username,
+                            "id": Auth.auth().currentUser!.uid,
+                            "hours": [0.0],
+                            "image": "",
+                            "school": [0.0,0.0],
+                            "hoursDate": [Date()],
+                            "interactedPeople": [Auth.auth().currentUser!.uid],
+                            "interactedChatRooms": ["\(UUID())"],
+                            "fcmToken": token,
+                            "SAT": true,
+                        ]) { err in
+                            if let err = err {
+                                print("Error writing document: \(err)")
+                                withAnimation() {
+                                    print("bad")
+                                    self.error.toggle()
+                                    print(error)
+                                }
+                            } else {
+                                
+                                print("Document successfully written!")
+                                // self.presentationMode.wrappedValue.dismiss()
+                            }
+                        }
+                       
                         //self.presentationMode.wrappedValue.dismiss()
                     }
                     

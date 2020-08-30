@@ -27,7 +27,7 @@ struct ChatV2Cell: View {
                     .fixedSize(horizontal: false, vertical: true)
                     
                     .padding(12)
-                    .background(Color("teal"))
+                    .background(Color(.systemBlue))
                     .cornerRadius(10)
                 
                 

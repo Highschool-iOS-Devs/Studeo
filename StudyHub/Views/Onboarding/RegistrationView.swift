@@ -90,6 +90,7 @@ struct RegistrationView: View {
                                   "interactedPeople": [Auth.auth().currentUser!.uid],
                                   "interactedChatRooms": ["\(UUID())"],
                                   "fcmToken": token,
+                                  "SAT": true,
                               ]) { err in
                                   if let err = err {
                                       print("Error writing document: \(err)")
