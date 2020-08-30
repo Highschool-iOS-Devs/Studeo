@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		6214049B24F23844000B8F54 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6214049A24F23844000B8F54 /* TabBar.swift */; };
 		629F227B24F2474000A7E02E /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629F227A24F2474000A7E02E /* SettingView.swift */; };
-		629F227F24F2D22D00A7E02E /* TabRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629F227E24F2D22D00A7E02E /* TabRouter.swift */; };
+		629F227F24F2D22D00A7E02E /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629F227E24F2D22D00A7E02E /* ViewRouter.swift */; };
 		629F228324F2D2FD00A7E02E /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629F228124F2D2FD00A7E02E /* TimerView.swift */; };
 		629F228424F2D2FD00A7E02E /* CustomButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629F228224F2D2FD00A7E02E /* CustomButtonStyles.swift */; };
 		629F228724F30D4900A7E02E /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629F228624F30D4900A7E02E /* LeaderboardView.swift */; };
@@ -57,7 +57,7 @@
 		47F4119D880B6AFBE91DBA85 /* Pods_StudyHub.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StudyHub.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6214049A24F23844000B8F54 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		629F227A24F2474000A7E02E /* SettingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
-		629F227E24F2D22D00A7E02E /* TabRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabRouter.swift; sourceTree = "<group>"; };
+		629F227E24F2D22D00A7E02E /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
 		629F228124F2D2FD00A7E02E /* TimerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		629F228224F2D2FD00A7E02E /* CustomButtonStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButtonStyles.swift; sourceTree = "<group>"; };
 		629F228624F30D4900A7E02E /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
@@ -137,7 +137,6 @@
 			children = (
 				629F228224F2D2FD00A7E02E /* CustomButtonStyles.swift */,
 				6214049A24F23844000B8F54 /* TabBar.swift */,
-				629F227E24F2D22D00A7E02E /* TabRouter.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -181,6 +180,7 @@
 		E178A44324F1CF29003907E2 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				629F227E24F2D22D00A7E02E /* ViewRouter.swift */,
 				E178A44124F1CF21003907E2 /* UserData.swift */,
 				E1ED4F1F24FB2A0800B26035 /* Categories.swift */,
 				E1439BB024F26440005E9354 /* ChatData.swift */,
@@ -193,14 +193,14 @@
 		E178A44424F1CF4E003907E2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E178A44524F1D2BC003907E2 /* Onboarding */,
+				629F228024F2D2FD00A7E02E /* Timer Screen */,
 				E339449924F1B71600F11BA9 /* ContentView.swift */,
 				E19C1A0D24F5494900B28F4C /* Chat */,
 				629F228524F30D3600A7E02E /* Leaderboard */,
-				629F228024F2D2FD00A7E02E /* Timer Screen */,
 				6214049924F23819000B8F54 /* SubViews */,
 				6214049624F235F8000B8F54 /* Settings */,
 				E178A44824F1D493003907E2 /* Home */,
-				E178A44524F1D2BC003907E2 /* Onboarding */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -465,7 +465,7 @@
 				E33944C124F1B9F000F11BA9 /* LoginView.swift in Sources */,
 				E12F922624FAEBF200EE64DE /* ChatList.swift in Sources */,
 				6214049B24F23844000B8F54 /* TabBar.swift in Sources */,
-				629F227F24F2D22D00A7E02E /* TabRouter.swift in Sources */,
+				629F227F24F2D22D00A7E02E /* ViewRouter.swift in Sources */,
 				629F228E24F36AC100A7E02E /* FirebaseManager.swift in Sources */,
 				E1FD834924F54AAC0024D2A3 /* PushNotificationManager.swift in Sources */,
 				629F227B24F2474000A7E02E /* SettingView.swift in Sources */,

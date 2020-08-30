@@ -17,6 +17,8 @@ struct LoginView: View {
     @State private var email: String = ""
     @State var error: Bool = false
     @EnvironmentObject var userData: UserData
+    @EnvironmentObject var viewRouter:ViewRouter
+    
     
     var body: some View {
         GeometryReader { geometry in
@@ -35,7 +37,7 @@ struct LoginView: View {
                     TextField("Username", text: self.$username)
                         .textFieldStyle(CustomTextField())
                     TextField("Email", text: self.$email)
-                    .textFieldStyle(CustomTextField())
+                        .textFieldStyle(CustomTextField())
                     TextField("Password", text: self.$password)
                         .textFieldStyle(CustomTextField())
                 }
@@ -44,10 +46,14 @@ struct LoginView: View {
                     .font(.caption)
                     .offset(x: 100)
                     .padding(.bottom, 50)
-                            
+                
                 VStack(spacing: 35) {
                     Button(action: {
                         print("Tapped Sign-in button")
+                        self.sendData{error in
+                            guard error != nil else {return}
+                            self.viewRouter.updateCurrentView(view: .chatList)
+                        }
                     }) {
                         Text("Sign in")
                             .font(Font.custom("Montserrat-SemiBold", size: 14.0))
@@ -55,8 +61,10 @@ struct LoginView: View {
                     .buttonStyle(BlueStyle())
                     .padding(.horizontal, 46)
                     Button(action: {
+                        self.viewRouter.updateCurrentView(view: .registration)
                         print("Tapped Sign-Up button")
                     }) {
+                        
                         Text("Sign Up")
                             .font(Font.custom("Montserrat-SemiBold", size: 14.0))
                     }
@@ -67,58 +75,58 @@ struct LoginView: View {
             } .padding(.bottom, 22)
         }
     }
-             func sendData() {
-                Auth.auth().signIn(withEmail: self.email, password: self.password) { [] authResult, error in
-                     
-                    if error != nil {
-                         print("ooof")
-                         print(error)
+    func sendData(performAction: @escaping (Error?) -> Void) {
+        Auth.auth().signIn(withEmail: self.email, password: self.password) { [] authResult, error in
+            
+            if error != nil {
+                performAction(error)
+                withAnimation() {
+                    self.error.toggle()
+                }
+            } else {
+                
+                var db: Firestore!
+                db = Firestore.firestore()
+                
+                let defaults = UserDefaults.standard
+                let pushManager = PushNotificationManager(userID: Auth.auth().currentUser!.uid)
+                
+                pushManager.registerForPushNotifications()
+                self.userData.name = self.username
+                let token = defaults.string(forKey: "fcmToken")
+                db.collection("users").document(Auth.auth().currentUser!.uid).setData([
+                    "name": self.username,
+                    "id": Auth.auth().currentUser!.uid,
+                    "hours": [0.0],
+                    "image": "",
+                    "school": [0.0,0.0],
+                    "hoursDate": [Date()],
+                    "interactedPeople": [Auth.auth().currentUser!.uid],
+                    "interactedChatRooms": ["\(UUID())"],
+                    "fcmToken": token,
+                    "SAT": true,
+                ]) { err in
+                    if let err = err {
+                        performAction(error)
+                        print("Error writing document: \(err)")
                         withAnimation() {
+                            print("bad")
                             self.error.toggle()
+                            print(error)
                         }
                     } else {
                         
-                        var db: Firestore!
-                        db = Firestore.firestore()
-                        
-                        let defaults = UserDefaults.standard
-                        let pushManager = PushNotificationManager(userID: Auth.auth().currentUser!.uid)
-                        
-                        pushManager.registerForPushNotifications()
-                        self.userData.name = self.username
-                        let token = defaults.string(forKey: "fcmToken")
-                        db.collection("users").document(Auth.auth().currentUser!.uid).setData([
-                            "name": self.username,
-                            "id": Auth.auth().currentUser!.uid,
-                            "hours": [0.0],
-                            "image": "",
-                            "school": [0.0,0.0],
-                            "hoursDate": [Date()],
-                            "interactedPeople": [Auth.auth().currentUser!.uid],
-                            "interactedChatRooms": ["\(UUID())"],
-                            "fcmToken": token,
-                            "SAT": true,
-                        ]) { err in
-                            if let err = err {
-                                print("Error writing document: \(err)")
-                                withAnimation() {
-                                    print("bad")
-                                    self.error.toggle()
-                                    print(error)
-                                }
-                            } else {
-                                
-                                print("Document successfully written!")
-                                // self.presentationMode.wrappedValue.dismiss()
-                            }
-                        }
-                       
-                        //self.presentationMode.wrappedValue.dismiss()
+                        print("Document successfully written!")
+                        // self.presentationMode.wrappedValue.dismiss()
                     }
-                    
                 }
+                
+                //self.presentationMode.wrappedValue.dismiss()
             }
+            
         }
+    }
+}
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
