@@ -20,6 +20,7 @@ struct ChatV2: View {
     @State var message = "Message"
     @State var goBack = false
     @State var add = false
+    @State var testing = false
     @EnvironmentObject var userData: UserData
     var body: some View {
         
@@ -185,6 +186,7 @@ struct ChatV2: View {
         self.userData.chats.append(self.chatRoom)
         print("hasInteractedWith")
         self.hasAppeared = true
+        if testing {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             var db: Firestore!
             db = Firestore.firestore()
@@ -222,6 +224,7 @@ struct ChatV2: View {
                                 sender.sendPushNotification(to: receiver, title: self.userData.name, body: self.message, user: Auth.auth().currentUser!.uid)
                             }
                         }
+                    }
                     }
                 }
             }
