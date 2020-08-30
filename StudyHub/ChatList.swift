@@ -125,9 +125,9 @@ struct ChatList: View {
                 
                 let name = document.get("name") as! String
                 let id = document.get("id") as! String
-                let hasInteractedWith = document.get("hasInteractedWith") as! [String]
+                let hasInteractedWith = document.get("interactedPeople") as! [String]
                 print(hasInteractedWith)
-                self.chatRoom = document.get("hasInteractedWith2") as! [String]
+                self.chatRoom = document.get("interactedChatRooms") as! [String]
                 self.userIDs = hasInteractedWith
                 for interacted in hasInteractedWith {
                     

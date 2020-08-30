@@ -16,6 +16,11 @@ struct AddChat: View {
     @State var people = [BasicUser]()
     @State var hasSearched = false
     @State var matchedPerson = BasicUser(id: "", name: "", count: 0)
+    @State var personCount = -1
+    @State var chatRoom = ""
+    @State var userIDs = ""
+    @State var hasInteractedBefore = false
+    @State var hasFound = false
     var body: some View {
         ZStack {
             Color(.white)
@@ -50,6 +55,83 @@ struct AddChat: View {
                                                     print(self.people)
                                                     self.matchedPerson = self.people.randomElement()!
                                                     self.hasSearched = true
+                                                    
+                                                    
+                                                    
+                                                   
+                                                    db.collection("users").document(self.matchedPerson.id).getDocument { (document, error) in
+                                                        if let document = document, document.exists {
+                                                            
+                                                            let property = document.get("id") as! String
+                                                            let property2 = document.get("name") as! String
+                                                            var property3 = document.get("interactedPeople") as! [String]
+                                                            print(property)
+                                                            var property4 = document.get("interactedChatRooms") as! [String]
+                                                            property3.append(Auth.auth().currentUser!.uid)
+                                                            //for property in property3 {
+                                                            
+                                                            // if property == Auth.auth().currentUser!.uid {
+                                                            
+                                                            //      property3.remove(at: self.num)
+                                                            //      property4.remove(at: self.num)
+                                                            //}
+                                                            //           self.num += 1
+                                                            //}
+                                                            
+                                                            db.collection("users").document(property).setData([ "interactedPeople": property3], merge: true)
+                                                            self.chatRoom = "\(UUID())"
+                                                            property4.append(self.chatRoom)
+                                                            db.collection("users").document(property).setData([ "interactedChatRooms": property4], merge: true)
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            if property3.contains(self.userData.userID) {
+                                                                self.hasInteractedBefore = true
+                                                            }
+                                                            else {
+                                                                self.personCount += 1
+                                                                self.people.append(BasicUser(id: property, name: property2, count: self.personCount))
+                                                            }
+                                                        }
+                                                        db.collection("users").document(Auth.auth().currentUser!.uid).getDocument { (document, error) in
+                                                            if let document = document, document.exists {
+                                                                
+                                                                let property = document.get("id") as! String
+                                                                let property2 = document.get("name") as! String
+                                                                var property3 = document.get("interactedPeople") as! [String]
+                                                                print(property)
+                                                                var property4 = document.get("interactedChatRooms") as! [String]
+                                                                property3.append(self.matchedPerson.id)
+                                                                property4.append(self.chatRoom)
+                                                                
+                                                                
+                                                                db.collection("users").document(property).setData([ "interactedPeople": property3], merge: true)
+                                                                
+                                                                
+                                                                db.collection("users").document(property).setData([ "interactedChatRooms": property4], merge: true)
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                if property3.contains(self.userData.userID) {
+                                                                    self.hasInteractedBefore = true
+                                                                }
+                                                                else {
+                                                                    self.personCount += 1
+                                                                    self.people.append(BasicUser(id: property, name: property2, count: self.personCount))
+                                                                }
+                                                            }
+                                                            self.hasFound = true
+                                                            
+                                                            self.hasAppeared = true
+                                                            print("appear2")
+                                                            
+                                                            
+                                                        }
+                                                    }
                                                 }
                                             }
                                     }

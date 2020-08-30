@@ -185,6 +185,46 @@ struct ChatV2: View {
         self.userData.chats.append(self.chatRoom)
         print("hasInteractedWith")
         self.hasAppeared = true
-        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            var db: Firestore!
+            db = Firestore.firestore()
+            self.total = self.total + 1
+            let data = [ "name": self.userData.name,
+                         "message": "Test"]
+            db.collection("chats").document(self.chatRoom).updateData([
+                "\(self.total)": data,
+                "total": self.total,
+                
+            ]) { err in
+                if let err = err {
+                    print("Error writing document: \(err)")
+                    db.collection("chats").document(self.chatRoom).setData([
+                        "\(self.total)": data,
+                        "total": self.total,
+                        
+                    ]) { err in
+                        if let err = err {
+                            print("Error writing document: \(err)")
+                        } else {
+                            print("Document successfully written!")
+                        }
+                    }
+                } else {
+                    print("Document successfully written!")
+                    db.collection("users").getDocuments() { (querySnapshot, err) in
+                        if let err = err {
+                            print("Error getting documents: \(err)")
+                        } else {
+                            for document in querySnapshot!.documents {
+                                print("\(document.documentID) => \(document.data())")
+                                let receiver = document.get("fcmToken") as! String
+                                let sender = PushNotificationSender()
+                                sender.sendPushNotification(to: receiver, title: self.userData.name, body: self.message, user: Auth.auth().currentUser!.uid)
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
