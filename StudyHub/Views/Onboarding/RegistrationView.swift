@@ -15,7 +15,7 @@ struct RegistrationView: View {
     @State private var password: String = ""
     @State private var email: String = ""
     @State var error: Bool = false
-    
+    @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var userData: UserData
     
     var body: some View {
@@ -103,6 +103,8 @@ struct RegistrationView: View {
                                       
                                       print("Document successfully written!")
                                      // self.presentationMode.wrappedValue.dismiss()
+                                    
+                                    self.presentationMode.wrappedValue.dismiss()
                                   }
                               }
                           }
