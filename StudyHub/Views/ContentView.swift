@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import Firebase
+import FirebaseAuth
 struct ContentView: View {
     @EnvironmentObject var userData: UserData
     @ObservedObject var tabRouter = TabRouter()
@@ -52,7 +52,7 @@ struct ContentView: View {
                 
                 .sheet(isPresented: $showSheet) {
                     RegistrationView()
-                        .environmentObject(UserData.shared)
+                    .environmentObject(UserData.shared)
                     
                     
             }
