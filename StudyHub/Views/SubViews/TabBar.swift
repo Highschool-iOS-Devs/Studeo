@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct TabBar: View {
-    @ObservedObject var tabRouter = TabRouter()
+    @ObservedObject var tabRouter = ViewRouter()
     var body: some View {
         
         ZStack {
@@ -47,8 +47,8 @@ struct TabBar_Previews: PreviewProvider {
 struct tabItemView: View {
     var SFImage:String
     var text:String
-    var tabType: TabRouter.tabViews
-    @Binding var currentView: TabRouter.tabViews
+    var tabType: ViewRouter.Views
+    @Binding var currentView: ViewRouter.Views
     
     var body: some View {
         VStack {
@@ -70,8 +70,8 @@ struct tabItemView: View {
  
 
 struct tabBarView: View {
-    var tabRouter:TabRouter
-    @Binding var currentView: TabRouter.tabViews
+    var tabRouter:ViewRouter
+    @Binding var currentView: ViewRouter.Views
     
     var body: some View {
         VStack {
@@ -116,7 +116,7 @@ struct tabBarView: View {
 }
 
 struct tabBigButton: View {
-    @Binding var currentView: TabRouter.tabViews
+    @Binding var currentView: ViewRouter.Views
     
     var body: some View {
         ZStack {

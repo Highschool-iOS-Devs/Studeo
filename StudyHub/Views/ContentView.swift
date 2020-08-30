@@ -8,56 +8,90 @@
 
 import SwiftUI
 import FirebaseAuth
+
 struct ContentView: View {
     @EnvironmentObject var userData: UserData
-    @ObservedObject var tabRouter = TabRouter()
+    @EnvironmentObject var viewRouter:ViewRouter
+
     @Environment(\.presentationMode) var presentationMode
     @State private var showSheet = false
+
     var body: some View {
-        
         ZStack {
-            Color(.white)
-                .onAppear() {
-                    if Auth.auth().currentUser?.uid == nil {
-                        self.showSheet = true
-                    }
+//            Color(.white)
+//                .onAppear() {
+//                    if Auth.auth().currentUser?.uid == nil {
+//                        self.showSheet = true
+//                    }
+//            }
+//            GeometryReader { geometry in
+//                if self.tabRouter.currentView == .chats {
+//                    ChatList()
+//                }
+//                else if self.tabRouter.currentView == .books {
+//                    Text("Books View")
+//                }
+//                else if self.tabRouter.currentView == .groups {
+//                    Text("Groups View")
+//                }
+//                else if self.tabRouter.currentView == .settings {
+//                    SettingView()
+//                        .transition(.move(edge: .bottom))
+//                        .animation(.timingCurve(0.06,0.98,0.69,1))
+//                }
+//                else if self.tabRouter.currentView == .home {
+//                    Home()
+//                        .transition(.move(edge: .bottom))
+//                        .animation(.timingCurve(0.06,0.98,0.69,1))
+//                }
+//
+//
+//                tabBarView(tabRouter: self.tabRouter, currentView: self.$tabRouter.currentView)
+//                    .edgesIgnoringSafeArea(.bottom)
+//                    .offset(y: geometry.size.height/50)
+//            }.padding(.vertical, 12)
+//
+//
+//                .sheet(isPresented: $showSheet) {
+//                    RegistrationView()
+//                    .environmentObject(UserData.shared)
+//
+//
+//            }
+//        }
+            Color.white
+                .edgesIgnoringSafeArea(.all)
+                .onAppear{
+                    self.checkAuth()
             }
-            GeometryReader { geometry in
-                if self.tabRouter.currentView == .chats {
-                    ChatList()
-                }
-                else if self.tabRouter.currentView == .books {
-                    Text("Books View")
-                }
-                else if self.tabRouter.currentView == .groups {
-                    Text("Groups View")
-                }
-                else if self.tabRouter.currentView == .settings {
-                    SettingView()
-                        .transition(.move(edge: .bottom))
-                        .animation(.timingCurve(0.06,0.98,0.69,1))
-                }
-                else if self.tabRouter.currentView == .home {
-                    Home()
-                        .transition(.move(edge: .bottom))
-                        .animation(.timingCurve(0.06,0.98,0.69,1))
-                }
-                
-                
-                tabBarView(tabRouter: self.tabRouter, currentView: self.$tabRouter.currentView)
-                    .edgesIgnoringSafeArea(.bottom)
-                    .offset(y: geometry.size.height/50)
-            }.padding(.vertical, 12)
-                
-                
-                .sheet(isPresented: $showSheet) {
-                    RegistrationView()
-                    .environmentObject(UserData.shared)
-                    
-                    
+            
+            if viewRouter.currentView == .registration{
+                RegistrationView()
+                    .environmentObject(viewRouter)
+            }
+            else if viewRouter.currentView == .login {
+                LoginView()
+                    .environmentObject(viewRouter)
+    
+            }
+            else if viewRouter.currentView == .chatList {
+                AddChat()
             }
         }
+        
+
+}
+    func checkAuth(){
+        Auth.auth().addStateDidChangeListener { (auth, user) in
+            guard user != nil else {
+                self.viewRouter.currentView = .registration
+                return
+                
+            }
+            self.viewRouter.currentView = .chatList
+        }
     }
+
 }
 
 struct ContentView_Previews: PreviewProvider {
