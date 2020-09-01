@@ -19,7 +19,7 @@ struct Temp: View {
             }
             
             if self.show {
-                ErrorView(show: self.$show, errorMsg: "There was an error")
+                ErrorView(show: self.$show, errorTitle: "Error!", errorMsg: "There was an error")
             }
         }
     }
@@ -28,13 +28,14 @@ struct Temp: View {
 struct ErrorView: View {
     
     @Binding var show: Bool
+    var errorTitle: String
     var errorMsg: String
     
     var body: some View {
         ZStack(alignment: .topTrailing) {
             VStack(spacing: 17) {
                 HStack {
-                    Text("Error!")
+                    Text(errorTitle)
                         .font(.custom("Montserrat-SemiBold", size: 30))
                         .foregroundColor(Color(UIColor.systemRed))
                     Spacer()
