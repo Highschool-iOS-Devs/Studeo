@@ -82,6 +82,7 @@ struct ContentView: View {
 
 }
     func checkAuth(){
+        
         Auth.auth().addStateDidChangeListener { (auth, user) in
             guard user != nil else {
                 self.viewRouter.currentView = .registration

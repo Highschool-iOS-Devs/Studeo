@@ -108,7 +108,7 @@ struct ChatList: View {
                         Spacer()
                     } .padding(12)
                     
-                    
+                   
                 }
             }
             

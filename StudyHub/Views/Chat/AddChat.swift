@@ -144,6 +144,17 @@ struct AddChat: View {
                             
                         }
                     }
+                    Button(action: {
+                                           do{
+                                              try Auth.auth().signOut()
+
+                                           }
+                                           catch{
+                                               print("\(error)")
+                                           }
+                                       }){
+                                           Text("Sign out")
+                                       }
                 } .padding(.top, 22)
             }
             if hasSearched {

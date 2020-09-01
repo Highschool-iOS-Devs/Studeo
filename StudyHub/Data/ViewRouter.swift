@@ -22,7 +22,7 @@ class ViewRouter:ObservableObject{
         case chatList
         
        }
-    @Published var currentView = Views.login
+    @Published var currentView = Views.registration
     public static let shared = ViewRouter()
     func updateCurrentView(view:Views){
         print("Changing current view to \(view)")
