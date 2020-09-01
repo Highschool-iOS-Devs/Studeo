@@ -11,6 +11,7 @@ import SwiftUI
 struct Home: View {
     
     @EnvironmentObject var userData: UserData
+     @EnvironmentObject var viewRouter:ViewRouter
     @State private var search: String = ""
     var body: some View {
         VStack {
@@ -50,6 +51,8 @@ struct Home: View {
                 CTA(imgName: "friends", cta: "Add Friends")
                 
                 CTA(imgName: "Group", cta: "Add Group")
+                
+                 CTA(imgName: "study", cta: "Compete")
                 Spacer()
                 
             }

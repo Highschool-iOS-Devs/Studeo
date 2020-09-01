@@ -11,7 +11,8 @@ import SwiftUI
 struct CTA: View {
     @State var imgName = ""
     @State var cta = ""
-   
+    var tabRouter:ViewRouter = .shared
+    @State var currentView: ViewRouter.Views = .home
     var body: some View {
         ZStack {
             
@@ -25,7 +26,19 @@ struct CTA: View {
                 Spacer()
                 HStack {
                     Spacer()
-                    Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
+                    Button(action: {
+                        
+                        if self.cta == "Add Friends" {
+                            self.tabRouter.currentView = .chatList
+                            
+                        } else if self.cta == "Add Group" {
+                            self.tabRouter.currentView = .groups
+                            
+                        } else {
+                            self.tabRouter.currentView = .leaderboard
+                        }
+                        
+                    }) {
                         Text(cta)
                         
                         

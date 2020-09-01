@@ -77,6 +77,15 @@ struct ContentView: View {
             else if viewRouter.currentView == .chatList {
                 AddChat()
             }
+            else if viewRouter.currentView == .groups {
+                           AddChat()
+                       }
+            else if viewRouter.currentView == .leaderboard {
+                           LeaderboardView()
+                       }
+            else if viewRouter.currentView == .home {
+                Home()
+            }
         }
         
 
@@ -89,7 +98,7 @@ struct ContentView: View {
                 return
                 
             }
-            self.viewRouter.currentView = .chatList
+            self.viewRouter.currentView = .home
         }
     }
 
