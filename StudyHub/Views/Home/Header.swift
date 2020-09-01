@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct Header: View {
+     @EnvironmentObject var userData: UserData
     var body: some View {
         HStack {
             VStack {
@@ -19,7 +20,7 @@ struct Header: View {
                     .opacity(25)
                     .multilineTextAlignment(.leading)
                 
-                Text("John R")
+                Text(self.userData.name)
                     .frame(minWidth: 150, alignment: .leading)
                     .font(.custom("Montserrat-Semibold", size: 27))
                     .foregroundColor(Color(.black))
