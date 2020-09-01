@@ -11,12 +11,13 @@ import SwiftUI
 let screenSize = UIScreen.main.bounds.size
 
 struct SettingView: View {
+     @EnvironmentObject var userData: UserData
     var body: some View {
         ScrollView {
             VStack {
                 VStack {
                     profilePictureCircle()
-                    Text("John R.")
+                    Text(self.userData.name)
                     .font(.custom("Montserrat-Bold", size: 28))
                     .padding(.top, 10)
                 }

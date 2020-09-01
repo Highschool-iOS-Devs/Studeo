@@ -47,6 +47,15 @@ final class UserData: ObservableObject {
     
     @Published
     var tabBar: Int = 0
+    
+    @Published
+    var notifications: Bool = false
+    
+    @Published
+    var country: String = "United States"
+    
+    @Published
+    var language: String = "English"
 }
 
 import Foundation

@@ -17,7 +17,6 @@
 		620590F824FDBB21001565BF /* Montserrat-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 620590C024FDBB21001565BF /* Montserrat-Black.ttf */; };
 		620590F924FDBB21001565BF /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 620590C124FDBB21001565BF /* Montserrat-Regular.ttf */; };
 		620590FA24FDBB21001565BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 620590C224FDBB21001565BF /* Assets.xcassets */; };
-		620590FB24FDBB21001565BF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 620590C324FDBB21001565BF /* GoogleService-Info.plist */; };
 		620590FC24FDBB21001565BF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 620590C524FDBB21001565BF /* Preview Assets.xcassets */; };
 		620590FD24FDBB21001565BF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 620590C624FDBB21001565BF /* LaunchScreen.storyboard */; };
 		620590FE24FDBB21001565BF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620590C924FDBB21001565BF /* Extensions.swift */; };
@@ -50,6 +49,7 @@
 		6205911924FDBB21001565BF /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620590EE24FDBB21001565BF /* LoginView.swift */; };
 		6205911B24FDBB21001565BF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620590F024FDBB21001565BF /* SceneDelegate.swift */; };
 		6205911D24FDBD1D001565BF /* ErrorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6205911C24FDBD1D001565BF /* ErrorModel.swift */; };
+		E124C1B924FED758008EBD84 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 620590C324FDBB21001565BF /* GoogleService-Info.plist */; };
 		E1FD834D24F54E670024D2A3 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E1FD834C24F54E670024D2A3 /* IQKeyboardManagerSwift */; };
 		FB33AEA3FD2D5803BE4DAF75 /* Pods_StudyHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47F4119D880B6AFBE91DBA85 /* Pods_StudyHub.framework */; };
 /* End PBXBuildFile section */
@@ -129,18 +129,17 @@
 		620590B624FDBB21001565BF /* StudyHub */ = {
 			isa = PBXGroup;
 			children = (
-				620590B724FDBB21001565BF /* Resources */,
+				620590EF24FDBB21001565BF /* Info.plist */,
 				620590C224FDBB21001565BF /* Assets.xcassets */,
-				620590C324FDBB21001565BF /* GoogleService-Info.plist */,
+				620590B724FDBB21001565BF /* Resources */,
 				620590C424FDBB21001565BF /* Preview Content */,
-				620590C624FDBB21001565BF /* LaunchScreen.storyboard */,
 				620590C824FDBB21001565BF /* Extensions */,
 				620590CA24FDBB21001565BF /* Firebase */,
-				620590CE24FDBB21001565BF /* AppDelegate.swift */,
 				620590CF24FDBB21001565BF /* Data */,
 				620590D624FDBB21001565BF /* Views */,
-				620590EF24FDBB21001565BF /* Info.plist */,
+				620590CE24FDBB21001565BF /* AppDelegate.swift */,
 				620590F024FDBB21001565BF /* SceneDelegate.swift */,
+				620590C624FDBB21001565BF /* LaunchScreen.storyboard */,
 			);
 			path = StudyHub;
 			sourceTree = "<group>";
@@ -148,6 +147,7 @@
 		620590B724FDBB21001565BF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				620590C324FDBB21001565BF /* GoogleService-Info.plist */,
 				620590B824FDBB21001565BF /* Fonts */,
 			);
 			path = Resources;
@@ -212,13 +212,13 @@
 		620590D624FDBB21001565BF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				620590EB24FDBB21001565BF /* ContentView.swift */,
 				620590D724FDBB21001565BF /* Timer Screen */,
 				620590D924FDBB21001565BF /* Settings */,
 				620590DB24FDBB21001565BF /* Home */,
 				620590DF24FDBB21001565BF /* Chat */,
 				620590E524FDBB21001565BF /* Leaderboard */,
 				620590E824FDBB21001565BF /* SubViews */,
-				620590EB24FDBB21001565BF /* ContentView.swift */,
 				620590EC24FDBB21001565BF /* Onboarding */,
 			);
 			path = Views;
@@ -382,6 +382,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E124C1B924FED758008EBD84 /* GoogleService-Info.plist in Resources */,
 				620590F224FDBB21001565BF /* Montserrat-Light.ttf in Resources */,
 				620590FA24FDBB21001565BF /* Assets.xcassets in Resources */,
 				620590F724FDBB21001565BF /* Montserrat-ExtraBold.ttf in Resources */,
@@ -391,7 +392,6 @@
 				620590F924FDBB21001565BF /* Montserrat-Regular.ttf in Resources */,
 				620590F624FDBB21001565BF /* Montserrat-SemiBold.ttf in Resources */,
 				620590F124FDBB21001565BF /* Montserrat-Medium.ttf in Resources */,
-				620590FB24FDBB21001565BF /* GoogleService-Info.plist in Resources */,
 				620590F424FDBB21001565BF /* Montserrat-Thin.ttf in Resources */,
 				620590F524FDBB21001565BF /* Montserrat-Bold.ttf in Resources */,
 				620590F324FDBB21001565BF /* Montserrat-ExtraLight.ttf in Resources */,
