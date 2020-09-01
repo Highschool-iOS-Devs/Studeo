@@ -31,7 +31,10 @@ final class UserData: ObservableObject {
     var userID: String = "nil"
     
     @Published(key: "hasInteractedWith")
-    var hasInteractedWith: [String] = [""]
+    var interactedPeople: [String] = [""]
+    
+    @Published(key: "hasInteractedWith")
+    var interactedChatRoom: [String] = [""]
     
     @Published(key: "chats")
     var chats: [String] = [""]

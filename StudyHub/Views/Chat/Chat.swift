@@ -20,7 +20,7 @@ struct ChatV2: View {
     @State var message = "Message"
     @State var goBack = false
     @State var add = false
-    @State var testing = false
+    @State var testing = true
     @EnvironmentObject var userData: UserData
     var body: some View {
         
@@ -182,7 +182,7 @@ struct ChatV2: View {
         }
         print(matchedPerson)
         
-        self.userData.hasInteractedWith.append(self.matchedPersonID)
+        self.userData.interactedPeople.append(self.matchedPersonID)
         self.userData.chats.append(self.chatRoom)
         print("hasInteractedWith")
         self.hasAppeared = true

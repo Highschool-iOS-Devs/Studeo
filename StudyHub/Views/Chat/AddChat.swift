@@ -26,7 +26,10 @@ struct AddChat: View {
             Color(.white)
                 .onAppear() {
                     
-                    self.categories = [Categories(id: "0", name: "College Apps", count: 0), Categories(id: "1", name: "SAT", count: 1),Categories(id: "2", name: "AP Gov", count: 2), Categories(id: "3", name: "APUSH", count: 3), Categories(id: "4", name: "AP World", count: 4),Categories(id: "5", name: "AP Macro", count: 5)]
+                     Auth.auth().signIn(withEmail: "andreasink17@gmail.com", password: "perry1") { [] authResult, error in
+                        
+                    }
+                        self.categories = [Categories(id: "0", name: "College Apps", count: 0), Categories(id: "1", name: "SAT", count: 1),Categories(id: "2", name: "AP Gov", count: 2), Categories(id: "3", name: "APUSH", count: 3), Categories(id: "4", name: "AP World", count: 4),Categories(id: "5", name: "AP Macro", count: 5)]
                     self.hasAppeared = true
             }
             
@@ -51,6 +54,11 @@ struct AddChat: View {
                                                     let property = document.get("id") as! String
                                                     let property2 = document.get("name") as! String
                                                     
+                                                    if property != Auth.auth().currentUser?.uid {
+                                                        
+                                                        if !self.userData.interactedPeople.contains(property) {
+                                                            
+                                                        
                                                     self.people.append(BasicUser(id: property, name: property2, count: 0))
                                                     print(self.people)
                                                     self.matchedPerson = self.people.randomElement()!
@@ -58,7 +66,7 @@ struct AddChat: View {
                                                     
                                                     
                                                     
-                                                   
+                                                    
                                                     db.collection("users").document(self.matchedPerson.id).getDocument { (document, error) in
                                                         if let document = document, document.exists {
                                                             
@@ -132,6 +140,8 @@ struct AddChat: View {
                                                             
                                                         }
                                                     }
+                                                    }
+                                                }
                                                 }
                                             }
                                     }
