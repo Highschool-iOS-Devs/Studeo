@@ -26,10 +26,8 @@ struct AddChat: View {
             Color(.white)
                 .onAppear() {
                     
-                     Auth.auth().signIn(withEmail: "andreasink17@gmail.com", password: "perry1") { [] authResult, error in
-                        
-                    }
-                        self.categories = [Categories(id: "0", name: "College Apps", count: 0), Categories(id: "1", name: "SAT", count: 1),Categories(id: "2", name: "AP Gov", count: 2), Categories(id: "3", name: "APUSH", count: 3), Categories(id: "4", name: "AP World", count: 4),Categories(id: "5", name: "AP Macro", count: 5)]
+              
+                    self.categories = [Categories(id: "0", name: "College Apps", count: 0), Categories(id: "1", name: "SAT", count: 1),Categories(id: "2", name: "AP Gov", count: 2), Categories(id: "3", name: "APUSH", count: 3), Categories(id: "4", name: "AP World", count: 4),Categories(id: "5", name: "AP Macro", count: 5)]
                     self.hasAppeared = true
             }
             
