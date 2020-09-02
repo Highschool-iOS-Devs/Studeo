@@ -13,6 +13,7 @@ struct CTA: View {
     @State var cta = ""
     var tabRouter:ViewRouter = .shared
     @State var currentView: ViewRouter.Views = .home
+     @EnvironmentObject var userData: UserData
     var body: some View {
         ZStack {
             
@@ -30,12 +31,14 @@ struct CTA: View {
                         
                         if self.cta == "Add Friends" {
                             self.tabRouter.currentView = .chatList
+                            self.userData.tappedCTA = true
                             
                         } else if self.cta == "Add Group" {
                             self.tabRouter.currentView = .groups
-                            
+                             self.userData.tappedCTA = true
                         } else {
                             self.tabRouter.currentView = .leaderboard
+                             self.userData.tappedCTA = true
                         }
                         
                     }) {

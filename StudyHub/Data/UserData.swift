@@ -59,6 +59,9 @@ final class UserData: ObservableObject {
     
     @Published
     var language: String = "English"
+    
+    @Published
+    var tappedCTA: Bool = false
 }
 
 import Foundation

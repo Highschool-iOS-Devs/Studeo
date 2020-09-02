@@ -72,17 +72,87 @@ struct ContentView: View {
             else if viewRouter.currentView == .login {
                 LoginView()
                     .environmentObject(viewRouter)
-    
+                
             }
             else if viewRouter.currentView == .chatList {
-                AddChat()
+                if self.userData.tappedCTA {
+                    VStack {
+                        
+                        HStack {
+                            Button(action: {
+                                
+                                self.viewRouter.currentView = .home
+                                
+                            }) {
+                                Image("dropdown")
+                                    .resizable()
+                                    .rotationEffect(Angle(degrees: 90))
+                                    .frame(minWidth: 24, maxWidth: 34, minHeight: 24, maxHeight: 34)
+                            }
+                            
+                            Spacer()
+                        } .padding(.all, 12)
+                        
+                        AddChat()
+                    }
+                } else {
+                    AddChat()
+                }
             }
             else if viewRouter.currentView == .groups {
-                           AddChat()
-                       }
+                
+                if self.userData.tappedCTA {
+                    VStack {
+                        
+                        HStack {
+                            Button(action: {
+                                
+                                self.viewRouter.currentView = .home
+                                
+                            }) {
+                                Image("dropdown")
+                                    .resizable()
+                                    .rotationEffect(Angle(degrees: 90))
+                                    .frame(minWidth: 24, maxWidth: 34, minHeight: 24, maxHeight: 34)
+                            }
+                            
+                            Spacer()
+                        } .padding(.all, 12)
+                        
+                        AddChat()
+                    }
+                } else {
+                    AddChat()
+                }
+            }
             else if viewRouter.currentView == .leaderboard {
-                           LeaderboardView()
-                       }
+                
+                if self.userData.tappedCTA {
+                    VStack {
+                        
+                        HStack {
+                            Button(action: {
+                                
+                                self.viewRouter.currentView = .home
+                                
+                            }) {
+                                Image("dropdown")
+                                    .resizable()
+                                    .renderingMode(.none)
+                                    .foregroundColor(.white)
+                                    .rotationEffect(Angle(degrees: 90))
+                                    .frame(minWidth: 24, maxWidth: 34, minHeight: 24, maxHeight: 34)
+                            }
+                            
+                            Spacer()
+                        } .padding(.all, 12)
+                        
+                        LeaderboardView()
+                    }
+                } else {
+                    LeaderboardView()
+                }
+            }
             else if viewRouter.currentView == .home {
                 Home()
             }
