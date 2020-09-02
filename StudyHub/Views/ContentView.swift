@@ -162,17 +162,16 @@ struct ContentView: View {
 }
     func checkAuth(){
         
-        Auth.auth().addStateDidChangeListener { (auth, user) in
-            guard user != nil else {
+         if Auth.auth().currentUser?.uid != nil {
                 self.viewRouter.currentView = .registration
-                return
                 
-            }
+                
+         } else {
             self.viewRouter.currentView = .home
         }
     }
+    }
 
-}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

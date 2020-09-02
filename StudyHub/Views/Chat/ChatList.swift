@@ -119,7 +119,7 @@ struct ChatList: View {
         var db: Firestore!
         db = Firestore.firestore()
         print(1)
-        db.collection("users").document(Auth.auth().currentUser!.uid).addSnapshotListener { (document, error) in
+        db.collection("users").document(Auth.auth().currentUser!.uid).getDocument { (document, error) in
             if let document = document, document.exists {
                 
                 

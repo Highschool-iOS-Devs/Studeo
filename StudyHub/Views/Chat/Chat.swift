@@ -21,6 +21,7 @@ struct ChatV2: View {
     @State var goBack = false
     @State var add = false
     @State var testing = true
+    @State var testName = ""
     @EnvironmentObject var userData: UserData
     var body: some View {
         
@@ -163,6 +164,7 @@ struct ChatV2: View {
                     if property["name"]! == self.userData.name {
                         
                         self.chat.append(ChatData(id: "\(UUID())", name: property["name"]! , message: property["message"]!, isMe: true))
+                        
                         print("TRUE")
                     }
                     if property["name"]! != self.userData.name {
@@ -192,7 +194,7 @@ struct ChatV2: View {
             db = Firestore.firestore()
             self.total = self.total + 1
             let data = [ "name": self.userData.name,
-                         "message": "Test"]
+                         "message": self.testName]
             db.collection("chats").document(self.chatRoom).updateData([
                 "\(self.total)": data,
                 "total": self.total,
