@@ -11,18 +11,26 @@ import SwiftUI
 
 struct LibraryView: View {
     @State private var search = ""
+    @State private var showingTimer = false
     
     var body: some View {
         GeometryReader { geo in
-            VStack {
-                LibraryHeader()
-                TextField("Search Books", text: self.$search)
-                    .textFieldStyle(SearchTextField())
-                ScrollView(showsIndicators: false) {
-                    LibraryCollectionView(collectionTitle: "Popular", geo)
-                    LibraryCollectionView(collectionTitle: "For You", geo)
-                    LibraryCollectionView(collectionTitle: "Popular", geo)
-                    LibraryCollectionView(collectionTitle: "For You", geo)
+            ZStack {
+                VStack {
+                    LibraryHeader(showTimer: self.$showingTimer)
+                    TextField("Search Books", text: self.$search)
+                        .textFieldStyle(SearchTextField())
+                    ScrollView(showsIndicators: false) {
+                        LibraryCollectionView(collectionTitle: "Popular", geo)
+                        LibraryCollectionView(collectionTitle: "For You", geo)
+                        LibraryCollectionView(collectionTitle: "Popular", geo)
+                        LibraryCollectionView(collectionTitle: "For You", geo)
+                    }
+                }
+                .blur(radius: self.showingTimer ? 15 : 0)
+                
+                if self.showingTimer {
+                    TimerView(showingView: self.$showingTimer)
                 }
             }
         }

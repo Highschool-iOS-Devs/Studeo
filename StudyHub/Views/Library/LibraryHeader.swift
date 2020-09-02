@@ -10,6 +10,8 @@
 import SwiftUI
 
 struct LibraryHeader: View {
+    @Binding var showTimer: Bool
+    
     var body: some View {
         HStack {
             Text("Library")
@@ -29,7 +31,11 @@ struct LibraryHeader: View {
                     .overlay(Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 5))
             } .padding(.trailing, 22)
             
-            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
+            Button(action: {
+                withAnimation {
+                    self.showTimer = true
+                }
+            }) {
                 ZStack {
                     Color(.white)
                         .frame(width: 40, height: 40)
@@ -46,12 +52,12 @@ struct LibraryHeader: View {
                 }
             }
             
-        } .padding(.horizontal, 32)
+        } .padding(.horizontal, 30)
     }
 }
 
 struct LibraryHeader_Previews: PreviewProvider {
     static var previews: some View {
-        LibraryHeader()
+        LibraryHeader(showTimer: .constant(false))
     }
 }
