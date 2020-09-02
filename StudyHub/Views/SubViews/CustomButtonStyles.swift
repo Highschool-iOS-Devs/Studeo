@@ -41,12 +41,12 @@ struct PauseResumeButton: ButtonStyle {
 
 struct AddMinutesButton: View {
     
-    let minutes: Int
+    let minutes: Double
     let action: () -> Void
     
     var body: some View {
         Button(action: action) {
-            Text("\(minutes) min")
+            Text("\(minutes, specifier: "%.0f") min")
         }
         .buttonStyle(AddMinutesStyle())
     }

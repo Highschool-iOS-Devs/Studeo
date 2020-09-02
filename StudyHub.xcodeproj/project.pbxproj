@@ -17,6 +17,7 @@
 		BE244CEA24F573B700280E49 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE244CE824F573B700280E49 /* LibraryView.swift */; };
 		BE244CEB24F573B700280E49 /* LibraryHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE244CE924F573B700280E49 /* LibraryHeader.swift */; };
 		BE244CED24F573C400280E49 /* BookImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE244CEC24F573C400280E49 /* BookImage.swift */; };
+		BE97942F24FFF815001F0CCA /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE97942E24FFF815001F0CCA /* TimerManager.swift */; };
 		BEBACDF124FE0F510066D245 /* GroupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBACDF024FE0F510066D245 /* GroupsView.swift */; };
 		E1439BB124F26441005E9354 /* ChatData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1439BB024F26440005E9354 /* ChatData.swift */; };
 		E178A44224F1CF21003907E2 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E178A44124F1CF21003907E2 /* UserData.swift */; };
@@ -55,6 +56,7 @@
 		BE244CE824F573B700280E49 /* LibraryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
 		BE244CE924F573B700280E49 /* LibraryHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryHeader.swift; sourceTree = "<group>"; };
 		BE244CEC24F573C400280E49 /* BookImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookImage.swift; sourceTree = "<group>"; };
+		BE97942E24FFF815001F0CCA /* TimerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
 		BEBACDF024FE0F510066D245 /* GroupsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupsView.swift; sourceTree = "<group>"; };
 		E1439BB024F26440005E9354 /* ChatData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatData.swift; sourceTree = "<group>"; };
 		E178A44124F1CF21003907E2 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				629F228124F2D2FD00A7E02E /* TimerView.swift */,
+				BE97942E24FFF815001F0CCA /* TimerManager.swift */,
 			);
 			path = "Timer Screen";
 			sourceTree = "<group>";
@@ -355,6 +358,7 @@
 				E339449624F1B71600F11BA9 /* AppDelegate.swift in Sources */,
 				E330B22E24F4A72E00AF8F54 /* IntroView.swift in Sources */,
 				E1439BB124F26441005E9354 /* ChatData.swift in Sources */,
+				BE97942F24FFF815001F0CCA /* TimerManager.swift in Sources */,
 				E33944C324F1E9F000F11BA9 /* RegistrationView.swift in Sources */,
 				E339449824F1B71600F11BA9 /* SceneDelegate.swift in Sources */,
 				E339449A24F1B71600F11BA9 /* ContentView.swift in Sources */,
