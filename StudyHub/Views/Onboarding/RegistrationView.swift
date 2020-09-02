@@ -12,9 +12,9 @@ import FirebaseAuth
 
 struct RegistrationView: View {
     
-    @State private var username: String = ""
-    @State private var password: String = ""
-    @State private var email: String = ""
+    @State private var username: String = "A2"
+    @State private var password: String = "perry1"
+    @State private var email: String = "andreasink@outlook.com"
     @State var errorObject:ErrorModel = ErrorModel(errorMessage: "", errorState: false)
     @State var displayError = false
     @Environment(\.presentationMode) var presentationMode
@@ -41,6 +41,43 @@ struct RegistrationView: View {
                     Text("Registration")
                         .font(Font.custom("Montserrat-SemiBold", size: 34))
                         //.offset(x: 0, y: 23)
+                    
+                        .onAppear() {
+                            Auth.auth().createUser(withEmail: self.email, password: self.password) { authResult, error in
+                                guard authResult != nil else {
+                                    
+                                    return
+                                }
+                                self.userData.name = self.username
+                                var db: Firestore!
+                                db = Firestore.firestore()
+                                let pushManager = PushNotificationManager(userID: Auth.auth().currentUser!.uid)
+                                pushManager.registerForPushNotifications()
+                                let defaults = UserDefaults.standard
+                                let token = defaults.string(forKey: "fcmToken")
+                                db.collection("users").document(Auth.auth().currentUser!.uid).setData([
+                                    "name": self.username,
+                                    "id": Auth.auth().currentUser!.uid,
+                                    "hours": [0.0],
+                                    "image": "",
+                                    "school": [0.0,0.0],
+                                    "hoursDate": [Date()],
+                                    "interactedPeople": [Auth.auth().currentUser!.uid],
+                                    "interactedChatRooms": ["\(UUID())"],
+                                    "fcmToken": token,
+                                    "SAT": true,
+                                ]) { error in
+                                    guard error == nil
+                                        else {
+                                            print("Error writing document, \(String(describing: error))")
+                                            return
+                                    }
+                                    
+                                }
+                            }
+                            
+                                   }
+                    }
                     Image("5293")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
@@ -90,7 +127,7 @@ struct RegistrationView: View {
                 } .padding(.bottom, 85)
             }
         }
-    }
+    
 
 
     func sendData(performActions: @escaping (ErrorModel, AuthDataResult?) -> Void) {

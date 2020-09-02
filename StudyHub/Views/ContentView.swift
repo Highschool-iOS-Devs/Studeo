@@ -162,7 +162,7 @@ struct ContentView: View {
 }
     func checkAuth(){
         
-         if Auth.auth().currentUser?.uid != nil {
+         if Auth.auth().currentUser?.uid == nil {
                 self.viewRouter.currentView = .registration
                 
                 
