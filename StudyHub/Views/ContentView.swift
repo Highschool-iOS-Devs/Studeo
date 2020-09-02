@@ -93,10 +93,10 @@ struct ContentView: View {
                             Spacer()
                         } .padding(.all, 12)
                         
-                        AddChat()
+                        ChatList()
                     }
                 } else {
-                    AddChat()
+                    ChatList()
                 }
             }
             else if viewRouter.currentView == .groups {
@@ -119,10 +119,10 @@ struct ContentView: View {
                             Spacer()
                         } .padding(.all, 12)
                         
-                        AddChat()
+                        ChatList()
                     }
                 } else {
-                    AddChat()
+                    ChatList()
                 }
             }
             else if viewRouter.currentView == .leaderboard {
