@@ -77,8 +77,9 @@ struct RegistrationView: View {
                                             print("Error writing document, \(String(describing: error))")
                                             return
                                     }
-                                    
+                                 
                                 }
+                                   self.viewRouter.currentView = .home
                             }
                             
                              

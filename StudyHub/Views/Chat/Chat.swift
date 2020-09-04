@@ -32,7 +32,8 @@ struct ChatV2: View {
                 
                 .onAppear() {
                     self.chat.removeAll()
-                    
+                    self.i = 0
+                    self.total = -1
                     withAnimation() {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                             self.loadData()
@@ -194,8 +195,8 @@ struct ChatV2: View {
             db = Firestore.firestore()
             self.total = self.total + 1
             let data = [ "name": self.userData.name,
-                         "message": self.testName]
-            db.collection("chats").document(self.chatRoom).setData([
+                         "message": self.matchedPerson]
+            db.collection("chats").document(self.chatRoom).updateData([
                 "\(self.total)": data,
                 "total": self.total,
                 
