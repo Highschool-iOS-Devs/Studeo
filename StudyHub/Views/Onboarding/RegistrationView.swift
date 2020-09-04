@@ -108,6 +108,7 @@ struct RegistrationView: View {
                     VStack(spacing: 35) {
                         Button(action: {
                             print("Tapped Sign-Up button")
+                            
                             self.sendData{error, authResult in
                                 guard error.errorState == false else {
                                     self.errorObject = error
