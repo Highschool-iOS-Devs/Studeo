@@ -12,10 +12,13 @@ import FirebaseAuth
 
 struct LoginView: View {
     
-    @State private var username: String = ""
-    @State private var password: String = ""
-    @State private var email: String = ""
+    @State private var username: String = "A2"
+    @State private var password: String = "perry1"
+    @State private var email: String = "andreasink@outlook.com"
     @State var displayError = false
+    
+    @State var test = true
+    
     @State var errorObject:ErrorModel = ErrorModel(errorMessage: "", errorState: false)
     @EnvironmentObject var userData: UserData
     @EnvironmentObject var viewRouter:ViewRouter
@@ -37,7 +40,45 @@ struct LoginView: View {
                 Text("Login")
                     .font(Font.custom("Montserrat-SemiBold", size: 34))
                 //.offset(x: 0, y: 23)
-                
+                    .onAppear() {
+                        if self.test {
+                        Auth.auth().signIn(withEmail: self.email, password: self.password) { [] authResult, error in
+                        
+                        guard authResult != nil else {
+                          
+                            return
+                        }
+                        
+                        var db: Firestore!
+                        db = Firestore.firestore()
+                        
+                        let defaults = UserDefaults.standard
+                        let pushManager = PushNotificationManager(userID: Auth.auth().currentUser!.uid)
+                        
+                        pushManager.registerForPushNotifications()
+                        self.userData.name = self.username
+                        let token = defaults.string(forKey: "fcmToken")
+                        db.collection("users").document(Auth.auth().currentUser!.uid).setData([
+                            "name": self.username,
+                            "id": Auth.auth().currentUser!.uid,
+                            "hours": [0.0],
+                            "image": "",
+                            "school": [0.0,0.0],
+                            "hoursDate": [Date()],
+                            "interactedPeople": [Auth.auth().currentUser!.uid],
+                            "interactedChatRooms": ["\(UUID())"],
+                            "fcmToken": token,
+                            "SAT": true,
+                        ]) { error in
+                            guard error == nil
+                                else {
+                                    print("Error writing document, \(String(describing: error))")
+                                    return
+                            }
+                }
+                        }
+                        }
+                }
                 Image("studying")
                     .resizable()
                     .aspectRatio(contentMode: .fit)

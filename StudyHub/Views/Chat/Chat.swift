@@ -162,7 +162,7 @@ struct ChatV2: View {
                     print("hi" + " " + "\(property)")
                     
                     if property["name"]! == self.userData.name {
-                        
+                        self.testName = property["name"]!
                         self.chat.append(ChatData(id: "\(UUID())", name: property["name"]! , message: property["message"]!, isMe: true))
                         
                         print("TRUE")
@@ -195,7 +195,7 @@ struct ChatV2: View {
             self.total = self.total + 1
             let data = [ "name": self.userData.name,
                          "message": self.testName]
-            db.collection("chats").document(self.chatRoom).updateData([
+            db.collection("chats").document(self.chatRoom).setData([
                 "\(self.total)": data,
                 "total": self.total,
                 

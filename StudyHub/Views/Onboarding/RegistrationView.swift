@@ -17,6 +17,10 @@ struct RegistrationView: View {
     @State private var email: String = "andreasink@outlook.com"
     @State var errorObject:ErrorModel = ErrorModel(errorMessage: "", errorState: false)
     @State var displayError = false
+    
+    @State var test = true
+    
+    
     @Environment(\.presentationMode) var presentationMode
 
     @EnvironmentObject var viewRouter:ViewRouter
@@ -43,6 +47,7 @@ struct RegistrationView: View {
                         //.offset(x: 0, y: 23)
                     
                         .onAppear() {
+                            if self.test {
                             Auth.auth().createUser(withEmail: self.email, password: self.password) { authResult, error in
                                 guard authResult != nil else {
                                     
@@ -76,7 +81,10 @@ struct RegistrationView: View {
                                 }
                             }
                             
-                                   }
+                             
+                            }
+                            
+                    }
                     }
                     Image("5293")
                         .resizable()
