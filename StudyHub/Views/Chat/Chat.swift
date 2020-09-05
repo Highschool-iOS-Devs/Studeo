@@ -214,7 +214,7 @@ struct ChatV2: View {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             var db: Firestore!
             db = Firestore.firestore()
-            if self.addChat {
+            if !self.addChat {
             self.total = self.total + 1
             let data = [ "name": self.userData.name,
                          "message": self.matchedPerson]
