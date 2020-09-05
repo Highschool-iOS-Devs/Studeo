@@ -22,6 +22,9 @@ struct ChatV2: View {
     @State var add = false
     @State var testing = true
     @State var testName = ""
+    @State var currentOffset = 0
+    @State var scrollOffset = 0
+    
     @EnvironmentObject var userData: UserData
     var body: some View {
         
@@ -31,7 +34,7 @@ struct ChatV2: View {
                 
                 
                 .onAppear() {
-                    self.chat.removeAll()
+                   // self.chat.removeAll()
                     self.i = 0
                     self.total = -1
                     withAnimation() {
@@ -50,14 +53,15 @@ struct ChatV2: View {
                 Spacer()
             }
             VStack {
-                ScrollView(.vertical) {
+                  if self.hasAppeared {
+               ReverseScrollView(scrollOffset: CGFloat(self.scrollOffset), currentOffset: CGFloat(self.currentOffset)) {
                     
-                    if self.hasAppeared {
+                   
                         VStack {
+                           
                             
                             
-                            
-                            ForEach(chat, id: \.id) { chating in
+                            ForEach(self.chat, id: \.id) { chating in
                                 Group {
                                     
                                     if !chating.isMe {
@@ -81,6 +85,7 @@ struct ChatV2: View {
                     }
                     
                 }
+            
                 Spacer()
                 Divider()
                 HStack {

@@ -27,6 +27,10 @@ struct Home: View {
                             .resizable()
                             .frame(width: 15, height: 15)
                             .aspectRatio(contentMode: .fit)
+                        
+                            .onAppear() {
+                                 //self.userData.interactedPeople.removeAll()
+                        }
                     } .padding(.horizontal, 44)
                     TextField("Search", text: $search)
                         .font(Font.custom("Montserrat-Regular", size: 15.0))

@@ -8,7 +8,7 @@
 
 import SwiftUI
 import Firebase
-
+import FirebaseAuth
 struct AddChat: View {
     @EnvironmentObject var userData: UserData
     @State var hasAppeared = false
@@ -25,7 +25,7 @@ struct AddChat: View {
         ZStack {
             Color(.white)
                 .onAppear() {
-                    
+                   
               
                     self.categories = [Categories(id: "0", name: "College Apps", count: 0), Categories(id: "1", name: "SAT", count: 1),Categories(id: "2", name: "AP Gov", count: 2), Categories(id: "3", name: "APUSH", count: 3), Categories(id: "4", name: "AP World", count: 4),Categories(id: "5", name: "AP Macro", count: 5)]
                     self.hasAppeared = true
@@ -42,10 +42,19 @@ struct AddChat: View {
                                     
                                     var db: Firestore!
                                     db = Firestore.firestore()
-                                    
-                                    db.collection("users").whereField(category.name, isEqualTo: true)
-                                        .getDocuments() { (querySnapshot, err) in
-                                            if let err = err {
+                                    db.collection("users").document(Auth.auth().currentUser!.uid).getDocument { (document, error) in
+                                        if let document = document, document.exists {
+                                            
+                                            let property = document.get("id") as! String
+                                            let property2 = document.get("name") as! String
+                                            var interactedPeople = document.get("interactedPeople") as! [String]
+                                            print(property)
+                                            var interactedChatRooms = document.get("interactedChatRooms") as! [String]
+                                            
+                                            
+                                            db.collection("users").whereField(category.name, isEqualTo: true)
+                                                .getDocuments() { (querySnapshot, err) in
+                                                    if let err = err {
                                                 print("Error getting documents: \(err)")
                                             } else {
                                                 for document in querySnapshot!.documents {
@@ -54,7 +63,7 @@ struct AddChat: View {
                                                     
                                                     if property != Auth.auth().currentUser?.uid {
                                                         
-                                                        if !self.userData.interactedPeople.contains(property) {
+                                                        if !interactedPeople.contains(property) {
                                                             
                                                         
                                                     self.people.append(BasicUser(id: property, name: property2, count: 0))
@@ -143,7 +152,8 @@ struct AddChat: View {
                                                 }
                                             }
                                     }
-                                    
+                                        }
+                                    }
                                     
                                     
                                     
@@ -177,3 +187,4 @@ struct AddChat: View {
     }
     
 }
+

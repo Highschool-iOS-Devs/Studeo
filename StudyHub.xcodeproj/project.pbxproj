@@ -50,6 +50,8 @@
 		6205911B24FDBB21001565BF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620590F024FDBB21001565BF /* SceneDelegate.swift */; };
 		6205911D24FDBD1D001565BF /* ErrorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6205911C24FDBD1D001565BF /* ErrorModel.swift */; };
 		E124C1B924FED758008EBD84 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 620590C324FDBB21001565BF /* GoogleService-Info.plist */; };
+		E1C91E122503B80800001424 /* ReverseScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C91E112503B80800001424 /* ReverseScrollView.swift */; };
+		E1C91E142503B86300001424 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C91E132503B86300001424 /* Blur.swift */; };
 		E1FD834D24F54E670024D2A3 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E1FD834C24F54E670024D2A3 /* IQKeyboardManagerSwift */; };
 		FB33AEA3FD2D5803BE4DAF75 /* Pods_StudyHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47F4119D880B6AFBE91DBA85 /* Pods_StudyHub.framework */; };
 /* End PBXBuildFile section */
@@ -101,6 +103,8 @@
 		620590F024FDBB21001565BF /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		6205911C24FDBD1D001565BF /* ErrorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorModel.swift; sourceTree = "<group>"; };
 		C7A62219EB10FE2A621A6C84 /* Pods-StudyHub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudyHub.debug.xcconfig"; path = "Target Support Files/Pods-StudyHub/Pods-StudyHub.debug.xcconfig"; sourceTree = "<group>"; };
+		E1C91E112503B80800001424 /* ReverseScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverseScrollView.swift; sourceTree = "<group>"; };
+		E1C91E132503B86300001424 /* Blur.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
 		E339449224F1B71600F11BA9 /* StudyHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEC3B6AC4F1E11EB05097CA0 /* Pods-StudyHub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudyHub.release.xcconfig"; path = "Target Support Files/Pods-StudyHub/Pods-StudyHub.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -200,6 +204,7 @@
 			children = (
 				620590D024FDBB21001565BF /* Categories.swift */,
 				620590D124FDBB21001565BF /* User.swift */,
+				620590E024FDBB21001565BF /* ChatCells.swift */,
 				620590D224FDBB21001565BF /* UserData.swift */,
 				620590D324FDBB21001565BF /* LibraryData.swift */,
 				620590D424FDBB21001565BF /* ViewRouter.swift */,
@@ -213,6 +218,7 @@
 			isa = PBXGroup;
 			children = (
 				620590EB24FDBB21001565BF /* ContentView.swift */,
+				E1C91E152503B86800001424 /* Utility */,
 				620590D724FDBB21001565BF /* Timer Screen */,
 				620590D924FDBB21001565BF /* Settings */,
 				620590DB24FDBB21001565BF /* Home */,
@@ -253,11 +259,11 @@
 		620590DF24FDBB21001565BF /* Chat */ = {
 			isa = PBXGroup;
 			children = (
-				620590E024FDBB21001565BF /* ChatCells.swift */,
 				620590E124FDBB21001565BF /* AddChat.swift */,
 				620590E224FDBB21001565BF /* Chat.swift */,
 				620590E324FDBB21001565BF /* ChatList.swift */,
 				620590E424FDBB21001565BF /* AddChatCell.swift */,
+				E1C91E112503B80800001424 /* ReverseScrollView.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -296,6 +302,14 @@
 				EEC3B6AC4F1E11EB05097CA0 /* Pods-StudyHub.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		E1C91E152503B86800001424 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				E1C91E132503B86300001424 /* Blur.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 		E339448924F1B71600F11BA9 = {
@@ -450,6 +464,7 @@
 				6205911D24FDBD1D001565BF /* ErrorModel.swift in Sources */,
 				6205911724FDBB21001565BF /* ContentView.swift in Sources */,
 				6205910A24FDBB21001565BF /* SettingView.swift in Sources */,
+				E1C91E122503B80800001424 /* ReverseScrollView.swift in Sources */,
 				6205910824FDBB21001565BF /* ChatData.swift in Sources */,
 				6205910724FDBB21001565BF /* ViewRouter.swift in Sources */,
 				6205910D24FDBB21001565BF /* Header.swift in Sources */,
@@ -472,6 +487,7 @@
 				6205911524FDBB21001565BF /* TabBar.swift in Sources */,
 				620590FF24FDBB21001565BF /* PushNotificationManager.swift in Sources */,
 				6205910424FDBB21001565BF /* User.swift in Sources */,
+				E1C91E142503B86300001424 /* Blur.swift in Sources */,
 				6205911124FDBB21001565BF /* ChatList.swift in Sources */,
 				6205910224FDBB21001565BF /* AppDelegate.swift in Sources */,
 				6205911924FDBB21001565BF /* LoginView.swift in Sources */,
