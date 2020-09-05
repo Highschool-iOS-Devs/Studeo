@@ -181,6 +181,19 @@ struct ChatV2: View {
                 
             } else {
                 print("Document does not exist")
+                let data = [ "name": self.userData.name,
+                                        "message": self.matchedPerson]
+                db.collection("chats").document(self.chatRoom).setData([
+                                     "\(0)": data,
+                                     "total": 0,
+                                     
+                                 ]) { err in
+                                     if let err = err {
+                                         print("Error writing document: \(err)")
+                                     } else {
+                                         print("Document successfully written!")
+                                     }
+                                 }
             }
         }
         print(matchedPerson)
@@ -204,8 +217,8 @@ struct ChatV2: View {
                 if let err = err {
                     print("Error writing document: \(err)")
                     db.collection("chats").document(self.chatRoom).setData([
-                        "\(self.total)": data,
-                        "total": self.total,
+                        "\(0)": data,
+                        "total": 0,
                         
                     ]) { err in
                         if let err = err {

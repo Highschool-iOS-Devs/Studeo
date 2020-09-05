@@ -12,7 +12,7 @@ import FirebaseAuth
 struct ContentView: View {
     @EnvironmentObject var userData: UserData
     @EnvironmentObject var viewRouter:ViewRouter
-
+    @State private var hasCheckedAuth = false
     @Environment(\.presentationMode) var presentationMode
     @State private var showSheet = false
 
@@ -64,7 +64,7 @@ struct ContentView: View {
                 .onAppear{
                     self.checkAuth()
             }
-            
+            if self.hasCheckedAuth {
             if viewRouter.currentView == .registration{
                 RegistrationView()
                     .environmentObject(viewRouter)
@@ -119,7 +119,8 @@ struct ContentView: View {
                             Spacer()
                         } .padding(.all, 12)
                         
-                        ChatList()
+                        RegistrationView()
+                            .environmentObject(viewRouter)
                     }
                 } else {
                     ChatList()
@@ -157,17 +158,20 @@ struct ContentView: View {
                 Home()
             }
         }
+        }
         
 
 }
     func checkAuth(){
         
-         if Auth.auth().currentUser?.uid == nil {
-                self.viewRouter.currentView = .registration
+        if Auth.auth().currentUser != nil {
                 
+           self.viewRouter.currentView = .home
+            self.hasCheckedAuth = true
                 
          } else {
-            self.viewRouter.currentView = .home
+            self.viewRouter.currentView = .registration
+            self.hasCheckedAuth = true
         }
     }
     }

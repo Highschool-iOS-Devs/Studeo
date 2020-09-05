@@ -12,10 +12,10 @@ import FirebaseAuth
 
 struct RegistrationView: View {
     
-    @State private var username: String = "A2"
+    @State private var username: String = "A1"
     @State private var password: String = "perry1"
-    @State private var email: String = "andreasink@outlook.com"
-    @State var errorObject:ErrorModel = ErrorModel(errorMessage: "", errorState: false)
+    @State private var email: String = "andreasink17@gmail.com"
+    @State var errorObject: ErrorModel = ErrorModel(errorMessage: "", errorState: false)
     @State var displayError = false
     
     @State var test = true
@@ -23,7 +23,7 @@ struct RegistrationView: View {
     
     @Environment(\.presentationMode) var presentationMode
 
-    @EnvironmentObject var viewRouter:ViewRouter
+    @EnvironmentObject var viewRouter: ViewRouter
 
     @EnvironmentObject var userData: UserData
     

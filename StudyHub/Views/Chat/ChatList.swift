@@ -10,6 +10,7 @@ import SwiftUI
 import Firebase
 struct ChatList: View {
     @State var people = [ChattedWith]()
+    @State var person = ChattedWith(id: "", name: "", count: 0, chatRoom: "")
     @EnvironmentObject var userData: UserData
     @State var hasData = false
     @State var tapped = false
@@ -60,7 +61,11 @@ struct ChatList: View {
                                     Text(person.name)
                                         .padding(.top, 42)
                                         .onTapGesture {
+                                            print("PersonCountBefore\(self.personCount)")
                                             self.personCount = person.count
+                                            
+                                            self.person = person
+                                             print("PersonCountAfter\(self.personCount)")
                                             self.activeSheet = .second
                                             self.tapped.toggle()
                                             
@@ -80,7 +85,7 @@ struct ChatList: View {
                                 .environmentObject(UserData.shared)
                         }
                         else if self.activeSheet == .second {
-                            ChatV2(matchedPerson: self.people[  self.personCount].name,chatRoom: self.chatRoom[self.personCount])
+                            ChatV2(matchedPerson: self.person.name, chatRoom: self.person.chatRoom)
                                 .environmentObject(UserData.shared)
                         }
                     }
@@ -119,6 +124,8 @@ struct ChatList: View {
         var db: Firestore!
         db = Firestore.firestore()
         print(1)
+        let docRef = db.collection("cities").document("SF")
+   
         db.collection("users").document(Auth.auth().currentUser!.uid).getDocument { (document, error) in
             if let document = document, document.exists {
                 
@@ -141,7 +148,8 @@ struct ChatList: View {
                             print(self.chatRoom)
                             if !self.tapped {
                                 self.personCount += 1
-                                self.people.append(ChattedWith(id: id, name: name, count: self.personCount, chatRoom: self.chatRoom[self.personCount]))
+                                print("person count: \(self.personCount)")
+                                self.people.append(ChattedWith(id: "\(UUID())", name: name, count: self.personCount, chatRoom: self.chatRoom[self.personCount]))
                                 
                                 
                                 print("chatroom ids =   \(self.chatRoom)")
@@ -171,7 +179,10 @@ struct ChatList: View {
         }
         //   print(self.index)
     }
-}
+    
+  
+          //   print(self.index)
+      }
 
 
 
