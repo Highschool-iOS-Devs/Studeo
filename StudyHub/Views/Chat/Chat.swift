@@ -176,6 +176,7 @@ struct ChatV2: View {
                         print("TRUE")
                     }
                     if property["name"]! != self.userData.name {
+                        
                         self.chat.append(ChatData(id: "\(UUID())", name: property["name"]! , message: property["message"]!, isMe: false))
                         print("FALSE")
                         
@@ -213,6 +214,7 @@ struct ChatV2: View {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             var db: Firestore!
             db = Firestore.firestore()
+            if self.addChat {
             self.total = self.total + 1
             let data = [ "name": self.userData.name,
                          "message": self.matchedPerson]
@@ -248,8 +250,23 @@ struct ChatV2: View {
                             }
                         }
                     }
-                    }
                 }
+                }
+            } else {
+                let data = [ "name": self.userData.name,
+                             "message": self.matchedPerson]
+                db.collection("chats").document(self.chatRoom).setData([
+                    "\(0)": data,
+                    "total": 0,
+                    
+                ]) { err in
+                    if let err = err {
+                                          print("Error writing document: \(err)")
+                                      } else {
+                                          print("Document successfully written!")
+                                      }
+                                  }
+            }
             }
         }
     }
