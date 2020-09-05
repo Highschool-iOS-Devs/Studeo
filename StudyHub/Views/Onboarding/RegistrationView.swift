@@ -12,9 +12,9 @@ import FirebaseAuth
 
 struct RegistrationView: View {
     
-    @State private var username: String = "A1"
+    @State private var username: String = "A3"
     @State private var password: String = "perry1"
-    @State private var email: String = "andreasink17@gmail.com"
+    @State private var email: String = "andreas.ink@wascholar.org"
     @State var errorObject: ErrorModel = ErrorModel(errorMessage: "", errorState: false)
     @State var displayError = false
     

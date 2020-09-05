@@ -24,6 +24,7 @@ struct ChatV2: View {
     @State var testName = ""
     @State var currentOffset = 0
     @State var scrollOffset = 0
+    @State var addChat = false
     
     @EnvironmentObject var userData: UserData
     var body: some View {
@@ -101,7 +102,7 @@ struct ChatV2: View {
                         .foregroundColor(Color(.systemBlue))
                         .frame(width: 50, height: 50)
                         .onTapGesture {
-                            
+                            if self.addChat {
                             var db: Firestore!
                             db = Firestore.firestore()
                             self.total = self.total + 1
@@ -140,6 +141,7 @@ struct ChatV2: View {
                                         }
                                     }
                                 }
+                            }
                             }
                             self.message = ""
                     }

@@ -21,6 +21,7 @@ struct AddChat: View {
     @State var userIDs = ""
     @State var hasInteractedBefore = false
     @State var hasFound = false
+   
     var body: some View {
         ZStack {
             Color(.white)
@@ -179,7 +180,7 @@ struct AddChat: View {
                 ZStack {
                     
                     Color(.white)
-                    ChatV2(matchedPerson: self.matchedPerson.name, chatRoom: "\(UUID())",matchedPersonID: self.matchedPerson.id)
+                    ChatV2(matchedPerson: self.matchedPerson.name, chatRoom: self.chatRoom, matchedPersonID: self.matchedPerson.id, addChat: true)
                     
                 }
             }
