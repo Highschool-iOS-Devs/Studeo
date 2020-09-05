@@ -61,13 +61,7 @@ struct ChatList: View {
                                     Text(person.name)
                                         .padding(.top, 42)
                                         .onTapGesture {
-                                            print("PersonCountBefore\(self.personCount)")
-                                            self.personCount = person.count
-                                            
-                                            self.person = person
-                                             print("PersonCountAfter\(self.personCount)")
-                                            self.activeSheet = .second
-                                            self.tapped.toggle()
+                                          
                                             
                                     }
                                     Spacer()
@@ -121,63 +115,7 @@ struct ChatList: View {
         }
     }
     func loadData() {
-        var db: Firestore!
-        db = Firestore.firestore()
-        print(1)
-        let docRef = db.collection("cities").document("SF")
-   
-        db.collection("users").document(Auth.auth().currentUser!.uid).getDocument { (document, error) in
-            if let document = document, document.exists {
-                
-                
-                let name = document.get("name") as! String
-                let id = document.get("id") as! String
-                let hasInteractedWith = document.get("interactedPeople") as! [String]
-                print(hasInteractedWith)
-                self.chatRoom = document.get("interactedChatRooms") as! [String]
-                self.userIDs = hasInteractedWith
-                for interacted in hasInteractedWith {
-                    
-                    db.collection("users").document(interacted).getDocument { (document, error) in
-                        if let document = document, document.exists {
-                            
-                            let name = document.get("name") as! String
-                            let id = document.get("id") as! String
-                            print(id)
-                            
-                            print(self.chatRoom)
-                            if !self.tapped {
-                                self.personCount += 1
-                                print("person count: \(self.personCount)")
-                                self.people.append(ChattedWith(id: "\(UUID())", name: name, count: self.personCount, chatRoom: self.chatRoom[self.personCount]))
-                                
-                                
-                                print("chatroom ids =   \(self.chatRoom)")
-                                print("user ids =   \(self.userIDs)")
-                                
-                            }
-                            // for person in self.people {
-                            
-                            //  if person.id == Auth.auth().currentUser!.uid {
-                            
-                            //  print("Remove")
-                            // self.people.remove(at: self.num)
-                            // self.num -= 1
-                            //  self.personCount -= 1
-                            // }
-                            //    print("Add")
-                            
-                            self.hasData = true
-                        }
-                        
-                    }
-                    print(self.personCount)
-                    //   print(self.people[self.personCount].chatRoom)
-                    
-                }
-            }
-        }
-        //   print(self.index)
+       
     }
     
   
