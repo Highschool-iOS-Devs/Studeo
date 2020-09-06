@@ -12,6 +12,7 @@ let screenSize = UIScreen.main.bounds.size
 
 struct SettingView: View {
      @EnvironmentObject var userData: UserData
+    @EnvironmentObject var viewRouter: ViewRouter
     var body: some View {
         ScrollView {
             VStack {
@@ -41,6 +42,11 @@ struct SettingView: View {
                         settingRowView(settingText: "Language", settingState: "English")
                         settingRowView(settingText: "Password settings", settingState: "")
                         settingRowView(settingText: "Sign out", settingState: "")
+                            .onTapGesture {
+                                FirebaseManager().signOut()
+                                self.viewRouter.updateCurrentView(view: .registration)
+                                
+                        }
                         settingRowView(settingText: "Help", settingState: "")
                     }
                     Spacer()

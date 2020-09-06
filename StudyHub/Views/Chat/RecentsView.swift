@@ -1,15 +1,87 @@
-////
-////  ChatList.swift
-////  StudyHub
-////
-////  Created by Andreas Ink on 8/29/20.
-////  Copyright © 2020 Dakshin Devanand. All rights reserved.
-////
 //
-//import SwiftUI
-//import Firebase
-//struct ChatList: View {
-//    @State var people = [ChattedWith]()
+//ChatList.swift
+//  StudyHub
+//
+//  Created by Andreas Ink on 8/29/20.
+//  Copyright © 2020 Dakshin Devanand. All rights reserved.
+//
+//
+import SwiftUI
+import Firebase
+
+//Jevon: I will reference the old chat list view
+struct RecentsView: View {
+    @State var recentPeople = [User]()
+    @EnvironmentObject var userData: UserData
+    @EnvironmentObject var viewRouter: ViewRouter
+    var body: some View {
+        VStack {
+            Spacer()
+            VStack{
+                Text("Recent Chats")
+                    .font(.custom("Montserrat-Bold", size: 20))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading, 15)
+                    .padding(.vertical, 30)
+                
+                ForEach(recentPeople){user in
+                    RecentPersonView(name: user.name)
+                        .onTapGesture {
+                            self.userData.userID = user.id.uuidString
+                            self.viewRouter.updateCurrentView(view: .chats)
+                    }
+                }
+                
+                Spacer()
+            }
+            .frame(height: 600)
+            .background(
+                RoundedRectangle(cornerRadius: 20, style: .continuous)
+                    .stroke(Color.black.opacity(0.3), lineWidth: 1)
+            )
+                .offset(x: 0, y: 50)
+                .onAppear{
+                    self.loadData(){userData in
+                        self.recentPeople = userData
+                    }
+            }
+        }
+    }
+    
+    func loadData(performAction: @escaping ([User]) -> Void){
+        let db = Firestore.firestore()
+        let docRef = db.collection("users")
+        var userList:[User] = []
+        docRef.getDocuments{ (querySnapshot, error) in
+            for document in querySnapshot!.documents{
+                let result = Result {
+                    try document.data(as: User.self)
+                }
+                switch result {
+                case .success(let user):
+                    if let user = user {
+                        userList.append(user)
+                      
+                    } else {
+                        
+                        print("Document does not exist")
+                    }
+                case .failure(let error):
+                    print("Error decoding user: \(error)")
+                }
+            }
+              performAction(userList)
+        }
+        
+        
+    }
+}
+struct ChatList_Previews: PreviewProvider {
+    static var previews: some View {
+        RecentsView()
+    }
+}
+
 //    @State var person = ChattedWith(id: "", name: "", count: 0, chatRoom: "")
 //    @EnvironmentObject var userData: UserData
 //    @State var hasData = false
@@ -124,3 +196,23 @@
 //
 //
 //
+
+struct RecentPersonView: View {
+    var name:String
+    
+    var body: some View {
+        HStack{
+            Image("demoprofile")
+                .resizable()
+                .clipShape(Circle())
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 55, height: 55)
+            
+            Text(name)
+                .font(.custom("Montserrat-SemiBold", size: 18))
+                .padding(.leading, 25)
+            Spacer()
+        }
+        .padding(.horizontal, 15)
+    }
+}

@@ -39,3 +39,7 @@ struct ChattedWith: Identifiable {
         
     }
 }
+
+struct ChatDataInfo: ObservedObject{
+    var chatID: String
+}

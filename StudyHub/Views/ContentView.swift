@@ -18,53 +18,13 @@ struct ContentView: View {
 
     var body: some View {
         ZStack {
-//            Color(.white)
-//                .onAppear() {
-//                    if Auth.auth().currentUser?.uid == nil {
-//                        self.showSheet = true
-//                    }
-//            }
-//            GeometryReader { geometry in
-//                if self.tabRouter.currentView == .chats {
-//                    ChatList()
-//                }
-//                else if self.tabRouter.currentView == .books {
-//                    Text("Books View")
-//                }
-//                else if self.tabRouter.currentView == .groups {
-//                    Text("Groups View")
-//                }
-//                else if self.tabRouter.currentView == .settings {
-//                    SettingView()
-//                        .transition(.move(edge: .bottom))
-//                        .animation(.timingCurve(0.06,0.98,0.69,1))
-//                }
-//                else if self.tabRouter.currentView == .home {
-//                    Home()
-//                        .transition(.move(edge: .bottom))
-//                        .animation(.timingCurve(0.06,0.98,0.69,1))
-//                }
-//
-//
-//                tabBarView(tabRouter: self.tabRouter, currentView: self.$tabRouter.currentView)
-//                    .edgesIgnoringSafeArea(.bottom)
-//                    .offset(y: geometry.size.height/50)
-//            }.padding(.vertical, 12)
-//
-//
-//                .sheet(isPresented: $showSheet) {
-//                    RegistrationView()
-//                    .environmentObject(UserData.shared)
-//
-//
-//            }
-//        }
             Color.white
                 .edgesIgnoringSafeArea(.all)
                 .onAppear{
                     self.checkAuth()
             }
             if self.hasCheckedAuth {
+                
             if viewRouter.currentView == .registration{
                 RegistrationView()
                     .environmentObject(viewRouter)
@@ -72,92 +32,34 @@ struct ContentView: View {
             else if viewRouter.currentView == .login {
                 LoginView()
                     .environmentObject(viewRouter)
-                
             }
             else if viewRouter.currentView == .chatList {
-                if self.userData.tappedCTA {
-                    VStack {
-                        
-                        HStack {
-                            Button(action: {
-                                
-                                self.viewRouter.currentView = .home
-                                
-                            }) {
-                                Image("dropdown")
-                                    .resizable()
-                                    .rotationEffect(Angle(degrees: 90))
-                                    .frame(minWidth: 24, maxWidth: 34, minHeight: 24, maxHeight: 34)
-                            }
-                            
-                            Spacer()
-                        } .padding(.all, 12)
-                        
-                        //ChatList()
-                    }
-                } else {
-                    //ChatList()
-                }
+                    RecentsView()
+           
             }
             else if viewRouter.currentView == .groups {
+                    RecentsView()
                 
-                if self.userData.tappedCTA {
-                    VStack {
-                        
-                        HStack {
-                            Button(action: {
-                                
-                                self.viewRouter.currentView = .home
-                                
-                            }) {
-                                Image("dropdown")
-                                    .resizable()
-                                    .rotationEffect(Angle(degrees: 90))
-                                    .frame(minWidth: 24, maxWidth: 34, minHeight: 24, maxHeight: 34)
-                            }
-                            
-                            Spacer()
-                        } .padding(.all, 12)
-                        
-                        RegistrationView()
-                            .environmentObject(viewRouter)
-                    }
-                } else {
-                    //ChatList()
-                }
             }
             else if viewRouter.currentView == .leaderboard {
-                
-                if self.userData.tappedCTA {
-                    VStack {
-                        
-                        HStack {
-                            Button(action: {
-                                
-                                self.viewRouter.currentView = .home
-                                
-                            }) {
-                                Image("dropdown")
-                                    .resizable()
-                                    .renderingMode(.none)
-                                    .foregroundColor(.white)
-                                    .rotationEffect(Angle(degrees: 90))
-                                    .frame(minWidth: 24, maxWidth: 34, minHeight: 24, maxHeight: 34)
-                            }
-                            
-                            Spacer()
-                        } .padding(.all, 12)
-                        
-                        LeaderboardView()
-                    }
-                } else {
                     LeaderboardView()
-                }
             }
             else if viewRouter.currentView == .home {
-                Home()
+                    Home()
             }
+            else if viewRouter.currentView == .settings{
+                SettingView()
+                .environmentObject(viewRouter)
+                }
+            else if viewRouter.currentView == .chats{
+                ChatView()
+                .environmentObject(userData)
+                }
         }
+            VStack{
+                Spacer()
+                tabBarView()
+            }
         }
         
 

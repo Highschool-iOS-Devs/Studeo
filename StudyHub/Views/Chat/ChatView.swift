@@ -1,14 +1,26 @@
-////
-////  Chat.swift
-////  StudyHub
-////
-////  Created by Andreas Ink on 8/29/20.
-////  Copyright © 2020 Dakshin Devanand. All rights reserved.
-////
-//import SwiftUI
-//import Firebase
 //
-//struct ChatV2: View {
+//  ChatView.swift
+//  StudyHub
+//
+//  Created by Andreas Ink on 8/29/20.
+//  Copyright © 2020 Dakshin Devanand. All rights reserved.
+
+import SwiftUI
+import Firebase
+
+struct ChatView: View {
+    @EnvironmentObject var userData:UserData
+    
+    var body: some View {
+        Text("Hi!")
+    }
+}
+struct ChatView_Previews: PreviewProvider {
+    static var previews: some View {
+        ChatView()
+    }
+}
+
 //    @State var matchedPerson = ""
 //    @State var chatRoom = ""
 //    @State var matchedPersonID = ""
