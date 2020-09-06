@@ -7,14 +7,13 @@
 //
 import SwiftUI
 
-struct ChatV2Cell: View {
+struct ChatCellsSelf: View {
     
     @State var name = ""
     
     @State var message = ""
     
     var body: some View {
-        
         
         ZStack(alignment: .leading) {
             
@@ -38,26 +37,36 @@ struct ChatV2Cell: View {
         
     }
 }
-struct ChatV2Cell2: View {
-    @State var name = ""
+struct ChatCells: View {
+   @State var name = ""
+    
     @State var message = ""
+    
     var body: some View {
-        ZStack(alignment: .trailing) {
-            
-            HStack() {
+        
+        ZStack(alignment: .leading) {
+            HStack {
                 
                 Text(message)
                     .foregroundColor(.white)
                     .lineLimit(.none)
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(12)
-                    .background(Color(.gray))
+                    .background(Color.black.opacity(0.3))
                     .cornerRadius(10)
+                
                 Spacer()
-            } .padding(.leading, 12)
+            } .padding(.horizontal, 12)
         }
         
         
         
+    }
+}
+
+struct ChatCells_Preview: PreviewProvider {
+    static var previews: some View {
+        //ChatCellsSelf(message: "Hello how are you doing?")
+        ChatCells(message: "Hi!")
     }
 }

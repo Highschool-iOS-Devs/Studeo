@@ -66,7 +66,8 @@ struct RegistrationView: View {
                                     self.displayError = true
                                     return
                                 }
-                                self.viewRouter.updateCurrentView(view: .chatList) 
+                                self.userData.userID = authResult!.id.uuidString
+                                self.viewRouter.updateCurrentView(view: .chatList)
                             }
                     
                         }) {
@@ -87,7 +88,7 @@ struct RegistrationView: View {
             }
         }
     
-    func sendData(performActions: @escaping (ErrorModel, AuthDataResult?) -> Void) {
+    func sendData(performActions: @escaping (ErrorModel, User?) -> Void) {
         Auth.auth().createUser(withEmail: self.email, password: self.password) { authResult, error in
             guard authResult != nil else {
                 let newError = ErrorModel(errorMessage: error!.localizedDescription, errorState: true)
@@ -101,8 +102,9 @@ struct RegistrationView: View {
              do {
                 try db.collection("users").document(newUser.id.uuidString).setData(from: newUser)
              } catch let error {
-                 print("Error writing city to Firestore: \(error)")
+                 print("Error writing to Firestore: \(error)")
              }
+            performActions(ErrorModel(errorMessage: "", errorState: false), newUser)
             }
         }
     }

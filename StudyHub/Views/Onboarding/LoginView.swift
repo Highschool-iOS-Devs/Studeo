@@ -41,45 +41,45 @@ struct LoginView: View {
                     .font(Font.custom("Montserrat-SemiBold", size: 34))
                 //.offset(x: 0, y: 23)
                     .onAppear() {
-                        if self.test {
-                        Auth.auth().signIn(withEmail: self.email, password: self.password) { [] authResult, error in
-                        
-                        guard authResult != nil else {
-                          
-                            return
-                        }
-                        
-                        var db: Firestore!
-                        db = Firestore.firestore()
-                        
-                        let defaults = UserDefaults.standard
-                        let pushManager = PushNotificationManager(userID: Auth.auth().currentUser!.uid)
-                        
-                        pushManager.registerForPushNotifications()
-                        self.userData.name = self.username
-                        let token = defaults.string(forKey: "fcmToken")
-                        db.collection("users").document(Auth.auth().currentUser!.uid).setData([
-                            "name": self.username,
-                            "id": Auth.auth().currentUser!.uid,
-                            "hours": [0.0],
-                            "image": "",
-                            "school": [0.0,0.0],
-                            "hoursDate": [Date()],
-                            "interactedPeople": [Auth.auth().currentUser!.uid],
-                            "interactedChatRooms": ["\(UUID())"],
-                            "fcmToken": token,
-                            "SAT": true,
-                        ]) { error in
-                            guard error == nil
-                                else {
-                                    print("Error writing document, \(String(describing: error))")
-                                    return
-                            }
-                            
-                }
-                             self.viewRouter.currentView = .chatList
-                        }
-                        }
+//                        if self.test {
+//                        Auth.auth().signIn(withEmail: self.email, password: self.password) { [] authResult, error in
+//                        
+//                        guard authResult != nil else {
+//                          
+//                            return
+//                        }
+//                        
+//                        var db: Firestore!
+//                        db = Firestore.firestore()
+//                        
+//                        let defaults = UserDefaults.standard
+//                        let pushManager = PushNotificationManager(userID: Auth.auth().currentUser!.uid)
+//                        
+//                        pushManager.registerForPushNotifications()
+//                        self.userData.name = self.username
+//                        let token = defaults.string(forKey: "fcmToken")
+//                        db.collection("users").document(Auth.auth().currentUser!.uid).setData([
+//                            "name": self.username,
+//                            "id": Auth.auth().currentUser!.uid,
+//                            "hours": [0.0],
+//                            "image": "",
+//                            "school": [0.0,0.0],
+//                            "hoursDate": [Date()],
+//                            "interactedPeople": [Auth.auth().currentUser!.uid],
+//                            "interactedChatRooms": ["\(UUID())"],
+//                            "fcmToken": token,
+//                            "SAT": true,
+//                        ]) { error in
+//                            guard error == nil
+//                                else {
+//                                    print("Error writing document, \(String(describing: error))")
+//                                    return
+//                            }
+//                            
+//                }
+//                             self.viewRouter.currentView = .chatList
+//                        }
+//                        }
                 }
                 Image("studying")
                     .resizable()
@@ -132,45 +132,45 @@ struct LoginView: View {
         }
     }
     func sendData(performActions: @escaping (ErrorModel, AuthDataResult?) -> Void) {
-        Auth.auth().signIn(withEmail: self.email, password: self.password) { [] authResult, error in
-            
-            guard authResult != nil else {
-                let newError = ErrorModel(errorMessage: error!.localizedDescription, errorState: true)
-                performActions(newError, nil)
-                return
-            }
-            
-            var db: Firestore!
-            db = Firestore.firestore()
-            
-            let defaults = UserDefaults.standard
-            let pushManager = PushNotificationManager(userID: Auth.auth().currentUser!.uid)
-            
-            pushManager.registerForPushNotifications()
-            self.userData.name = self.username
-            let token = defaults.string(forKey: "fcmToken")
-            db.collection("users").document(Auth.auth().currentUser!.uid).setData([
-                "name": self.username,
-                "id": Auth.auth().currentUser!.uid,
-                "hours": [0.0],
-                "image": "",
-                "school": [0.0,0.0],
-                "hoursDate": [Date()],
-                "interactedPeople": [Auth.auth().currentUser!.uid],
-                "interactedChatRooms": ["\(UUID())"],
-                "fcmToken": token,
-                "SAT": true,
-            ]) { error in
-                guard error == nil
-                    else {
-                        print("Error writing document, \(String(describing: error))")
-                        return
-                }
-                performActions(ErrorModel(errorMessage: "", errorState: false), authResult)
-            }
-            
-            //self.presentationMode.wrappedValue.dismiss()
-        }
+//        Auth.auth().signIn(withEmail: self.email, password: self.password) { [] authResult, error in
+//            
+//            guard authResult != nil else {
+//                let newError = ErrorModel(errorMessage: error!.localizedDescription, errorState: true)
+//                performActions(newError, nil)
+//                return
+//            }
+//            
+//            var db: Firestore!
+//            db = Firestore.firestore()
+//            
+//            let defaults = UserDefaults.standard
+//            let pushManager = PushNotificationManager(userID: Auth.auth().currentUser!.uid)
+//            
+//            pushManager.registerForPushNotifications()
+//            self.userData.name = self.username
+//            let token = defaults.string(forKey: "fcmToken")
+//            db.collection("users").document(Auth.auth().currentUser!.uid).setData([
+//                "name": self.username,
+//                "id": Auth.auth().currentUser!.uid,
+//                "hours": [0.0],
+//                "image": "",
+//                "school": [0.0,0.0],
+//                "hoursDate": [Date()],
+//                "interactedPeople": [Auth.auth().currentUser!.uid],
+//                "interactedChatRooms": ["\(UUID())"],
+//                "fcmToken": token,
+//                "SAT": true,
+//            ]) { error in
+//                guard error == nil
+//                    else {
+//                        print("Error writing document, \(String(describing: error))")
+//                        return
+//                }
+//                performActions(ErrorModel(errorMessage: "", errorState: false), authResult)
+//            }
+//            
+//            //self.presentationMode.wrappedValue.dismiss()
+//        }
         
     }
 }

@@ -7,13 +7,28 @@
 
 import SwiftUI
 import Firebase
+import Firebase
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 struct ChatView: View {
     @EnvironmentObject var userData:UserData
-    
+    @ObservedObject var chatDataInfo = ChatDataInfo()
+    @State var scrollOffset = 0
+    @State var currentOffset = 0
     var body: some View {
-        Text("Hi!")
+        ReverseScrollView(scrollOffset: CGFloat(self.scrollOffset), currentOffset: CGFloat(self.currentOffset)){
+            VStack {
+                Text("Hi")
+                Text("hello")
+            }
+           
+         }
+        .onAppear{
+                
+        }
     }
+ 
 }
 struct ChatView_Previews: PreviewProvider {
     static var previews: some View {

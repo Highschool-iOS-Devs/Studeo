@@ -17,7 +17,7 @@ struct ContentView: View {
     @State private var showSheet = false
 
     var body: some View {
-        ZStack {
+        ZStack { 
             Color.white
                 .edgesIgnoringSafeArea(.all)
                 .onAppear{
@@ -38,7 +38,7 @@ struct ContentView: View {
            
             }
             else if viewRouter.currentView == .groups {
-                    RecentsView()
+                    AddChat()
                 
             }
             else if viewRouter.currentView == .leaderboard {
@@ -56,10 +56,13 @@ struct ContentView: View {
                 .environmentObject(userData)
                 }
         }
-            VStack{
-                Spacer()
-                tabBarView()
+            if viewRouter.currentView != .registration && viewRouter.currentView != .login{
+                VStack{
+                    Spacer()
+                    tabBarView()
+                    }
             }
+           
         }
         
 

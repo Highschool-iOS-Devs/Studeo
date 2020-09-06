@@ -17,29 +17,7 @@ struct Home: View {
         VStack {
             ScrollView {
                 Header()
-                ZStack {
-                    HStack {
-                        Spacer()
-                        Divider()
-                            .frame(height: 25)
-                        Image("dropdown")
-                            .renderingMode(.original)
-                            .resizable()
-                            .frame(width: 15, height: 15)
-                            .aspectRatio(contentMode: .fit)
-                        
-                            .onAppear() {
-                                 //self.userData.interactedPeople.removeAll()
-                        }
-                    } .padding(.horizontal, 44)
-                    TextField("Search", text: $search)
-                        .font(Font.custom("Montserrat-Regular", size: 15.0))
-                        .padding()
-                        .background(Color.gray.opacity(0.2))
-                        .cornerRadius(10.0)
-                    
-                } .padding(.horizontal, 22)
-                    .padding(.vertical, 22)
+                SearchBar()
                 Spacer()
                 HStack {
                     

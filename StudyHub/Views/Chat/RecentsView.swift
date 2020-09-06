@@ -8,12 +8,15 @@
 //
 import SwiftUI
 import Firebase
+import Firebase
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
-//Jevon: I will reference the old chat list view
 struct RecentsView: View {
     @State var recentPeople = [User]()
     @EnvironmentObject var userData: UserData
     @EnvironmentObject var viewRouter: ViewRouter
+    @ObservedObject var chatDataInfo = ChatDataInfo()
     var body: some View {
         VStack {
             Spacer()
@@ -27,7 +30,8 @@ struct RecentsView: View {
                 ForEach(recentPeople){user in
                     RecentPersonView(name: user.name)
                         .onTapGesture {
-                            self.userData.userID = user.id.uuidString
+                            
+                            self.chatDataInfo.chatID = user.id.uuidString
                             self.viewRouter.updateCurrentView(view: .chats)
                     }
                 }
@@ -58,17 +62,20 @@ struct RecentsView: View {
                     try document.data(as: User.self)
                 }
                 switch result {
-                case .success(let user):
-                    if let user = user {
-                        userList.append(user)
-                      
-                    } else {
-                        
-                        print("Document does not exist")
+                    case .success(let user):
+                        if let user = user {
+                            userList.append(user)
+                            let docRef = db.collection("groups")
+                          
+                        } else {
+                            
+                            print("Document does not exist")
+                        }
+                    case .failure(let error):
+                        print("Error decoding user: \(error)")
                     }
-                case .failure(let error):
-                    print("Error decoding user: \(error)")
-                }
+                
+              
             }
               performAction(userList)
         }

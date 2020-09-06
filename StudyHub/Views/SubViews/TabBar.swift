@@ -84,12 +84,12 @@ struct tabBarView: View {
                 tabItemView(SFImage: "book.fill", text: "Books", tabType: .books)
                     .padding(.trailing, 30)
                 .onTapGesture {
-                    self.viewRouter.updateCurrentView(view: .chatList)
+                    self.viewRouter.updateCurrentView(view: .books)
                 }
                 tabItemView(SFImage: "person.2.fill", text: "Groups", tabType: .groups)
                     .padding(.leading, 30)
                 .onTapGesture {
-                    self.viewRouter.updateCurrentView(view: .chatList)
+                    self.viewRouter.updateCurrentView(view: .groups)
                 }
                 tabItemView(SFImage: "gear", text: "Settings", tabType: .settings)
                 .onTapGesture {

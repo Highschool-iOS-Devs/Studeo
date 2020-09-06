@@ -40,6 +40,19 @@ struct ChattedWith: Identifiable {
     }
 }
 
-struct ChatDataInfo: ObservedObject{
-    var chatID: String
+class ChatDataInfo: ObservableObject{ 
+    @Published var chatID: String = ""
+    
 }
+
+struct Groups:Codable{
+    var groupName:String
+    var groupID:String
+    var createdBy:String
+    var members:[String]
+    var interests:[String]
+}
+
+//struct groupMembers:Codable{
+//    var members:String
+//}
