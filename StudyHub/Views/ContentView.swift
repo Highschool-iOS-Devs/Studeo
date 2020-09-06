@@ -93,10 +93,10 @@ struct ContentView: View {
                             Spacer()
                         } .padding(.all, 12)
                         
-                        ChatList()
+                        //ChatList()
                     }
                 } else {
-                    ChatList()
+                    //ChatList()
                 }
             }
             else if viewRouter.currentView == .groups {
@@ -123,7 +123,7 @@ struct ContentView: View {
                             .environmentObject(viewRouter)
                     }
                 } else {
-                    ChatList()
+                    //ChatList()
                 }
             }
             else if viewRouter.currentView == .leaderboard {
