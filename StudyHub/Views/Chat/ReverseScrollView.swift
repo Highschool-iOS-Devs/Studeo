@@ -46,36 +46,36 @@ struct ReverseScrollView<Content>: View where Content: View {
                     Spacer()
                     if self.contentHeight > 530 {
                         if self.accessability {
-                        Text("Scroll up")
-                            .foregroundColor(.black)
-                            .padding()
-                            .background(BlurView(style: .systemUltraThinMaterial)).clipShape(RoundedRectangle(cornerRadius: 10))
-                            
-                            .onTapGesture {
-                                print("scroll up")
-                                let scrollOffset = self.scrollOffset + 60
-                                print("Ended currentOffset=\(self.currentOffset) scrollOffset=\(scrollOffset)")
+                            Text("Scroll up")
+                                .foregroundColor(.black)
+                                .padding()
+                                .background(BlurView(style: .systemUltraThinMaterial)).clipShape(RoundedRectangle(cornerRadius: 10))
                                 
-                                self.topLimit = CGFloat(Int(self.contentHeight - outerGeometry.size.height))
-                                print("toplimit: \(self.topLimit)")
-                                
-                                // Negative topLimit => Content is smaller than screen size. We reset the scroll position on drag end:
-                                if self.topLimit < 0 {
-                                    self.currentOffset = 0
-                                } else {
-                                    // We cannot pass bottom limit (negative scroll)
-                                    if self.currentOffset + scrollOffset < 0 {
+                                .onTapGesture {
+                                    print("scroll up")
+                                    let scrollOffset = self.scrollOffset + 60
+                                    print("Ended currentOffset=\(self.currentOffset) scrollOffset=\(scrollOffset)")
+                                    
+                                    self.topLimit = CGFloat(Int(self.contentHeight - outerGeometry.size.height))
+                                    print("toplimit: \(self.topLimit)")
+                                    
+                                    // Negative topLimit => Content is smaller than screen size. We reset the scroll position on drag end:
+                                    if self.topLimit < 0 {
                                         self.currentOffset = 0
-                                    } else if self.currentOffset + scrollOffset > self.topLimit {
-                                        self.currentOffset = CGFloat(self.topLimit)
                                     } else {
-                                        self.currentOffset += scrollOffset
+                                        // We cannot pass bottom limit (negative scroll)
+                                        if self.currentOffset + scrollOffset < 0 {
+                                            self.currentOffset = 0
+                                        } else if self.currentOffset + scrollOffset > self.topLimit {
+                                            self.currentOffset = CGFloat(self.topLimit)
+                                        } else {
+                                            self.currentOffset += scrollOffset
+                                        }
                                     }
-                                }
-                                print("new currentOffset=\(self.currentOffset)")
-                                self.scrollOffset = 0
+                                    print("new currentOffset=\(self.currentOffset)")
+                                    self.scrollOffset = 0
+                            }
                         }
-                    }
                     }
                     
                     Spacer()
@@ -87,39 +87,39 @@ struct ReverseScrollView<Content>: View where Content: View {
                 HStack {
                     Spacer()
                     if self.currentOffset >= 30 {
-                         if self.accessability {
-                        Text("Scroll down")
-                            .foregroundColor(.black)
-                            .padding()
-                            .background(BlurView(style: .systemUltraThinMaterial)).clipShape(RoundedRectangle(cornerRadius: 10))
-                            .zIndex(1)
-                            .onTapGesture {
-                                print("scroll down")
-                                let scrollOffset = self.scrollOffset - 80
-                                print("Ended currentOffset=\(self.currentOffset) scrollOffset=\(scrollOffset)")
-                                
-                                let topLimit = self.contentHeight - outerGeometry.size.height
-                                print("toplimit: \(topLimit)")
-                                self.topLimit = self.contentHeight - outerGeometry.size.height
-                                print("toplimit: \(topLimit)")
-                                // Negative topLimit => Content is smaller than screen size. We reset the scroll position on drag end:
-                                
-                                if self.topLimit < 0 {
-                                    self.currentOffset = 0
-                                } else {
-                                    // We cannot pass bottom limit (negative scroll)
-                                    if self.currentOffset + scrollOffset < 0 {
+                        if self.accessability {
+                            Text("Scroll down")
+                                .foregroundColor(.black)
+                                .padding()
+                                .background(BlurView(style: .systemUltraThinMaterial)).clipShape(RoundedRectangle(cornerRadius: 10))
+                                .zIndex(1)
+                                .onTapGesture {
+                                    print("scroll down")
+                                    let scrollOffset = self.scrollOffset - 80
+                                    print("Ended currentOffset=\(self.currentOffset) scrollOffset=\(scrollOffset)")
+                                    
+                                    let topLimit = self.contentHeight - outerGeometry.size.height
+                                    print("toplimit: \(topLimit)")
+                                    self.topLimit = self.contentHeight - outerGeometry.size.height
+                                    print("toplimit: \(topLimit)")
+                                    // Negative topLimit => Content is smaller than screen size. We reset the scroll position on drag end:
+                                    
+                                    if self.topLimit < 0 {
                                         self.currentOffset = 0
-                                    } else if self.currentOffset + scrollOffset > topLimit {
-                                        self.currentOffset = topLimit
                                     } else {
-                                        self.currentOffset += scrollOffset
+                                        // We cannot pass bottom limit (negative scroll)
+                                        if self.currentOffset + scrollOffset < 0 {
+                                            self.currentOffset = 0
+                                        } else if self.currentOffset + scrollOffset > topLimit {
+                                            self.currentOffset = topLimit
+                                        } else {
+                                            self.currentOffset += scrollOffset
+                                        }
                                     }
-                                }
-                                print("new currentOffset=\(self.currentOffset)")
-                                self.scrollOffset = 0
+                                    print("new currentOffset=\(self.currentOffset)")
+                                    self.scrollOffset = 0
+                            }
                         }
-                    }
                     }
                     Spacer()
                 }
@@ -177,3 +177,9 @@ extension ViewHeightKey: ViewModifier {
     }
 }
 
+
+struct ReverseScrollView_Previews: PreviewProvider {
+    static var previews: some View {
+        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
+    }
+}
