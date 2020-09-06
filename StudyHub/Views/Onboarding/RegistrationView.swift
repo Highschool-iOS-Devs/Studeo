@@ -9,6 +9,8 @@
 import SwiftUI
 import Firebase
 import FirebaseAuth
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 struct RegistrationView: View {
     
@@ -30,7 +32,6 @@ struct RegistrationView: View {
                         OnboardingErrorMessage(errorObject: self.$errorObject, displayError: self.$displayError)
                             .onAppear{
                                 DispatchQueue.main.asyncAfter(deadline: .now()+3){
-                                    print("Error disappear")
                                     self.displayError = false
                                 }
                             }
@@ -51,7 +52,7 @@ struct RegistrationView: View {
                             .textFieldStyle(CustomTextField())
                         TextField("Email", text: self.$email)
                             .textFieldStyle(CustomTextField())
-                        SecureField("Password", text: self.$password)
+                        TextField("Password", text: self.$password)
                             .textFieldStyle(CustomTextField())
                     }
                     .padding(.horizontal, 46)
@@ -65,7 +66,7 @@ struct RegistrationView: View {
                                     self.displayError = true
                                     return
                                 }
-                                self.viewRouter.updateCurrentView(view: .chatList)
+                                self.viewRouter.updateCurrentView(view: .chatList) 
                             }
                     
                         }) {
@@ -93,30 +94,17 @@ struct RegistrationView: View {
                 performActions(newError, nil)
                 return
             }
-                self.userData.name = self.username
-                let db = Firestore.firestore()
-                let newUser = User(id: UUID(), name: self.username, email: self.email)
-                
-            //Work in progess!
-                db.collection("users").document(Auth.auth().currentUser!.uid).setData([
-                    "name": newUser.name,
-                    "email": newUser.email,
-                    "image": nil!,
-                    "recentPeople": nil,
-                    "groups": nil,
-                    "interests": nil,
-                ]) { error in
-                    guard error == nil
-                    else {
-                        print("Error writing document, \(String(describing: error))")
-                        return
-                    }
-                    performActions(ErrorModel(errorMessage: "", errorState: false), authResult)
-                }
-            }
             
-        }
+            let db = Firestore.firestore()
 
+            let newUser = User(id: UUID(), name: self.username, email: self.email)
+             do {
+                try db.collection("users").document(newUser.id.uuidString).setData(from: newUser)
+             } catch let error {
+                 print("Error writing city to Firestore: \(error)")
+             }
+            }
+        }
     }
 
 

@@ -77,7 +77,7 @@ struct LoginView: View {
                             }
                             
                 }
-                             self.viewRouter.currentView = .home
+                             self.viewRouter.currentView = .chatList
                         }
                         }
                 }

@@ -11,5 +11,13 @@ import Firebase
 
 struct FirebaseManager{
     let db = Firestore.firestore()
+    func signOut(){
+        do{
+           try Auth.auth().signOut()
+        }
+        catch{
+            print("Error signing out user, \(error)")
+        }
+    }
 
 }
