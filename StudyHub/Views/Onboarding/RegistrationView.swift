@@ -17,14 +17,9 @@ struct RegistrationView: View {
     @State private var email: String = "andreas.ink@wascholar.org"
     @State var errorObject: ErrorModel = ErrorModel(errorMessage: "", errorState: false)
     @State var displayError = false
-    
-    @State var test = true
-    
-    
+    @State var test = false
     @Environment(\.presentationMode) var presentationMode
-
     @EnvironmentObject var viewRouter: ViewRouter
-
     @EnvironmentObject var userData: UserData
     
     var body: some View {
@@ -38,54 +33,10 @@ struct RegistrationView: View {
                                     print("Error disappear")
                                     self.displayError = false
                                 }
-                        }
-                        
+                            }
                     }
-                        
                     Text("Registration")
                         .font(Font.custom("Montserrat-SemiBold", size: 34))
-                        //.offset(x: 0, y: 23)
-                    
-                        .onAppear() {
-                            if self.test {
-                            Auth.auth().createUser(withEmail: self.email, password: self.password) { authResult, error in
-                                guard authResult != nil else {
-                                    
-                                    return
-                                }
-                                self.userData.name = self.username
-                                var db: Firestore!
-                                db = Firestore.firestore()
-                                let pushManager = PushNotificationManager(userID: Auth.auth().currentUser!.uid)
-                                pushManager.registerForPushNotifications()
-                                let defaults = UserDefaults.standard
-                                let token = defaults.string(forKey: "fcmToken")
-                                db.collection("users").document(Auth.auth().currentUser!.uid).setData([
-                                    "name": self.username,
-                                    "id": Auth.auth().currentUser!.uid,
-                                    "hours": [0.0],
-                                    "image": "",
-                                    "school": [0.0,0.0],
-                                    "hoursDate": [Date()],
-                                    "interactedPeople": [Auth.auth().currentUser!.uid],
-                                    "interactedChatRooms": ["\(UUID())"],
-                                    "fcmToken": token,
-                                    "SAT": true,
-                                ]) { error in
-                                    guard error == nil
-                                        else {
-                                            print("Error writing document, \(String(describing: error))")
-                                            return
-                                    }
-                                 
-                                }
-                                   self.viewRouter.currentView = .home
-                            }
-                            
-                             
-                            }
-                            
-                    }
                     }
                     Image("5293")
                         .resizable()
@@ -108,8 +59,6 @@ struct RegistrationView: View {
                     
                     VStack(spacing: 35) {
                         Button(action: {
-                            print("Tapped Sign-Up button")
-                            
                             self.sendData{error, authResult in
                                 guard error.errorState == false else {
                                     self.errorObject = error
@@ -118,7 +67,7 @@ struct RegistrationView: View {
                                 }
                                 self.viewRouter.updateCurrentView(view: .chatList)
                             }
-                            
+                    
                         }) {
                             Text("Sign up")
                                 .font(Font.custom("Montserrat-SemiBold", size: 14.0))
@@ -126,7 +75,6 @@ struct RegistrationView: View {
                         .buttonStyle(BlueStyle())
                         Button(action: {
                             self.viewRouter.updateCurrentView(view: .login)
-                            print("Tapped Sign-In button")
                             
                         }) {
                             Text("Log in")
@@ -134,12 +82,10 @@ struct RegistrationView: View {
                         }
                         .buttonStyle(WhiteStyle())
                     }  .padding(.horizontal, 46)
-                } .padding(.bottom, 85)
+                }
             }
         }
     
-
-
     func sendData(performActions: @escaping (ErrorModel, AuthDataResult?) -> Void) {
         Auth.auth().createUser(withEmail: self.email, password: self.password) { authResult, error in
             guard authResult != nil else {
@@ -148,23 +94,17 @@ struct RegistrationView: View {
                 return
             }
                 self.userData.name = self.username
-                var db: Firestore!
-                db = Firestore.firestore()
-                let pushManager = PushNotificationManager(userID: Auth.auth().currentUser!.uid)
-                pushManager.registerForPushNotifications()
-                let defaults = UserDefaults.standard
-                let token = defaults.string(forKey: "fcmToken")
+                let db = Firestore.firestore()
+                let newUser = User(id: UUID(), name: self.username, email: self.email)
+                
+            //Work in progess!
                 db.collection("users").document(Auth.auth().currentUser!.uid).setData([
-                    "name": self.username,
-                    "id": Auth.auth().currentUser!.uid,
-                    "hours": [0.0],
-                    "image": "",
-                    "school": [0.0,0.0],
-                    "hoursDate": [Date()],
-                    "interactedPeople": [Auth.auth().currentUser!.uid],
-                    "interactedChatRooms": ["\(UUID())"],
-                    "fcmToken": token,
-                    "SAT": true,
+                    "name": newUser.name,
+                    "email": newUser.email,
+                    "image": nil!,
+                    "recentPeople": nil,
+                    "groups": nil,
+                    "interests": nil,
                 ]) { error in
                     guard error == nil
                     else {
@@ -185,50 +125,6 @@ struct RegistrationView_Previews: PreviewProvider {
         RegistrationView()
     }
 }
-//        func sendData() {
-//            Auth.auth().createUser(withEmail: self.email, password: self.password) { authResult, error in
-//                               if error != nil {
-//                                withAnimation{
-//                              self.error.toggle()
-//                               }
-//                               } else {
-//                              self.userData.name = self.username
-//                              var db: Firestore!
-//                                     db = Firestore.firestore()
-//                              let pushManager = PushNotificationManager(userID: Auth.auth().currentUser!.uid)
-//                              pushManager.registerForPushNotifications()
-//                              let defaults = UserDefaults.standard
-//                              let token = defaults.string(forKey: "fcmToken")
-//                               db.collection("users").document(Auth.auth().currentUser!.uid).setData([
-//                                  "name": self.username,
-//                                  "id": Auth.auth().currentUser!.uid,
-//                                  "hours": [0.0],
-//                                  "image": "",
-//                                  "school": [0.0,0.0],
-//                                  "hoursDate": [Date()],
-//                                  "interactedPeople": [Auth.auth().currentUser!.uid],
-//                                  "interactedChatRooms": ["\(UUID())"],
-//                                  "fcmToken": token,
-//                                  "SAT": true,
-//                              ]) { err in
-//                                  if let err = err {
-//                                      print("Error writing document: \(err)")
-//                                      withAnimation() {
-//                                          print("bad")
-//                                          self.error.toggle()
-//                                          print(error)
-//                                      }
-//                                  } else {
-//
-//                                      print("Document successfully written!")
-//                                     // self.presentationMode.wrappedValue.dismiss()
-//
-//                                    self.presentationMode.wrappedValue.dismiss()
-//                                  }
-//                              }
-//                          }
-//
-//    }
 
 struct OnboardingErrorMessage: View {
     @Binding var errorObject:ErrorModel
