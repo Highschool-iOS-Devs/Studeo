@@ -60,7 +60,7 @@ struct ContentView: View {
                 VStack{
                     Spacer()
                     tabBarView()
-                    }
+                }
             }
            
         }
@@ -68,18 +68,24 @@ struct ContentView: View {
 
 }
     func checkAuth(){
-        
-        if Auth.auth().currentUser != nil {
-                
-           self.viewRouter.currentView = .home
-            self.hasCheckedAuth = true
-                
-         } else {
-            self.viewRouter.currentView = .registration
-            self.hasCheckedAuth = true
+        DispatchQueue.global(qos: .background).async {
+            Auth.auth().addStateDidChangeListener { (auth, user) in
+                print(user)
+                if user != nil{
+                    self.viewRouter.currentView = .home
+                    self.hasCheckedAuth = true
+                }
+                else {
+                    self.viewRouter.currentView = .registration
+                    self.hasCheckedAuth = true
+                }
+               
+            }
         }
+         
     }
-    }
+    
+}
 
 
 struct ContentView_Previews: PreviewProvider {

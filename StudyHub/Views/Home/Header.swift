@@ -20,7 +20,7 @@ struct Header: View {
                     .opacity(25)
                     .multilineTextAlignment(.leading)
                 
-                Text("Jevon")
+                Text("\(userData.name)")
                     .frame(minWidth: 150, alignment: .leading)
                     .font(.custom("Montserrat-Semibold", size: 27))
                     .foregroundColor(Color(.black))

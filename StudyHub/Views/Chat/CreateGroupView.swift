@@ -13,8 +13,10 @@ import FirebaseFirestoreSwift
 import FirebaseCore
 
 struct CreateGroupView: View {
-    @Binding var groupListView:[GroupListView]
+    @Binding var presentCreateView:Bool
+    @State var selectedInterests:[String] = []
     @EnvironmentObject var userData:UserData
+    @State var colorPick = Color.white
     @State var groupName = ""
     var body: some View {
         VStack {
@@ -25,15 +27,35 @@ struct CreateGroupView: View {
                 .foregroundColor(Color.black.opacity(0.4))
                 .padding(.top, 80)
             TextField("Your group name", text: $groupName)
-                .frame(width: 200, alignment: .center)
+                .font(.custom("Montserrat-Semibold", size: 23))
+                .frame(width: 300)
+                .multilineTextAlignment(.center)
+            Divider()
+                .padding(.horizontal, 30)
+                .padding(.bottom, 50)
+            
+            Text("Group topics")
+                .frame(maxWidth: .infinity, alignment: .leading)
+                 .font(.custom("Montserrat", size: 18))
+                .foregroundColor(Color.black.opacity(0.4))
+                .padding(.leading, 20)
+                .padding(.bottom, 30)
+            HStack {
+                CategoriesTag(displayText: "SAT", selectedInterests: $selectedInterests)
+                CategoriesTag(displayText: "ACT", selectedInterests: $selectedInterests)
+                CategoriesTag(displayText: "AP Calculus", selectedInterests: $selectedInterests)
+                CategoriesTag(displayText: "AP Physics", selectedInterests: $selectedInterests)
+            }
+            
             Spacer()
             Button(action: {
                 let db = Firestore.firestore()
                 let docRef = db.collection("groups")
-                let newGroup = Groups(groupName: "SAT", groupID: UUID().uuidString, createdBy: self.userData.userID, members: [self.userData.userID], interests: ["SAT","Exam"])
+                let newGroup = Groups(groupName: self.groupName, groupID: UUID().uuidString, createdBy: self.userData.userID, members: [self.userData.userID], interests: [])
                 do{
                     try docRef.document(newGroup.groupID).setData(from: newGroup)
-                    self.groupListView.append(GroupListView(titleText: "SAT"))
+                    self.presentCreateView = false
+                    self.joinGroup(groupID: newGroup.groupID)
                     
                 }
                 catch{
@@ -47,17 +69,37 @@ struct CreateGroupView: View {
             }
             .buttonStyle(BlueStyle())
             .padding(.horizontal, 30)
-            .padding(.bottom, 200)
+            .padding(.bottom, 50)
             //For some reason this line is needed to fix preview crasing
             .onAppear{
-                FirebaseApp.configure()
+                //FirebaseApp.configure()
             }
         }
     }
+
 }
 
 struct CreateGroupView_Previews: PreviewProvider {
     static var previews: some View {
-        CreateGroupView(groupListView: .constant([GroupListView]()))
+        CreateGroupView(presentCreateView: .constant(false))
+    }
+}
+
+struct CategoriesTag: View {
+    var displayText:String
+    @State var selected = false
+    @Binding var selectedInterests:[String]
+    var body: some View {
+        Text(displayText)
+            .font(.custom("Montserrat-Bold", size: 15))
+            .frame(width: CGFloat(60+10*(displayText.count)), height: 30)
+            .foregroundColor(.white)
+            .background(selected ? Color.yellow : Color.yellow.opacity(0.3))
+            .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
+            .onTapGesture {
+                self.selected.toggle()
+                selectedInterests.append(self.displayText)
+        }
+        .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0))
     }
 }
