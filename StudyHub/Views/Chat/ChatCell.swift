@@ -1,5 +1,5 @@
 //
-//  ChatCells.swift
+//  ChatCell.swift
 //  StudyHub
 //
 //  Created by Andreas Ink on 8/29/20.
@@ -7,7 +7,7 @@
 //
 import SwiftUI
 
-struct ChatCellsSelf: View {
+struct ChatCellSelf: View {
     
     @State var name = ""
     
@@ -37,7 +37,7 @@ struct ChatCellsSelf: View {
         
     }
 }
-struct ChatCells: View {
+struct ChatCell: View {
    @State var name = ""
     
     @State var message = ""
@@ -67,6 +67,6 @@ struct ChatCells: View {
 struct ChatCells_Preview: PreviewProvider {
     static var previews: some View {
         //ChatCellsSelf(message: "Hello how are you doing?")
-        ChatCells(message: "Hi!")
+        ChatCell(message: "Hi!")
     }
 }

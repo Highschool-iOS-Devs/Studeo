@@ -10,6 +10,7 @@ import SwiftUI
 import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import FirebaseCore
 
 struct CreateGroupView: View {
     @Binding var groupListView:[GroupListView]

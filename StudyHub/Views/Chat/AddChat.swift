@@ -11,11 +11,14 @@ import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import FirebaseAuth
+import FirebaseCore
 
 struct AddChat: View {
     @EnvironmentObject var userData:UserData
+    @EnvironmentObject var viewRouter:ViewRouter
+    @ObservedObject var chatDataInfo = ChatDataInfo.sharedChatData
     @State var presentCreateView = false
-    @State var groupList = [GroupListView]()
+    @State var groupList = [Groups]()
     var body: some View {
         VStack{
             CustomHeader()
@@ -37,7 +40,7 @@ struct AddChat: View {
                             let newGroup = Groups(groupName: "SAT", groupID: UUID().uuidString, createdBy: self.userData.userID, members: [self.userData.userID], interests: ["SAT","Exam"])
                             do{
                                 try docRef.document(newGroup.groupID).setData(from: newGroup)
-                                self.groupList.append(GroupListView(titleText: "SAT"))
+                                self.loadGroups()
                                 
                             }
                             catch{
@@ -49,8 +52,10 @@ struct AddChat: View {
                         Text("Some implementation here to allow user to put in group information.")
                     }
                     ForEach(groupList, id:\.self){group in
-                        group
+                        GroupListView(titleText: group.groupName)
                             .onTapGesture{
+                                self.chatDataInfo.chatID = group.groupID
+                                self.viewRouter.updateCurrentView(view: .chats)
                                 
                         }
                     }
@@ -61,18 +66,14 @@ struct AddChat: View {
             
         }
         .onAppear{
-            self.loadGroups{groups in
-                for group in groups{
-                    self.groupList.append(GroupListView(titleText: group.groupName))
-                }
-            }
+            FirebaseApp.configure()
+            self.loadGroups()
         }
     }
     
-    func loadGroups(performAction: @escaping ([Groups]) -> Void){
+    func loadGroups(){
         let db = Firestore.firestore()
         let docRef = db.collection("groups")
-        var groupsList = [Groups]()
         docRef.getDocuments(){querySnapshot, error in
             if let error = error {
                 print("Error getting documents: \(error)")
@@ -84,7 +85,7 @@ struct AddChat: View {
                     switch result {
                     case .success(let groups):
                         if let groups = groups {
-                            groupsList.append(groups)
+                            self.groupList.append(groups)
                         } else {
                             print("Document does not exist")
                         }
@@ -93,7 +94,7 @@ struct AddChat: View {
                     }
                 }
             }
-            performAction(groupsList)
+
         }
     }
 }

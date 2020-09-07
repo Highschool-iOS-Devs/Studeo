@@ -8,7 +8,8 @@
 
 import Foundation
 import Firebase
-
+import FirebaseFirestore
+import FirebaseAuth
 struct FirebaseManager{
     let db = Firestore.firestore()
     func signOut(){
