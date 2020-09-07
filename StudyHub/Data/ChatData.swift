@@ -40,12 +40,13 @@ struct ChattedWith: Identifiable {
     }
 }
 
-class ChatDataInfo: ObservableObject{ 
+class ChatDataInfo: ObservableObject{
+    public static var sharedChatData = ChatDataInfo()
     @Published var chatID: String = ""
     
 }
 
-struct Groups:Codable{
+struct Groups:Codable, Hashable{
     var groupName:String
     var groupID:String
     var createdBy:String

@@ -7,21 +7,43 @@
 
 import SwiftUI
 import Firebase
-import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 struct ChatView: View {
     @EnvironmentObject var userData:UserData
-    @ObservedObject var chatDataInfo = ChatDataInfo()
+    @ObservedObject var chatDataInfo = ChatDataInfo.sharedChatData
+    @State var messageField = ""
     @State var scrollOffset = 0
     @State var currentOffset = 0
+    
     var body: some View {
         ReverseScrollView(scrollOffset: CGFloat(self.scrollOffset), currentOffset: CGFloat(self.currentOffset)){
             VStack {
-                Text("Hi")
-                Text("hello")
+                ChatCell(message: "Hi there, how are you doing?")
+                ChatCellSelf(message: "I am fine.")
+                Spacer()
+                VStack{
+                    HStack {
+                        MessageButtons(imageName: "xmark")
+                        MessageButtons(imageName: "mic.fill")
+                        MessageFieldView(messageField: self.$messageField)
+                    }
+                    .padding(.top, 30)
+                    Spacer()
+                }
+                .frame(maxWidth: .infinity)
+                .frame(height: 200)
+                .background(
+                RoundedRectangle(cornerRadius: 15)
+                    .stroke(style: StrokeStyle(lineWidth: 2))
+                    .foregroundColor(Color.gray.opacity(0.3))
+                
+                )
+                 .offset(x: 0, y: 100)
+                
             }
+            
            
          }
         .onAppear{
@@ -33,6 +55,44 @@ struct ChatView: View {
 struct ChatView_Previews: PreviewProvider {
     static var previews: some View {
         ChatView()
+    }
+}
+
+
+
+struct MessageFieldView: View {
+    @Binding var messageField:String
+    var body: some View {
+        TextField("Enter message", text: self.$messageField)
+            .font(.custom("Montserrat", size: 15))
+            .padding()
+            .frame(width: 250, height: 40)
+            .background(Color.gray.opacity(0.2))
+            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .overlay(
+                HStack {
+                    Spacer()
+                    Image(systemName: "paperplane.fill")
+                        .foregroundColor(Color.gray.opacity(1))
+                        .padding(.trailing, 15)
+                }
+        )
+    }
+}
+
+struct MessageButtons: View {
+    var imageName:String
+    var body: some View {
+        Image(systemName: imageName)
+            .foregroundColor(Color.gray.opacity(1))
+            .frame(width: 40, height: 40)
+            .background(
+                Circle()
+                    .stroke(style: StrokeStyle(lineWidth: 2))
+                    .foregroundColor(Color.gray.opacity(0.3))
+                    .background(Color.gray.opacity(0.2))
+        )
+            .clipShape(Circle())
     }
 }
 
@@ -52,15 +112,15 @@ struct ChatView_Previews: PreviewProvider {
 //    @State var currentOffset = 0
 //    @State var scrollOffset = 0
 //    @State var addChat = false
-//    
+//
 //    @EnvironmentObject var userData: UserData
 //    var body: some View {
-//        
+//
 //        ZStack {
 //            Color(.white)
 //                .edgesIgnoringSafeArea(.all)
-//                
-//                
+//
+//
 //                .onAppear() {
 //                    // self.chat.removeAll()
 //                    self.i = 0
@@ -71,10 +131,10 @@ struct ChatView_Previews: PreviewProvider {
 //                        }
 //                    }
 //            }
-//            
+//
 //            VStack {
-//                
-//                
+//
+//
 //                Text(matchedPerson)
 //                    .font(.title)
 //                    .padding(.top, 22)
@@ -83,41 +143,41 @@ struct ChatView_Previews: PreviewProvider {
 //            VStack {
 //                if self.hasAppeared {
 //                    ReverseScrollView(scrollOffset: CGFloat(self.scrollOffset), currentOffset: CGFloat(self.currentOffset)) {
-//                        
-//                        
+//
+//
 //                        VStack {
-//                            
-//                            
-//                            
+//
+//
+//
 //                            ForEach(self.chat, id: \.id) { chating in
 //                                Group {
-//                                    
+//
 //                                    if !chating.isMe {
 //                                        ChatV2Cell2(name: chating.name, message: chating.message)
 //                                            .padding(.top, 62)
 //                                            .padding(.horizontal, 12)
 //                                    }
 //                                    if chating.isMe {
-//                                        
+//
 //                                        ChatV2Cell(name: chating.name, message: chating.message)
 //                                            .padding(.top, 62)
 //                                            .padding(.horizontal, 12)
-//                                        
+//
 //                                    }
-//                                    
-//                                    
+//
+//
 //                                }
 //                            }
-//                            
+//
 //                        }
 //                    }
-//                    
+//
 //                }
-//                
+//
 //                Spacer()
 //                Divider()
 //                HStack {
-//                    
+//
 //                    TextField("Message", text: $message)
 //                        .foregroundColor(.gray)
 //                        .frame(height: 50)
@@ -129,15 +189,15 @@ struct ChatView_Previews: PreviewProvider {
 //                        .foregroundColor(Color(.systemBlue))
 //                        .frame(width: 50, height: 50)
 //                        .onTapGesture {
-//                            
+//
 //                    }
 //                } .padding([.trailing, .leading], 12)
 //                    .padding(.bottom, 22)
 //            }
-//            
+//
 //        }
 //    }
 //    func loadData() {
-//        
+//
 //    }
 //}
