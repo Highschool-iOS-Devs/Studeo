@@ -8,7 +8,10 @@
 
 import SwiftUI
 import Firebase
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 import FirebaseAuth
+import FirebaseCore
 
 struct LoginView: View {
     
@@ -39,48 +42,7 @@ struct LoginView: View {
                 }
                 Text("Login")
                     .font(Font.custom("Montserrat-SemiBold", size: 34))
-                //.offset(x: 0, y: 23)
-                    .onAppear() {
-//                        if self.test {
-//                        Auth.auth().signIn(withEmail: self.email, password: self.password) { [] authResult, error in
-//                        
-//                        guard authResult != nil else {
-//                          
-//                            return
-//                        }
-//                        
-//                        var db: Firestore!
-//                        db = Firestore.firestore()
-//                        
-//                        let defaults = UserDefaults.standard
-//                        let pushManager = PushNotificationManager(userID: Auth.auth().currentUser!.uid)
-//                        
-//                        pushManager.registerForPushNotifications()
-//                        self.userData.name = self.username
-//                        let token = defaults.string(forKey: "fcmToken")
-//                        db.collection("users").document(Auth.auth().currentUser!.uid).setData([
-//                            "name": self.username,
-//                            "id": Auth.auth().currentUser!.uid,
-//                            "hours": [0.0],
-//                            "image": "",
-//                            "school": [0.0,0.0],
-//                            "hoursDate": [Date()],
-//                            "interactedPeople": [Auth.auth().currentUser!.uid],
-//                            "interactedChatRooms": ["\(UUID())"],
-//                            "fcmToken": token,
-//                            "SAT": true,
-//                        ]) { error in
-//                            guard error == nil
-//                                else {
-//                                    print("Error writing document, \(String(describing: error))")
-//                                    return
-//                            }
-//                            
-//                }
-//                             self.viewRouter.currentView = .chatList
-//                        }
-//                        }
-                }
+              
                 Image("studying")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -101,7 +63,6 @@ struct LoginView: View {
                 
                 VStack(spacing: 35) {
                     Button(action: {
-                        print("Tapped Sign-in button")
                         self.sendData{error, authResult in
                             guard error.errorState == false else {
                                 self.errorObject = error
@@ -118,7 +79,6 @@ struct LoginView: View {
                     .padding(.horizontal, 46)
                     Button(action: {
                         self.viewRouter.updateCurrentView(view: .registration)
-                        print("Tapped Sign-Up button")
                     }) {
                         
                         Text("Sign Up")
@@ -132,45 +92,33 @@ struct LoginView: View {
         }
     }
     func sendData(performActions: @escaping (ErrorModel, AuthDataResult?) -> Void) {
-//        Auth.auth().signIn(withEmail: self.email, password: self.password) { [] authResult, error in
-//            
-//            guard authResult != nil else {
-//                let newError = ErrorModel(errorMessage: error!.localizedDescription, errorState: true)
-//                performActions(newError, nil)
-//                return
-//            }
-//            
-//            var db: Firestore!
-//            db = Firestore.firestore()
-//            
-//            let defaults = UserDefaults.standard
-//            let pushManager = PushNotificationManager(userID: Auth.auth().currentUser!.uid)
-//            
-//            pushManager.registerForPushNotifications()
-//            self.userData.name = self.username
-//            let token = defaults.string(forKey: "fcmToken")
-//            db.collection("users").document(Auth.auth().currentUser!.uid).setData([
-//                "name": self.username,
-//                "id": Auth.auth().currentUser!.uid,
-//                "hours": [0.0],
-//                "image": "",
-//                "school": [0.0,0.0],
-//                "hoursDate": [Date()],
-//                "interactedPeople": [Auth.auth().currentUser!.uid],
-//                "interactedChatRooms": ["\(UUID())"],
-//                "fcmToken": token,
-//                "SAT": true,
-//            ]) { error in
-//                guard error == nil
-//                    else {
-//                        print("Error writing document, \(String(describing: error))")
-//                        return
-//                }
-//                performActions(ErrorModel(errorMessage: "", errorState: false), authResult)
-//            }
-//            
-//            //self.presentationMode.wrappedValue.dismiss()
-//        }
+        Auth.auth().signIn(withEmail: self.email, password: self.password) { [] authResult, error in
+            
+            guard let authRusult = authResult else {
+                let newError = ErrorModel(errorMessage: error!.localizedDescription, errorState: true)
+                performActions(newError, nil)
+                return
+            }
+                let db = Firestore.firestore()
+                let ref = db.collection("users")
+            let query = ref.whereField("firebaseID", isEqualTo: authRusult.user.uid)
+            query.getDocuments{snapshot, error in
+                if let error = error {
+                          print("Error getting documents: \(error)")
+                      } else {
+                    if snapshot!.documents.count > 1{
+                        fatalError("Error, multiple user with the same ID exists.")
+                    }
+                    for document in snapshot!.documents{
+                        self.userData.userID = document["id"] as! String
+                        self.userData.name = document["name"] as! String
+                    } 
+                
+            }
+                performActions(ErrorModel(errorMessage: "", errorState: false), authResult)
+            }
+            
+        }
         
     }
 }

@@ -10,6 +10,7 @@ import SwiftUI
 
 struct User: Identifiable, Codable {
     var id: UUID
+    var firebaseID: String
     var name: String
     var email: String
     var image: String?

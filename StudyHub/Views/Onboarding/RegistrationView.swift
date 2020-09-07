@@ -67,6 +67,7 @@ struct RegistrationView: View {
                                     return
                                 }
                                 self.userData.userID = authResult!.id.uuidString
+                                self.userData.name = authResult!.name
                                 self.viewRouter.updateCurrentView(view: .chatList)
                             }
                     
@@ -97,14 +98,18 @@ struct RegistrationView: View {
             }
             
             let db = Firestore.firestore()
+            
 
-            let newUser = User(id: UUID(), name: self.username, email: self.email)
-             do {
-                try db.collection("users").document(newUser.id.uuidString).setData(from: newUser)
-             } catch let error {
-                 print("Error writing to Firestore: \(error)")
-             }
-            performActions(ErrorModel(errorMessage: "", errorState: false), newUser)
+            let newUser = User(id: UUID(), firebaseID: authResult!.user.uid, name: self.username, email: self.email)
+                do {
+                        try db.collection("users").document(newUser.id.uuidString).setData(from: newUser)
+                         } catch let error {
+                             print("Error writing to Firestore: \(error)")
+                         }
+                performActions(ErrorModel(errorMessage: "", errorState: false), newUser)
+
+            
+         
             }
         }
     }
