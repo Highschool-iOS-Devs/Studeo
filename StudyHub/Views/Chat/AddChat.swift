@@ -16,10 +16,18 @@ import FirebaseCore
 struct AddChat: View {
     @EnvironmentObject var userData:UserData
     @EnvironmentObject var viewRouter:ViewRouter
+    //Object used to pass data between add groups view to chat view (data: groupID.etc)
     @ObservedObject var chatDataInfo = ChatDataInfo.sharedChatData
+    //Used to control create new group modal view
     @State var presentCreateView = false
+    
+    //2 variables below initalized empty, will be filled by networking Firebase data
+    //Display all groups for user to join
     @State var groupList = [Groups]()
+    //Display only groups that user is in
     @State var myGroups = [Groups]()
+    
+    //Serves no real purpose for now
     @State var presentChatView = false
     @State var didFinishLoading = false
     var body: some View {
@@ -56,8 +64,10 @@ struct AddChat: View {
                                 
                         }
                         .sheet(isPresented: $presentCreateView){
+                            //Present create a new group view with group settings and stuff like that
                             CreateGroupView(presentCreateView: self.$presentCreateView)
                         }
+                        //Shows all groups that are online
                         ForEach(groupList, id:\.self){group in
                             GroupListView(titleText: group.groupName, bodyColor: Color(#colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)))
                                 .onTapGesture{
@@ -75,7 +85,7 @@ struct AddChat: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal, 30)
                     .padding(.bottom, 30)
-                
+                //Show only user's groups
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 15) {
                         GroupListView(titleText: "Dev_Test", bodyColor: Color(#colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)))
@@ -109,7 +119,6 @@ struct AddChat: View {
                 //            .offset(x: 0, y: 50)
             }
             .onAppear{
-                //FirebaseApp.configure()
                 self.loadGroups()
                 
             }
@@ -119,12 +128,13 @@ struct AddChat: View {
     func loadGroups(){
         let db = Firestore.firestore()
         let docRef = db.collection("groups")
-        //Get all groups to show under popular
+        //Get all groups from Firebase to show under "popular"
         docRef.getDocuments(){querySnapshot, error in
             if let error = error {
                 print("Error getting documents: \(error)")
             } else {
                 for document in querySnapshot!.documents {
+                    //Decode group from Firebase into Swift Group object
                     let result = Result{
                         try document.data(as: Groups.self)
                     }
@@ -143,8 +153,11 @@ struct AddChat: View {
             
         }
         //Get user's groups to show under my groups
+            
+            //Query for all groups in collection groups that contains this user in members list
             let queryParameter = db.collection("groups").whereField("members", arrayContains: self.userData.userID)
                         queryParameter.getDocuments(){querySnapshot, error in
+                            //Check if error in networking, else continue
                             if let error = error {
                                 print("Error getting documents: \(error)")
                             } else {
@@ -153,12 +166,15 @@ struct AddChat: View {
                                         try document.data(as: Groups.self)
                                     }
                                     switch result {
+                                    //Decoding success
                                     case .success(let groups):
                                         if let groups = groups {
+                                            //Append decoded group object intp view's list of groups variable
                                             self.myGroups.append(groups)
                                         } else {
                                             print("Document does not exist")
                                         }
+                                    //Decoding failed
                                     case .failure(let error):
                                         print("Error decoding groups: \(error)")
                                     }
@@ -172,22 +188,45 @@ struct AddChat: View {
     //Called when user taps and joins a new group. Adds the user to group, and adds the group to user
     func joinGroup(groupID: String){
         let db = Firestore.firestore()
+        //Set reference to the group that the user pressed on (groupID provided by the function caller)
         let docRef = db.collection("groups").document(groupID)
         var groupMembers:[String] = []
+        //Because Firebase provide no built in append function, have to use a 3 step process
+            //Step 1: Get the group member list from Firebase group item, and store it in local variable
+            //Step 2: Append current user into that local variable list
+            //Step 3: Update the local variable list onto Firebase
+            
         docRef.getDocument{ (document, error) in
             let result = Result {
                 try document?.data(as: Groups.self)
             }
             switch result {
+            //Decode sucess
             case .success(let group):
+                
+                //Make sure group is not nil
+                
                 if let group = group {
+                    //Set local variable to Firebase data
                     groupMembers = group.members
+                    
+                    //Immediately update UI by appending this group into myGroups
                     self.myGroups.append(group)
+                    
+                    //Now time for adding the groupID information in this user's document, under groups property
+                    //Same 3 step technique as mentioned above
                     let ref = db.collection("users").document(self.userData.userID)
                     ref.getDocument{document, error in
+                        
                         if let document = document, document.exists {
+                            
+                            //Cast groupList property from Any to String
+                            //Note: We are not using the decoding struct method because we only need 1 property, not the entire user object
                             let groupListCast = document.data()?["groups"] as? [String]
+                            
+                            //Check if make sure user's groups is not nil, which might happen if it is first time a user joining a group. If is nil, will update with only the current group. If not will append then update.
                             if var currentGroups = groupListCast{
+                                
                                 guard !(groupListCast?.contains(group.groupID))! else{return}
                                 currentGroups.append(group.groupID)
                                 ref.updateData(
@@ -215,12 +254,13 @@ struct AddChat: View {
             case .failure(let error):
                 print("Error decoding group: \(error)")
             }
+            //Make sure a group does not have 2 same userID, because cannot join a group twice
             if groupMembers.contains(self.userData.userID){
                 return
             }
             groupMembers.append(self.userData.userID)
             
-            
+                
             docRef.updateData(
                 [
                     "members" : groupMembers

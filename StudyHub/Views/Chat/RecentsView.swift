@@ -12,11 +12,16 @@ import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
+//Currently recent view will display all users because chatting is not set up yet
 struct RecentsView: View {
+    //List for UI displaying the list of people
     @State var recentPeople = [User]()
     @EnvironmentObject var userData: UserData
     @EnvironmentObject var viewRouter: ViewRouter
+    
+    //For passing information into chat view. When user taps on a people in the scroll list, it should take user to the chat view.
     @ObservedObject var chatDataInfo = ChatDataInfo()
+    
     var body: some View {
         VStack {
             Spacer()
@@ -46,6 +51,7 @@ struct RecentsView: View {
                 .offset(x: 0, y: 50)
                 .onAppear{
                     self.loadData(){userData in
+                        //Get completion handler data results from loadData function and set it as the recentPeople local variable
                         self.recentPeople = userData
                     }
             }
@@ -56,6 +62,7 @@ struct RecentsView: View {
         let db = Firestore.firestore()
         let docRef = db.collection("users")
         var userList:[User] = []
+        //Get every single document under collection users
         docRef.getDocuments{ (querySnapshot, error) in
             for document in querySnapshot!.documents{
                 let result = Result {
@@ -65,8 +72,7 @@ struct RecentsView: View {
                     case .success(let user):
                         if let user = user {
                             userList.append(user)
-                            let docRef = db.collection("groups")
-                          
+                 
                         } else {
                             
                             print("Document does not exist")

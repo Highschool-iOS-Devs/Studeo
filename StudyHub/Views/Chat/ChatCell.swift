@@ -7,6 +7,7 @@
 //
 import SwiftUI
 
+//Subview for the chat bubble
 struct ChatCellSelf: View {
     
     @State var name = ""
@@ -37,6 +38,7 @@ struct ChatCellSelf: View {
         
     }
 }
+//Subview for the chat bubble
 struct ChatCell: View {
    @State var name = ""
     

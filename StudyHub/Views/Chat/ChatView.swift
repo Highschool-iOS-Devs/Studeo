@@ -20,9 +20,13 @@ struct ChatView: View {
     var body: some View {
         ReverseScrollView(scrollOffset: CGFloat(self.scrollOffset), currentOffset: CGFloat(self.currentOffset)){
             VStack {
+                //Testing UI with some messages
                 ChatCell(message: "Hi there, how are you doing?")
                 ChatCellSelf(message: "I am fine.")
+                
                 Spacer()
+                
+                //The bottom function bar that displays field, send button, and some other functions such as mic and cancel
                 VStack{
                     HStack {
                         MessageButtons(imageName: "xmark")
