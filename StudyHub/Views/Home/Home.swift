@@ -15,7 +15,7 @@ struct Home: View {
     @State private var search: String = ""
     var body: some View {
         VStack {
-            ScrollView {
+            ScrollView(showsIndicators: false) {
                 Header()
                 SearchBar()
                 Spacer()
