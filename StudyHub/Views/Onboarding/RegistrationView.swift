@@ -100,7 +100,7 @@ struct RegistrationView: View {
             let db = Firestore.firestore()
             
 
-            let newUser = User(id: UUID(), firebaseID: authResult!.user.uid, name: self.username, email: self.email)
+            let newUser = User(id: UUID(), firebaseID: authResult!.user.uid, name: self.username, email: self.email, studyHours: 0, studyDate: "9-16-2020")
                 do {
                         try db.collection("users").document(newUser.id.uuidString).setData(from: newUser)
                          } catch let error {

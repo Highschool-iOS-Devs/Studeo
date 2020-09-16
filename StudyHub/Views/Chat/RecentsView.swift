@@ -224,6 +224,7 @@ struct RecentPersonView: View {
             Text(name)
                 .font(.custom("Montserrat-SemiBold", size: 18))
                 .padding(.leading, 25)
+                .foregroundColor(.black)
             Spacer()
         }
         .padding(.horizontal, 15)

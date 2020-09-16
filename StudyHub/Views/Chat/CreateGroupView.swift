@@ -76,7 +76,93 @@ struct CreateGroupView: View {
             }
         }
     }
-
+    func joinGroup(groupID: String){
+           let db = Firestore.firestore()
+           //Set reference to the group that the user pressed on (groupID provided by the function caller)
+           let docRef = db.collection("groups").document(groupID)
+           var groupMembers:[String] = []
+           //Because Firebase provide no built in append function, have to use a 3 step process
+               //Step 1: Get the group member list from Firebase group item, and store it in local variable
+               //Step 2: Append current user into that local variable list
+               //Step 3: Update the local variable list onto Firebase
+               
+           docRef.getDocument{ (document, error) in
+               let result = Result {
+                   try document?.data(as: Groups.self)
+               }
+               switch result {
+               //Decode sucess
+               case .success(let group):
+                   
+                   //Make sure group is not nil
+                   
+                   if let group = group {
+                       //Set local variable to Firebase data
+                       groupMembers = group.members
+                       
+                       //Immediately update UI by appending this group into myGroups
+                      // self.myGroups.append(group)
+                       
+                       //Now time for adding the groupID information in this user's document, under groups property
+                       //Same 3 step technique as mentioned above
+                       let ref = db.collection("users").document(self.userData.userID)
+                       ref.getDocument{document, error in
+                           
+                           if let document = document, document.exists {
+                               
+                               //Cast groupList property from Any to String
+                               //Note: We are not using the decoding struct method because we only need 1 property, not the entire user object
+                               let groupListCast = document.data()?["groups"] as? [String]
+                               
+                               //Check if make sure user's groups is not nil, which might happen if it is first time a user joining a group. If is nil, will update with only the current group. If not will append then update.
+                               if var currentGroups = groupListCast{
+                                   
+                                   guard !(groupListCast?.contains(group.groupID))! else{return}
+                                   currentGroups.append(group.groupID)
+                                   ref.updateData(
+                                         [
+                                             "groups":currentGroups
+                                         ]
+                                     )
+                               }
+                               else{
+                                   ref.updateData(
+                                   [
+                                       "groups":[group.groupID]
+                                   ]
+                               )
+                               }
+                           }
+                           else{
+                               print("Error getting user data, \(error!)")
+                           }
+                       }
+                       
+                   } else {
+                       print("Document does not exist")
+                   }
+               case .failure(let error):
+                   print("Error decoding group: \(error)")
+               }
+               //Make sure a group does not have 2 same userID, because cannot join a group twice
+               if groupMembers.contains(self.userData.userID){
+                   return
+               }
+               groupMembers.append(self.userData.userID)
+               
+                   
+               docRef.updateData(
+                   [
+                       "members" : groupMembers
+                   ]
+               ){error in
+                   if let error = error{
+                       print("Error updating user to join group, \(error)")
+                   }
+               }
+               
+           }
+}
 }
 
 struct CreateGroupView_Previews: PreviewProvider {
@@ -98,7 +184,7 @@ struct CategoriesTag: View {
             .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
             .onTapGesture {
                 self.selected.toggle()
-                selectedInterests.append(self.displayText)
+                self.selectedInterests.append(self.displayText)
         }
         .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0))
     }

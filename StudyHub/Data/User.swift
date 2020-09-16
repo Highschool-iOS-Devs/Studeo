@@ -17,6 +17,8 @@ struct User: Identifiable, Codable {
     var interests: [String]?
     var groups: [String]?
     var recentPepole: [User]?
+    var studyHours: Double
+    var studyDate: String
 }
 
 struct BasicUser: Identifiable {
