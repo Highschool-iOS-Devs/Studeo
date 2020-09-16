@@ -14,7 +14,7 @@ struct LeaderboardView: View {
     @State var people = [User]()
     @State var leaders = [User]()
     @State var user = [User]()
-    
+    @State var leadersHasLoaded = false
     var body: some View {
         ZStack {
             
@@ -34,6 +34,7 @@ struct LeaderboardView: View {
                         self.loadLeaderData(){userData in
                                                    //Get completion handler data results from loadData function and set it as the recentPeople local variable
                                                    self.leaders = userData
+                            self.leadersHasLoaded = true
                                                }
                 }
                    
@@ -44,9 +45,16 @@ struct LeaderboardView: View {
                 if leaderboardTab.currentDateTab == .allTime{
                     
                     Spacer()
+                    if self.leadersHasLoaded {
                     HStack(spacing: 30) {
-                        ForEach(people){user in
-                            LeaderRankView(name: user.name, hours: user.studyHours)
+                        
+                        LeaderRankView(name: people[1].name, hours: people[1].studyHours)
+                        .offset(x: 0, y: 10)
+                        
+                        LeaderRankView(name: people[0].name, hours: people[0].studyHours)
+                            
+                        LeaderRankView(name: people[2].name, hours: people[2].studyHours)
+                        .offset(x: 0, y: 10)
                         }
                     }
                     ScrollView {
@@ -64,7 +72,31 @@ struct LeaderboardView: View {
                     }
                 
                 else if leaderboardTab.currentDateTab == .week{
-                    
+                  Spacer()
+                    if self.leadersHasLoaded {
+                    HStack(spacing: 30) {
+                        
+                        LeaderRankView(name: people[1].name, hours: people[1].studyHours)
+                        .offset(x: 0, y: 10)
+                        
+                        LeaderRankView(name: people[0].name, hours: people[0].studyHours)
+                            
+                        LeaderRankView(name: people[2].name, hours: people[2].studyHours)
+                        .offset(x: 0, y: 10)
+                        }
+                    }
+                    ScrollView {
+                        VStack(spacing: 30) {
+                            ForEach(people){user in
+                                
+                                LeaderboardRow(name: user.name, hours: user.studyHours)
+                                    .onAppear() {
+                                        print(user.name)
+                                }
+                            }
+                        
+                    }
+                        } .padding(.bottom, 22)
                 }
                 else if leaderboardTab.currentDateTab == .today{
                     
@@ -182,7 +214,8 @@ struct SelfRankView: View {
         .frame(width: 300, height: 100)
         .background(Color.white)
         .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
-        .shadow(radius: 15)
+        .shadow(radius: 5)
+        .opacity(0.7)
     }
 }
 

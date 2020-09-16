@@ -18,15 +18,18 @@ struct CTA: View {
         ZStack {
             
             Image(imgName)
+                
                 .renderingMode(.original)
+           
                 .resizable()
-                .frame(width: 350, height: 350)
-                .padding(.horizontal, 12)
-            
+               // .frame(width: 350, height: 350)
+                .padding(.horizontal, 160)
+                .scaledToFill()
             VStack {
                 Spacer()
                 HStack {
                     Spacer()
+                        .padding(.leading, 200)
                     Button(action: {
                         self.userData.tappedCTA = true
                         if self.cta == "Add Friends" {
@@ -48,7 +51,8 @@ struct CTA: View {
                         
                         
                     } .buttonStyle(BlueStyle())
-                        .frame(width: 125)
+                       
+                        
                 }
             } .padding(.all, 22)
         }
