@@ -14,10 +14,11 @@ struct LeaderboardView: View {
     @State var people = [User]()
     @State var leaders = [User]()
     @State var user = [User]()
+    @EnvironmentObject var userData: UserData
     @State var leadersHasLoaded = false
     var body: some View {
         ZStack {
-            
+            ScrollView {
             VStack {
                 Text("Leaderboard")
                     .font(.custom("Montserrat-SemiBold", size: 28))
@@ -36,11 +37,16 @@ struct LeaderboardView: View {
                             self.leaders = userData
                             self.leadersHasLoaded = true
                         }
-                       
+                        self.loadUserData(){userData in
+                            //Get completion handler data results from loadData function and set it as the recentPeople local variable
+                            self.user = userData
+                            //self.leadersHasLoaded = true
+                        }
                     }
-                
-                SelfRankView(hours: 3)
+                ForEach(user){user in
+                    SelfRankView(hours: user.studyHours)
                             .padding(.top, 20)
+                }
                 
                 Spacer()
                 if leaderboardTab.currentDateTab == .allTime{
@@ -56,7 +62,7 @@ struct LeaderboardView: View {
                         }
                         }
                     }
-                    ScrollView {
+                  
                         VStack(spacing: 30) {
                             ForEach(people){user in
                                 
@@ -66,7 +72,7 @@ struct LeaderboardView: View {
                                 }
                             }
                         
-                    }
+                    
                         } .padding(.top, 22)
                     .padding(.bottom, 110)
                     
@@ -108,7 +114,7 @@ struct LeaderboardView: View {
             .foregroundColor(.white)
             
         }
-        
+        }
     }
     func loadData(performAction: @escaping ([User]) -> Void){
            let db = Firestore.firestore()
@@ -175,6 +181,37 @@ struct LeaderboardView: View {
              
              
          }
+    func loadUserData(performAction: @escaping ([User]) -> Void){
+           let db = Firestore.firestore()
+        let docRef = db.collection("users").document(self.userData.userID)
+           var userList:[User] = []
+           //Get every single document under collection users
+       
+        docRef.getDocument{ (document, error) in
+            
+                   let result = Result {
+                    try document?.data(as: User.self)
+                   }
+                   switch result {
+                       case .success(let user):
+                           if let user = user {
+                               userList.append(user)
+                    
+                           } else {
+                               
+                               print("Document does not exist")
+                           }
+                       case .failure(let error):
+                           print("Error decoding user: \(error)")
+                       }
+                   
+                 
+               
+                 performAction(userList)
+           }
+           
+           
+       }
 }
 
 struct LeaderboardView_Previews: PreviewProvider {
