@@ -10,9 +10,13 @@ import Foundation
 import Firebase
 import FirebaseFirestore
 import FirebaseAuth
+
 struct FirebaseManager{
     let db = Firestore.firestore()
-    func signOut(){
+    public static func setData(){
+        
+    }
+    public static func signOut(){
         do{
            try Auth.auth().signOut()
         }

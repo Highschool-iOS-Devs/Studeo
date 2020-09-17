@@ -24,11 +24,18 @@ class ViewRouter:ObservableObject{
         
        }
     @Published var currentView = Views.registration
+    @Published var showChatView = false {
+        willSet{
+            showTabBar.toggle()
+        }
+    }
+    @Published var showTabBar = true
     public static let shared = ViewRouter()
     func updateCurrentView(view:Views){
-        print("Changing current view to \(view)")
         self.currentView = view
     }
 }
+
+
 
    

@@ -58,18 +58,15 @@ struct ContentView: View {
                 .environmentObject(viewRouter)
                 environmentObject(userData)
                 }
-            else if viewRouter.currentView == .chats{
-                ChatView()
-                .environmentObject(userData)
-                }
         }
-            if viewRouter.currentView != .registration && viewRouter.currentView != .login{
+            if viewRouter.showTabBar == true || viewRouter.currentView != .registration || viewRouter.currentView != .login {
                 VStack{
                     Spacer()
                     tabBarView()
-                }
+                }.transition(AnyTransition.move(edge: .bottom))
+                    .animation(Animation.easeInOut)
             }
-           
+
         }
         
 

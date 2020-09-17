@@ -7,22 +7,7 @@
 //
 import SwiftUI
 
-struct ChatData: Identifiable {
-    var id: String
-    var name: String
-    var message: String
-    var isMe: Bool
-    
-    
-    init(id: String, name: String, message: String, isMe: Bool) {
-        self.id = id
-        self.name = name
-        self.message = message
-        self.isMe = isMe
-        
-        
-    }
-}
+
 
 struct ChattedWith: Identifiable {
     var id: String
@@ -40,11 +25,6 @@ struct ChattedWith: Identifiable {
     }
 }
 
-class ChatDataInfo: ObservableObject{
-    public static var sharedChatData = ChatDataInfo()
-    @Published var chatID: String = ""
-    
-}
 
 struct Groups:Codable, Hashable{
     var groupName:String
@@ -54,6 +34,10 @@ struct Groups:Codable, Hashable{
     var interests:[String]
 }
 
-//struct groupMembers:Codable{
-//    var members:String
-//}
+struct MessageData:Codable, Hashable{ 
+    var messageText:String
+    var sentBy:String
+    var sentTime:Date
+    var sentBySelf:Bool?
+ 
+}

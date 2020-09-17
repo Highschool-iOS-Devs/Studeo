@@ -20,7 +20,6 @@ struct RecentsView: View {
     @EnvironmentObject var viewRouter: ViewRouter
     
     //For passing information into chat view. When user taps on a people in the scroll list, it should take user to the chat view.
-    @ObservedObject var chatDataInfo = ChatDataInfo()
     
     var body: some View {
         VStack {
@@ -36,8 +35,6 @@ struct RecentsView: View {
                     RecentPersonView(name: user.name)
                         .onTapGesture {
                             
-                            self.chatDataInfo.chatID = user.id.uuidString
-                            self.viewRouter.updateCurrentView(view: .chats)
                     }
                 }
                 

@@ -64,7 +64,7 @@ struct SettingView: View {
                         settingRowView(settingText: "Sign out", settingState: "")
                              Spacer()
                             .onTapGesture {
-                                FirebaseManager().signOut()
+                                FirebaseManager.signOut()
                                 self.viewRouter.updateCurrentView(view: .registration)
                                 
                         }

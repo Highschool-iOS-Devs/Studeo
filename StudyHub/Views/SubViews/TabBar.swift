@@ -131,8 +131,6 @@ struct tabBigButton: View {
                 .font(.system(size: 28))
         }
         .offset(x: 0, y: -30)
-        .animation(Animation
-                    .easeInOut
-                  )
+     
     }
 }
