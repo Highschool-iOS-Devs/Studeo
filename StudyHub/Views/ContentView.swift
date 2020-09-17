@@ -21,7 +21,9 @@ struct ContentView: View {
             Color.white
                 .edgesIgnoringSafeArea(.all)
                 .onAppear{
+                   //  FirebaseManager().signOut()
                     self.checkAuth()
+                    
             }
             if self.hasCheckedAuth {
                 
@@ -35,21 +37,26 @@ struct ContentView: View {
             }
             else if viewRouter.currentView == .chatList {
                     RecentsView()
+                .environmentObject(userData)
            
             }
             else if viewRouter.currentView == .groups {
                     AddChat()
+                .environmentObject(userData)
                 
             }
             else if viewRouter.currentView == .leaderboard {
                     LeaderboardView()
+                .environmentObject(userData)
             }
             else if viewRouter.currentView == .home {
                     Home()
+                .environmentObject(userData)
             }
             else if viewRouter.currentView == .settings{
                 SettingView()
                 .environmentObject(viewRouter)
+                environmentObject(userData)
                 }
             else if viewRouter.currentView == .chats{
                 ChatView()

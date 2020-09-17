@@ -17,14 +17,22 @@ struct CTA: View {
     var body: some View {
         ZStack {
             
+            VStack {
+                Spacer()
+                HStack {
+                    Spacer()
             Image(imgName)
                 
                 .renderingMode(.original)
            
                 .resizable()
                // .frame(width: 350, height: 350)
-                .padding(.horizontal, 160)
+                
                 .scaledToFill()
+                    Spacer()
+                }
+                Spacer()
+            }
             VStack {
                 Spacer()
                 HStack {

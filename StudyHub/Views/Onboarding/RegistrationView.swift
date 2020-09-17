@@ -68,7 +68,7 @@ struct RegistrationView: View {
                                 }
                                 self.userData.userID = authResult!.id.uuidString
                                 self.userData.name = authResult!.name
-                                self.viewRouter.updateCurrentView(view: .chatList)
+                                self.viewRouter.updateCurrentView(view: .home)
                             }
                     
                         }) {
@@ -106,12 +106,20 @@ struct RegistrationView: View {
                          } catch let error {
                              print("Error writing to Firestore: \(error)")
                          }
+            
+            let newUserSettings = [SettingsData(id: "\(UUID())", name: "Notifications", state: "On"), SettingsData(id: "\(UUID())", name: "Personal info", state: "On"), SettingsData(id: "\(UUID())", name: "Country", state: "United States")]
+                           do {
+                                   try db.collection("settings").document(newUser.id.uuidString).setData(from: newUserSettings)
+                                    } catch let error {
+                                        print("Error writing to Firestore: \(error)")
+                                    }
                 performActions(ErrorModel(errorMessage: "", errorState: false), newUser)
 
             
          
             }
         }
+    
     }
 
 
