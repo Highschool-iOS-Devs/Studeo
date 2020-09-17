@@ -62,7 +62,7 @@ struct tabItemView: View {
                 .foregroundColor(viewRouter.currentView == tabType ? Color("barHighlight") : Color.black.opacity(0.25))
             
         }
-        .frame(width:60)
+        
         .padding(.top, 15)
         
     }
