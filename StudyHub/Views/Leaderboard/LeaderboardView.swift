@@ -30,15 +30,16 @@ struct LeaderboardView: View {
                             
                         
                         }
-                
+                        
                         self.loadLeaderData(){userData in
-                                                   //Get completion handler data results from loadData function and set it as the recentPeople local variable
-                                                   self.leaders = userData
+                            //Get completion handler data results from loadData function and set it as the recentPeople local variable
+                            self.leaders = userData
                             self.leadersHasLoaded = true
-                                               }
-                }
-                   
-                    SelfRankView(hours: 3)
+                        }
+                       
+                    }
+                
+                SelfRankView(hours: 3)
                             .padding(.top, 20)
                 
                 Spacer()
@@ -47,14 +48,12 @@ struct LeaderboardView: View {
                     Spacer()
                     if self.leadersHasLoaded {
                     HStack(spacing: 30) {
+                        ForEach(leaders){user in
+                        LeaderRankView(name: user.name, hours: user.studyHours)
+                       // .offset(x: 0, y: 10)
                         
-                        LeaderRankView(name: people[1].name, hours: people[1].studyHours)
-                        .offset(x: 0, y: 10)
-                        
-                        LeaderRankView(name: people[0].name, hours: people[0].studyHours)
-                            
-                        LeaderRankView(name: people[2].name, hours: people[2].studyHours)
-                        .offset(x: 0, y: 10)
+                      
+                        }
                         }
                     }
                     ScrollView {
@@ -68,7 +67,9 @@ struct LeaderboardView: View {
                             }
                         
                     }
-                        } .padding(.bottom, 22)
+                        } .padding(.top, 22)
+                    .padding(.bottom, 110)
+                    
                     }
                 
                 else if leaderboardTab.currentDateTab == .week{
@@ -114,7 +115,8 @@ struct LeaderboardView: View {
            let docRef = db.collection("users")
            var userList:[User] = []
            //Get every single document under collection users
-           docRef.getDocuments{ (querySnapshot, error) in
+        let queryParameter = docRef.order(by: "studyHours", descending: true).limit(to: 100)
+        queryParameter.getDocuments{ (querySnapshot, error) in
                for document in querySnapshot!.documents{
                    let result = Result {
                        try document.data(as: User.self)
@@ -143,7 +145,7 @@ struct LeaderboardView: View {
              let db = Firestore.firestore()
              let docRef = db.collection("users")
              var userList:[User] = []
-         let queryParameter = docRef.order(by: "studyHours").limit(to: 3)
+         let queryParameter = docRef.order(by: "studyHours", descending: true).limit(to: 3)
              //Get every single document under collection users
              queryParameter.getDocuments{ (querySnapshot, error) in
                  for document in querySnapshot!.documents{
@@ -166,6 +168,9 @@ struct LeaderboardView: View {
                    
                  }
                    performAction(userList)
+              //  DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+               
+              //  }
              }
              
              
@@ -249,7 +254,7 @@ struct LeaderboardRow: View {
             Text(name)
              
                 .foregroundColor(.black)
-                .padding(.trailing, 200)
+                
             Spacer()
             Text("\(Int(hours))")
                 .font(.custom("Montserrat-SemiBold", size: 12))
