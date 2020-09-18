@@ -29,14 +29,8 @@ struct ChatView: View {
                 VStack {
                     //Testing UI with some messages
                    
-                    ForEach(self.messages, id: \.self){message in
-                        if message.sentBySelf!{
-                            ChatCellSelf(message: message.messageText)
-
-                        }
-                        else{
-                            ChatCell(message: message.messageText)
-                        }
+                    ForEach(self.messages, id: \.self){ message in
+                        MessageCellView(message)
                        
                     }
                     Spacer()
@@ -151,6 +145,14 @@ struct ChatView: View {
         
         return messageData
         
+    }
+    
+    func MessageCellView(_ message: MessageData) -> AnyView {
+        if message.sentBySelf! {
+            return AnyView(ChatCellSelf(message: message.messageText))
+        } else {
+            return AnyView(ChatCell(message: message.messageText))
+        }
     }
  
 
