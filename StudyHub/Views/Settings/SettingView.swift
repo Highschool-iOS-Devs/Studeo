@@ -7,36 +7,16 @@
 //
 
 import SwiftUI
-import FirebaseFirestore
-import FirebaseAuth
+
 let screenSize = UIScreen.main.bounds.size
 
 struct SettingView: View {
-     @EnvironmentObject var userData: UserData
-    @EnvironmentObject var viewRouter: ViewRouter
-     @State var settings = [SettingsData]()
-
-    @State private var hasCheckedAuth = false
     var body: some View {
-        ZStack {
-            Color(.white)
-                .onAppear() {
-                    self.checkAuth()
-                    self.loadData(){userData in
-                        //Get completion handler data results from loadData function and set it as the recentPeople local variable
-                        
-                        self.settings = userData
-                        
-                        
-                    }
-                    
-            }
-            
-            ScrollView {
+        ScrollView {
+            VStack {
                 VStack {
-                    VStack {
                     profilePictureCircle()
-                    Text(self.userData.name)
+                    Text("John R.")
                     .font(.custom("Montserrat-Bold", size: 28))
                     .padding(.top, 10)
                 }
@@ -52,26 +32,15 @@ struct SettingView: View {
                         .padding(.bottom, 25)
                         .padding(.top, 40)
                         .padding(.horizontal, 22)
-                   ScrollView {
                     VStack(spacing: 30) {
-                        ForEach(settings){setting in
                        
-                            settingRowView(settingText: setting.name, settingState: setting.state)
-                       
-                        
-                        }
-                        
+                        settingRowView(settingText: "Notifications", settingState: "On")
+                        settingRowView(settingText: "Personal info", settingState: "Name Age")
+                        settingRowView(settingText: "Country", settingState: "United States")
+                        settingRowView(settingText: "Language", settingState: "English")
+                        settingRowView(settingText: "Password settings", settingState: "")
                         settingRowView(settingText: "Sign out", settingState: "")
-                             Spacer()
-                            .onTapGesture {
-                                FirebaseManager.signOut()
-                                self.viewRouter.updateCurrentView(view: .registration)
-                                
-                        }
-                            
                         settingRowView(settingText: "Help", settingState: "")
-                        
-                    }
                     }
                     Spacer()
                 }
@@ -85,57 +54,6 @@ struct SettingView: View {
             } .padding(.bottom, 85)
         }
     }
-    }
-        
-        func loadData(performAction: @escaping ([SettingsData]) -> Void){
-            if hasCheckedAuth {
-               let db = Firestore.firestore()
-                let docRef = db.collection("settings").document(self.userData.userID)
-               var userList:[SettingsData] = []
-               //Get every single document under collection users
-               docRef.getDocument{ (document, error) in
-                   
-                       let result = Result {
-                        try document!.data(as: SettingsData.self)
-                       }
-                       switch result {
-                           case .success(let user):
-                               if let user = user {
-                                   userList.append(user)
-                        
-                               } else {
-                                   
-                                   print("Document does not exist")
-                               }
-                           case .failure(let error):
-                               print("Error decoding user: \(error)")
-                           }
-                       
-                     
-                   }
-                     performAction(userList)
-               }
-               
-        }
-           
-        func checkAuth(){
-            DispatchQueue.global(qos: .background).async {
-                Auth.auth().addStateDidChangeListener { (auth, user) in
-                    print(user)
-                    if user != nil{
-                        self.viewRouter.currentView = .home
-                        self.hasCheckedAuth = true
-                    }
-                    else {
-                        self.viewRouter.currentView = .registration
-                        self.hasCheckedAuth = true
-                    }
-                   
-                }
-            }
-             
-        }
-    
     
     struct SettingView_Previews: PreviewProvider {
         static var previews: some View {
