@@ -21,7 +21,7 @@ struct ChatCellSelf: View {
             HStack {
                 Spacer()
                 
-                Text(message)
+                Text(self.message)
                     .foregroundColor(.white)
                     .lineLimit(.none)
                     .fixedSize(horizontal: false, vertical: true)
@@ -49,7 +49,7 @@ struct ChatCell: View {
         ZStack(alignment: .leading) {
             HStack {
                 
-                Text(message)
+                Text(self.message)
                     .foregroundColor(.white)
                     .lineLimit(.none)
                     .fixedSize(horizontal: false, vertical: true)

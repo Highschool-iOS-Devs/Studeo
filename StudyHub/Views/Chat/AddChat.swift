@@ -122,7 +122,7 @@ struct AddChat: View {
                     .offset(x: viewRouter.showChatView ? 0 : screenSize.width, y: 0)
                     .animation(.easeInOut)
                     .onAppear{
-                        print("From main, \(groupID)")
+                        print("From main, \(self.groupID)")
                     }
             }
            

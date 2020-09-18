@@ -49,7 +49,7 @@ struct ChatView: View {
                                     self.viewRouter.showChatView = false
                             }
                             MessageButtons(imageName: "mic.fill")
-                            TextField("Enter message", text: $messageField)
+                            TextField("Enter message", text: self.$messageField)
                                 .font(.custom("Montserrat", size: 15))
                                 .padding()
                                 .frame(width: 250, height: 40)
@@ -62,10 +62,10 @@ struct ChatView: View {
                                             .foregroundColor(Color.gray.opacity(1))
                                             .padding(.trailing, 15)
                                             .onTapGesture{
-                                                if messageField != ""{
-                                                    let newMessage =                     MessageData(messageText: messageField, sentBy: userData.userID, sentTime: Date())
+                                                if self.messageField != ""{
+                                                    let newMessage =                     MessageData(messageText: self.messageField, sentBy: self.userData.userID, sentTime: Date())
 
-                                                    saveMessage(outgoingMessage: newMessage)
+                                                    self.saveMessage(outgoingMessage: newMessage)
                                                 }
                                             }
                                            
@@ -91,7 +91,7 @@ struct ChatView: View {
             }
         }
         .onAppear{
-            loadData()
+            self.loadData()
         }
       
 
@@ -125,7 +125,7 @@ struct ChatView: View {
                                    switch result {
                                        case .success(let messageData):
                                            if let messageData = messageData {
-                                            messageArray.append(parseMessageData(messageData: messageData))
+                                            messageArray.append(self.parseMessageData(messageData: messageData))
                                            } else {
                                                
                                                print("Document does not exist")

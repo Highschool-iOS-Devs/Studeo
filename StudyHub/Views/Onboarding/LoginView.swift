@@ -56,7 +56,7 @@ struct LoginView: View {
                     
                     VStack(spacing: 35) {
                         Button(action: {
-                            showLoadingAnimation = true
+                            self.showLoadingAnimation = true
                             DispatchQueue.main.asyncAfter(deadline: .now()+2){
                             self.sendData{error, authResult in
                                 guard error.errorState == false else {
@@ -122,7 +122,7 @@ struct LoginView: View {
         Auth.auth().signIn(withEmail: self.email, password: self.password) { [] authResult, error in
             
             guard let authRusult = authResult else {
-                showLoadingAnimation = false
+                self.showLoadingAnimation = false
                 let newError = ErrorModel(errorMessage: error!.localizedDescription, errorState: true)
                 performActions(newError, nil)
                 return
@@ -143,7 +143,7 @@ struct LoginView: View {
                     } 
                 
             }
-                showLoadingAnimation = false
+                self.showLoadingAnimation = false
                 performActions(ErrorModel(errorMessage: "", errorState: false), authResult)
             }
             
