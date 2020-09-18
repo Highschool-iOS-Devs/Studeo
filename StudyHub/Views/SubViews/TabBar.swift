@@ -8,42 +8,6 @@
 
 import SwiftUI
 
-//struct TabBar: View {
-//    @ObservedObject var tabRouter = ViewRouter()
-//    var body: some View {
-//
-//        ZStack {
-//            if tabRouter.currentView == .chats{
-//                Text("Chat View")
-//            }
-//            else if tabRouter.currentView == .books{
-//                Text("Books View")
-//            }
-//            else if tabRouter.currentView == .groups{
-//                Text("Groups View")
-//            }
-//            else if tabRouter.currentView == .settings{
-//                SettingView()
-//                    .transition(.move(edge: .bottom))
-//                    .animation(.timingCurve(0.06,0.98,0.69,1))
-//            }
-//            else if tabRouter.currentView == .home{
-//                Home()
-//                .transition(.move(edge: .bottom))
-//                .animation(.timingCurve(0.06,0.98,0.69,1))
-//            }
-//            tabBarView(tabRouter: tabRouter, currentView: $tabRouter.currentView)
-//        }
-//
-//    }
-//}
-
-struct TabBar_Previews: PreviewProvider {
-    static var previews: some View {
-        tabBarView()
-    }
-}
-
 struct tabItemView: View {
     var SFImage:String
     var text:String
@@ -67,47 +31,60 @@ struct tabItemView: View {
         
     }
 }
- 
+
 
 struct tabBarView: View {
     @EnvironmentObject var viewRouter:ViewRouter
     
     var body: some View {
         VStack {
+            
             Spacer()
             HStack {
-                 Spacer()
-                tabItemView(SFImage: "message.fill", text: "Chat", tabType: .chats)
-                .onTapGesture {
-                    self.viewRouter.updateCurrentView(view: .chatList)
+                
+                HStack {
+                    
+                    tabItemView(SFImage: "message.fill", text: "Chat", tabType: .chats)
+                        
+                        .onTapGesture {
+                            self.viewRouter.updateCurrentView(view: .chatList)
+                        }
+                    Spacer()
+                    tabItemView(SFImage: "book.fill", text: "Books", tabType: .books)
+                        // .padding(.trailing, 60)
+                        .onTapGesture {
+                            self.viewRouter.updateCurrentView(view: .books)
+                        }
+                    Spacer()
+                } .padding()
+                Spacer()
+                HStack {
+                    Spacer()
+                    tabItemView(SFImage: "person.2.fill", text: "Groups", tabType: .groups)
+                        //.padding(.leading, 60)
+                        .onTapGesture {
+                            self.viewRouter.updateCurrentView(view: .groups)
+                        }
+                    Spacer()
+                    tabItemView(SFImage: "gear", text: "Settings", tabType: .settings)
+                        
+                        .onTapGesture {
+                            self.viewRouter.updateCurrentView(view: .settings)
+                        }
+                    
+                } .padding()
+                
             }
-           Spacer()
-                tabItemView(SFImage: "book.fill", text: "Books", tabType: .books)
-                    .padding(.trailing, 30)
-                .onTapGesture {
-                    self.viewRouter.updateCurrentView(view: .books)
-                }
-                 Spacer()
-                tabItemView(SFImage: "person.2.fill", text: "Groups", tabType: .groups)
-                    .padding(.leading, 30)
-                .onTapGesture {
-                    self.viewRouter.updateCurrentView(view: .groups)
-                }
-                 Spacer()
-                tabItemView(SFImage: "gear", text: "Settings", tabType: .settings)
-                .onTapGesture {
-                    self.viewRouter.updateCurrentView(view: .settings)
-                }
-                 Spacer()
-            }
-            .frame(width: screenSize.width, height: screenSize.height/10)
+            .padding(.bottom)
+            //.padding()
+          //  .frame(width: screenSize.width, height: screenSize.height/10)
             .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-            .background(Color.white.shadow(radius: 2))
+            .background(Color.white.shadow(radius: 0.5))
             .overlay(
                 tabBigButton()
                     .onTapGesture {
                         self.viewRouter.updateCurrentView(view: .home)
-                }
+                    }
             )
             
             
@@ -123,14 +100,16 @@ struct tabBigButton: View {
         ZStack {
             Circle()
                 .fill(LinearGradient(gradient: Gradient(colors: [Color.gradientLight, Color.gradientDark]), startPoint: .topTrailing, endPoint: .bottomLeading))
-                .frame(width: 70, height: 70)
+                .frame(width: 80, height: 80)
                
             Image(systemName: "house.fill")
                 .frame(alignment: .center)
                 .foregroundColor(Color.white)
                 .font(.system(size: 28))
         }
-        .offset(x: 0, y: -30)
-     
+        .offset(x: 0, y: -50)
+        .animation(Animation
+                    .easeInOut
+                  )
     }
 }

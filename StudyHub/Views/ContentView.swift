@@ -63,6 +63,7 @@ struct ContentView: View {
                 VStack{
                     Spacer()
                     tabBarView()
+                        
                 }.transition(AnyTransition.move(edge: .bottom))
                     .animation(Animation.easeInOut)
             }
