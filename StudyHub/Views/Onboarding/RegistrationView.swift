@@ -115,7 +115,6 @@ struct RegistrationView: View {
         }
       
         }
-    
     func sendData(performActions: @escaping (ErrorModel, User?) -> Void) {
         Auth.auth().createUser(withEmail: self.email, password: self.password) { authResult, error in
             guard authResult != nil else {
@@ -151,7 +150,7 @@ struct RegistrationView: View {
         }
     
     }
-
+}
 
 struct RegistrationView_Previews: PreviewProvider {
     static var previews: some View {
@@ -176,3 +175,4 @@ struct OnboardingErrorMessage: View {
 
     }
 }
+
