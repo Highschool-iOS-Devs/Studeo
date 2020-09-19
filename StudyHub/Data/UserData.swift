@@ -42,6 +42,12 @@ final class UserData: ObservableObject {
     @Published(key: "isLoggedIn")
     var isLoggedIn: Bool = false
     
+    @Published(key: "chatNotificationsOn")
+    var chatNotificationsOn: Bool = true
+    
+    @Published(key: "joinedGroupNotificationsOn")
+    var joinedGroupNotificationsOn: Bool = true
+    
     @Published
     var onboard: Int = 0
     
@@ -62,6 +68,7 @@ final class UserData: ObservableObject {
     
     @Published
     var tappedCTA: Bool = false
+    
 }
 
 import Foundation

@@ -57,6 +57,7 @@
 		E1C91E122503B80800001424 /* ReverseScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C91E112503B80800001424 /* ReverseScrollView.swift */; };
 		E1C91E142503B86300001424 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C91E132503B86300001424 /* Blur.swift */; };
 		E1FD834D24F54E670024D2A3 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E1FD834C24F54E670024D2A3 /* IQKeyboardManagerSwift */; };
+		E3CA983225167D4800602EB6 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CA983125167D4800602EB6 /* NotificationsView.swift */; };
 		FB33AEA3FD2D5803BE4DAF75 /* Pods_StudyHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47F4119D880B6AFBE91DBA85 /* Pods_StudyHub.framework */; };
 /* End PBXBuildFile section */
 
@@ -114,6 +115,7 @@
 		E1C91E112503B80800001424 /* ReverseScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverseScrollView.swift; sourceTree = "<group>"; };
 		E1C91E132503B86300001424 /* Blur.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
 		E339449224F1B71600F11BA9 /* StudyHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E3CA983125167D4800602EB6 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
 		EEC3B6AC4F1E11EB05097CA0 /* Pods-StudyHub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudyHub.release.xcconfig"; path = "Target Support Files/Pods-StudyHub/Pods-StudyHub.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -250,6 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				620590DA24FDBB21001565BF /* SettingView.swift */,
+				E3CA982F25167CF400602EB6 /* Setting Subviews */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -348,6 +351,14 @@
 				E339449224F1B71600F11BA9 /* StudyHub.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		E3CA982F25167CF400602EB6 /* Setting Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				E3CA983125167D4800602EB6 /* NotificationsView.swift */,
+			);
+			path = "Setting Subviews";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -517,6 +528,7 @@
 				6205911924FDBB21001565BF /* LoginView.swift in Sources */,
 				6205910924FDBB21001565BF /* TimerView.swift in Sources */,
 				6205910024FDBB21001565BF /* PushNotificationSender.swift in Sources */,
+				E3CA983225167D4800602EB6 /* NotificationsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

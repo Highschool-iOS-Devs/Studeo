@@ -11,47 +11,52 @@ import SwiftUI
 let screenSize = UIScreen.main.bounds.size
 
 struct SettingView: View {
+    @EnvironmentObject var userData: UserData
+    
     var body: some View {
-        ScrollView {
-            VStack {
+        NavigationView {
+            ScrollView {
                 VStack {
-                    profilePictureCircle()
-                    Text("John R.")
-                    .font(.custom("Montserrat-Bold", size: 28))
-                    .padding(.top, 10)
-                }
-               
-                
-                Spacer(minLength: 75)
-                
-                VStack(alignment:.leading) {
+                    VStack {
+                        profilePictureCircle()
+                        Text("John R.")
+                        .font(.custom("Montserrat-Bold", size: 28))
+                        .padding(.top, 10)
+                    }.padding(.top, 20)
+                   
                     
-                    Text("Account Settings")
-                        .font(.custom("Montserrat-Bold", size: 16))
-                        .foregroundColor(.black)
-                        .padding(.bottom, 25)
-                        .padding(.top, 40)
-                        .padding(.horizontal, 22)
-                    VStack(spacing: 30) {
-                       
-                        settingRowView(settingText: "Notifications", settingState: "On")
-                        settingRowView(settingText: "Personal info", settingState: "Name Age")
-                        settingRowView(settingText: "Country", settingState: "United States")
-                        settingRowView(settingText: "Language", settingState: "English")
-                        settingRowView(settingText: "Password settings", settingState: "")
-                        settingRowView(settingText: "Sign out", settingState: "")
-                        settingRowView(settingText: "Help", settingState: "")
+                    Spacer(minLength: 50)
+                    
+                    VStack(alignment:.leading) {
+                        
+                        Text("Account Settings")
+                            .font(.custom("Montserrat-Bold", size: 16))
+                            .foregroundColor(.black)
+                            .padding(.bottom, 25)
+                            .padding(.top, 40)
+                            .padding(.horizontal, 22)
+                        VStack(spacing: 30) {
+                           
+                            settingRowView(settingText: "Notifications", settingState: "On", newView: AnyView(NotificationsView()))
+                            settingRowView(settingText: "Personal info", settingState: "", newView: AnyView(Text("Placeholder")))
+                            settingRowView(settingText: "Country", settingState: "United States", newView: AnyView(Text("Placeholder")))
+                            settingRowView(settingText: "Language", settingState: "English", newView: AnyView(Text("Placeholder")))
+                            settingRowView(settingText: "Password settings", settingState: "", newView: AnyView(Text("Placeholder")))
+                            settingRowView(settingText: "Sign out", settingState: "", newView: AnyView(Text("Placeholder")))
+                            settingRowView(settingText: "Help", settingState: "", newView: AnyView(Text("Placeholder")))
+                        }
+                        Spacer()
                     }
-                    Spacer()
-                }
-                    
-                    
+                    .padding(.bottom, 20)
                     .background(Color.white)
                     .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
                     .shadow(radius: 5)
-                .padding(.horizontal, 10)
+                    .padding(.horizontal, 10)
 
-            } .padding(.bottom, 85)
+                } .padding(.bottom, 85)
+            }
+            .navigationBarTitle("")
+            .navigationBarHidden(true)
         }
     }
     
@@ -85,6 +90,7 @@ struct SettingView: View {
     struct settingRowView: View {
         var settingText:String
         var settingState:String
+        var newView: AnyView
         
         var body: some View {
             HStack{
@@ -100,11 +106,11 @@ struct SettingView: View {
                     .lineLimit(1)
                     .opacity(0.4)
                     .padding(.trailing, 5)
-                
-                Image(systemName: "chevron.right")
-                    .font(Font.system(size: 13).weight(.semibold))
-                
-                
+                NavigationLink(destination: newView) {
+                    Image(systemName: "chevron.right")
+                        .foregroundColor(Color("barCenter"))
+                        .font(Font.system(size: 13).weight(.semibold))
+                }
                 
             } .padding(.horizontal, 22)
            
@@ -112,3 +118,4 @@ struct SettingView: View {
         }
     }
 }
+
