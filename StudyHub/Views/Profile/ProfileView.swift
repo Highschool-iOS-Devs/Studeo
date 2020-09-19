@@ -7,11 +7,14 @@
 //
 
 import SwiftUI
-
+import Firebase
+import UIKit
  struct ProfileView: View {
+    @State var imagePicker: Bool = false
+    @State var profileImage = UIImage(named: "5539")
      var body: some View {
          ZStack {
-             Color(.white)
+             Color(.systemBackground)
              ScrollView(showsIndicators: false) {
              VStack {
                  Spacer()
@@ -26,6 +29,12 @@ import SwiftUI
                      .padding(.top, 42)
                      Spacer()
                  } .padding(.horizontal, 42)
+                 .onTapGesture{
+                    imagePicker.toggle()
+                 } .onAppear() {
+                    profileImage = UIImage(named: "5539")
+                    uploadImage()
+                 }
                  Spacer()
 
                  Text("Andreas Ink")
@@ -66,6 +75,59 @@ import SwiftUI
                      .padding()
              }
              }
+            if imagePicker {
+               // ImagePicker(selectedImage: $profileImage)
+            }
          }
      }
+    func uploadImage() {
+   
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+
+        let storage = Storage.storage().reference()
+        storage.child("images").putData(profileImage!.jpegData(compressionQuality: 0.4)!, metadata: metadata) { meta, error in
+            if let error = error {
+                print(error)
+                return
+            }
+
+           
+        }
+  
+}
+   
+    
+
+   
+   
+
  }
+    extension UIImage {
+        func upload(with folder: String, completion: @escaping (URL?) -> Void) {
+            let metadata = StorageMetadata()
+            metadata.contentType = "image/jpeg"
+
+            //let fileName = [UUID().uuidString, String(Date().timeIntervalSince1970)].joined()
+            let data = self.jpegData(compressionQuality: 0.4)!
+            let storage = Storage.storage().reference()
+            storage.child(folder).putData(data, metadata: metadata) { meta, error in
+                if let error = error {
+                    print(error)
+                    completion(nil)
+                    return
+                }
+
+                storage.child(folder).downloadURL { url, error in
+                    if let error = error {
+                        // Handle any errors
+                        print(error)
+                        completion(nil)
+                    }
+                    else {
+                        completion(url)
+                    }
+                }
+            }
+        }
+    }
