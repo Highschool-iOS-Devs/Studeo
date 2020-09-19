@@ -43,11 +43,21 @@ struct CreateGroupView: View {
                 .foregroundColor(Color.black.opacity(0.4))
                 .padding(.leading, 20)
                 .padding(.bottom, 30)
+            ScrollView(.horizontal, showsIndicators: false) {
+              
+               
             HStack {
+                Spacer()
                 CategoriesTag(displayText: "SAT", selectedInterests: $selectedInterests)
+                Spacer()
                 CategoriesTag(displayText: "ACT", selectedInterests: $selectedInterests)
+                Spacer()
                 CategoriesTag(displayText: "AP Calculus", selectedInterests: $selectedInterests)
+                Spacer()
                 CategoriesTag(displayText: "AP Physics", selectedInterests: $selectedInterests)
+                Spacer()
+                
+            } .padding()
             }
             
             Spacer()
@@ -61,6 +71,7 @@ struct CreateGroupView: View {
                     .font(.custom("Montserrat-bold", size: 15))
             }
             .buttonStyle(BlueStyle())
+            .padding()
 
             .padding(.bottom, 50)
             //For some reason this line is needed to fix preview crasing
