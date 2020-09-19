@@ -27,38 +27,39 @@ struct ContentView: View {
             }
             if self.hasCheckedAuth {
                 
-            if viewRouter.currentView == .registration{
-                RegistrationView()
-                    .environmentObject(viewRouter)
-            }
-            else if viewRouter.currentView == .login {
-                LoginView()
-                    .environmentObject(viewRouter)
-            }
-            else if viewRouter.currentView == .chatList {
-                    RecentsView()
-                .environmentObject(userData)
-           
-            }
-            else if viewRouter.currentView == .groups {
-                    AddChat()
-                .environmentObject(userData)
-                
-            }
-            else if viewRouter.currentView == .leaderboard {
-                    LeaderboardView()
-                .environmentObject(userData)
-            }
-            else if viewRouter.currentView == .home {
-                    Home()
-                .environmentObject(userData)
-            }
-            else if viewRouter.currentView == .settings{
-                SettingView()
-                .environmentObject(viewRouter)
-                environmentObject(userData)
+                if viewRouter.currentView == .registration{
+                    RegistrationView()
+                        .environmentObject(viewRouter)
                 }
-        }
+                else if viewRouter.currentView == .login {
+                    LoginView()
+                        .environmentObject(viewRouter)
+                }
+                else if viewRouter.currentView == .chatList {
+                    RecentsView()
+                        .environmentObject(userData)
+               
+                }
+                else if viewRouter.currentView == .groups {
+                    AddChat()
+                        .environmentObject(userData)
+                    
+                }
+                else if viewRouter.currentView == .leaderboard {
+                    LeaderboardView()
+                        .environmentObject(userData)
+                }
+                else if viewRouter.currentView == .home {
+                    Home()
+                        .environmentObject(userData)
+                }
+                else if viewRouter.currentView == .settings{
+                    SettingView()
+                        .environmentObject(viewRouter)
+                        .environmentObject(userData)
+                }
+            }
+            
             if viewRouter.showTabBar == true || viewRouter.currentView != .registration || viewRouter.currentView != .login {
                 VStack{
                     Spacer()
