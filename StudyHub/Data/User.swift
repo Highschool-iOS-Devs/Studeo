@@ -19,7 +19,10 @@ struct User: Identifiable, Codable {
     var recentPepole: [User]?
     var studyHours: Double
     var studyDate: String
-   
+    var all: Double
+    var month: Double
+    var day: Double
+    var description: String
 }
 
 struct BasicUser: Identifiable {

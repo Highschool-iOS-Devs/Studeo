@@ -13,16 +13,19 @@ import UIKit
     @State var imagePicker: Bool = false
     @State var profileImage = UIImage(named: "5293")
     @State var hasLoaded: Bool = false
-    @State var isUser: Bool = true
+    @State var isUser: Bool = false
+    @State var user = [User]()
     @EnvironmentObject var userData: UserData
      var body: some View {
          ZStack {
-             Color(.systemBackground)
-                .onAppear() {
-                  // profileImage = UIImage(named: "5539")
-                   downloadImage()
-                }
+            
             if isUser {
+                Color(.systemBackground)
+                   .onAppear() {
+                     // profileImage = UIImage(named: "5539")
+                      downloadImage()
+                      
+                   }
             if hasLoaded {
              ScrollView(showsIndicators: false) {
              VStack {
@@ -72,9 +75,70 @@ import UIKit
             if imagePicker {
                // ImagePicker(selectedImage: $profileImage)
             }
-         }
+            }
             } else {
+                Color(.systemBackground)
+                   .onAppear() {
+                     // profileImage = UIImage(named: "5539")
+                      downloadImage()
+                       self.loadData(){userData in
+                           //Get completion handler data results from loadData function and set it as the recentPeople local variable
+                           self.user = userData
+                        hasLoaded = true
+                       
+                       }
+                   }
+                //if hasLoaded {
+                    ForEach(user){ user in
+                 ScrollView(showsIndicators: false) {
+                 VStack {
+                     Spacer()
+                    HStack {
+                        
+                        Spacer()
+                       
+                        Image(uiImage: (profileImage!))
+                            .renderingMode(.original)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .clipShape(Circle())
+                            .overlay(Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 5))
+                            .padding(.top, 42)
+                        Spacer()
+                        
+                    } .padding(.horizontal, 42)
+                    .onTapGesture{
+                        imagePicker.toggle()
+                     }
+                        
+                     Spacer()
+
+                    Text(user.name)
+                        // .frame(minWidth: 100, alignment: .leading)
+                         .font(.custom("Montserrat-Semibold", size: 22))
+                         .foregroundColor(Color(.black))
+                         .multilineTextAlignment(.leading)
+                        Spacer()
+                     HStack {
+                       
+                        ProfileStats(allNum: user.all, all: true)
+                        ProfileStats(monthNum: user.month, month: true)
+                        ProfileStats(dayNum: user.day, day: true)
+                       
+                      
+                       
+                     }
+                    Text(user.description)
+                         .frame(minWidth: 100, alignment: .leading)
+                         .font(.custom("Montserrat-Semibold", size: 18))
+                         .foregroundColor(Color(.black))
+                         .multilineTextAlignment(.leading)
+                         .padding()
+                 }
+                 }
                 
+           //     }
+                }
             }
          }
      }
@@ -114,14 +178,42 @@ import UIKit
             // Data for "images/island.jpg" is returned
             var image = UIImage(data: data!)
             profileImage = image
-            hasLoaded = true
+            
           }
         }
             
         
   
 }
-
+    func loadData(performAction: @escaping ([User]) -> Void){
+        let db = Firestore.firestore()
+     let docRef = db.collection("users").document(self.userData.userID)
+        var userList:[User] = []
+        //Get every single document under collection users
+    
+     docRef.getDocument{ (document, error) in
+         
+                let result = Result {
+                 try document?.data(as: User.self)
+                }
+                switch result {
+                    case .success(let user):
+                        if let user = user {
+                            userList.append(user)
+                 
+                        } else {
+                            
+                            print("Document does not exist")
+                        }
+                    case .failure(let error):
+                        print("Error decoding user: \(error)")
+                    }
+                
+              
+            
+              performAction(userList)
+        }
+    }
    
    
 

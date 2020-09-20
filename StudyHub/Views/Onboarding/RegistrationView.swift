@@ -127,8 +127,9 @@ struct RegistrationView: View {
             let db = Firestore.firestore()
             
 
-            let newUser = User(id: UUID(), firebaseID: authResult!.user.uid, name: self.username, email: self.email, studyHours: 0, studyDate: "9-16-2020")
+            let newUser = User(id: UUID(), firebaseID: authResult!.user.uid, name: self.username, email: self.email, studyHours: 0, studyDate: "9-16-2020", all: 0, month: 0, day: 0, description: "nil")
                 do {
+                    userData.userID = newUser.id.uuidString
                         try db.collection("users").document(newUser.id.uuidString).setData(from: newUser)
                          } catch let error {
                              print("Error writing to Firestore: \(error)")

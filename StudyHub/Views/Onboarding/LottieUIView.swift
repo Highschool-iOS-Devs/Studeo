@@ -11,7 +11,15 @@ import SwiftUI
 struct LottieUIView: View {
     var body: some View {
         ZStack {
-            LottieView().frame(width: 400, height: 400)
+            VStack {
+                Spacer()
+                HStack {
+                    Spacer()
+                    LottieView()
+                    Spacer()
+                }
+                Spacer()
+            }
         }
     }
 }
