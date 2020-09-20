@@ -10,6 +10,7 @@ import SwiftUI
 
 struct Header: View {
      @EnvironmentObject var userData: UserData
+    @Binding var showTimer: Bool
     var body: some View {
         HStack {
             VStack {
@@ -39,7 +40,7 @@ struct Header: View {
                     .overlay(Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 5))
             } .padding(.trailing, 22)
             
-            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
+            Button(action: { self.showTimer = true }) {
                 ZStack {
                     Color(.white)
                         .frame(width: 40, height: 40)
@@ -62,6 +63,6 @@ struct Header: View {
 
 struct Header_Previews: PreviewProvider {
     static var previews: some View {
-        Header()
+        Header(showTimer: .constant(true))
     }
 }

@@ -13,34 +13,42 @@ struct Home: View {
     @EnvironmentObject var userData: UserData
      @EnvironmentObject var viewRouter:ViewRouter
     @State private var search: String = ""
+    @State private var showingTimer = false
     var body: some View {
-        VStack {
-            ScrollView(showsIndicators: false) {
-                Header()
-                SearchBar()
-                    .padding()
-                Spacer()
-                HStack {
-                    
-                    Text("Start here!")
-                        .frame(minWidth: 100, alignment: .leading)
-                        .font(.custom("Montserrat-Semibold", size: 18))
-                        .foregroundColor(Color(.black))
-                        .multilineTextAlignment(.leading)
-                    
+        ZStack {
+            VStack {
+                ScrollView(showsIndicators: false) {
+                    Header(showTimer: $showingTimer)
+                    SearchBar()
+                        .padding()
                     Spacer()
-                } .padding(.horizontal, 12)
-                
-                CTA(imgName: "friends", cta: "Add Friends")
-                    .padding()
-                CTA(imgName: "Group", cta: "Add Group")
-                    .padding()
-                 CTA(imgName: "study", cta: "Compete")
-                    .padding()
-                Spacer()
-                
-            }
-        } .padding(.bottom, 85)
+                    HStack {
+                        
+                        Text("Start here!")
+                            .frame(minWidth: 100, alignment: .leading)
+                            .font(.custom("Montserrat-Semibold", size: 18))
+                            .foregroundColor(Color(.black))
+                            .multilineTextAlignment(.leading)
+                        
+                        Spacer()
+                    } .padding(.horizontal, 12)
+                    
+                    CTA(imgName: "friends", cta: "Add Friends")
+                        .padding()
+                    CTA(imgName: "Group", cta: "Add Group")
+                        .padding()
+                     CTA(imgName: "study", cta: "Compete")
+                        .padding()
+                    Spacer()
+                    
+                }
+            } .padding(.bottom, 85)
+            .blur(radius: showingTimer ? 20 : 0)
+        
+        if showingTimer {
+            TimerView(showingView: $showingTimer)
+        }
+        }
     }
 }
 
