@@ -9,22 +9,43 @@
 import SwiftUI
 
 struct TimerView: View {
-    @Environment(\.colorScheme) var colorScheme
+    @ObservedObject private var timer = TimerManager()
     
-   @ObservedObject private var timer = TimerHandler()
+    @Binding var showingView: Bool
+    
     
     var progress: CGFloat {
         let percentage = timer.timePassed / timer.timeGoal
         return CGFloat(percentage)
     }
     
+    var formattedTime: String {
+        let seconds = TimeInterval(fabs(timer.remainingTime))
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .positional
+        formatter.allowedUnits = [.hour, .minute, .second]
+        return formatter.string(from: seconds) ?? "N/N"
+    }
+    
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
+            HStack {
+                Spacer()
+                Button(action: {
+                    withAnimation {
+                        self.showingView = false
+                    }
+                }) {
+                    Image(systemName: "xmark")
+                        .foregroundColor(.gray)
+                        .font(.body)
+                }
+            }
+            .padding()
             
             HStack {
                 Text("Set Timer")
                     .font(Font.custom("Montserrat-SemiBold", size: 34.0))
-                    .padding(.top, 64)
                 
                 //change image to alarm clock symbol
                 Image(systemName: "clock")
@@ -33,7 +54,6 @@ struct TimerView: View {
                     .padding(10)
                     .overlay(Circle()
                         .stroke(Color("clockStroke"), lineWidth: 2))
-                    .padding(.top, 64)
             }
             
             ZStack {
@@ -48,25 +68,47 @@ struct TimerView: View {
                     .frame(width: 200, height: 200)
                     .rotationEffect(.degrees(-90))
                 
-                Text("\(fabs(timer.remainingTime), specifier: "%.0f")")
+                Text(formattedTime)
                     .font(Font.custom("Montserrat-Bold", size: 28).monospacedDigit())
+                    .animation(nil)
                 
             }
             .padding(20)
             
             HStack {
                 
-                Button(action: timer.addSeconds) {
+                Button(action: {
+                    self.timer.substract(30)
+                }) {
                     Text("-30s")
                 }.buttonStyle(SecondsButton())
                 
-                Button(action: timer.handleTap) {
+                Button(action: {
+                    timer.handleTap()
+                }) {
                     Image(systemName: timer.isRunning ? "pause.fill" : "play.fill")
                         .animation(nil)
                 }
                 .buttonStyle(PauseResumeButton())
+                .contextMenu {
+                    Button(action: {
+                        self.timer.endTimer()
+                    }) {
+                        Text("Stop")
+                        Image(systemName: "stop.circle")
+                    }
+                    
+                    Button(action: {
+                        self.timer.resetTimer()
+                    }) {
+                        Text("Reset")
+                        Image(systemName: "arrow.counterclockwise")
+                    }
+                }
                 
-                Button(action: timer.addSeconds) {
+                Button(action: {
+                    self.timer.add(30)
+                }) {
                     Text("+30s")
                 }.buttonStyle(SecondsButton())
                 
@@ -77,84 +119,42 @@ struct TimerView: View {
                 ForEach(timer.minutes, id: \.self) { minutes in
                     AddMinutesButton(minutes: minutes) {
                         print("\(minutes) selected")
+                        self.timer.setTimer(minutes: minutes)
                     }
                     .padding(8)
                 }
             }
             
         }
+        .padding()
+        .background(Color.white)
+        .cornerRadius(20)
+        .padding()
+        .onAppear {
+            self.timer.loadData()
+        }
+        .onDisappear {
+            self.timer.saveToUD()
+            self.timer.stopTimer()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification), perform: { _ in
+            self.timer.saveToUD()
+            self.timer.stopTimer()
+        })
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification), perform: { _ in
+            self.timer.loadData()
+        })
     }//body
     
     
-    
-    
-    
 }
 
 
-class TimerHandler: ObservableObject {
-    
-    var minutes = [3, 5, 7, 10]
-       
-    var timer: Timer? = nil
-       
-    private var firstTimeRun = true
-    @Published var isRunning = false
-       
-    @Published var timePassed = 0.0
-    @Published var remainingTime = 0.0
-       
-    @Published var timeGoal = 0.0
-       
-    
-    func startTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true, block: { (tmr) in
-            withAnimation {
-                guard self.timePassed < self.timeGoal else {
-                    self.stopTimer()
-                    self.firstTimeRun = true
-                    return
-                }
-                self.isRunning = true
-                self.timePassed += 0.2
-                self.remainingTime -= 0.2
-            }
-        })
-    }
-    
-    func stopTimer() {
-        timer?.invalidate()
-        isRunning = false
-    }
-    
-    
-    func handleTap() {
-        //clean this up if possible
-        if self.firstTimeRun {
-            withAnimation {
-                self.timePassed = 0.0
-            }
-            //add functionality to set time goal depending on user selection
-            self.timeGoal = 30.0
-            self.remainingTime = self.timeGoal
-            self.firstTimeRun = false
-        }
-        if self.isRunning {
-            self.stopTimer()
-        } else {
-            self.startTimer()
-        }
-    }
-    
-    func addSeconds() {
-        //add missing functionality
-    }
-    
-}
 
 
 struct TimerView_Previews: PreviewProvider {
     static var previews: some View {
-        TimerView()
+        TimerView(showingView: .constant(true))
     }
 }
+
