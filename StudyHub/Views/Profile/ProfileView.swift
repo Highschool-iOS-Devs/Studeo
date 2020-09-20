@@ -13,6 +13,8 @@ import UIKit
     @State var imagePicker: Bool = false
     @State var profileImage = UIImage(named: "5293")
     @State var hasLoaded: Bool = false
+    @State var isUser: Bool = true
+    @EnvironmentObject var userData: UserData
      var body: some View {
          ZStack {
              Color(.systemBackground)
@@ -20,12 +22,14 @@ import UIKit
                   // profileImage = UIImage(named: "5539")
                    downloadImage()
                 }
+            if isUser {
+            if hasLoaded {
              ScrollView(showsIndicators: false) {
              VStack {
                  Spacer()
                 HStack {
                     Spacer()
-                    if hasLoaded {
+                   
                     Image(uiImage: (profileImage!))
                         .renderingMode(.original)
                         .resizable()
@@ -34,7 +38,7 @@ import UIKit
                         .overlay(Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 5))
                         .padding(.top, 42)
                     Spacer()
-                    }
+                    
                 } .padding(.horizontal, 42)
                 .onTapGesture{
                     imagePicker.toggle()
@@ -42,37 +46,22 @@ import UIKit
                     
                  Spacer()
 
-                 Text("Andreas Ink")
-                     .frame(minWidth: 100, alignment: .leading)
+                Text(userData.name)
+                    // .frame(minWidth: 100, alignment: .leading)
                      .font(.custom("Montserrat-Semibold", size: 22))
                      .foregroundColor(Color(.black))
                      .multilineTextAlignment(.leading)
                     Spacer()
                  HStack {
-                     Spacer()
-                 Text("\(Int(0))")
-                     .font(.custom("Montserrat-SemiBold", size: 12))
-                     .foregroundColor(Color.black.opacity(0.25))
-                 Image(systemName: "stopwatch.fill")
-                     .foregroundColor(Color.black.opacity(0.25))
-                     .offset(x: 0, y: -2)
-                     Spacer()
-                     Text("\(Int(0))")
-                         .font(.custom("Montserrat-SemiBold", size: 12))
-                         .foregroundColor(Color.black.opacity(0.25))
-                     Image(systemName: "stopwatch.fill")
-                         .foregroundColor(Color.black.opacity(0.25))
-                         .offset(x: 0, y: -2)
-                     Spacer()
-                     Text("\(Int(0))")
-                         .font(.custom("Montserrat-SemiBold", size: 12))
-                         .foregroundColor(Color.black.opacity(0.25))
-                     Image(systemName: "stopwatch.fill")
-                         .foregroundColor(Color.black.opacity(0.25))
-                         .offset(x: 0, y: -2)
-                     Spacer()
-                 }
-                 Text("Lorem ipsum dolor sit amet, te his quot quas conclusionemque. Audire accusata quo id, pri ex platonem postulant. Simul eripuit duo ex, ex saepe mucius eam, quem brute mucius vix ei. Sed eu etiam error detraxit, cum ad natum tincidunt mnesarchum. Etiam convenire cum in, graeci conceptam mea at, eum illud accumsan offendit ei. Est et congue appellantur. Id sed homero senserit, alii ponderum quaestio cu quo.")
+                   
+                    ProfileStats(allNum: 0, all: true)
+                    ProfileStats(monthNum: 0, month: true)
+                    ProfileStats(dayNum: 0, day: true)
+                   
+                  
+                   
+                 } 
+                Text(userData.description)
                      .frame(minWidth: 100, alignment: .leading)
                      .font(.custom("Montserrat-Semibold", size: 18))
                      .foregroundColor(Color(.black))
@@ -82,6 +71,10 @@ import UIKit
              }
             if imagePicker {
                // ImagePicker(selectedImage: $profileImage)
+            }
+         }
+            } else {
+                
             }
          }
      }

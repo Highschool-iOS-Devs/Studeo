@@ -62,6 +62,9 @@ final class UserData: ObservableObject {
     
     @Published
     var tappedCTA: Bool = false
+    
+    @Published
+    var description: String = "Lorem ipsum dolor sit amet, mea et animal probatus, id mutat corpora conclusionemque mei. No soluta recteque nec, commodo corrumpit sit ei. Ei per menandri vituperata. Vis ex meis persius volutpat.  Stet ullum viderer ne vel. Stet decore sed ut, ut quaestio voluptaria mea. Velit imperdiet gubergren pro te, an magna interpretaris qui. Homero reprehendunt pro ea. Summo fierent eu ius."
 }
 
 import Foundation
