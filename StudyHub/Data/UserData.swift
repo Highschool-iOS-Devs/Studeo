@@ -42,6 +42,7 @@ final class UserData: ObservableObject {
     @Published(key: "isLoggedIn")
     var isLoggedIn: Bool = false
     
+    // Change notification settings when these 2 variables are changed
     @Published(key: "chatNotificationsOn")
     var chatNotificationsOn: Bool = true
     

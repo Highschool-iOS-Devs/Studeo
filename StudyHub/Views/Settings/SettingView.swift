@@ -38,10 +38,9 @@ struct SettingView: View {
                         VStack(spacing: 30) {
                            
                             settingRowView(settingText: "Notifications", settingState: "On", newView: AnyView(NotificationsView()))
-                            settingRowView(settingText: "Personal info", settingState: "", newView: AnyView(Text("Placeholder")))
+                            settingRowView(settingText: "Personal info", settingState: "", newView: AnyView(PersonalInfoView()))
                             settingRowView(settingText: "Country", settingState: "United States", newView: AnyView(Text("Placeholder")))
                             settingRowView(settingText: "Language", settingState: "English", newView: AnyView(Text("Placeholder")))
-                            settingRowView(settingText: "Password settings", settingState: "", newView: AnyView(Text("Placeholder")))
                             settingRowView(settingText: "Sign out", settingState: "", newView: AnyView(Text("Placeholder")))
                             settingRowView(settingText: "Help", settingState: "", newView: AnyView(Text("Placeholder")))
                         }
