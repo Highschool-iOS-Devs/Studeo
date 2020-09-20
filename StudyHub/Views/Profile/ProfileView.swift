@@ -11,30 +11,35 @@ import Firebase
 import UIKit
  struct ProfileView: View {
     @State var imagePicker: Bool = false
-    @State var profileImage = UIImage(named: "5539")
+    @State var profileImage = UIImage(named: "5293")
+    @State var hasLoaded: Bool = false
      var body: some View {
          ZStack {
              Color(.systemBackground)
+                .onAppear() {
+                  // profileImage = UIImage(named: "5539")
+                   downloadImage()
+                }
              ScrollView(showsIndicators: false) {
              VStack {
                  Spacer()
-                 HStack {
-                     Spacer()
-                 Image("demoprofile")
-                     .renderingMode(.original)
-                     .resizable()
-                     .aspectRatio(contentMode: .fit)
-                     .clipShape(Circle())
-                     .overlay(Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 5))
-                     .padding(.top, 42)
-                     Spacer()
-                 } .padding(.horizontal, 42)
-                 .onTapGesture{
+                HStack {
+                    Spacer()
+                    if hasLoaded {
+                    Image(uiImage: (profileImage!))
+                        .renderingMode(.original)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .clipShape(Circle())
+                        .overlay(Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 5))
+                        .padding(.top, 42)
+                    Spacer()
+                    }
+                } .padding(.horizontal, 42)
+                .onTapGesture{
                     imagePicker.toggle()
-                 } .onAppear() {
-                    profileImage = UIImage(named: "5539")
-                    uploadImage()
                  }
+                    
                  Spacer()
 
                  Text("Andreas Ink")
@@ -94,10 +99,35 @@ import UIKit
 
            
         }
+       
   
 }
    
-    
+    func downloadImage() {
+   
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+
+        let storage = Storage.storage()
+        let pathReference = storage.reference(withPath: "images")
+       
+       // gs://study-hub-7540b.appspot.com/images
+        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
+        pathReference.getData(maxSize: 1 * 5000 * 5000) { data, error in
+          if let error = error {
+            print(error)
+            // Uh-oh, an error occurred!
+          } else {
+            // Data for "images/island.jpg" is returned
+            var image = UIImage(data: data!)
+            profileImage = image
+            hasLoaded = true
+          }
+        }
+            
+        
+  
+}
 
    
    
