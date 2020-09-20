@@ -46,11 +46,18 @@ struct AddMinutesButton: View {
     
     var body: some View {
         Button(action: action) {
-            Text("\(minutes) min")
+            if minutes < 60 {
+                Text("\(minutes) min")
+            } else if minutes == 60 {
+                Text("1 hr")
+            } else {
+                Text("\(Double(minutes) / 60, specifier: "%g") hrs")
+            }
         }
         .buttonStyle(AddMinutesStyle())
     }
 }
+
 
 struct AddMinutesStyle: ButtonStyle {
     
