@@ -21,7 +21,6 @@ struct ContentView: View {
             Color.white
                 .edgesIgnoringSafeArea(.all)
                 .onAppear{
-                   //  FirebaseManager().signOut()
                     self.checkAuth()
                     
             }
@@ -58,9 +57,14 @@ struct ContentView: View {
                         .environmentObject(viewRouter)
                         .environmentObject(userData)
                 }
+                else if viewRouter.currentView == .introView{
+                    IntroView()
+                        .environmentObject(viewRouter)
+                        .environmentObject(userData)
+                }
             }
-            
-            if viewRouter.showTabBar == true || viewRouter.currentView != .registration || viewRouter.currentView != .login {
+            // == true || viewRouter.currentView != .registration || viewRouter.currentView != .login 
+            if viewRouter.showTabBar{
                 VStack{
                     Spacer()
                     tabBarView()
@@ -74,12 +78,19 @@ struct ContentView: View {
 
 }
     func checkAuth(){
-        DispatchQueue.global(qos: .background).async {
             Auth.auth().addStateDidChangeListener { (auth, user) in
-                print(user)
                 if user != nil{
-                    self.viewRouter.currentView = .home
+                    if userData.isOnboardingCompleted{
+
+                        self.viewRouter.currentView = .home
+                    }
+                    else{
+                        self.viewRouter.showTabBar = false
+                        self.viewRouter.currentView = .introView
+                    }
                     self.hasCheckedAuth = true
+
+                
                 }
                 else {
                     self.viewRouter.currentView = .registration
@@ -87,7 +98,7 @@ struct ContentView: View {
                 }
                
             }
-        }
+        
          
     }
     

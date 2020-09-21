@@ -12,6 +12,7 @@ let screenSize = UIScreen.main.bounds.size
 
 struct SettingView: View {
     @EnvironmentObject var userData: UserData
+    @EnvironmentObject var viewRouter: ViewRouter
     
     var body: some View {
         NavigationView {
@@ -41,7 +42,11 @@ struct SettingView: View {
                             settingRowView(settingText: "Personal info", settingState: "", newView: AnyView(PersonalInfoView()))
                             settingRowView(settingText: "Country", settingState: "United States", newView: AnyView(Text("Placeholder")))
                             settingRowView(settingText: "Language", settingState: "English", newView: AnyView(Text("Placeholder")))
-                            settingRowView(settingText: "Sign out", settingState: "", newView: AnyView(Text("Placeholder")))
+                            settingRowView(settingText: "Sign out", settingState: "", newView: AnyView(Text("Placeholder")), disableNavigation: true)
+                                .onTapGesture(){
+                                    FirebaseManager.signOut()
+                                    viewRouter.updateCurrentView(view:.login)
+                                }
                             settingRowView(settingText: "Help", settingState: "", newView: AnyView(Text("Placeholder")))
                         }
                         Spacer()
@@ -90,26 +95,29 @@ struct SettingView: View {
         var settingText:String
         var settingState:String
         var newView: AnyView
-        
+        var disableNavigation:Bool = false
         var body: some View {
             HStack{
-                Text(settingText)
-                    .font(.custom("Montserrat-SemiBold", size: 12))
-                    .opacity(0.4)
-                    
-                Spacer()
-                
-                Text(settingState)
-                    .frame(width: 50)
-                    .font(.custom("Montserrat-SemiBold", size: 12))
-                    .lineLimit(1)
-                    .opacity(0.4)
-                    .padding(.trailing, 5)
+              
                 NavigationLink(destination: newView) {
+                    Text(settingText)
+                        .font(.custom("Montserrat-SemiBold", size: 12))
+                        .foregroundColor(.black)
+                        .opacity(0.4)
+                        
+                    Spacer()
+                    
+                    Text(settingState)
+                        .frame(width: 50)
+                        .font(.custom("Montserrat-SemiBold", size: 12))
+                        .lineLimit(1)
+                        .foregroundColor(.black)
+                        .opacity(0.4)
+                        .padding(.trailing, 5)
                     Image(systemName: "chevron.right")
                         .foregroundColor(Color("barCenter"))
                         .font(Font.system(size: 13).weight(.semibold))
-                }
+                }.disabled(disableNavigation)
                 
             } .padding(.horizontal, 22)
            

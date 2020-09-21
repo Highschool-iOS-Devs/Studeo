@@ -115,6 +115,8 @@ struct LoginView: View {
                 }
                 
             }
+        }.onAppear{
+            viewRouter.showTabBar = false
         }
       
     }

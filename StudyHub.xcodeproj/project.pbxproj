@@ -48,6 +48,10 @@
 		6205911924FDBB21001565BF /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620590EE24FDBB21001565BF /* LoginView.swift */; };
 		6205911B24FDBB21001565BF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620590F024FDBB21001565BF /* SceneDelegate.swift */; };
 		6205911D24FDBD1D001565BF /* ErrorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6205911C24FDBD1D001565BF /* ErrorModel.swift */; };
+		628A12762518683B001C4B13 /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628A12752518683B001C4B13 /* IntroView.swift */; };
+		628A127A2518691A001C4B13 /* Pages in Frameworks */ = {isa = PBXBuildFile; productRef = 628A12792518691A001C4B13 /* Pages */; };
+		628A127D25186938001C4B13 /* IntroPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628A127C25186938001C4B13 /* IntroPage.swift */; };
+		628A128025186940001C4B13 /* IntroCustomize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628A127F25186940001C4B13 /* IntroCustomize.swift */; };
 		62C3ED21250597A300CEA882 /* CreateGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C3ED20250597A300CEA882 /* CreateGroupView.swift */; };
 		62F24BE4251415DB00777610 /* Lottie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F24BE3251415DB00777610 /* Lottie.swift */; };
 		62F24C03251419F400777610 /* planeLoading.json in Resources */ = {isa = PBXBuildFile; fileRef = 62F24C02251419F400777610 /* planeLoading.json */; };
@@ -108,6 +112,9 @@
 		620590EF24FDBB21001565BF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		620590F024FDBB21001565BF /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		6205911C24FDBD1D001565BF /* ErrorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorModel.swift; sourceTree = "<group>"; };
+		628A12752518683B001C4B13 /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
+		628A127C25186938001C4B13 /* IntroPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroPage.swift; sourceTree = "<group>"; };
+		628A127F25186940001C4B13 /* IntroCustomize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCustomize.swift; sourceTree = "<group>"; };
 		62C3ED20250597A300CEA882 /* CreateGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupView.swift; sourceTree = "<group>"; };
 		62F24BE3251415DB00777610 /* Lottie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lottie.swift; sourceTree = "<group>"; };
 		62F24C02251419F400777610 /* planeLoading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = planeLoading.json; sourceTree = "<group>"; };
@@ -128,6 +135,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				628A127A2518691A001C4B13 /* Pages in Frameworks */,
 				FB33AEA3FD2D5803BE4DAF75 /* Pods_StudyHub.framework in Frameworks */,
 				E1FD834D24F54E670024D2A3 /* IQKeyboardManagerSwift in Frameworks */,
 			);
@@ -310,6 +318,9 @@
 				620590ED24FDBB21001565BF /* RegistrationView.swift */,
 				620590EE24FDBB21001565BF /* LoginView.swift */,
 				62F24C0A25141AF400777610 /* LottieUIView.swift */,
+				628A12752518683B001C4B13 /* IntroView.swift */,
+				628A127C25186938001C4B13 /* IntroPage.swift */,
+				628A127F25186940001C4B13 /* IntroCustomize.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -387,6 +398,7 @@
 			name = StudyHub;
 			packageProductDependencies = (
 				E1FD834C24F54E670024D2A3 /* IQKeyboardManagerSwift */,
+				628A12792518691A001C4B13 /* Pages */,
 			);
 			productName = StudyHub;
 			productReference = E339449224F1B71600F11BA9 /* StudyHub.app */;
@@ -418,6 +430,7 @@
 			mainGroup = E339448924F1B71600F11BA9;
 			packageReferences = (
 				E1FD834B24F54E670024D2A3 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				628A12782518691A001C4B13 /* XCRemoteSwiftPackageReference "Pages" */,
 			);
 			productRefGroup = E339449324F1B71600F11BA9 /* Products */;
 			projectDirPath = "";
@@ -516,6 +529,7 @@
 				62C3ED21250597A300CEA882 /* CreateGroupView.swift in Sources */,
 				6205910124FDBB21001565BF /* FirebaseManager.swift in Sources */,
 				6205911324FDBB21001565BF /* LeaderboardView.swift in Sources */,
+				628A12762518683B001C4B13 /* IntroView.swift in Sources */,
 				6205911824FDBB21001565BF /* RegistrationView.swift in Sources */,
 				6205910E24FDBB21001565BF /* ChatCell.swift in Sources */,
 				6205910B24FDBB21001565BF /* CTA.swift in Sources */,
@@ -525,11 +539,13 @@
 				6205911024FDBB21001565BF /* ChatView.swift in Sources */,
 				620590FE24FDBB21001565BF /* Extensions.swift in Sources */,
 				6205911524FDBB21001565BF /* TabBar.swift in Sources */,
+				628A127D25186938001C4B13 /* IntroPage.swift in Sources */,
 				620590FF24FDBB21001565BF /* PushNotificationManager.swift in Sources */,
 				6205910424FDBB21001565BF /* User.swift in Sources */,
 				E1C91E142503B86300001424 /* Blur.swift in Sources */,
 				6205911124FDBB21001565BF /* RecentsView.swift in Sources */,
 				6205910224FDBB21001565BF /* AppDelegate.swift in Sources */,
+				628A128025186940001C4B13 /* IntroCustomize.swift in Sources */,
 				62F24BE4251415DB00777610 /* Lottie.swift in Sources */,
 				6205911924FDBB21001565BF /* LoginView.swift in Sources */,
 				BE3E16182517F96900E0A845 /* TimerManager.swift in Sources */,
@@ -736,6 +752,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		628A12782518691A001C4B13 /* XCRemoteSwiftPackageReference "Pages" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nachonavarro/Pages.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.5;
+			};
+		};
 		E1FD834B24F54E670024D2A3 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager";
@@ -747,6 +771,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		628A12792518691A001C4B13 /* Pages */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 628A12782518691A001C4B13 /* XCRemoteSwiftPackageReference "Pages" */;
+			productName = Pages;
+		};
 		E1FD834C24F54E670024D2A3 /* IQKeyboardManagerSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E1FD834B24F54E670024D2A3 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;

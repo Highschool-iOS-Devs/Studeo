@@ -113,6 +113,9 @@ struct RegistrationView: View {
                 Spacer()
             }
         }
+        .onAppear{
+            viewRouter.showTabBar = false
+        }
       
         }
     func sendData(performActions: @escaping (ErrorModel, User?) -> Void) {

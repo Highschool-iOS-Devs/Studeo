@@ -76,8 +76,8 @@ struct tabBarView: View {
                 
             }
             .padding(.bottom)
-            //.padding()
-          //  .frame(width: screenSize.width, height: screenSize.height/10)
+
+          .frame(width: screenSize.width, height: screenSize.height/10)
             .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
             .background(Color.white.shadow(radius: 0.5))
             .overlay(
@@ -92,7 +92,11 @@ struct tabBarView: View {
         }.edgesIgnoringSafeArea(.all)
     }
 }
-
+struct tabBarView_previews: PreviewProvider {
+    static var previews: some View {
+        tabBarView()
+    }
+}
 struct tabBigButton: View {
     @EnvironmentObject var viewRouter:ViewRouter
 

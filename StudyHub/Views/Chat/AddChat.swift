@@ -193,7 +193,7 @@ struct AddChat: View {
         }
         
     }
-    
+
     //Called when user taps and joins a new group. Adds the user to group, and adds the group to user
     func joinGroup(groupID: String){
         let db = Firestore.firestore()

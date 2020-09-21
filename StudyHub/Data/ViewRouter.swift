@@ -16,6 +16,7 @@ class ViewRouter:ObservableObject{
            case books
            case groups
            case settings
+            case introView
         //Below are temp views for testing Firebase
         case login
         case registration

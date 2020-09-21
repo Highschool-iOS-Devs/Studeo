@@ -1,0 +1,87 @@
+//
+//  IntroPages.swift
+//  StudyHub
+//
+//  Created by Jevon Mao on 9/17/20.
+//  Copyright © 2020 Dakshin Devanand. All rights reserved.
+//
+
+import SwiftUI
+import Pages
+
+public enum CurrentPage:CaseIterable{
+    case page1, page2, page3,page4
+    mutating func increase() {
+        let a = Self.allCases
+        self = a[(a.firstIndex(of: self)! + 1) % a.count]
+        }
+    func getCases() -> [CurrentPage]{
+        return Self.allCases
+    }
+}
+
+struct IntroView: View {
+    @State var index = 0{
+        willSet{
+            print("will set \(index)")
+        }
+        didSet{
+            print("did set \(index)")
+        }
+    }
+    @State var currentView:CurrentPage = CurrentPage.page1{
+        willSet{
+            if currentView == .page3{
+                currentView = .page4
+            }
+        }
+    }
+        
+    
+    var body: some View {
+        ZStack {
+            Text("Placeholder")
+            Pages(currentPage: $index,bounce: true, hasControl: true){
+                IntroPage(titleText: "Welcome", bodyText: "Welcome to Study Hub, a place where you can get help and motivation. A better learning future starts here.", image: "studying_drawing")
+                IntroPage(titleText: "Study", bodyText: "Motivate your study progress with a focus timer, compete progress on a leaderboard.", image: "mentor_drawing" )
+                IntroPage(titleText: "Motivate", bodyText: "Motivate your study progress with a focus timer, compete progress on a leaderboard.", image: "timer_drawing")
+                IntroCustomize()
+                
+            }
+            
+//            VStack{
+//                  Spacer()
+//                  HStack {
+//                     PointerCircles(currentView: $currentView)
+//
+//
+//                  }
+//                  .padding(.bottom, 170)
+//              }
+            
+        }
+
+       
+}
+}
+
+struct IntroPages_Previews: PreviewProvider {
+    static var previews: some View {
+        IntroView()
+    }
+}
+
+struct PointerCircles: View {
+    @Binding var currentView:CurrentPage
+    
+    var body: some View {
+        ForEach(currentView.getCases(), id: \.self){cases in
+            Circle()
+                .foregroundColor(currentView == cases ? Color(#colorLiteral(red: 0.03921568627, green: 0.5176470588, blue: 1, alpha: 1)) : Color(#colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)))
+                .frame(width: 7, height: 7)
+        }
+       
+    }
+}
+
+
