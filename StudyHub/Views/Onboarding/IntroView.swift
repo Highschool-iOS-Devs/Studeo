@@ -43,7 +43,7 @@ struct IntroView: View {
             Text("Placeholder")
             Pages(currentPage: $index,bounce: true, hasControl: true){
                 IntroPage(titleText: "Welcome", bodyText: "Welcome to Study Hub, a place where you can get help and motivation. Build the future you dreamed of, one study session at a time.", image: "studying_drawing")
-                IntroPage(titleText: "Study", bodyText: "Motivate your self by keeping track of your progress with a study timer and compete with others on a leaderboard.", image: "mentor_drawing" )
+                IntroPage(titleText: "Study", bodyText: "Gain motivation by tracking your progress with a study timer and compete with others on a leaderboard.", image: "mentor_drawing" )
                 IntroPage(titleText: "Motivate", bodyText: "Join a community deticated to motivating each other to study.", image: "timer_drawing")
                 IntroCustomize()
                 
