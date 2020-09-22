@@ -15,13 +15,14 @@ import UIKit
     @State var profileImage = UIImage(named: "5293")
     @State var hasLoaded: Bool = false
     @State var isUser: Bool = false
+    @State var edit: Bool = false
     @State var user = [User]()
     @State private var showImagePicker : Bool = false
        @State private var image : UIImage? = nil
     @EnvironmentObject var userData: UserData
      var body: some View {
          ZStack {
-            if showImagePicker {
+            if !showImagePicker {
                 Color(.systemBackground)
                    .onAppear() {
                      // profileImage = UIImage(named: "5539")
@@ -70,12 +71,12 @@ import UIKit
                     .padding(.bottom, 60)
                     Spacer()
                  HStack {
+                    ForEach(user){ user in
+                        ProfileStats(allNum: user.all, all: true)
+                        ProfileStats(monthNum: user.month, month: true)
+                        ProfileStats(dayNum: user.day, day: true)
                    
-                    ProfileStats(allNum: 0, all: true)
-                    ProfileStats(monthNum: 0, month: true)
-                    ProfileStats(dayNum: 0, day: true)
-                   
-                  
+                    }
                    
                  } .padding(.bottom, 22)
                 Text(userData.description)
@@ -85,6 +86,9 @@ import UIKit
                      .multilineTextAlignment(.center)
                     .padding(.bottom, 22)
                      .padding()
+                    .onTapGesture() {
+                        
+                    }
              }
              }
              .sheet(isPresented: self.$showImagePicker){
@@ -126,7 +130,7 @@ import UIKit
                         
                     }
                     .onTapGesture {
-                        showImagePicker.toggle()
+                      //  showImagePicker.toggle()
                      }
                     .sheet(isPresented: self.$showImagePicker){
                         ImagePicker(isShown: self.$showImagePicker, image: self.$image, userID: $userData.userID)
@@ -191,10 +195,47 @@ import UIKit
             
           }
         }
-            
         
-  
-}
+        
+        
+    }
+    func sendData() {
+       
+                let db = Firestore.firestore()
+                let ref = db.collection("users")
+        let query = ref.whereField("firebaseID", isEqualTo: userData.userID)
+            query.getDocuments{snapshot, error in
+                if let error = error {
+                          print("Error getting documents: \(error)")
+                      } else {
+                    if snapshot!.documents.count > 1{
+                        fatalError("Error, multiple user with the same ID exists.")
+                    }
+                    for document in snapshot!.documents{
+                        for user in user {
+                        
+                        self.userData.userID = document["id"] as! String
+                        self.userData.name = document["name"] as! String
+                            db.collection("users").document(userData.userID).updateData([
+                                "description":  self.userData.description
+                            ]) { err in
+                                if let err = err {
+                                    print("Error updating document: \(err)")
+                                } else {
+                                    print("Document successfully updated")
+                                }
+                            }
+                        self.userData.description = document["description"] as! String
+                    }
+                    }
+                
+            }
+               
+            }
+            
+        }
+        
+
     func loadData(performAction: @escaping ([User]) -> Void){
         let db = Firestore.firestore()
      let docRef = db.collection("users").document(self.userData.userID)
