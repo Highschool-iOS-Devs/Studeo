@@ -16,10 +16,19 @@ import UIKit
     @State var hasLoaded: Bool = false
     @State var isUser: Bool = false
     @State var user = [User]()
+    @State private var showImagePicker : Bool = false
+       @State private var image : UIImage? = nil
     @EnvironmentObject var userData: UserData
      var body: some View {
          ZStack {
-            
+            if showImagePicker {
+                Color(.systemBackground)
+                   .onAppear() {
+                     // profileImage = UIImage(named: "5539")
+                      downloadImage()
+                      
+                   }
+            }
             if isUser {
                 Color(.systemBackground)
                    .onAppear() {
@@ -35,6 +44,7 @@ import UIKit
                     Spacer()
                    
                     Image(uiImage: (profileImage!))
+                        
                         .renderingMode(.original)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
@@ -42,12 +52,13 @@ import UIKit
                         .overlay(Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 5))
                         .padding(.top, 42)
                         .padding(.bottom, 22)
+                        .onTapGesture{
+                            showImagePicker.toggle()
+                         }
                     Spacer()
                     
                 } .padding(.horizontal, 42)
-                .onTapGesture{
-                    imagePicker.toggle()
-                 }
+                
                     
                  Spacer()
 
@@ -76,9 +87,10 @@ import UIKit
                      .padding()
              }
              }
-            if imagePicker {
-               // ImagePicker(selectedImage: $profileImage)
-            }
+             .sheet(isPresented: self.$showImagePicker){
+                ImagePicker(isShown: self.$showImagePicker, image: self.$image, userID: $userData.userID)
+                    .environmentObject(userData)
+             }
             }
             } else {
                 Color(.systemBackground)
@@ -109,13 +121,18 @@ import UIKit
                             .overlay(Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 5))
                             .padding(.top, 42)
                             .padding(.bottom, 22)
+                           
                         Spacer()
                         
-                    } .padding(.horizontal, 42)
-                    .onTapGesture{
-                        imagePicker.toggle()
+                    }
+                    .onTapGesture {
+                        showImagePicker.toggle()
                      }
-                        
+                    .sheet(isPresented: self.$showImagePicker){
+                        ImagePicker(isShown: self.$showImagePicker, image: self.$image, userID: $userData.userID)
+                            .environmentObject(userData)
+                     }
+                    .padding(.horizontal, 42)
                      Spacer()
 
                     Text(user.name)
@@ -144,29 +161,14 @@ import UIKit
                     Spacer()
                  }
                  }
+
                 
            //     }
                 }
-            }
+            } 
          }
      }
-    func uploadImage() {
    
-        let metadata = StorageMetadata()
-        metadata.contentType = "image/jpeg"
-
-        let storage = Storage.storage().reference()
-        storage.child( userData.userID).putData(profileImage!.jpegData(compressionQuality: 0.4)!, metadata: metadata) { meta, error in
-            if let error = error {
-                print(error)
-                return
-            }
-
-           
-        }
-       
-  
-}
    
     func downloadImage() {
    
