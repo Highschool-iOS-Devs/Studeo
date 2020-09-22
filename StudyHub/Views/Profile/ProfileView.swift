@@ -87,7 +87,7 @@ import UIKit
                     .padding(.bottom, 22)
                      .padding()
                     .onTapGesture() {
-                        
+                        showImagePicker = true
                     }
              }
              }
@@ -130,7 +130,7 @@ import UIKit
                         
                     }
                     .onTapGesture {
-                      //  showImagePicker.toggle()
+                        showImagePicker = true
                      }
                     .sheet(isPresented: self.$showImagePicker){
                         ImagePicker(isShown: self.$showImagePicker, image: self.$image, userID: $userData.userID)
