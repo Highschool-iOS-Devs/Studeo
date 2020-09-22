@@ -2,13 +2,14 @@
 //  ProfileView.swift
 //  StudyHub
 //
-//  Created by Andreas Ink on 9/19/20.
+//  Created by Andreas Ink on 9/22/20.
 //  Copyright © 2020 Dakshin Devanand. All rights reserved.
 //
 
 import SwiftUI
 import Firebase
 import UIKit
+
  struct ProfileView: View {
     @State var imagePicker: Bool = false
     @State var profileImage = UIImage(named: "5293")
@@ -63,7 +64,7 @@ import UIKit
                    
                   
                    
-                 } 
+                 }
                 Text(userData.description)
                      .frame(minWidth: 100, alignment: .leading)
                      .font(.custom("Montserrat-Semibold", size: 18))

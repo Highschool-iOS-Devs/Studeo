@@ -2,9 +2,10 @@
 //  ProfileStats.swift
 //  StudyHub
 //
-//  Created by Andreas Ink on 9/20/20.
+//  Created by Andreas Ink on 9/22/20.
 //  Copyright © 2020 Dakshin Devanand. All rights reserved.
 //
+
 
 import SwiftUI
 
