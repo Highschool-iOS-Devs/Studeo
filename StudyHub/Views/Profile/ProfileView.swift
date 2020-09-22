@@ -41,6 +41,7 @@ import UIKit
                         .clipShape(Circle())
                         .overlay(Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 5))
                         .padding(.top, 42)
+                        .padding(.bottom, 22)
                     Spacer()
                     
                 } .padding(.horizontal, 42)
@@ -55,6 +56,7 @@ import UIKit
                      .font(.custom("Montserrat-Semibold", size: 22))
                      .foregroundColor(Color(.black))
                      .multilineTextAlignment(.leading)
+                    .padding(.bottom, 60)
                     Spacer()
                  HStack {
                    
@@ -64,12 +66,13 @@ import UIKit
                    
                   
                    
-                 }
+                 } .padding(.bottom, 22)
                 Text(userData.description)
                      .frame(minWidth: 100, alignment: .leading)
                      .font(.custom("Montserrat-Semibold", size: 18))
                      .foregroundColor(Color(.black))
-                     .multilineTextAlignment(.leading)
+                     .multilineTextAlignment(.center)
+                    .padding(.bottom, 22)
                      .padding()
              }
              }
@@ -105,6 +108,7 @@ import UIKit
                             .clipShape(Circle())
                             .overlay(Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 5))
                             .padding(.top, 42)
+                            .padding(.bottom, 22)
                         Spacer()
                         
                     } .padding(.horizontal, 42)
@@ -119,6 +123,7 @@ import UIKit
                          .font(.custom("Montserrat-Semibold", size: 22))
                          .foregroundColor(Color(.black))
                          .multilineTextAlignment(.leading)
+                        .padding(.bottom, 22)
                         Spacer()
                      HStack {
                        
@@ -128,13 +133,15 @@ import UIKit
                        
                       
                        
-                     }
+                     }  .padding(.bottom, 22)
                     Text(user.description)
                          .frame(minWidth: 100, alignment: .leading)
                          .font(.custom("Montserrat-Semibold", size: 18))
                          .foregroundColor(Color(.black))
-                         .multilineTextAlignment(.leading)
+                         .multilineTextAlignment(.center)
                          .padding()
+                        .padding(.bottom, 22)
+                    Spacer()
                  }
                  }
                 
@@ -149,7 +156,7 @@ import UIKit
         metadata.contentType = "image/jpeg"
 
         let storage = Storage.storage().reference()
-        storage.child("images").putData(profileImage!.jpegData(compressionQuality: 0.4)!, metadata: metadata) { meta, error in
+        storage.child( userData.userID).putData(profileImage!.jpegData(compressionQuality: 0.4)!, metadata: metadata) { meta, error in
             if let error = error {
                 print(error)
                 return
@@ -167,7 +174,7 @@ import UIKit
         metadata.contentType = "image/jpeg"
 
         let storage = Storage.storage()
-        let pathReference = storage.reference(withPath: "images")
+        let pathReference = storage.reference(withPath: userData.userID)
        
        // gs://study-hub-7540b.appspot.com/images
         // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
