@@ -54,7 +54,7 @@ struct PersonalInfoView: View {
             .background(Color.white)
             .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
             .shadow(radius: 5)
-            
+            .padding()
             Spacer()
         }
     }

@@ -30,7 +30,7 @@ struct NotificationsView: View {
             .background(Color.white)
             .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
             .shadow(radius: 5)
-            
+            .padding()
             Spacer()
         }
     }
@@ -48,11 +48,11 @@ struct NotificationRow: View {
             Toggle(isOn: $settingsVar) {
                 VStack(alignment: .leading, spacing: 5){
                     Text(text)
-                        .font(.custom("Montserrat-SemiBold", size: 14))
+                        .font(.custom("Montserrat-SemiBold", size: 12))
                         .opacity(0.6)
                         .lineLimit(1)
                     Text(subText)
-                        .font(.custom("Montserrat-SemiBold", size: 12))
+                        .font(.custom("Montserrat-Regular", size: 9))
                         .opacity(0.4)
                         .lineLimit(1)
                 }
