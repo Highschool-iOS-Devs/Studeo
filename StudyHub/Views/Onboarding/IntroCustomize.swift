@@ -62,18 +62,18 @@ struct IntroCustomize: View {
                 .buttonStyle(BlueStyle())
                 .padding(.bottom, 10)
                 .padding(.horizontal, 35)
-           
+                
             }
         }
         .animation(.easeInOut)
-
+        
     }
     
     func saveData(){
         let db = Firestore.firestore()
         let docRef = db.collection("users").document(userData.userID)
         let selectedInterest = interestToShow.filter{$0.selected}
-            
+        
         
         docRef.setData([ "interests": selectedInterest ], merge: true)
     }
@@ -95,8 +95,8 @@ struct InterestSelectRow: View {
         HStack{
             Text(interestArray[index].interestName)
                 .font(.custom("Montserrat-regular", size: 16))
-               .foregroundColor(selected ? Color.white: Color.black.opacity(0.5))
-
+                .foregroundColor(selected ? Color.white: Color.black.opacity(0.5))
+                
                 .padding(.leading, 30)
             Spacer()
             Circle()

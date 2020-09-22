@@ -20,6 +20,7 @@ struct IntroPage: View {
                 HStack {
                     Text(titleText)
                         .font(.custom("Montserrat-Bold", size: 25))
+                        
                         .padding(.vertical, 20)
                     
                 }
