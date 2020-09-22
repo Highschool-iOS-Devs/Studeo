@@ -22,6 +22,7 @@ class ViewRouter:ObservableObject{
         case registration
         case chatList
         case leaderboard
+        case profile
         
        }
     @Published var currentView = Views.registration

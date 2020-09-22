@@ -44,6 +44,12 @@ struct ContentView: View {
                         .environmentObject(userData)
                     
                 }
+                else if viewRouter.currentView == .profile {
+                    ProfileView()
+                        .environmentObject(userData)
+                        .environmentObject(viewRouter)
+                    
+                }
                 else if viewRouter.currentView == .leaderboard {
                     LeaderboardView()
                         .environmentObject(userData)

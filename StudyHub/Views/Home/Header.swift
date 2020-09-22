@@ -10,6 +10,7 @@ import SwiftUI
 
 struct Header: View {
      @EnvironmentObject var userData: UserData
+    @EnvironmentObject var viewRouter:ViewRouter
     @Binding var showTimer: Bool
     var body: some View {
         HStack {
@@ -38,6 +39,9 @@ struct Header: View {
                     .aspectRatio(contentMode: .fit)
                     .clipShape(Circle())
                     .overlay(Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 5))
+                    .onTapGesture(count: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/, perform: {
+                        viewRouter.currentView = .profile
+                    })
             } .padding(.trailing, 22)
             
             Button(action: { self.showTimer = true }) {

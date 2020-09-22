@@ -96,6 +96,7 @@ import UIKit
                     .environmentObject(userData)
              }
             }
+                Spacer(minLength: 110)
             } else {
                 Color(.systemBackground)
                    .onAppear() {
@@ -162,7 +163,7 @@ import UIKit
                          .multilineTextAlignment(.center)
                          .padding()
                         .padding(.bottom, 22)
-                    Spacer()
+                    Spacer(minLength: 110)
                  }
                  }
 
