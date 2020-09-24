@@ -27,6 +27,8 @@ import UIKit
                 Color(.systemBackground)
                    .onAppear() {
                      // profileImage = UIImage(named: "5539")
+                    showLoadingAnimation = true
+                    hasLoaded = false
                       downloadImage()
                       
                    }
@@ -38,7 +40,10 @@ import UIKit
                       downloadImage()
                       
                    }
+                
             if hasLoaded {
+                if !showLoadingAnimation {
+                   
              ScrollView(showsIndicators: false) {
              VStack {
                  Spacer()
@@ -91,11 +96,17 @@ import UIKit
                         showImagePicker = true
                     }
              }
+                
              }
+                    
+            
              .sheet(isPresented: self.$showImagePicker){
                 ImagePicker(isShown: self.$showImagePicker, image: self.$image, userID: $userData.userID)
                     .environmentObject(userData)
              }
+                
+                }
+                    
             }
                 Spacer(minLength: 110)
             } else {
@@ -209,7 +220,9 @@ import UIKit
             // Data for "images/island.jpg" is returned
             var image = UIImage(data: data!)
             profileImage = image
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
             showLoadingAnimation = false
+            }
           }
         }
         
