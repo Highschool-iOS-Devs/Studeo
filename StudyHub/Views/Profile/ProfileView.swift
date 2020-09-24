@@ -183,6 +183,7 @@ import UIKit
            //     }
                 }
                 if showLoadingAnimation {
+                    BlurView(style: .systemChromeMaterial)
                     VStack{
                         LottieUIView()
                             .animation(.easeInOut)
@@ -193,7 +194,7 @@ import UIKit
                     .frame(width: 300, height: 400)
                     .background(Color.white)
                     .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-                    .shadow(color: Color.black.opacity(0.3), radius: 5, x: 0, y: 0)
+                   // .shadow(color: Color.black.opacity(0.3), radius: 5, x: 0, y: 0)
                     .animation(.easeInOut)
                   
                 }
