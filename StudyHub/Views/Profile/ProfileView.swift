@@ -184,6 +184,7 @@ import UIKit
                 }
                 if showLoadingAnimation {
                     BlurView(style: .systemChromeMaterial)
+                        .edgesIgnoringSafeArea(.all)
                     VStack{
                         LottieUIView()
                             .animation(.easeInOut)

@@ -16,6 +16,7 @@ struct LeaderboardView: View {
     @State var user = [User]()
     @EnvironmentObject var userData: UserData
     @State var leadersHasLoaded = false
+    @State var showLoadingAnimation = true
     var body: some View {
         ZStack {
             ScrollView {
@@ -40,9 +41,11 @@ struct LeaderboardView: View {
                         self.loadUserData(){userData in
                             //Get completion handler data results from loadData function and set it as the recentPeople local variable
                             self.user = userData
+                            showLoadingAnimation = false
                             //self.leadersHasLoaded = true
                         }
                     }
+                
                 ForEach(user){user in
                     SelfRankView(hours: user.studyHours)
                             .padding(.top, 20)
@@ -113,7 +116,25 @@ struct LeaderboardView: View {
             .font(.custom("Montserrat-SemiBold", size: 16))
             .foregroundColor(.white)
             
-        }
+        
+            }
+            if showLoadingAnimation {
+                BlurView(style: .systemChromeMaterial)
+                    .edgesIgnoringSafeArea(.all)
+                VStack{
+                    LottieUIView()
+                        .animation(.easeInOut)
+                    Text("Loading...")
+                        .font(.custom("Montserrat-SemiBold", size: 25))
+                        .offset(y: -40)
+                }
+                .frame(width: 300, height: 400)
+                .background(Color.white)
+                .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+               // .shadow(color: Color.black.opacity(0.3), radius: 5, x: 0, y: 0)
+                .animation(.easeInOut)
+              
+            }
         }
     }
     func loadData(performAction: @escaping ([User]) -> Void){
