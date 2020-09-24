@@ -35,11 +35,13 @@ import UIKit
             }
             if isUser {
                 Color(.systemBackground)
-                   .onAppear() {
-                     // profileImage = UIImage(named: "5539")
-                      downloadImage()
-                      
-                   }
+                    .onAppear() {
+                      // profileImage = UIImage(named: "5539")
+                       downloadImage()
+                        
+                    }
+             
+                
                 
             if hasLoaded {
                 if !showLoadingAnimation {
@@ -109,6 +111,8 @@ import UIKit
                     
             }
                 Spacer(minLength: 110)
+                
+                
             } else {
                 Color(.systemBackground)
                    .onAppear() {
@@ -136,7 +140,7 @@ import UIKit
                             .aspectRatio(contentMode: .fit)
                             .clipShape(Circle())
                             .overlay(Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 5))
-                            .padding(.top, 42)
+                            .padding(.top, 110)
                             .padding(.bottom, 22)
                            
                         Spacer()
@@ -181,6 +185,22 @@ import UIKit
 
                 
            //     }
+                    }
+                if !isUser {
+                    VStack {
+                        
+                        HStack {
+                            Spacer()
+                            Image(systemName: "pencil.circle")
+                                .foregroundColor(.black)
+                                .font(.title)
+                                .onTapGesture {
+                                    
+                                }
+                            
+                        }
+                        Spacer()
+                    } .padding()
                 }
                 if showLoadingAnimation {
                     BlurView(style: .systemChromeMaterial)
