@@ -17,6 +17,7 @@ import UIKit
     @State var isUser: Bool = false
     @State var edit: Bool = false
     @State var user = [User]()
+    @State var showLoadingAnimation = true
     @State private var showImagePicker : Bool = false
        @State private var image : UIImage? = nil
     @EnvironmentObject var userData: UserData
@@ -67,7 +68,7 @@ import UIKit
                     // .frame(minWidth: 100, alignment: .leading)
                      .font(.custom("Montserrat-Semibold", size: 22))
                      .foregroundColor(Color(.black))
-                     .multilineTextAlignment(.leading)
+                     .multilineTextAlignment(.center)
                     .padding(.bottom, 60)
                     Spacer()
                  HStack {
@@ -170,6 +171,21 @@ import UIKit
                 
            //     }
                 }
+                if showLoadingAnimation {
+                    VStack{
+                        LottieUIView()
+                            .animation(.easeInOut)
+                        Text("Loading...")
+                            .font(.custom("Montserrat-SemiBold", size: 25))
+                            .offset(y: -40)
+                    }
+                    .frame(width: 300, height: 400)
+                    .background(Color.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                    .shadow(color: Color.black.opacity(0.3), radius: 5, x: 0, y: 0)
+                    .animation(.easeInOut)
+                  
+                }
             } 
          }
      }
@@ -193,7 +209,7 @@ import UIKit
             // Data for "images/island.jpg" is returned
             var image = UIImage(data: data!)
             profileImage = image
-            
+            showLoadingAnimation = false
           }
         }
         

@@ -64,7 +64,7 @@ struct LoginView: View {
                                     self.displayError = true
                                     return
                                 }
-                                self.viewRouter.updateCurrentView(view: .chatList)
+                                self.viewRouter.updateCurrentView(view: .home)
                                 
                             }
                             }
