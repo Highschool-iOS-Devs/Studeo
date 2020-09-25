@@ -21,6 +21,7 @@ import UIKit
     @State private var showImagePicker : Bool = false
        @State private var image : UIImage? = nil
     @EnvironmentObject var userData: UserData
+    @Environment(\.presentationMode) var presentationMode
      var body: some View {
          ZStack {
             if !showImagePicker {
@@ -147,7 +148,7 @@ import UIKit
                         
                     }
                     .onTapGesture {
-                        showImagePicker = true
+                      //  showImagePicker = true
                      }
                     .sheet(isPresented: self.$showImagePicker){
                         ImagePicker(isShown: self.$showImagePicker, image: self.$image, userID: $userData.userID)
@@ -173,7 +174,7 @@ import UIKit
                        
                      }  .padding(.bottom, 22)
                     Text(user.description)
-                         .frame(minWidth: 100, alignment: .leading)
+                         .frame(minWidth: 100, alignment: .center)
                          .font(.custom("Montserrat-Semibold", size: 18))
                          .foregroundColor(Color(.black))
                          .multilineTextAlignment(.center)
@@ -195,13 +196,18 @@ import UIKit
                                 .foregroundColor(.black)
                                 .font(.title)
                                 .onTapGesture {
-                                    
+                                    edit.toggle()
                                 }
                             
                         }
                         Spacer()
                     } .padding()
+                    .sheet(isPresented: $edit) {
+                        EditProfile(profileImage: profileImage, user: user)
+                            .environmentObject(userData)
+                    }
                 }
+                
                 if showLoadingAnimation {
                     BlurView(style: .systemChromeMaterial)
                         .edgesIgnoringSafeArea(.all)
