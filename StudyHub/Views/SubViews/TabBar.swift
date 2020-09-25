@@ -77,7 +77,7 @@ struct tabBarView: View {
             }
             .padding(.bottom)
 
-          .frame(width: screenSize.width, height: screenSize.height/10)
+          .frame(width: screenSize.width, height: 110)
             .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
             .background(Color.white.shadow(radius: 0.5))
             .overlay(
@@ -90,6 +90,7 @@ struct tabBarView: View {
             
             
         }.edgesIgnoringSafeArea(.all)
+        
     }
 }
 struct tabBarView_previews: PreviewProvider {

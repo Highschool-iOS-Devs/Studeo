@@ -56,8 +56,8 @@ struct SettingView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
                     .shadow(radius: 5)
                     .padding(.horizontal, 10)
-
-                } .padding(.bottom, 85)
+                    Spacer(minLength: 120)
+                } 
             }
             .navigationBarTitle("")
             .navigationBarHidden(true)

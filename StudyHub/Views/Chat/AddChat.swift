@@ -86,11 +86,11 @@ struct AddChat: View {
                             }
                         }
                         .frame(maxWidth: .infinity)
-                        .frame(height: 220, alignment: .trailing)
+                        
                         .padding(.horizontal, 20)
                     }
                 }
-                Spacer()
+                Spacer(minLength: 120)
                 //            VStack{
                 //                Text("My groups")
                 //                    .font(.custom("Montserrat-Bold", size: 20))
@@ -127,7 +127,7 @@ struct AddChat: View {
             }
            
             
-           
+          
             
             
         }

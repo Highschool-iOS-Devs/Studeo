@@ -106,12 +106,15 @@ struct LeaderboardView: View {
                             }
                         
                     }
-                        } .padding(.bottom, 22)
+                        
+                        }
+                    
+                  
                 }
                 else if leaderboardTab.currentDateTab == .today{
                     
                 }
-                
+                Spacer(minLength: 120)
             }
             .font(.custom("Montserrat-SemiBold", size: 16))
             .foregroundColor(.white)

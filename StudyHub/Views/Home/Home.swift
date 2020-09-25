@@ -39,10 +39,11 @@ struct Home: View {
                         .padding()
                      CTA(imgName: "study", cta: "Compete")
                         .padding()
-                    Spacer()
+                    Spacer(minLength: 140)
                     
                 }
-            } .padding(.bottom, 85)
+               
+            }
             .blur(radius: showingTimer ? 20 : 0)
         
         if showingTimer {
