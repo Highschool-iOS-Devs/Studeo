@@ -25,13 +25,13 @@ struct User: Identifiable, Codable {
     var description: String
 }
 
-struct BasicUser: Identifiable {
+struct BasicUser: Identifiable, Codable {
     var id: String
     var name: String
-    var count: Int
-    init(id: String, name: String, count: Int) {
+   
+    init(id: String, name: String) {
         self.id = id
         self.name = name
-        self.count = count
+       
     }
 }
