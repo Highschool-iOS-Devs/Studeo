@@ -12,7 +12,11 @@ import FirebaseAuth
 struct LeaderboardView: View {
     @ObservedObject var leaderboardTab = LeaderBoardTabRouter()
     @State var people = [User]()
+    @State var peopleDay = [User]()
+    @State var peopleMonth = [User]()
     @State var leaders = [User]()
+    @State var leadersDay = [User]()
+    @State var leadersMonth = [User]()
     @State var user = [User]()
     @EnvironmentObject var userData: UserData
     @State var leadersHasLoaded = false
@@ -32,12 +36,34 @@ struct LeaderboardView: View {
                             
                         
                         }
+                        self.loadDataMonth(){userData in
+                            //Get completion handler data results from loadData function and set it as the recentPeople local variable
+                            self.peopleMonth = userData
+                            
                         
+                        }
+                        self.loadDataDay(){userData in
+                            //Get completion handler data results from loadData function and set it as the recentPeople local variable
+                            self.peopleDay = userData
+                            
+                        
+                        }
                         self.loadLeaderData(){userData in
                             //Get completion handler data results from loadData function and set it as the recentPeople local variable
                             self.leaders = userData
+                            
+                        }
+                        self.loadLeaderDataMonth(){userData in
+                            //Get completion handler data results from loadData function and set it as the recentPeople local variable
+                            self.leadersMonth = userData
+                           
+                        }
+                        self.loadLeaderDataDay(){userData in
+                            //Get completion handler data results from loadData function and set it as the recentPeople local variable
+                            self.leadersDay = userData
                             self.leadersHasLoaded = true
                         }
+                        
                         self.loadUserData(){userData in
                             //Get completion handler data results from loadData function and set it as the recentPeople local variable
                             self.user = userData
@@ -84,22 +110,20 @@ struct LeaderboardView: View {
                 else if leaderboardTab.currentDateTab == .week{
                   Spacer()
                     if self.leadersHasLoaded {
-                    HStack(spacing: 30) {
-                        
-                        LeaderRankView(name: people[1].name, hours: people[1].studyHours)
-                        .offset(x: 0, y: 10)
-                        
-                        LeaderRankView(name: people[0].name, hours: people[0].studyHours)
+                        HStack(spacing: 30) {
+                            ForEach(leadersMonth){user in
+                            LeaderRankView(name: user.name, hours: user.month)
+                           // .offset(x: 0, y: 10)
                             
-                        LeaderRankView(name: people[2].name, hours: people[2].studyHours)
-                        .offset(x: 0, y: 10)
-                        }
+                          
+                            }
+                            }
                     }
                     ScrollView {
                         VStack(spacing: 30) {
-                            ForEach(people){user in
+                            ForEach(peopleMonth){user in
                                 
-                                LeaderboardRow(name: user.name, hours: user.studyHours)
+                                LeaderboardRow(name: user.name, hours: user.month)
                                     .onAppear() {
                                         print(user.name)
                                 }
@@ -112,7 +136,29 @@ struct LeaderboardView: View {
                   
                 }
                 else if leaderboardTab.currentDateTab == .today{
-                    
+                    Spacer()
+                    HStack(spacing: 30) {
+                        ForEach(leadersDay){user in
+                        LeaderRankView(name: user.name, hours: user.day)
+                       // .offset(x: 0, y: 10)
+                        
+                      
+                        }
+                        }
+                      ScrollView {
+                          VStack(spacing: 30) {
+                              ForEach(peopleDay){user in
+                                  
+                                  LeaderboardRow(name: user.name, hours: user.day)
+                                      .onAppear() {
+                                          print(user.name)
+                                  }
+                              }
+                          
+                      }
+                          
+                          }
+                      
                 }
                 Spacer(minLength: 120)
             }
@@ -171,11 +217,141 @@ struct LeaderboardView: View {
            
            
        }
+    func loadDataDay(performAction: @escaping ([User]) -> Void){
+           let db = Firestore.firestore()
+           let docRef = db.collection("users")
+           var userList:[User] = []
+           //Get every single document under collection users
+        let queryParameter = docRef.order(by: "day", descending: true).limit(to: 100)
+        queryParameter.getDocuments{ (querySnapshot, error) in
+               for document in querySnapshot!.documents{
+                   let result = Result {
+                       try document.data(as: User.self)
+                   }
+                   switch result {
+                       case .success(let user):
+                           if let user = user {
+                               userList.append(user)
+                    
+                           } else {
+                               
+                               print("Document does not exist")
+                           }
+                       case .failure(let error):
+                           print("Error decoding user: \(error)")
+                       }
+                   
+                 
+               }
+                 performAction(userList)
+           }
+           
+           
+       }
+    func loadDataMonth(performAction: @escaping ([User]) -> Void){
+           let db = Firestore.firestore()
+           let docRef = db.collection("users")
+           var userList:[User] = []
+           //Get every single document under collection users
+        let queryParameter = docRef.order(by: "month", descending: true).limit(to: 100)
+        queryParameter.getDocuments{ (querySnapshot, error) in
+               for document in querySnapshot!.documents{
+                   let result = Result {
+                       try document.data(as: User.self)
+                   }
+                   switch result {
+                       case .success(let user):
+                           if let user = user {
+                               userList.append(user)
+                    
+                           } else {
+                               
+                               print("Document does not exist")
+                           }
+                       case .failure(let error):
+                           print("Error decoding user: \(error)")
+                       }
+                   
+                 
+               }
+                 performAction(userList)
+           }
+           
+           
+       }
     func loadLeaderData(performAction: @escaping ([User]) -> Void){
              let db = Firestore.firestore()
              let docRef = db.collection("users")
              var userList:[User] = []
          let queryParameter = docRef.order(by: "studyHours", descending: true).limit(to: 3)
+             //Get every single document under collection users
+             queryParameter.getDocuments{ (querySnapshot, error) in
+                 for document in querySnapshot!.documents{
+                     let result = Result {
+                         try document.data(as: User.self)
+                     }
+                     switch result {
+                         case .success(let user):
+                             if let user = user {
+                                 userList.append(user)
+                      
+                             } else {
+                                 
+                                 print("Document does not exist")
+                             }
+                         case .failure(let error):
+                             print("Error decoding user: \(error)")
+                         }
+                     
+                   
+                 }
+                   performAction(userList)
+              //  DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+               
+              //  }
+             }
+             
+             
+         }
+    func loadLeaderDataDay(performAction: @escaping ([User]) -> Void){
+             let db = Firestore.firestore()
+             let docRef = db.collection("users")
+             var userList:[User] = []
+         let queryParameter = docRef.order(by: "day", descending: true).limit(to: 3)
+             //Get every single document under collection users
+             queryParameter.getDocuments{ (querySnapshot, error) in
+                 for document in querySnapshot!.documents{
+                     let result = Result {
+                         try document.data(as: User.self)
+                     }
+                     switch result {
+                         case .success(let user):
+                             if let user = user {
+                                 userList.append(user)
+                      
+                             } else {
+                                 
+                                 print("Document does not exist")
+                             }
+                         case .failure(let error):
+                             print("Error decoding user: \(error)")
+                         }
+                     
+                   
+                 }
+                   performAction(userList)
+              //  DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+               
+              //  }
+             }
+             
+             
+         }
+    func loadLeaderDataMonth(performAction: @escaping ([User]) -> Void){
+             let db = Firestore.firestore()
+             let docRef = db.collection("users")
+             var userList:[User] = []
+         let queryParameter = docRef.order(by: "month", descending: true).limit(to: 3)
              //Get every single document under collection users
              queryParameter.getDocuments{ (querySnapshot, error) in
                  for document in querySnapshot!.documents{

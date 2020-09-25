@@ -9,6 +9,7 @@
 import Foundation
 import SwiftUI
 import Firebase
+import FirebaseStorage
 struct EditProfile: View {
     @State var imagePicker: Bool = false
     @State var profileImage = UIImage(named: "5293")
@@ -84,7 +85,7 @@ struct EditProfile: View {
         
         Button(action: {
          sendData()
-            
+            uploadImage()
             
     
         }) {
@@ -105,7 +106,23 @@ struct EditProfile: View {
         }
     }
 }
+    func uploadImage() {
+      
+           let metadata = StorageMetadata()
+           metadata.contentType = "image/jpeg"
 
+           let storage = Storage.storage().reference()
+        storage.child(userData.userID).putData(profileImage!.jpegData(compressionQuality: 0.4)!, metadata: metadata) { meta, error in
+               if let error = error {
+                   print(error)
+                   return
+               }
+
+              
+           }
+          
+     
+   }
     func sendData() {
        
                 let db = Firestore.firestore()
