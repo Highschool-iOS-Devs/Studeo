@@ -19,7 +19,7 @@ struct ChatView: View {
     @State var scrollOffset = 0
     @State var currentOffset = 0
     @State var messages = [MessageData]()
-    
+    @State var group = Groups(id: "", groupName: "", groupID: "", createdBy: "", members: [""], interests: [""])
     var chatRoomID:String
     
     var body: some View {
@@ -28,7 +28,10 @@ struct ChatView: View {
             ReverseScrollView(scrollOffset: CGFloat(self.scrollOffset), currentOffset: CGFloat(self.currentOffset)){
                 VStack {
                     //Testing UI with some messages
-                   
+                    Text(group.groupID)
+                        .font(.custom("Montserrat", size: 15))
+                        .padding()
+                        .foregroundColor(.black)
                     ForEach(self.messages, id: \.self){ message in
                         MessageCellView(message)
                        

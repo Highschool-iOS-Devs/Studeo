@@ -62,7 +62,7 @@ struct CreateGroupView: View {
             
             Spacer()
             Button(action: {
-                let newGroup = Groups(groupName: self.groupName, groupID: UUID().uuidString, createdBy: self.userData.userID, members: [self.userData.userID], interests: self.selectedInterests)
+                let newGroup = Groups(id: UUID().uuidString, groupName: self.groupName, groupID: UUID().uuidString, createdBy: self.userData.userID, members: [self.userData.userID], interests: self.selectedInterests)
                 self.joinGroup(newGroup: newGroup)
                 
             })

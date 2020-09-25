@@ -18,7 +18,7 @@ struct RecentsView: View {
     @State var recentPeople = [User]()
     @EnvironmentObject var userData: UserData
     @EnvironmentObject var viewRouter: ViewRouter
-    
+    @State var group = Groups(id: "", groupName: "", groupID: "", createdBy: "", members: [""], interests: [""])
     //For passing information into chat view. When user taps on a people in the scroll list, it should take user to the chat view.
     
     var body: some View {
@@ -32,7 +32,7 @@ struct RecentsView: View {
                     .padding(.vertical, 30)
                 
                 ForEach(recentPeople){user in
-                    RecentPersonView(name: user.name)
+                    RecentPersonView(name: user.name, group: group)
                         .onTapGesture {
                             
                     }
@@ -209,7 +209,8 @@ struct ChatList_Previews: PreviewProvider {
 
 struct RecentPersonView: View {
     var name:String
-    
+    @State var group = Groups(id: "", groupName: "", groupID: "", createdBy: "", members: [""], interests: [""])
+    @State var tapped: Bool = false
     var body: some View {
         HStack{
             Image("demoprofile")
@@ -223,6 +224,11 @@ struct RecentPersonView: View {
                 .padding(.leading, 25)
                 .foregroundColor(.black)
             Spacer()
+        } .onTapGesture {
+            tapped.toggle()
+        }
+        .sheet(isPresented: self.$tapped){
+            ChatView(group: group, chatRoomID: group.groupID)
         }
         .padding(.horizontal, 15)
     }

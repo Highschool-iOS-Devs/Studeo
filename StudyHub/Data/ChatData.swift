@@ -26,7 +26,8 @@ struct ChattedWith: Identifiable {
 }
 
 
-struct Groups:Codable, Hashable{
+struct Groups: Identifiable, Codable, Hashable{
+    var id: String
     var groupName:String
     var groupID:String
     var createdBy:String
