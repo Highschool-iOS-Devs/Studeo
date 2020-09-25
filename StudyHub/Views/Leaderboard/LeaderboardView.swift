@@ -72,14 +72,14 @@ struct LeaderboardView: View {
                         }
                     }
                 
-                ForEach(user){user in
-                    SelfRankView(hours: user.studyHours)
-                            .padding(.top, 20)
-                }
+               
                 
                 Spacer()
                 if leaderboardTab.currentDateTab == .allTime{
-                    
+                    ForEach(user){user in
+                        SelfRankView(hours: user.studyHours)
+                                .padding(.top, 20)
+                    }
                     Spacer()
                     if self.leadersHasLoaded {
                     HStack(spacing: 30) {
@@ -108,6 +108,10 @@ struct LeaderboardView: View {
                     }
                 
                 else if leaderboardTab.currentDateTab == .week{
+                    ForEach(user){user in
+                        SelfRankView(hours: user.month)
+                                .padding(.top, 20)
+                    }
                   Spacer()
                     if self.leadersHasLoaded {
                         HStack(spacing: 30) {
@@ -136,6 +140,10 @@ struct LeaderboardView: View {
                   
                 }
                 else if leaderboardTab.currentDateTab == .today{
+                    ForEach(user){user in
+                        SelfRankView(hours: user.day)
+                                .padding(.top, 20)
+                    }
                     Spacer()
                     HStack(spacing: 30) {
                         ForEach(leadersDay){user in
