@@ -53,11 +53,13 @@ struct PairingView: View {
                     self.matchedPerson = self.people.randomElement()!
                     
                     if matchedPerson.id != userData.userID {
-                        self.matchedPerson = self.people.randomElement()!
+//                        self.matchedPerson = self.people.randomElement()!
                         print(self.matchedPerson.name)
-                        newGroup = Groups(id: UUID().uuidString, groupName: self.groupName, groupID: UUID().uuidString, createdBy: self.userData.userID, members: [self.userData.userID], interests: self.selectedInterests)
+                        newGroup = Groups(id: UUID().uuidString, groupName: self.groupName, groupID: UUID().uuidString, createdBy: self.userData.userID, members: [self.userData.userID, self.matchedPerson.id], interests: self.selectedInterests)
                         self.joinGroup(newGroup: newGroup)
                         paired = true
+                    } else {
+                        print("You got here")
                     }
                     
                 }) {
