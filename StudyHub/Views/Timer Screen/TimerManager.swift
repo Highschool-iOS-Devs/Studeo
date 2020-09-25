@@ -206,9 +206,9 @@ class TimerManager: ObservableObject {
                 print("Error loading data: \(error)")
                 return
             }
-            let data = document.data()?["studyHours"] as! Double
+            let data = document.data()?["studyHours"] as? Double
             
-            self.totalTimePassed = data
+            self.totalTimePassed = data ?? 0
 
         }
     }
