@@ -37,7 +37,7 @@ struct CTA: View {
                 Spacer()
                 HStack {
                     Spacer()
-                        .padding(.leading, 125)
+                        .padding(.leading, 30)
                     Button(action: {
                         self.userData.tappedCTA = true
                         if self.cta == "Add Friends" {

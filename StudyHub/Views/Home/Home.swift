@@ -34,11 +34,11 @@ struct Home: View {
                     } .padding(.horizontal, 12)
                     
                     CTA(imgName: "friends", cta: "Add Friends")
-                        .padding()
+                        
                     CTA(imgName: "Group", cta: "Add Group")
-                        .padding()
+                       
                      CTA(imgName: "study", cta: "Compete")
-                        .padding()
+                        
                     Spacer(minLength: 140)
                     
                 }
