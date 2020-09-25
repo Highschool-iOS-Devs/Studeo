@@ -44,7 +44,6 @@ struct SelfRankView: View {
         .background(Color.white)
         .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
         .shadow(radius: 5)
-        .opacity(0.7)
     }
 }
 
@@ -99,7 +98,7 @@ struct dateSelectionView: View {
         HStack(spacing: 25){
             VStack {
                 Text("Today")
-                    .foregroundColor(Color.white.opacity(0.25))
+                    .foregroundColor(Color.white.opacity(self.currentDateTab == .today ? 1 : 0.25))
                     .onTapGesture {
                         self.currentDateTab = .today
                 }
@@ -110,21 +109,22 @@ struct dateSelectionView: View {
             }
             .frame(width: 80)
             VStack {
-                Text("Week")
-                    .foregroundColor(Color.white.opacity(0.25))
+                Text("Month")
+                    .foregroundColor(Color.white.opacity(self.currentDateTab == .month ? 1 : 0.25))
                     .onTapGesture {
-                        self.currentDateTab = .week
+                        self.currentDateTab = .month
                 }
                 Rectangle()
-                    .fill(currentDateTab == .week ? Color("primaryYellow") : Color.white.opacity(0))
+                    .fill(currentDateTab == .month ? Color("primaryYellow") : Color.white.opacity(0))
                     .frame(width: 50, height: 7)
             }
             .frame(width: 80)
             VStack {
                 Text("All Time")
-                .onTapGesture {
+                    .foregroundColor(Color.white.opacity(self.currentDateTab == .allTime ? 1 : 0.25))
+                    .onTapGesture {
                         self.currentDateTab = .allTime
-                }
+                    }
                 Rectangle()
                     .fill(currentDateTab == .allTime ? Color("primaryYellow") :  Color.white.opacity(0) )
                     .frame(width: 50, height: 7)
@@ -157,3 +157,23 @@ struct LeaderRankView: View {
         }
     }
 }
+
+struct LeadersStack: View {
+    var leaders: [User]
+    var body: some View {
+        HStack(spacing: 30) {
+            if leaders.count > 1 {
+                LeaderRankView(name: leaders[1].name, hours: leaders[1].studyHours)
+                    .offset(x: 0, y: 10)
+            }
+
+            LeaderRankView(name: leaders[0].name, hours: leaders[0].studyHours)
+            
+            if leaders.count > 2 {
+                LeaderRankView(name: leaders[2].name, hours: leaders[2].studyHours)
+                    .offset(x: 0, y: 10)
+            }
+        }
+    }
+}
+

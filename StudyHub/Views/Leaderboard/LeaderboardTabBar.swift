@@ -12,7 +12,7 @@ import Foundation
 class LeaderBoardTabRouter:ObservableObject{
     enum tabViews{
            case today
-           case week
+           case month
            case allTime
        }
     @Published var currentDateTab = tabViews.allTime
