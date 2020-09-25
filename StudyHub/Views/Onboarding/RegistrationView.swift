@@ -11,6 +11,7 @@ import Firebase
 import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import FirebaseStorage
 
 struct RegistrationView: View {
     
@@ -152,7 +153,23 @@ struct RegistrationView: View {
          
             }
         }
-    
+        func uploadImage() {
+          
+               let metadata = StorageMetadata()
+               metadata.contentType = "image/jpeg"
+
+               let storage = Storage.storage().reference()
+            storage.child(userData.userID).putData(UIImage(named: "5293")!.jpegData(compressionQuality: 0.4)!, metadata: metadata) { meta, error in
+                   if let error = error {
+                       print(error)
+                       return
+                   }
+
+                  
+               }
+              
+         
+       }
     }
 }
 
