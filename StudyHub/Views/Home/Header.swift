@@ -15,19 +15,24 @@ struct Header: View {
     var body: some View {
         HStack {
             VStack {
+                HStack {
                 Text("Hello,")
-                    .frame(minWidth: 150, alignment: .leading)
+                   
                     .font(.custom("Montserrat-Regular", size: 16))
                     .foregroundColor(Color(.black))
                     .opacity(25)
                     .multilineTextAlignment(.leading)
-                
+                    Spacer()
+                }
+                HStack {
                 Text("\(userData.name)")
                     .frame(minWidth: 150, alignment: .leading)
                     .font(.custom("Montserrat-Semibold", size: 27))
                     .foregroundColor(Color(.black))
                     .multilineTextAlignment(.leading)
-            }
+                    Spacer()
+                }
+            } .padding(.horizontal)
             Spacer()
             
             Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
