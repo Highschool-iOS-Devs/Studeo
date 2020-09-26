@@ -54,8 +54,7 @@ NS_SWIFT_NAME(MultiFactor)
     @param completion A block with the session identifier for a second factor enrollment operation.
         This is used to identify the current user trying to enroll a second factor.
 */
-- (void)getSessionWithCompletion:(nullable void (^)(FIRMultiFactorSession *_Nullable credential,
-                                                    NSError *_Nullable error))completion;
+- (void)getSessionWithCompletion:(nullable FIRMultiFactorSessionCallback)completion;
 
 /** @fn enrollWithAssertion:displayName:completion:
     @brief Enrolls a second factor as identified by the `FIRMultiFactorAssertion` parameter for the
@@ -65,7 +64,7 @@ NS_SWIFT_NAME(MultiFactor)
 */
 - (void)enrollWithAssertion:(FIRMultiFactorAssertion *)assertion
                 displayName:(nullable NSString *)displayName
-                 completion:(nullable void (^)(NSError *_Nullable error))completion;
+                 completion:(nullable FIRAuthVoidErrorCallback)completion;
 
 /** @fn unenrollWithInfo:completion:
     @brief Unenroll the given multi factor.
@@ -73,7 +72,7 @@ NS_SWIFT_NAME(MultiFactor)
         or fails.
 */
 - (void)unenrollWithInfo:(FIRMultiFactorInfo *)factorInfo
-              completion:(nullable void (^)(NSError *_Nullable error))completion;
+              completion:(nullable FIRAuthVoidErrorCallback)completion;
 
 /** @fn unenrollWithFactorUID:completion:
     @brief Unenroll the given multi factor.
@@ -81,7 +80,7 @@ NS_SWIFT_NAME(MultiFactor)
         or fails.
 */
 - (void)unenrollWithFactorUID:(NSString *)factorUID
-                   completion:(nullable void (^)(NSError *_Nullable error))completion;
+                   completion:(nullable FIRAuthVoidErrorCallback)completion;
 
 @end
 

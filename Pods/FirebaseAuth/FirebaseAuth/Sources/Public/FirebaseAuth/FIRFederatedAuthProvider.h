@@ -47,8 +47,7 @@ typedef void (^FIRAuthCredentialCallback)(FIRAuthCredential *_Nullable credentia
         the mobile web flow is completed.
  */
 - (void)getCredentialWithUIDelegate:(nullable id<FIRAuthUIDelegate>)UIDelegate
-                         completion:(nullable void (^)(FIRAuthCredential *_Nullable credential,
-                                                       NSError *_Nullable error))completion;
+                         completion:(nullable FIRAuthCredentialCallback)completion;
 #endif  // TARGET_OS_IOS
 
 @end

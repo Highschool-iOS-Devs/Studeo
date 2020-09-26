@@ -49,7 +49,7 @@
 		6205911B24FDBB21001565BF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620590F024FDBB21001565BF /* SceneDelegate.swift */; };
 		6205911D24FDBD1D001565BF /* ErrorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6205911C24FDBD1D001565BF /* ErrorModel.swift */; };
 		628A12762518683B001C4B13 /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628A12752518683B001C4B13 /* IntroView.swift */; };
-		628A127A2518691A001C4B13 /* Pages in Frameworks */ = {isa = PBXBuildFile; productRef = 628A12792518691A001C4B13 /* Pages */; };
+		628A127A2518691A001C4B13 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 628A12792518691A001C4B13 /* SwiftPackageProductDependency */; };
 		628A127D25186938001C4B13 /* IntroPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628A127C25186938001C4B13 /* IntroPage.swift */; };
 		628A128025186940001C4B13 /* IntroCustomize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628A127F25186940001C4B13 /* IntroCustomize.swift */; };
 		62C3ED21250597A300CEA882 /* CreateGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C3ED20250597A300CEA882 /* CreateGroupView.swift */; };
@@ -68,7 +68,7 @@
 		E1BCD406251E8A080051A28C /* PairingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BCD405251E8A080051A28C /* PairingView.swift */; };
 		E1C91E122503B80800001424 /* ReverseScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C91E112503B80800001424 /* ReverseScrollView.swift */; };
 		E1C91E142503B86300001424 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C91E132503B86300001424 /* Blur.swift */; };
-		E1FD834D24F54E670024D2A3 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E1FD834C24F54E670024D2A3 /* IQKeyboardManagerSwift */; };
+		E1FD834D24F54E670024D2A3 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = E1FD834C24F54E670024D2A3 /* SwiftPackageProductDependency */; };
 		E3CA983225167D4800602EB6 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CA983125167D4800602EB6 /* NotificationsView.swift */; };
 		E3CA983825180CAD00602EB6 /* PersonalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CA983725180CAD00602EB6 /* PersonalInfoView.swift */; };
 		FB33AEA3FD2D5803BE4DAF75 /* Pods_StudyHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47F4119D880B6AFBE91DBA85 /* Pods_StudyHub.framework */; };
@@ -149,9 +149,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				628A127A2518691A001C4B13 /* Pages in Frameworks */,
+				628A127A2518691A001C4B13 /* BuildFile in Frameworks */,
 				FB33AEA3FD2D5803BE4DAF75 /* Pods_StudyHub.framework in Frameworks */,
-				E1FD834D24F54E670024D2A3 /* IQKeyboardManagerSwift in Frameworks */,
+				E1FD834D24F54E670024D2A3 /* BuildFile in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,7 +418,7 @@
 				E339448E24F1B71600F11BA9 /* Sources */,
 				E339448F24F1B71600F11BA9 /* Frameworks */,
 				E339449024F1B71600F11BA9 /* Resources */,
-				1B7295AD4EAECED58238A4F0 /* [CP] Embed Pods Frameworks */,
+				EBEBEE08A15DE469637297CD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -426,8 +426,8 @@
 			);
 			name = StudyHub;
 			packageProductDependencies = (
-				E1FD834C24F54E670024D2A3 /* IQKeyboardManagerSwift */,
-				628A12792518691A001C4B13 /* Pages */,
+				E1FD834C24F54E670024D2A3 /* SwiftPackageProductDependency */,
+				628A12792518691A001C4B13 /* SwiftPackageProductDependency */,
 			);
 			productName = StudyHub;
 			productReference = E339449224F1B71600F11BA9 /* StudyHub.app */;
@@ -458,8 +458,8 @@
 			);
 			mainGroup = E339448924F1B71600F11BA9;
 			packageReferences = (
-				E1FD834B24F54E670024D2A3 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
-				628A12782518691A001C4B13 /* XCRemoteSwiftPackageReference "Pages" */,
+				E1FD834B24F54E670024D2A3 /* RemoteSwiftPackageReference */,
+				628A12782518691A001C4B13 /* RemoteSwiftPackageReference */,
 			);
 			productRefGroup = E339449324F1B71600F11BA9 /* Products */;
 			projectDirPath = "";
@@ -495,23 +495,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1B7295AD4EAECED58238A4F0 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-StudyHub/Pods-StudyHub-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-StudyHub/Pods-StudyHub-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-StudyHub/Pods-StudyHub-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		1E70D3268AC78E92E76A77DF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -532,6 +515,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EBEBEE08A15DE469637297CD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-StudyHub/Pods-StudyHub-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-StudyHub/Pods-StudyHub-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-StudyHub/Pods-StudyHub-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -788,7 +788,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		628A12782518691A001C4B13 /* XCRemoteSwiftPackageReference "Pages" */ = {
+		628A12782518691A001C4B13 /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/nachonavarro/Pages.git";
 			requirement = {
@@ -796,7 +796,7 @@
 				minimumVersion = 0.1.5;
 			};
 		};
-		E1FD834B24F54E670024D2A3 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+		E1FD834B24F54E670024D2A3 /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager";
 			requirement = {
@@ -807,14 +807,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		628A12792518691A001C4B13 /* Pages */ = {
+		628A12792518691A001C4B13 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 628A12782518691A001C4B13 /* XCRemoteSwiftPackageReference "Pages" */;
+			package = 628A12782518691A001C4B13 /* RemoteSwiftPackageReference */;
 			productName = Pages;
 		};
-		E1FD834C24F54E670024D2A3 /* IQKeyboardManagerSwift */ = {
+		E1FD834C24F54E670024D2A3 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E1FD834B24F54E670024D2A3 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			package = E1FD834B24F54E670024D2A3 /* RemoteSwiftPackageReference */;
 			productName = IQKeyboardManagerSwift;
 		};
 /* End XCSwiftPackageProductDependency section */

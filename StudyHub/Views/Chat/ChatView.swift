@@ -46,10 +46,11 @@ struct ChatView: View {
                                     self.viewRouter.showChatView = false
                             }
                             MessageButtons(imageName: "mic.fill")
+                            Spacer()
                             TextField("Enter message", text: self.$messageField)
                                 .font(.custom("Montserrat", size: 15))
                                 .padding()
-                                .frame(width: 250, height: 40)
+                                .frame(height: 40)
                                 .background(Color.gray.opacity(0.2))
                                 .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                                 .overlay(
@@ -68,7 +69,7 @@ struct ChatView: View {
                                            
                                     }
                             )
-                        }
+                        } .padding()
                         .padding(.top, 30)
                         Spacer()
                     }
