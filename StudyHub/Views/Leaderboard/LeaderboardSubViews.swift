@@ -107,7 +107,7 @@ struct dateSelectionView: View {
                     .frame(width: 50, height: 7)
                     
             }
-            .frame(width: 80)
+            
             VStack {
                 Text("Month")
                     .foregroundColor(Color.white.opacity(self.currentDateTab == .month ? 1 : 0.25))
@@ -118,7 +118,7 @@ struct dateSelectionView: View {
                     .fill(currentDateTab == .month ? Color("primaryYellow") : Color.white.opacity(0))
                     .frame(width: 50, height: 7)
             }
-            .frame(width: 80)
+            
             VStack {
                 Text("All Time")
                     .foregroundColor(Color.white.opacity(self.currentDateTab == .allTime ? 1 : 0.25))
@@ -129,8 +129,8 @@ struct dateSelectionView: View {
                     .fill(currentDateTab == .allTime ? Color("primaryYellow") :  Color.white.opacity(0) )
                     .frame(width: 50, height: 7)
             }
-            .frame(width: 80)
-        }
+          
+        } .padding()
         .animation(.easeInOut)
     }
 }
