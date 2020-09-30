@@ -14,7 +14,7 @@ struct TimerView: View {
     
     @Binding var showingView: Bool
     
-    private var notificationID: String = "timerEnded"
+    var notificationID: String = "timerEnded"
     
     
     var progress: CGFloat {
