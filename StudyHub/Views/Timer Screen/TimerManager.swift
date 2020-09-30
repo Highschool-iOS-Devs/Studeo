@@ -23,7 +23,7 @@ class TimerManager: ObservableObject {
     @Published var timePassed = 0.0
     @Published var remainingTime = 0.0
     
-    @Published var timeGoal = 1.0
+    @Published var timeGoal = 0.0
     
     private var startDate = Date()
     var endDate = Date()
@@ -154,7 +154,7 @@ class TimerManager: ObservableObject {
     func loadData() {
         let defaults = UserDefaults.standard
         isRunning = defaults.bool(forKey: "timerIsRunning")
-        remainingTime = defaults.double(forKey: "timerRemainingTime")
+        let remaining = defaults.double(forKey: "timerRemainingTime")
         timePassed = defaults.double(forKey: "timePassed")
         endDate = defaults.object(forKey: "endDate") as? Date ?? Date()
         timeGoal = defaults.double(forKey: "timeGoal")
@@ -169,7 +169,7 @@ class TimerManager: ObservableObject {
             getStudyHoursFromFB()
         }
         
-        startFromLoadedData()
+        startFromLoadedData(remainingTime: remaining)
     }
     
    
@@ -217,17 +217,25 @@ class TimerManager: ObservableObject {
         let currentDate = Date()
         let newRemainingTime = endDate.timeIntervalSince(currentDate)
         let newTimePassed = timeGoal - newRemainingTime
+        guard newRemainingTime > 0 else {
+            remainingTime = 0
+            timePassed = timeGoal
+            return
+        }
         remainingTime = newRemainingTime
         withAnimation {
             timePassed = newTimePassed
         }
+        
     }
     
-    func startFromLoadedData() {
+    func startFromLoadedData(remainingTime: Double) {
         guard firstTimeRun == false else { return }
         if isRunning {
             setNewRemainingTime()
             startTimer()
+        } else {
+            self.remainingTime = remainingTime
         }
     }
     

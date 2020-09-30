@@ -7,11 +7,14 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 struct TimerView: View {
     @ObservedObject private var timer = TimerManager()
     
     @Binding var showingView: Bool
+    
+    private var notificationID: String = "timerEnded"
     
     
     var progress: CGFloat {
@@ -47,7 +50,6 @@ struct TimerView: View {
                 Text("Set Timer")
                     .font(Font.custom("Montserrat-SemiBold", size: 34.0))
                 
-                //change image to alarm clock symbol
                 Image(systemName: "clock")
                     .font(.system(size: 21, weight: .medium))
                     .foregroundColor(Color("clockForeground"))
@@ -79,12 +81,19 @@ struct TimerView: View {
                 
                 Button(action: {
                     self.timer.substract(30)
+                    removeNotification()
+                    addNotification()
                 }) {
                     Text("-30s")
                 }.buttonStyle(SecondsButton())
                 
                 Button(action: {
                     timer.handleTap()
+                    if timer.isRunning {
+                        addNotification()
+                    } else {
+                        removeNotification()
+                    }
                 }) {
                     Image(systemName: timer.isRunning ? "pause.fill" : "play.fill")
                         .animation(nil)
@@ -93,6 +102,7 @@ struct TimerView: View {
                 .contextMenu {
                     Button(action: {
                         self.timer.endTimer()
+                        removeNotification()
                     }) {
                         Text("Stop")
                         Image(systemName: "stop.circle")
@@ -100,6 +110,7 @@ struct TimerView: View {
                     
                     Button(action: {
                         self.timer.resetTimer()
+                        removeNotification()
                     }) {
                         Text("Reset")
                         Image(systemName: "arrow.counterclockwise")
@@ -108,6 +119,8 @@ struct TimerView: View {
                 
                 Button(action: {
                     self.timer.add(30)
+                    removeNotification()
+                    addNotification()
                 }) {
                     Text("+30s")
                 }.buttonStyle(SecondsButton())
@@ -146,6 +159,54 @@ struct TimerView: View {
         })
     }//body
     
+    
+    func addNotification() {
+        let center = UNUserNotificationCenter.current()
+        
+        let addNotifRequest = {
+            let content = UNMutableNotificationContent()
+            content.title = "Study session is over"
+            content.subtitle = "Timer ended"
+            
+            
+            let endDate = timer.endDate
+            let calendar = Calendar.current
+            let dateComponents = calendar.dateComponents([.hour, .minute, .second], from: endDate)
+            let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+            
+            
+            let request = UNNotificationRequest(identifier: self.notificationID, content: content, trigger: trigger)
+            
+            center.add(request)
+//            print("Notification added")
+        }
+        
+        center.getNotificationSettings { (settings) in
+            if settings.authorizationStatus == .authorized {
+//                print("Authorized")
+                addNotifRequest()
+            } else {
+//                print("Not authorized yet")
+                center.requestAuthorization(options: [.alert, .badge, .sound]) { (success, error) in
+                    if success {
+//                        print("Success")
+                        addNotifRequest()
+                    } else {
+//                        print("Error")
+                        if let error = error {
+                            print(error.localizedDescription)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func removeNotification() {
+        let center = UNUserNotificationCenter.current()
+        center.removePendingNotificationRequests(withIdentifiers: [notificationID])
+//        print("Notification removed")
+    }
     
 }
 
