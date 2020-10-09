@@ -10,8 +10,8 @@ import SwiftUI
 import Firebase
 
 struct PairingView: View {
-    @State var matchedPerson = BasicUser(id: "", name: "")
-    @State var people = [BasicUser]()
+    @State var matchedPerson = User(id: UUID(), firebaseID: "", name: "", email: "", image: "", interests: [""], groups: [""], recentPepole: [User](), studyHours: 0.0, studyDate: "", all: 0.0, month: 0.0, day: 0.0, description: "")
+    @State var people = [User]()
     @EnvironmentObject var userData:UserData
     @State var paired: Bool = false
     @State var selectedInterests:[String] = []
@@ -49,19 +49,21 @@ struct PairingView: View {
                     Spacer()
                 }
                 Button(action: {
-                    
+                    if people.count > 0 {
                     self.matchedPerson = self.people.randomElement()!
                     
-                    if matchedPerson.id != userData.userID {
+                        if matchedPerson.id.uuidString != userData.userID {
 //                        self.matchedPerson = self.people.randomElement()!
                         print(self.matchedPerson.name)
-                        newGroup = Groups(id: UUID().uuidString, groupName: self.groupName, groupID: UUID().uuidString, createdBy: self.userData.userID, members: [self.userData.userID, self.matchedPerson.id], interests: self.selectedInterests)
+                            newGroup = Groups(id: UUID().uuidString, groupName: self.groupName, groupID: UUID().uuidString, createdBy: self.userData.userID, members: [self.userData.userID, self.matchedPerson.id.uuidString], interests: self.selectedInterests)
                         self.joinGroup(newGroup: newGroup)
                         paired = true
                     } else {
-                        print("You got here")
+                        print("You paired with yourself")
                     }
-                    
+                    } else {
+                        print("no one to pair with")
+                    }
                 }) {
                     Text("Pair")
                         .font(Font.custom("Montserrat-SemiBold", size: 14.0))
@@ -69,23 +71,26 @@ struct PairingView: View {
                 .padding()
                 Spacer(minLength: 110)
             }
-            if paired {
-                ChatView(userData: _userData, chatRoomID: newGroup.groupID)
+            .sheet(isPresented: self.$paired){
+                ChatView(userData: _userData, group: newGroup, chatRoomID: $newGroup.groupID)
+                    .environmentObject(userData)
+            
+               
             }
     }
     }
             
     
-    func loadData(performAction: @escaping ([BasicUser]) -> Void){
+    func loadData(performAction: @escaping ([User]) -> Void){
            let db = Firestore.firestore()
-           let docRef = db.collection("users")
-           var userList:[BasicUser] = []
+        let docRef = db.collection("users").whereField("interests", arrayContains: "SAT")
+           var userList:[User] = []
            //Get every single document under collection users
        
         docRef.getDocuments{ (querySnapshot, error) in
                for document in querySnapshot!.documents{
                    let result = Result {
-                       try document.data(as: BasicUser.self)
+                       try document.data(as: User.self)
                    }
                    switch result {
                        case .success(let user):
@@ -163,6 +168,6 @@ struct PairingView: View {
 
 struct PairingView_Previews: PreviewProvider {
     static var previews: some View {
-        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
+        Text("Hello, World!")
     }
 }

@@ -229,7 +229,7 @@ struct RecentPersonView: View {
             tapped.toggle()
         }
         .sheet(isPresented: self.$tapped){
-            ChatView(group: group, chatRoomID: group.groupID)
+            ChatView(group: group, chatRoomID: $group.groupID)
                 .environmentObject(userData)
         }
         .padding(.horizontal, 15)

@@ -118,7 +118,7 @@ struct AddChat: View {
 
             if didAssignGroupID{
                 
-                ChatView(chatRoomID: groupID)
+                ChatView(chatRoomID: $groupID)
                     .offset(x: viewRouter.showChatView ? 0 : screenSize.width, y: 0)
                     .animation(.easeInOut)
                     .onAppear{

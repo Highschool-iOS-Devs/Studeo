@@ -21,7 +21,7 @@ struct ChatView: View {
     @State var messages = [MessageData]()
     @State var group = Groups(id: "", groupName: "", groupID: "", createdBy: "", members: [""], interests: [""])
     @Environment(\.presentationMode) var presentationMode
-    var chatRoomID:String
+    @Binding var chatRoomID: String
     
     var body: some View {
         ZStack {
@@ -104,7 +104,7 @@ struct ChatView: View {
     }
     func saveMessage(outgoingMessage:MessageData){
         let db = Firestore.firestore()
-        let ref = db.collection("message/\(self.chatRoomID)/messages/").document(UUID().uuidString)
+        let ref = db.collection("message/\(chatRoomID)/messages/").document(UUID().uuidString)
       do{
         try ref.setData(from: outgoingMessage)
       }
@@ -168,11 +168,6 @@ struct ChatView: View {
     }
  
 
-}
-struct ChatView_Previews: PreviewProvider {
-    static var previews: some View {
-        ChatView(chatRoomID: "")
-    }
 }
 
 
