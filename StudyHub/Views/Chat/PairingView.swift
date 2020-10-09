@@ -55,7 +55,7 @@ struct PairingView: View {
                         if matchedPerson.id.uuidString != userData.userID {
 //                        self.matchedPerson = self.people.randomElement()!
                         print(self.matchedPerson.name)
-                            newGroup = Groups(id: UUID().uuidString, groupName: self.groupName, groupID: UUID().uuidString, createdBy: self.userData.userID, members: [self.userData.userID, self.matchedPerson.id.uuidString], interests: self.selectedInterests)
+                            newGroup = Groups(id: UUID().uuidString, groupName: matchedPerson.name + " and " + userData.name, groupID: UUID().uuidString, createdBy: self.userData.userID, members: [self.userData.userID, self.matchedPerson.id.uuidString], interests: self.selectedInterests)
                         self.joinGroup(newGroup: newGroup)
                         paired = true
                     } else {
@@ -69,7 +69,7 @@ struct PairingView: View {
                         .font(Font.custom("Montserrat-SemiBold", size: 14.0))
                 } .buttonStyle(BlueStyle())
                 .padding()
-                Spacer(minLength: 110)
+                Spacer(minLength: 150)
             }
             .sheet(isPresented: self.$paired){
                 ChatView(userData: _userData, group: newGroup, chatRoomID: $newGroup.groupID)

@@ -220,7 +220,7 @@ struct RecentPersonView: View {
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 55, height: 55)
             
-            Text(name)
+            Text(group.groupName)
                 .font(.custom("Montserrat-SemiBold", size: 18))
                 .padding(.leading, 25)
                 .foregroundColor(.black)
