@@ -211,6 +211,7 @@ struct RecentPersonView: View {
     var name:String
     @State var group = Groups(id: "", groupName: "", groupID: "", createdBy: "", members: [""], interests: [""])
     @State var tapped: Bool = false
+    @EnvironmentObject var userData: UserData
     var body: some View {
         HStack{
             Image("demoprofile")
@@ -229,6 +230,7 @@ struct RecentPersonView: View {
         }
         .sheet(isPresented: self.$tapped){
             ChatView(group: group, chatRoomID: group.groupID)
+                .environmentObject(userData)
         }
         .padding(.horizontal, 15)
     }

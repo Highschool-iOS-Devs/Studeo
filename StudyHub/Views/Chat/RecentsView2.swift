@@ -30,9 +30,10 @@ struct RecentsView2: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.leading, 15)
                     .padding(.vertical, 30)
-                
+                    
                 ForEach(recentPeople){user in
                     RecentPersonView(name: user.groupName, group: user)
+                        .environmentObject(userData)
                         .onTapGesture {
                             
                     }

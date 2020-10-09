@@ -67,7 +67,7 @@ struct PairingView: View {
                         .font(Font.custom("Montserrat-SemiBold", size: 14.0))
                 } .buttonStyle(BlueStyle())
                 .padding()
-                
+                Spacer(minLength: 110)
             }
             if paired {
                 ChatView(userData: _userData, chatRoomID: newGroup.groupID)

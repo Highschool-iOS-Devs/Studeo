@@ -20,30 +20,43 @@ struct ChatView: View {
     @State var currentOffset = 0
     @State var messages = [MessageData]()
     @State var group = Groups(id: "", groupName: "", groupID: "", createdBy: "", members: [""], interests: [""])
+    @Environment(\.presentationMode) var presentationMode
     var chatRoomID:String
     
     var body: some View {
         ZStack {
             Color.white.edgesIgnoringSafeArea(.all)
-            ReverseScrollView(scrollOffset: CGFloat(self.scrollOffset), currentOffset: CGFloat(self.currentOffset)){
+                .onAppear() {
+                    //viewRouter.showTabBar = false
+                }
+           
                 VStack {
                     //Testing UI with some messages
                     Text(group.groupID)
                         .font(.custom("Montserrat", size: 15))
                         .padding()
                         .foregroundColor(.black)
+                    ReverseScrollView(scrollOffset: CGFloat(self.scrollOffset), currentOffset: CGFloat(self.currentOffset)){
+                        VStack {
                     ForEach(self.messages, id: \.self){ message in
                         MessageCellView(message)
                        
+                    }
+                        }
                     }
                     Spacer()
                     
                     //The bottom function bar that displays field, send button, and some other functions such as mic and cancel
                     VStack{
+                        Divider()
                         HStack {
+                            
                             MessageButtons(imageName: "xmark")
                                 .onTapGesture {
-                                    self.viewRouter.showChatView = false
+                                   
+                                   
+                                    presentationMode.wrappedValue.dismiss()
+                                    
                             }
                             MessageButtons(imageName: "mic.fill")
                             Spacer()
@@ -70,24 +83,19 @@ struct ChatView: View {
                                     }
                             )
                         } .padding()
-                        .padding(.top, 30)
-                        Spacer()
+                        
+                       // Spacer()
                     }
                     .frame(maxWidth: .infinity)
-                    .frame(height: 200)
-                    .background(
-                    RoundedRectangle(cornerRadius: 15)
-                        .stroke(style: StrokeStyle(lineWidth: 2))
-                        .foregroundColor(Color.gray.opacity(0.3))
+                   // .frame(height: 200)
                     
-                    )
-                     .offset(x: 0, y: 100)
+                    // .offset(x: 0, y: 100)
                     
                 }
                 
                
             }
-        }
+        
         .onAppear{
             self.loadData()
         }

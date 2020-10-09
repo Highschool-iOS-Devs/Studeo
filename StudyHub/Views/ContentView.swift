@@ -15,7 +15,7 @@ struct ContentView: View {
     @State private var hasCheckedAuth = false
     @Environment(\.presentationMode) var presentationMode
     @State private var showSheet = false
-
+    @State var myGroups = [Groups]()
     var body: some View {
         ZStack { 
             Color.white
@@ -35,14 +35,14 @@ struct ContentView: View {
                         .environmentObject(viewRouter)
                 }
                 else if viewRouter.currentView == .chatList {
-                    RecentsView()
+                    RecentsView2()
                         .environmentObject(userData)
-               
+                        .environmentObject(viewRouter)
                 }
                 else if viewRouter.currentView == .groups {
-                    AddChat()
+                    PairingView(myGroups: $myGroups)
                         .environmentObject(userData)
-                    
+                        .environmentObject(viewRouter)
                 }
                 else if viewRouter.currentView == .profile {
                     ProfileView()
@@ -53,10 +53,12 @@ struct ContentView: View {
                 else if viewRouter.currentView == .leaderboard {
                     LeaderboardView()
                         .environmentObject(userData)
+                        .environmentObject(viewRouter)
                 }
                 else if viewRouter.currentView == .home {
                     Home()
                         .environmentObject(userData)
+                        .environmentObject(viewRouter)
                 }
                 else if viewRouter.currentView == .settings{
                     SettingView()
