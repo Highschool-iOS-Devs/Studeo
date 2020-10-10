@@ -249,7 +249,7 @@ struct ContentView: View {
     func checkAuth(){
             Auth.auth().addStateDidChangeListener { (auth, user) in
                 if user != nil{
-                    if userData.isOnboardingCompleted{
+                    if userData.isOnboardingCompleted {
 
                         self.viewRouter.currentView = .home
                     }

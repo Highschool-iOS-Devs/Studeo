@@ -12,7 +12,7 @@ struct IntroPage: View {
     var titleText:String
     var bodyText:String
     var image:String
-    
+    @EnvironmentObject var viewRouter:ViewRouter
     var body: some View {
         ZStack {
             Color.white.edgesIgnoringSafeArea(.all)

@@ -22,6 +22,7 @@ struct PairingView: View {
     @State var groupName = ""
     @State var newGroup = Groups(id: "", groupName: "", groupID: "", createdBy: "", members: [""], interests: [""])
     @State var interests = [String]()
+    @State var num = 0
     var body: some View {
         ZStack {
             Color(.systemBackground)
@@ -43,11 +44,24 @@ struct PairingView: View {
         self.loadData(){userData in
             //Get completion handler data results from loadData function and set it as the recentPeople local variable
             self.people = userData
-           
-        
-        }
+            for person in people {
+            for group in myGroups {
+             
+                if  group.members.contains(person.firebaseID) {
+                    print("Already paired before")
+                    self.people.remove(at: num)
+                }
             }
             
+                if person.firebaseID == self.userData.userID {
+                    people.remove(at: num)
+                
+                }
+                num += 1
+            }
+        }
+            }
+          
             VStack {
                 VStack {
                     Spacer()
@@ -70,13 +84,39 @@ struct PairingView: View {
                     self.matchedPerson = self.people.randomElement()!
                     
                         if matchedPerson.id.uuidString != userData.userID {
+                            
+                               
 //                        self.matchedPerson = self.people.randomElement()!
                         print(self.matchedPerson.name)
                             newGroup = Groups(id: UUID().uuidString, groupName: matchedPerson.name + " and " + userData.name, groupID: UUID().uuidString, createdBy: self.userData.userID, members: [self.userData.userID, self.matchedPerson.id.uuidString], interests: self.selectedInterests)
                         self.joinGroup(newGroup: newGroup)
                         paired = true
+                            
+                        
+                            self.loadData(){userData in
+                                //Get completion handler data results from loadData function and set it as the recentPeople local variable
+                                num = 0
+                                self.people = userData
+                                for person in people {
+                                for people in myGroups {
+                                 
+                                    if  people.members.contains(person.id.uuidString) {
+                                        print("Already paired before")
+                                        self.people.remove(at: num)
+                                    }
+                                }
+                                
+                                    if person.id.uuidString == self.userData.userID {
+                                        people.remove(at: num)
+                                    
+                                    }
+                                    num += 1
+                                }
+                            }
+                            
                     } else {
                         print("You paired with yourself")
+                        
                     }
                     } else {
                         print("no one to pair with")
@@ -120,7 +160,7 @@ struct PairingView: View {
             
             if settings {
                 
-                IntroCustomize(isNotOnboarding: true, interests: $interests, settings: $settings, add: $add)
+                IntroCustomize(isNotOnboarding: false, interests: $interests, settings: $settings, add: $add)
              
             }
             
@@ -154,8 +194,9 @@ struct PairingView: View {
                    switch result {
                        case .success(let user):
                            if let user = user {
+                           
                                userList.append(user)
-                    
+                            
                            } else {
                                
                                print("Document does not exist")
@@ -173,6 +214,7 @@ struct PairingView: View {
        }
         }
     }
+    
     func joinGroup(newGroup:Groups){
         let db = Firestore.firestore()
         let docRef = db.collection("groups")

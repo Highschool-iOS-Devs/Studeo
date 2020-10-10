@@ -26,7 +26,8 @@ struct IntroCustomize: View {
     @State var isNotOnboarding: Bool = false
     @Binding var interests: [String]
     @Binding var settings: Bool
-    @Binding var add: Bool 
+    @Binding var add: Bool
+    @EnvironmentObject var viewRouter:ViewRouter
     var body: some View {
         ZStack {
             Color(.systemBackground).edgesIgnoringSafeArea(.all)
@@ -49,16 +50,18 @@ struct IntroCustomize: View {
                             
                     }
                 }
-                
-                
                 Spacer()
-                if !isNotOnboarding {
+            }
+                if isNotOnboarding {
+               
+              
                 Text("Skip for now")
                     .font(.custom("Montserrat-Regular", size: 17))
                     .foregroundColor(Color.black.opacity(0.5))
                     .padding(.bottom, 10)
                 Button(action: {
                     userData.isOnboardingCompleted = true
+                    self.viewRouter.currentView = .home
                 }) {
                     Text("Finish")
                         .font(.custom("Montserrat-SemiBold", size: 18))
@@ -67,8 +70,8 @@ struct IntroCustomize: View {
                 .padding(.bottom, 10)
                 .padding(.horizontal, 35)
                 
-                }
-            }
+                } else {
+            
             VStack {
                 HStack {
                     Button(action: {
@@ -92,7 +95,10 @@ struct IntroCustomize: View {
                 }
                 Spacer()
             } .padding()
+        
+            }
         }
+        
         .animation(.easeInOut)
         
     }
