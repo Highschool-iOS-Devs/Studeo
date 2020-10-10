@@ -44,22 +44,8 @@ struct PairingView: View {
         self.loadData(){userData in
             //Get completion handler data results from loadData function and set it as the recentPeople local variable
             self.people = userData
-            for person in people {
-            for group in myGroups {
-             
-                if  group.members.contains(person.firebaseID) {
-                    print("Already paired before")
-                    self.people.remove(at: num)
-                }
+           
             }
-            
-                if person.firebaseID == self.userData.userID {
-                    people.remove(at: num)
-                
-                }
-                num += 1
-            }
-        }
             }
           
             VStack {
@@ -92,26 +78,12 @@ struct PairingView: View {
                         self.joinGroup(newGroup: newGroup)
                         paired = true
                             
-                        
+                            people.removeAll()
+                            myGroups.removeAll()
                             self.loadData(){userData in
                                 //Get completion handler data results from loadData function and set it as the recentPeople local variable
-                                num = 0
-                                self.people = userData
-                                for person in people {
-                                for people in myGroups {
-                                 
-                                    if  people.members.contains(person.id.uuidString) {
-                                        print("Already paired before")
-                                        self.people.remove(at: num)
-                                    }
-                                }
                                 
-                                    if person.id.uuidString == self.userData.userID {
-                                        people.remove(at: num)
-                                    
-                                    }
-                                    num += 1
-                                }
+                               
                             }
                             
                     } else {
@@ -195,8 +167,21 @@ struct PairingView: View {
                        case .success(let user):
                            if let user = user {
                            
-                               userList.append(user)
+                            if user.firebaseID == userData.userID {
+                                
+                            } else {
+                                for group in myGroups {
+                                 
+                                    if  group.members.contains(user.firebaseID) {
+                               
                             
+                                    } else {
+                                        userList.append(user)
+                                    }
+                                }
+                            }
+                            
+                                
                            } else {
                                
                                print("Document does not exist")
