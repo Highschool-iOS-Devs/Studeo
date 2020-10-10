@@ -14,6 +14,7 @@ struct PairingView: View {
     @State var people = [User]()
     @EnvironmentObject var userData:UserData
     @State var paired: Bool = false
+    @State var settings: Bool = false
     @State var selectedInterests:[String] = []
     @Binding var myGroups:[Groups]
     @State var colorPick = Color.white
@@ -21,7 +22,21 @@ struct PairingView: View {
     @State var newGroup = Groups(id: "", groupName: "", groupID: "", createdBy: "", members: [""], interests: [""])
     var body: some View {
         ZStack {
-            Color(.white)
+            Color(.systemBackground)
+                .edgesIgnoringSafeArea(.all)
+            VStack {
+            HStack {
+                Spacer()
+                Image(systemName: "gear")
+                    .font(.largeTitle)
+                   
+                    .opacity(0.7)
+                    .onTapGesture {
+                        settings.toggle()
+                    }
+            }
+                Spacer()
+            } .padding()
             .onAppear() {
         self.loadData(){userData in
             //Get completion handler data results from loadData function and set it as the recentPeople local variable
@@ -71,12 +86,29 @@ struct PairingView: View {
                 .padding()
                 Spacer(minLength: 150)
             }
+            
             .sheet(isPresented: self.$paired){
                 ChatView(userData: _userData, group: newGroup, chatRoomID: $newGroup.groupID)
                     .environmentObject(userData)
-            
-               
             }
+                if settings {
+                    
+                    IntroCustomize(isNotOnboarding: true)
+                    VStack {
+                    HStack {
+                        Spacer()
+                        Image(systemName: "xmark")
+                            .font(.largeTitle)
+                           
+                            .onTapGesture {
+                                settings.toggle()
+                            }
+                    }
+                        Spacer()
+                } .padding()
+                }
+               
+            
     }
     }
             
