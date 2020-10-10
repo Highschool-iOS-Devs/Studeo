@@ -22,11 +22,12 @@ struct IntroCustomize: View {
     @State var interestToShow:[UserInterest] = [
         UserInterest(interestName: "SAT"), UserInterest(interestName: "ACT"), UserInterest(interestName: "AP Calculus"), UserInterest(interestName: "Algebra 2")
     ]
-    @EnvironmentObject var userData:UserData
-    
+    @EnvironmentObject var userData: UserData
+    @State var isNotOnboarding: Bool = false
+    @Binding var interests: [String]
     var body: some View {
         ZStack {
-            Color.white.edgesIgnoringSafeArea(.all)
+            Color(.systemBackground).edgesIgnoringSafeArea(.all)
             VStack {
                 HStack {
                     Text("Customization")
@@ -42,13 +43,14 @@ struct IntroCustomize: View {
                 
                 VStack(spacing: 10) {
                     ForEach(interestToShow.indices){index in
-                        InterestSelectRow(interestArray: $interestToShow, index: index)
-                        
+                        InterestSelectRow(interestArray: $interestToShow, index: index, interests: $interests)
+                            
                     }
                 }
                 
                 
                 Spacer()
+                if !isNotOnboarding {
                 Text("Skip for now")
                     .font(.custom("Montserrat-Regular", size: 17))
                     .foregroundColor(Color.black.opacity(0.5))
@@ -63,6 +65,7 @@ struct IntroCustomize: View {
                 .padding(.bottom, 10)
                 .padding(.horizontal, 35)
                 
+                }
             }
         }
         .animation(.easeInOut)
@@ -81,22 +84,24 @@ struct IntroCustomize: View {
 }
 
 
-struct IntroCustomize_Previews: PreviewProvider {
-    static var previews: some View {
-        IntroCustomize()
-    }
-}
+
 
 struct InterestSelectRow: View {
     @Binding var interestArray:[UserInterest]
     var index:Int
     @State var selected = false
+    @Binding var interests: [String]
+    @EnvironmentObject var userData:UserData
     var body: some View {
         HStack{
             Text(interestArray[index].interestName)
                 .font(.custom("Montserrat-regular", size: 16))
                 .foregroundColor(selected ? Color.white: Color.black.opacity(0.5))
-                
+                .onAppear() {
+                    if interests.contains(interestArray[index].interestName) {
+                        selected = true
+                    }
+                }
                 .padding(.leading, 30)
             Spacer()
             Circle()
@@ -119,7 +124,16 @@ struct InterestSelectRow: View {
         .clipShape(RoundedRectangle(cornerRadius: 30))
         .padding(.horizontal, 10)
         .onTapGesture(){
+            
             selected.toggle()
+            interests.append(interestArray[index].interestName)
+            let db = Firestore.firestore()
+            let docRef = db.collection("users").document(userData.userID)
+            docRef.updateData(
+                  [
+                      "interests": interests
+                  ]
+              )
             self.interestArray[index].selected = true
             hapticEngine(style: .light)
         }

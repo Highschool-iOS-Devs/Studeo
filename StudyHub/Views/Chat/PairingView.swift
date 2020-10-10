@@ -20,6 +20,7 @@ struct PairingView: View {
     @State var colorPick = Color.white
     @State var groupName = ""
     @State var newGroup = Groups(id: "", groupName: "", groupID: "", createdBy: "", members: [""], interests: [""])
+    @State var interests = [String]()
     var body: some View {
         ZStack {
             Color(.systemBackground)
@@ -93,7 +94,7 @@ struct PairingView: View {
             }
                 if settings {
                     
-                    IntroCustomize(isNotOnboarding: true)
+                    IntroCustomize(isNotOnboarding: true, interests: $interests)
                     VStack {
                     HStack {
                         Spacer()
@@ -114,8 +115,20 @@ struct PairingView: View {
             
     
     func loadData(performAction: @escaping ([User]) -> Void){
-           let db = Firestore.firestore()
-        let docRef = db.collection("users").whereField("interests", arrayContains: "SAT")
+        
+        let db = Firestore.firestore()
+        let ref = db.collection("users").document(self.userData.userID)
+        ref.getDocument{document, error in
+            
+            if let document = document, document.exists {
+                
+                //Cast groupList property from Any to String
+                //Note: We are not using the decoding struct method because we only need 1 property, not the entire user object
+                interests = (document.data()?["interests"] as? [String])!
+                
+        for interest in interests {
+          
+        let docRef = db.collection("users").whereField("interests", arrayContains: interest)
            var userList:[User] = []
            //Get every single document under collection users
        
@@ -141,9 +154,11 @@ struct PairingView: View {
                }
                  performAction(userList)
            }
-           
+        }
            
        }
+        }
+    }
     func joinGroup(newGroup:Groups){
         let db = Firestore.firestore()
         let docRef = db.collection("groups")
@@ -197,9 +212,3 @@ struct PairingView: View {
 }
 
 
-
-struct PairingView_Previews: PreviewProvider {
-    static var previews: some View {
-        Text("Hello, World!")
-    }
-}
