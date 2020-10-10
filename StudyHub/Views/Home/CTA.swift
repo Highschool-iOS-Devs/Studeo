@@ -45,7 +45,7 @@ struct CTA: View {
                             
                             
                         } else if self.cta == "Add Group" {
-                            self.tabRouter.currentView = .groups
+                            self.tabRouter.currentView = .chatList
                             
                         } else {
                             self.tabRouter.currentView = .leaderboard

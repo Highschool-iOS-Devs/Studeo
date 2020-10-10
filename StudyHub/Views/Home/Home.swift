@@ -14,6 +14,8 @@ struct Home: View {
      @EnvironmentObject var viewRouter:ViewRouter
     @State private var search: String = ""
     @State private var showingTimer = false
+    @State var myGroups = [Groups]()
+    
     var body: some View {
         ZStack {
             VStack {

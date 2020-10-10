@@ -67,12 +67,7 @@ struct RecentsView2: View {
                     .stroke(Color.black.opacity(0.3), lineWidth: 1)
             )
                 .offset(x: 0, y: 50)
-                .onAppear{
-                    self.loadData(){userData in
-                        //Get completion handler data results from loadData function and set it as the recentPeople local variable
-                        self.recentPeople = userData
-                    }
-            }
+             
         
         
         
@@ -83,35 +78,5 @@ struct RecentsView2: View {
     }
     }
             
-    func loadData(performAction: @escaping ([Groups]) -> Void){
-        let db = Firestore.firestore()
-        let docRef = db.collection("groups")
-        var userList:[Groups] = []
-        //Get every single document under collection users
-        let queryParameter = docRef.whereField("members", arrayContains: userData.userID)
-        queryParameter.getDocuments{ (querySnapshot, error) in
-            for document in querySnapshot!.documents{
-                let result = Result {
-                    try document.data(as: Groups.self)
-                }
-                switch result {
-                    case .success(let user):
-                        if let user = user {
-                            userList.append(user)
-                 
-                        } else {
-                            
-                            print("Document does not exist")
-                        }
-                    case .failure(let error):
-                        print("Error decoding user: \(error)")
-                    }
-                
-              
-            }
-              performAction(userList)
-        }
-        
-        
-    }
+  
 }

@@ -7,17 +7,18 @@
 //
 
 import SwiftUI
-import Firebase
+import FirebaseStorage
+import FirebaseFirestore
 import UIKit
 
  struct ProfileView: View {
     @State var imagePicker: Bool = false
-    @State var profileImage = UIImage(named: "5293")
-    @State var hasLoaded: Bool = false
+    @Binding var profileImage: UIImage
+    @State var hasLoaded: Bool = true
     @State var isUser: Bool = false
     @State var edit: Bool = false
-    @State var user = [User]()
-    @State var showLoadingAnimation = true
+    @Binding var user: [User]
+    @State var showLoadingAnimation = false
     @State private var showImagePicker : Bool = false
        @State private var image : UIImage? = nil
     @EnvironmentObject var userData: UserData
@@ -28,9 +29,9 @@ import UIKit
                 Color(.systemBackground)
                    .onAppear() {
                      // profileImage = UIImage(named: "5539")
-                    showLoadingAnimation = true
-                    hasLoaded = false
-                      downloadImage()
+                   
+                   
+                    //  downloadImage()
                       
                    }
             }
@@ -38,7 +39,7 @@ import UIKit
                 Color(.systemBackground)
                     .onAppear() {
                       // profileImage = UIImage(named: "5539")
-                       downloadImage()
+                        //downloadImage()
                         
                     }
              
@@ -53,7 +54,7 @@ import UIKit
                 HStack {
                     Spacer()
                    
-                    Image(uiImage: (profileImage!))
+                    Image(uiImage: (profileImage))
                         
                         .renderingMode(.original)
                         .resizable()
@@ -118,7 +119,7 @@ import UIKit
                 Color(.systemBackground)
                    .onAppear() {
                      // profileImage = UIImage(named: "5539")
-                      downloadImage()
+                      //downloadImage()
                        self.loadData(){userData in
                            //Get completion handler data results from loadData function and set it as the recentPeople local variable
                            self.user = userData
@@ -135,7 +136,7 @@ import UIKit
                         
                         Spacer()
                        
-                        Image(uiImage: (profileImage!))
+                        Image(uiImage: (profileImage))
                             .renderingMode(.original)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -203,7 +204,7 @@ import UIKit
                         Spacer()
                     } .padding()
                     .sheet(isPresented: $edit) {
-                        EditProfile(profileImage: profileImage, user: user)
+                        EditProfile(profileImage: $profileImage, user: $user)
                             .environmentObject(userData)
                     }
                 }
@@ -230,33 +231,7 @@ import UIKit
      }
    
    
-    func downloadImage() {
-   
-        let metadata = StorageMetadata()
-        metadata.contentType = "image/jpeg"
-
-        let storage = Storage.storage()
-        let pathReference = storage.reference(withPath: userData.userID)
-       
-       // gs://study-hub-7540b.appspot.com/images
-        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
-        pathReference.getData(maxSize: 1 * 5000 * 5000) { data, error in
-          if let error = error {
-            print(error)
-            // Uh-oh, an error occurred!
-          } else {
-            // Data for "images/island.jpg" is returned
-            var image = UIImage(data: data!)
-            profileImage = image
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
-            showLoadingAnimation = false
-            }
-          }
-        }
-        
-        
-        
-    }
+  
     func sendData() {
        
                 let db = Firestore.firestore()
@@ -294,7 +269,7 @@ import UIKit
         }
         
 
-    func loadData(performAction: @escaping ([User]) -> Void){
+    func loadData(performAction: @escaping ([User]) -> Void) {
         let db = Firestore.firestore()
      let docRef = db.collection("users").document(self.userData.userID)
         var userList:[User] = []

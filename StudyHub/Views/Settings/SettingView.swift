@@ -20,7 +20,7 @@ struct SettingView: View {
                 VStack {
                     VStack {
                         profilePictureCircle()
-                        Text("John R.")
+                        Text(userData.name)
                         .font(.custom("Montserrat-Bold", size: 28))
                         .padding(.top, 10)
                     }.padding(.top, 20)

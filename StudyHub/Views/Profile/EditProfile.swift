@@ -12,15 +12,15 @@ import Firebase
 import FirebaseStorage
 struct EditProfile: View {
     @State var imagePicker: Bool = false
-    @State var profileImage = UIImage(named: "5293")
+    @Binding var profileImage: UIImage
     @State var hasLoaded: Bool = false
     @State var isUser: Bool = false
     @State var edit: Bool = false
-    @State var user = [User]()
+    @Binding var user: [User]
     @State var showLoadingAnimation = true
     @State private var showImagePicker : Bool = false
-    @State var name: String = ""
     @State var description: String = ""
+    @State var name: String = ""
     @EnvironmentObject var userData: UserData
        @State private var image : UIImage? = nil
     @Environment(\.presentationMode) var presentationMode
@@ -35,7 +35,7 @@ struct EditProfile: View {
             
             Spacer()
            
-            Image(uiImage: (profileImage!))
+            Image(uiImage: (profileImage))
                 .renderingMode(.original)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
@@ -112,7 +112,7 @@ struct EditProfile: View {
            metadata.contentType = "image/jpeg"
 
            let storage = Storage.storage().reference()
-        storage.child(userData.userID).putData(profileImage!.jpegData(compressionQuality: 0.4)!, metadata: metadata) { meta, error in
+        storage.child(userData.userID).putData(profileImage.jpegData(compressionQuality: 0.4)!, metadata: metadata) { meta, error in
                if let error = error {
                    print(error)
                    return
@@ -128,7 +128,14 @@ struct EditProfile: View {
                 let db = Firestore.firestore()
                
       
-                        
+       
+      
+        if name == "" {
+            name = userData.name
+        }
+        if description == "" {
+            description = userData.description
+        }
                       
                             db.collection("users").document(userData.userID).updateData([
                                 "description":  self.description,

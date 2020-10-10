@@ -16,7 +16,6 @@ struct User: Identifiable, Codable {
     var image: String?
     var interests: [String]?
     var groups: [String]?
-    var recentPepole: [User]?
     var studyHours: Double
     var studyDate: String
     var all: Double

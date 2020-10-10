@@ -40,7 +40,7 @@ struct tabBarView: View {
         VStack {
             
             Spacer()
-            HStack {
+           
                 
                 HStack {
                     
@@ -50,32 +50,17 @@ struct tabBarView: View {
                             self.viewRouter.updateCurrentView(view: .chatList)
                         }
                     Spacer()
-                    tabItemView(SFImage: "book.fill", text: "Books", tabType: .books)
-                        // .padding(.trailing, 60)
-                        .onTapGesture {
-                            self.viewRouter.updateCurrentView(view: .books)
-                        }
-                    Spacer()
-                } .padding()
-                Spacer()
-                HStack {
-                    Spacer()
-                    tabItemView(SFImage: "person.2.fill", text: "Groups", tabType: .groups)
-                        //.padding(.leading, 60)
-                        .onTapGesture {
-                            self.viewRouter.updateCurrentView(view: .groups)
-                        }
-                    Spacer()
+                  
+           
                     tabItemView(SFImage: "gear", text: "Settings", tabType: .settings)
                         
                         .onTapGesture {
                             self.viewRouter.updateCurrentView(view: .settings)
                         }
-                    
-                } .padding()
-                
+               
+                   
             }
-            .padding(.bottom)
+            .padding(62)
 
           .frame(width: screenSize.width, height: 110)
             .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
