@@ -55,14 +55,14 @@ import UIKit
                     Spacer()
                    
                     Image(uiImage: (profileImage))
-                        
+                       
                         .renderingMode(.original)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .clipShape(Circle())
                         .overlay(Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 5))
-                        .padding(.top, 42)
-                        .padding(.bottom, 22)
+                        
+                        .frame(width: 150, height: 150, alignment: .center)
                         .onTapGesture{
                             showImagePicker.toggle()
                          }
@@ -71,14 +71,14 @@ import UIKit
                 } .padding(.horizontal, 42)
                 
                     
-                 Spacer()
+                
 
                 Text(userData.name)
                     // .frame(minWidth: 100, alignment: .leading)
                      .font(.custom("Montserrat-Semibold", size: 22))
                      .foregroundColor(Color(.black))
                      .multilineTextAlignment(.center)
-                    .padding(.bottom, 60)
+                    
                     Spacer()
                  HStack {
                     ForEach(user){ user in
@@ -88,13 +88,13 @@ import UIKit
                    
                     }
                    
-                 } .padding(.bottom, 22)
+                 }
                 Text(userData.description)
                      .frame(minWidth: 100, alignment: .leading)
                      .font(.custom("Montserrat-Semibold", size: 18))
                      .foregroundColor(Color(.black))
                      .multilineTextAlignment(.center)
-                    .padding(.bottom, 22)
+                   
                      .padding()
                     .onTapGesture() {
                         showImagePicker = true
@@ -131,7 +131,7 @@ import UIKit
                     ForEach(user){ user in
                  ScrollView(showsIndicators: false) {
                  VStack {
-                     Spacer()
+                 
                     HStack {
                         
                         Spacer()
@@ -142,12 +142,13 @@ import UIKit
                             .aspectRatio(contentMode: .fit)
                             .clipShape(Circle())
                             .overlay(Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 5))
-                            .padding(.top, 110)
-                            .padding(.bottom, 22)
+                            .frame(width: 300, height: 300, alignment: .center)
+                           
                            
                         Spacer()
                         
                     }
+                 
                     .onTapGesture {
                       //  showImagePicker = true
                      }
@@ -156,7 +157,7 @@ import UIKit
                             .environmentObject(userData)
                      }
                     .padding(.horizontal, 42)
-                     Spacer()
+                     
 
                     Text(user.name)
                         // .frame(minWidth: 100, alignment: .leading)
@@ -164,7 +165,7 @@ import UIKit
                          .foregroundColor(Color(.black))
                          .multilineTextAlignment(.leading)
                         .padding(.bottom, 22)
-                        Spacer()
+                       
                      HStack {
                        
                         ProfileStats(allNum: user.all, all: true)

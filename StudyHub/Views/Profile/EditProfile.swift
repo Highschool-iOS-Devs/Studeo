@@ -53,6 +53,9 @@ struct EditProfile: View {
         .sheet(isPresented: self.$showImagePicker){
             ImagePicker(isShown: self.$showImagePicker, image: self.$image, userID: $userData.userID)
                 .environmentObject(userData)
+                .onDisappear() {
+                    profileImage = image ?? profileImage
+                }
          }
         .padding(.horizontal, 42)
          Spacer()

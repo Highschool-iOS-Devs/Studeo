@@ -22,7 +22,8 @@ struct ChatView: View {
     @State var group = Groups(id: "", groupName: "", groupID: "", createdBy: "", members: [""], interests: [""])
     @Environment(\.presentationMode) var presentationMode
     @Binding var chatRoomID: String
-    
+    @State var image = UIImage()
+    @State var name: String = ""
     var body: some View {
         ZStack {
             Color.white.edgesIgnoringSafeArea(.all)
@@ -32,10 +33,14 @@ struct ChatView: View {
            
                 VStack {
                     //Testing UI with some messages
-                    Text(group.groupID)
+                    HStack {
+                        ProfilePicture(pictureSize: 50, image: image)
+                    Text(name)
                         .font(.custom("Montserrat", size: 15))
                         .padding()
                         .foregroundColor(.black)
+                        Spacer()
+                    } .padding()
                     ReverseScrollView(scrollOffset: CGFloat(self.scrollOffset), currentOffset: CGFloat(self.currentOffset)){
                         VStack {
                     ForEach(self.messages, id: \.self){ message in

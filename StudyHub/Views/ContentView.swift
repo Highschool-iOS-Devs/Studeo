@@ -215,23 +215,16 @@ struct ContentView: View {
         for people in myGroups {
             print(0)
             for members in people.members {
+                if members != userData.userID {
                 print(1)
-            let db = Firestore.firestore()
-                let docRef = db.collection("users").document(members)
-
-            docRef.getDocument { (document, error) in
-                if let document = document, document.exists {
-                    let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
-                    print("Document data: \(dataDescription)")
-                } else {
-                    print("Document does not exist")
-                }
-            }
+           
+                
+            
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
 
         let storage = Storage.storage()
-        let pathReference = storage.reference(withPath: userData.userID)
+        let pathReference = storage.reference(withPath: members)
        
        // gs://study-hub-7540b.appspot.com/images
         // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
@@ -247,6 +240,7 @@ struct ContentView: View {
             //showLoadingAnimation = false
             }
           }
+        }
         }
             }
         }

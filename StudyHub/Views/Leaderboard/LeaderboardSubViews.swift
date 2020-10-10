@@ -49,9 +49,9 @@ struct SelfRankView: View {
 
 struct ProfilePicture: View {
     var pictureSize:Int
-    
+    @State var image = UIImage()
     var body: some View {
-        Image("demoprofile")
+        Image(uiImage: image)
             .resizable()
             .clipShape(Circle())
             .aspectRatio(contentMode: .fill)
