@@ -14,7 +14,8 @@ struct PairingView: View {
     @State var people = [User]()
     @EnvironmentObject var userData:UserData
     @State var paired: Bool = false
-    @State var settings: Bool = false
+    @Binding var settings: Bool
+    @Binding var add: Bool 
     @State var selectedInterests:[String] = []
     @Binding var myGroups:[Groups]
     @State var colorPick = Color.white
@@ -92,23 +93,36 @@ struct PairingView: View {
                 ChatView(userData: _userData, group: newGroup, chatRoomID: $newGroup.groupID)
                     .environmentObject(userData)
             }
-                if settings {
+                
+            VStack {
+                HStack {
+                    Button(action: {
+                       
+                        if !settings {
+                            add = false
+                        }
+                        if settings {
+                            settings = false
+                        }
+                       
+                        
+                    }) {
+                    Image(systemName: "xmark")
+                        .font(.largeTitle)
                     
-                    IntroCustomize(isNotOnboarding: true, interests: $interests)
-                    VStack {
-                    HStack {
-                        Spacer()
-                        Image(systemName: "xmark")
-                            .font(.largeTitle)
-                           
-                            .onTapGesture {
-                                settings.toggle()
-                            }
-                    }
-                        Spacer()
-                } .padding()
+                    
+                    
                 }
-               
+                    Spacer()
+                }
+                Spacer()
+            } .padding()
+            
+            if settings {
+                
+                IntroCustomize(isNotOnboarding: true, interests: $interests, settings: $settings, add: $add)
+             
+            }
             
     }
     }

@@ -146,7 +146,7 @@ struct RegistrationView: View {
                                     }
                 self.showLoadingAnimation = false
 
-
+                            uploadImage()
                 performActions(ErrorModel(errorMessage: "", errorState: false), newUser)
 
             

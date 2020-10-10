@@ -16,6 +16,10 @@ struct ContentView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var showSheet = false
     @State var myGroups = [Groups]()
+    @State var hasIntroed = false
+    @State var isIntroducing = false
+    @State var settings = false
+    @State var add = false
     var body: some View {
         ZStack { 
             Color.white
@@ -24,8 +28,8 @@ struct ContentView: View {
                     self.checkAuth()
                     
             }
-            if self.hasCheckedAuth {
-                
+           
+                if hasCheckedAuth {
                 if viewRouter.currentView == .registration{
                     RegistrationView()
                         .environmentObject(viewRouter)
@@ -40,7 +44,7 @@ struct ContentView: View {
                         .environmentObject(viewRouter)
                 }
                 else if viewRouter.currentView == .groups {
-                    PairingView(myGroups: $myGroups)
+                    PairingView(settings: $settings, add: $add, myGroups: $myGroups)
                         .environmentObject(userData)
                         .environmentObject(viewRouter)
                 }
@@ -70,7 +74,9 @@ struct ContentView: View {
                         .environmentObject(viewRouter)
                         .environmentObject(userData)
                 }
-            }
+            
+            
+            
             // == true || viewRouter.currentView != .registration || viewRouter.currentView != .login 
             if viewRouter.showTabBar{
                 VStack{
@@ -80,7 +86,8 @@ struct ContentView: View {
                 }.transition(AnyTransition.move(edge: .bottom))
                     .animation(Animation.easeInOut)
             }
-
+                }
+         
         }
         
 

@@ -18,19 +18,38 @@ struct RecentsView2: View {
     @State var recentPeople = [Groups]()
     @EnvironmentObject var userData: UserData
     @EnvironmentObject var viewRouter: ViewRouter
-    
+    @State var add: Bool = false
     //For passing information into chat view. When user taps on a people in the scroll list, it should take user to the chat view.
-    
+    @State var myGroups = [Groups]()
+    @State var settings: Bool = false
     var body: some View {
-        VStack {
-            Spacer()
-            VStack{
+        ZStack {
+            VStack {
+                
+                HStack {
+                    Spacer()
+                    Button(action: {
+                   
+                 
+                       
+                            add.toggle()
+                        
+                    }) {
+                        Image(systemName: "plus")
+                            .font(.largeTitle)
+                    }
+                   
+                }
+                Spacer()
+            }.padding()
+            
+            VStack {
                 Text("Recent Chats")
                     .font(.custom("Montserrat-Bold", size: 20))
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.leading, 15)
                     .padding(.vertical, 30)
-                    
+                ScrollView(showsIndicators: false) {
                 ForEach(recentPeople){user in
                     RecentPersonView(name: user.groupName, group: user)
                         .environmentObject(userData)
@@ -38,10 +57,11 @@ struct RecentsView2: View {
                             
                     }
                 }
+                }
                 
                 Spacer()
             }
-            .frame(height: 600)
+           
             .background(
                 RoundedRectangle(cornerRadius: 20, style: .continuous)
                     .stroke(Color.black.opacity(0.3), lineWidth: 1)
@@ -53,9 +73,16 @@ struct RecentsView2: View {
                         self.recentPeople = userData
                     }
             }
+        
+        
+        
+        if add {
+            PairingView(settings: $settings, add: $add, myGroups: $myGroups)
+          
         }
     }
-    
+    }
+            
     func loadData(performAction: @escaping ([Groups]) -> Void){
         let db = Firestore.firestore()
         let docRef = db.collection("groups")

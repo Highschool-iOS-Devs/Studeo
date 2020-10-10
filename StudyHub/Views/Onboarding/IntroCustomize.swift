@@ -25,6 +25,8 @@ struct IntroCustomize: View {
     @EnvironmentObject var userData: UserData
     @State var isNotOnboarding: Bool = false
     @Binding var interests: [String]
+    @Binding var settings: Bool
+    @Binding var add: Bool 
     var body: some View {
         ZStack {
             Color(.systemBackground).edgesIgnoringSafeArea(.all)
@@ -67,6 +69,29 @@ struct IntroCustomize: View {
                 
                 }
             }
+            VStack {
+                HStack {
+                    Button(action: {
+                       
+                        if !settings {
+                            add = false
+                        }
+                        if settings {
+                            settings = false
+                        }
+                       
+                        
+                    }) {
+                    Image(systemName: "xmark")
+                        .font(.largeTitle)
+                    
+                    
+                    
+                }
+                    Spacer()
+                }
+                Spacer()
+            } .padding()
         }
         .animation(.easeInOut)
         
