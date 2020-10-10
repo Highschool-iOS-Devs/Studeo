@@ -22,8 +22,10 @@ struct ContentView: View {
     @State var settings = false
     @State var add = false
     @State var recentPeople = [Groups]()
+    @State var images = [UIImage]()
     @State var profileImage = UIImage()
     @State var user = [User]()
+    @State private var offset = CGSize.zero
     var body: some View {
         ZStack { 
             Color.white
@@ -34,6 +36,7 @@ struct ContentView: View {
             }
            
                 if hasCheckedAuth {
+                    
                     Color.white
                         .edgesIgnoringSafeArea(.all)
                         .onAppear{
@@ -41,7 +44,7 @@ struct ContentView: View {
                             self.loadData(){ userData in
                                 //Get completion handler data results from loadData function and set it as the recentPeople local variable
                                 self.myGroups = userData
-                                
+                                downloadImages()
                             }
                             downloadImage()
                             self.loadData2(){ userData in
@@ -50,7 +53,10 @@ struct ContentView: View {
                             
                             
                             }
+                           
                     }
+                       
+                    
                 if viewRouter.currentView == .registration{
                     RegistrationView()
                         .environmentObject(viewRouter)
@@ -60,9 +66,12 @@ struct ContentView: View {
                         .environmentObject(viewRouter)
                 }
                 else if viewRouter.currentView == .chatList {
-                    RecentsView2(recentPeople: myGroups)
+                   
+                    RecentsView2(recentPeople: $myGroups, images: $images)
                         .environmentObject(userData)
                         .environmentObject(viewRouter)
+                   
+                
                 }
                 else if viewRouter.currentView == .profile {
                     ProfileView(profileImage: $profileImage, user: $user)
@@ -79,7 +88,7 @@ struct ContentView: View {
                     Home()
                         .environmentObject(userData)
                         .environmentObject(viewRouter)
-                      
+                   
                         
                 }
                 else if viewRouter.currentView == .settings{
@@ -92,9 +101,10 @@ struct ContentView: View {
                         .environmentObject(viewRouter)
                         .environmentObject(userData)
                 }
+                 
             
-            
-            
+                    }
+         
             // == true || viewRouter.currentView != .registration || viewRouter.currentView != .login 
             if viewRouter.showTabBar {
                 VStack{
@@ -104,7 +114,7 @@ struct ContentView: View {
                 }.transition(AnyTransition.move(edge: .bottom))
                     .animation(Animation.easeInOut)
             }
-                }
+                
          
         }
         
@@ -138,6 +148,7 @@ struct ContentView: View {
         
     }
     
+
     func loadData2(performAction: @escaping ([User]) -> Void) {
         let db = Firestore.firestore()
      let docRef = db.collection("users").document(self.userData.userID)
@@ -199,6 +210,48 @@ struct ContentView: View {
         
         
     }
+    
+    func downloadImages() {
+        for people in myGroups {
+            print(0)
+            for members in people.members {
+                print(1)
+            let db = Firestore.firestore()
+                let docRef = db.collection("users").document(members)
+
+            docRef.getDocument { (document, error) in
+                if let document = document, document.exists {
+                    let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+                    print("Document data: \(dataDescription)")
+                } else {
+                    print("Document does not exist")
+                }
+            }
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+
+        let storage = Storage.storage()
+        let pathReference = storage.reference(withPath: userData.userID)
+       
+       // gs://study-hub-7540b.appspot.com/images
+        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
+        pathReference.getData(maxSize: 1 * 5000 * 5000) { data, error in
+          if let error = error {
+            print(error)
+            // Uh-oh, an error occurred!
+          } else {
+            // Data for "images/island.jpg" is returned
+            var image = UIImage(data: data!)
+            images.append(image!)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
+            //showLoadingAnimation = false
+            }
+          }
+        }
+            }
+        }
+        
+    }
     func checkAuth(){
             Auth.auth().addStateDidChangeListener { (auth, user) in
                 if user != nil{
@@ -232,3 +285,4 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+

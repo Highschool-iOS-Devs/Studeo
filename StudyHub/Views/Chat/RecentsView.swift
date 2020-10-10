@@ -23,6 +23,7 @@ struct RecentsView: View {
     
     var body: some View {
         VStack {
+            ScrollView(showsIndicators: false) {
             Spacer()
             VStack{
                 Text("Recent Chats")
@@ -51,6 +52,7 @@ struct RecentsView: View {
                         //Get completion handler data results from loadData function and set it as the recentPeople local variable
                         self.recentPeople = userData
                     }
+            }
             }
         }
     }
@@ -211,10 +213,11 @@ struct RecentPersonView: View {
     var name:String
     @State var group = Groups(id: "", groupName: "", groupID: "", createdBy: "", members: [""], interests: [""])
     @State var tapped: Bool = false
+    @State var image = UIImage()
     @EnvironmentObject var userData: UserData
     var body: some View {
         HStack{
-            Image("demoprofile")
+            Image(uiImage: image)
                 .resizable()
                 .clipShape(Circle())
                 .aspectRatio(contentMode: .fill)
