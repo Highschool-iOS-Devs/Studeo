@@ -37,6 +37,7 @@ struct RecentsView2: View {
                             images.removeAll()
                             //Get completion handler data results from loadData function and set it as the recentPeople local variable
                             self.recentPeople = userData
+                            print("myGroups now has \(myGroups.count) groups")
                             downloadImages()
                         }
                             
@@ -69,13 +70,13 @@ struct RecentsView2: View {
                     .padding(.vertical, 30)
                 ScrollView(showsIndicators: false) {
                 ForEach(recentPeople){user in
-                    ForEach(images, id: \.self) { image in
-                    RecentPersonView(name: user.groupName, group: user, image: image)
+//                    ForEach(images, id: \.self) { image in
+                    RecentPersonView(name: user.groupName, group: user, image: UIImage(systemName: "person")!)
                         .environmentObject(userData)
                         .onTapGesture {
                             
                     }
-                }
+//                }
                 }
                     Spacer(minLength: 150)
                 }
@@ -93,10 +94,32 @@ struct RecentsView2: View {
         
         
         if add {
-            PairingView(settings: $settings, add: $add, myGroups: $myGroups)
+            PairingView(settings: $settings, add: $add, myGroups: $recentPeople)
+                .onDisappear {
+                    self.loadData(){ userData in
+                        recentPeople.removeAll()
+                        images.removeAll()
+                        //Get completion handler data results from loadData function and set it as the recentPeople local variable
+                        self.recentPeople = userData
+                        self.myGroups = userData
+                        print("myGroups now has \(myGroups.count) groups")
+                        downloadImages()
+                    }
+                }
           
         }
     }
+        .onAppear {
+            self.loadData(){ userData in
+                recentPeople.removeAll()
+                images.removeAll()
+                //Get completion handler data results from loadData function and set it as the recentPeople local variable
+                self.recentPeople = userData
+                self.myGroups = userData
+                print("myGroups now has \(myGroups.count) groups")
+                downloadImages()
+            }
+        }
     }
             
     func loadData(performAction: @escaping ([Groups]) -> Void){

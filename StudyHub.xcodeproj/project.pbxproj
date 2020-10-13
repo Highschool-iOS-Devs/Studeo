@@ -58,11 +58,6 @@
 		62F24C0B25141AF400777610 /* LottieUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F24C0A25141AF400777610 /* LottieUIView.swift */; };
 		BE167C452514333A00402C14 /* SettingsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE167C442514333A00402C14 /* SettingsData.swift */; };
 		BE3E16182517F96900E0A845 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E16172517F96900E0A845 /* TimerManager.swift */; };
-		E121A05725312FC70028D9B9 /* Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E121A05625312FC70028D9B9 /* Transition.swift */; };
-		E121A05F253130D80028D9B9 /* Vector-2.png in Resources */ = {isa = PBXBuildFile; fileRef = E121A05C253130D80028D9B9 /* Vector-2.png */; };
-		E121A060253130D80028D9B9 /* Vector-1.png in Resources */ = {isa = PBXBuildFile; fileRef = E121A05D253130D80028D9B9 /* Vector-1.png */; };
-		E121A061253130D80028D9B9 /* Vector.png in Resources */ = {isa = PBXBuildFile; fileRef = E121A05E253130D80028D9B9 /* Vector.png */; };
-		E121A065253131390028D9B9 /* transition.json in Resources */ = {isa = PBXBuildFile; fileRef = E121A064253131390028D9B9 /* transition.json */; };
 		E124C1B924FED758008EBD84 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 620590C324FDBB21001565BF /* GoogleService-Info.plist */; };
 		E155D69B251AA665008281AE /* ProfileStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155D69A251AA665008281AE /* ProfileStats.swift */; };
 		E155D69E251AA66F008281AE /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155D69D251AA66F008281AE /* ProfileView.swift */; };
@@ -134,11 +129,6 @@
 		BE167C442514333A00402C14 /* SettingsData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsData.swift; sourceTree = "<group>"; };
 		BE3E16172517F96900E0A845 /* TimerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
 		C7A62219EB10FE2A621A6C84 /* Pods-StudyHub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudyHub.debug.xcconfig"; path = "Target Support Files/Pods-StudyHub/Pods-StudyHub.debug.xcconfig"; sourceTree = "<group>"; };
-		E121A05625312FC70028D9B9 /* Transition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transition.swift; sourceTree = "<group>"; };
-		E121A05C253130D80028D9B9 /* Vector-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Vector-2.png"; sourceTree = "<group>"; };
-		E121A05D253130D80028D9B9 /* Vector-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Vector-1.png"; sourceTree = "<group>"; };
-		E121A05E253130D80028D9B9 /* Vector.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Vector.png; sourceTree = "<group>"; };
-		E121A064253131390028D9B9 /* transition.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = transition.json; path = ../../../transition.json; sourceTree = "<group>"; };
 		E155D69A251AA665008281AE /* ProfileStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStats.swift; sourceTree = "<group>"; };
 		E155D69D251AA66F008281AE /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		E155D6A2251AACA9008281AE /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -264,11 +254,6 @@
 			isa = PBXGroup;
 			children = (
 				620590EB24FDBB21001565BF /* ContentView.swift */,
-				E121A05625312FC70028D9B9 /* Transition.swift */,
-				E121A064253131390028D9B9 /* transition.json */,
-				E121A05D253130D80028D9B9 /* Vector-1.png */,
-				E121A05C253130D80028D9B9 /* Vector-2.png */,
-				E121A05E253130D80028D9B9 /* Vector.png */,
 				E155D6A0251AA682008281AE /* Profile */,
 				E1C91E152503B86800001424 /* Utility */,
 				620590D724FDBB21001565BF /* Timer Screen */,
@@ -490,13 +475,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E121A065253131390028D9B9 /* transition.json in Resources */,
 				E124C1B924FED758008EBD84 /* GoogleService-Info.plist in Resources */,
-				E121A05F253130D80028D9B9 /* Vector-2.png in Resources */,
 				620590F224FDBB21001565BF /* Montserrat-Light.ttf in Resources */,
 				620590FA24FDBB21001565BF /* Assets.xcassets in Resources */,
 				620590F724FDBB21001565BF /* Montserrat-ExtraBold.ttf in Resources */,
-				E121A060253130D80028D9B9 /* Vector-1.png in Resources */,
 				620590FD24FDBB21001565BF /* LaunchScreen.storyboard in Resources */,
 				62F24C03251419F400777610 /* planeLoading.json in Resources */,
 				620590FC24FDBB21001565BF /* Preview Assets.xcassets in Resources */,
@@ -504,7 +486,6 @@
 				620590F924FDBB21001565BF /* Montserrat-Regular.ttf in Resources */,
 				620590F624FDBB21001565BF /* Montserrat-SemiBold.ttf in Resources */,
 				620590F124FDBB21001565BF /* Montserrat-Medium.ttf in Resources */,
-				E121A061253130D80028D9B9 /* Vector.png in Resources */,
 				620590F424FDBB21001565BF /* Montserrat-Thin.ttf in Resources */,
 				620590F524FDBB21001565BF /* Montserrat-Bold.ttf in Resources */,
 				620590F324FDBB21001565BF /* Montserrat-ExtraLight.ttf in Resources */,
@@ -574,7 +555,6 @@
 				6205911424FDBB21001565BF /* LeaderboardTabBar.swift in Sources */,
 				6205910C24FDBB21001565BF /* Home.swift in Sources */,
 				6205911224FDBB21001565BF /* AddChatCell.swift in Sources */,
-				E121A05725312FC70028D9B9 /* Transition.swift in Sources */,
 				E155D69E251AA66F008281AE /* ProfileView.swift in Sources */,
 				6205910F24FDBB21001565BF /* AddChat.swift in Sources */,
 				62C3ED21250597A300CEA882 /* CreateGroupView.swift in Sources */,
