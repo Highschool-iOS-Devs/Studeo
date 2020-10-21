@@ -106,23 +106,29 @@ struct Homev2: View {
                         }
                     }
                     }
+                    .padding(.bottom, 62)
                     HStack {
                         Text("Groups")
                             .font(Font.custom("Montserrat-SemiBold", size: 20.0))
                         Spacer()
                     } .padding()
+                        
                     ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
-                                GroupsView(imgName: "2868759", cta: "Chat")
-                                GroupsView(imgName: "3566801", cta: "Chat")
-                                GroupsView(imgName: "Group", cta: "Chat")
+                                Spacer(minLength: 20)
+                                GroupsView(imgName: "2868759", cta: "Chat", name: "Name")
+                                GroupsView(imgName: "3566801", cta: "Chat", name: "Name")
+                                GroupsView(imgName: "Group", cta: "Chat", name: "Name")
                                 Spacer(minLength: 110)
                             }
                         }
-                
+                        Spacer(minLength: 62)
+                        
+                        SelfRankView(hours: 3.0)
+                        
                         CTA(imgName: "Group", cta: "Add Group")
                            
-                         CTA(imgName: "study", cta: "Compete")
+                         
                             
                         Spacer(minLength: 140)
                
@@ -132,8 +138,11 @@ struct Homev2: View {
                     .edgesIgnoringSafeArea(.all)
                     
                     }
-    }
-            
+    }.blur(radius: showingTimer ? 20 : 0)
+                if showingTimer {
+                    TimerView(showingView: $showingTimer)
+                        .padding(.bottom, 110)
+                }
         }
     }
 

@@ -18,22 +18,24 @@ struct GroupsView: View {
     var body: some View {
         ZStack {
             
-                ZStack {
+                
                    
                     Image(imgName)
                         .resizable()
                         .scaledToFit()
                         .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, idealWidth: screenSize.width/1.5, maxWidth: screenSize.width, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, idealHeight: screenSize.width/1.5, maxHeight: screenSize.height/7, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                         .clipShape(RoundedRectangle(cornerRadius: 25.0))
-               
-                }
+            VStack {
+            HStack {
+            Text(name)
+                .font(.headline)
+                Spacer()
+            }
+                Spacer()
+            }
             VStack {
                 Spacer()
-                HStack {
-                Text(name)
-                    .font(.headline)
-                    Spacer()
-                }
+               
                 HStack {
                     Spacer()
                         .padding(.leading, 30)
