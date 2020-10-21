@@ -19,6 +19,8 @@ struct Homev2: View {
         GridItem(.flexible()),
        
     ]
+    @EnvironmentObject var userData: UserData
+    @EnvironmentObject var viewRouter:ViewRouter
     @State var columns3 = [GridItem]()
     @State var columns4 = [GridItem]()
     @State  var transition: Bool = false
@@ -28,6 +30,7 @@ struct Homev2: View {
     @State var size2 = CGSize(width: 0, height: 20000)
     @State var scrollOffset = 0
     @State var currentOffset = 0
+    @Binding var recentPeople: [Groups]
     var body: some View {
         ZStack {
             Color(.systemBackground)
@@ -36,24 +39,33 @@ struct Homev2: View {
             Header(showTimer: $showingTimer)
          
                 .onAppear() {
+                    withAnimation(.easeInOut) {
                     transition.toggle()
                 }
-                    ReverseScrollView(scrollOffset: CGFloat(self.scrollOffset), currentOffset: CGFloat(self.currentOffset)){
+                }
+                    
+              
                 VStack {
+                    ScrollView(.vertical, showsIndicators: false) {
+                    ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
-                        ProfilePic()
-                            .scaleEffect(1.2)
-                            .offset(y: 75)
+                       
+                        if recentPeople.count > 0 {
+                            ProfilePic(name: recentPeople[0].groupName)
+                                
+                                
                             .animation(
                                 Animation.easeInOut(duration: 2)
                                     .delay(0.1)
                                   
                             )
                             .transition(.move(edge: .top))
-                        
-                        ProfilePic()
-                            .scaleEffect(1.1)
+                        }
                             
+                        if recentPeople.count > 1 {
+                            ProfilePic(name: recentPeople[1].groupName)
+                                
+                                
                             .animation(
                                 Animation.easeInOut(duration: 2)
                                     .delay(0.2)
@@ -61,21 +73,26 @@ struct Homev2: View {
                                   
                             )
                             .transition(.move(edge: .top))
+                      } else {
+                        Spacer()
                     }
+                    
                    
-                    HStack {
-                        ProfilePic().scaleEffect(0.9)
-                            .offset(y: 75)
+                        if recentPeople.count > 2 {
+                            ProfilePic(name: recentPeople[2].groupName)
+                             
+                              
                             .animation(
                                 Animation.easeInOut(duration: 2)
                                     .delay(0.3)
                                   
                             )
                             .transition(.move(edge: .top))
-                        
-                        ProfilePic()
-                            .scaleEffect(1.1)
-                            .offset(y: -10)
+                        }
+                        if recentPeople.count > 3 {
+                            ProfilePic(name: recentPeople[3].groupName)
+                                
+                               
                             .animation(
                                 Animation.easeInOut(duration: 2)
                                     .delay(0.4)
@@ -83,12 +100,28 @@ struct Homev2: View {
                                   
                             )
                             .transition(.move(edge: .top))
-                      
+                        } else {
+                            Spacer()
+                               
+                        }
                     }
-                }
-                    
-                    
-                .offset(transition ? size : size2)
+                    }
+                    HStack {
+                        Text("Groups")
+                            .font(Font.custom("Montserrat-SemiBold", size: 20.0))
+                        Spacer()
+                    } .padding()
+                    ScrollView(.horizontal, showsIndicators: false) {
+                            HStack {
+                                GroupsView(imgName: "2868759", cta: "Chat")
+                                GroupsView(imgName: "3566801", cta: "Chat")
+                                GroupsView(imgName: "Group", cta: "Chat")
+                                Spacer(minLength: 110)
+                            }
+                        }
+                
+                    Spacer(minLength: 110)
+               
                 
                     .transition(.move(edge: .bottom))
                     .zIndex(1)
@@ -96,8 +129,10 @@ struct Homev2: View {
                     
                     }
     }
-            }
+            
         }
     }
 
 
+}
+}

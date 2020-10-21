@@ -28,7 +28,7 @@ struct CTA: View {
                 .resizable()
                // .frame(width: 350, height: 350)
                 
-                .scaledToFill()
+                .scaledToFit()
                     Spacer()
                 }
                 Spacer()
@@ -37,7 +37,7 @@ struct CTA: View {
                 Spacer()
                 HStack {
                     Spacer()
-                        .padding(.leading, 30)
+                    
                     Button(action: {
                         self.userData.tappedCTA = true
                         if self.cta == "Add Friends" {

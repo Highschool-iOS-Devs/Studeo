@@ -26,6 +26,7 @@ struct ContentView: View {
     @State var profileImage = UIImage()
     @State var user = [User]()
     @State private var offset = CGSize.zero
+    @State var hasLoaded: Bool = false
     var body: some View {
         ZStack { 
             Color.white
@@ -44,6 +45,7 @@ struct ContentView: View {
                             self.loadData(){ userData in
                                 //Get completion handler data results from loadData function and set it as the recentPeople local variable
                                 self.myGroups = userData
+                                hasLoaded = true
                                 downloadImages()
                             }
                             downloadImage()
@@ -56,7 +58,7 @@ struct ContentView: View {
                            
                     }
                        
-                    
+                    if hasLoaded {
                 if viewRouter.currentView == .registration{
                     RegistrationView()
                         .environmentObject(viewRouter)
@@ -85,11 +87,14 @@ struct ContentView: View {
                         .environmentObject(viewRouter)
                 }
                 else if viewRouter.currentView == .home {
-                    Home()
+                    if myGroups.isEmpty {
+                        Home()
+                    } else {
+                    Homev2(recentPeople: $myGroups)
                         .environmentObject(userData)
                         .environmentObject(viewRouter)
                    
-                        
+                    }
                 }
                 else if viewRouter.currentView == .settings{
                     SettingView()
@@ -115,7 +120,7 @@ struct ContentView: View {
                     .animation(Animation.easeInOut)
             }
                 
-         
+                }
         }
         
 
