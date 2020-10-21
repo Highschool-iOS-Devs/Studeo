@@ -120,7 +120,11 @@ struct Homev2: View {
                             }
                         }
                 
-                    Spacer(minLength: 110)
+                        CTA(imgName: "Group", cta: "Add Group")
+                           
+                         CTA(imgName: "study", cta: "Compete")
+                            
+                        Spacer(minLength: 140)
                
                 
                     .transition(.move(edge: .bottom))
