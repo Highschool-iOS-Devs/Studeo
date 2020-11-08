@@ -67,6 +67,7 @@ struct RegistrationView: View {
                                     self.userData.userID = authResult!.id.uuidString
                                     self.userData.name = authResult!.name
                                     self.viewRouter.updateCurrentView(view: .home)
+                                    self.viewRouter.showTabBar = true
                                 }
                         
                             }) {
@@ -127,32 +128,35 @@ struct RegistrationView: View {
                 performActions(newError, nil)
                 return
             }
-            
             let db = Firestore.firestore()
-            
+            let newUserSettings = SettingsData(settings: [SettingSubData(name: "Notifications", state: true), SettingSubData(name: "Personal info", state: true), SettingSubData(name: "Country", field: "United States")])
 
             let newUser = User(id: UUID(), firebaseID: authResult!.user.uid, name: self.username, email: self.email, studyHours: 0, studyDate: "9-16-2020", all: 0, month: 0, day: 0, description: "Tap here to create your bio")
-                do {
                     userData.userID = newUser.id.uuidString
-                        try db.collection("users").document(newUser.id.uuidString).setData(from: newUser)
-                         } catch let error {
-                             print("Error writing to Firestore: \(error)")
-            
-            let newUserSettings = [SettingsData(id: "\(UUID())", name: "Notifications", state: "On"), SettingsData(id: "\(UUID())", name: "Personal info", state: "On"), SettingsData(id: "\(UUID())", name: "Country", state: "United States")]
-                           do {
-                                   try db.collection("settings").document(newUser.id.uuidString).setData(from: newUserSettings)
-                                    } catch let error {
-                                        print("Error writing to Firestore: \(error)")
-                                    }
+            do{
+                try db.collection("settings").document(newUser.id.uuidString).setData(from: newUserSettings)
+                do{
+                    try db.collection("users").document(newUser.id.uuidString).setData(from: newUser)
+                }
+                catch{
+                    print("Error user to database, \(error)")
+                }
+            }
+            catch{
+                print("Error setting to database, \(error)")
+            }
+                   
+                        
+                
                 self.showLoadingAnimation = false
 
-                            uploadImage()
+                uploadImage()
                 performActions(ErrorModel(errorMessage: "", errorState: false), newUser)
-
-            
-         
-            }
         }
+            
+           
+    }
+        
         func uploadImage() {
           
                let metadata = StorageMetadata()
@@ -170,8 +174,8 @@ struct RegistrationView: View {
               
          
        }
-    }
 }
+
 
 struct RegistrationView_Previews: PreviewProvider {
     static var previews: some View {

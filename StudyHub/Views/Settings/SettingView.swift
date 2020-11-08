@@ -33,7 +33,7 @@ struct SettingView: View {
                         Text("Account Settings")
                             .font(.custom("Montserrat-Bold", size: 16))
                             .foregroundColor(.black)
-                            .padding(.bottom, 25)
+                            .padding(.bottom, 70)
                             .padding(.top, 40)
                             .padding(.horizontal, 22)
                         VStack(spacing: 30) {

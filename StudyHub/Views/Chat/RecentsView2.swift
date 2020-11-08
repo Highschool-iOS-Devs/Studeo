@@ -70,6 +70,7 @@ struct RecentsView2: View {
                     .padding(.vertical, 30)
                 ScrollView(showsIndicators: false) {
                 ForEach(recentPeople){user in
+                    
 //                    ForEach(images, id: \.self) { image in
                     RecentPersonView(name: user.groupName, group: user, image: UIImage(systemName: "person")!)
                         .environmentObject(userData)

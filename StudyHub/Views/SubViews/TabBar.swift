@@ -44,7 +44,7 @@ struct tabBarView: View {
                 
                 HStack {
                     
-                    tabItemView(SFImage: "message.fill", text: "Chat", tabType: .chats)
+                    tabItemView(SFImage: "message.fill", text: "Chat", tabType: .chatList)
                         
                         .onTapGesture {
                             self.viewRouter.updateCurrentView(view: .chatList)

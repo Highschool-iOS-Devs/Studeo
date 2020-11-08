@@ -27,3 +27,9 @@ struct ProfilePic: View {
         } .padding()
     }
 }
+
+struct ProfilePic_Previews: PreviewProvider {
+    static var previews: some View {
+        ProfilePic()
+    }
+}

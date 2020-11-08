@@ -9,22 +9,21 @@
 import SwiftUI
 
 struct GroupsView: View {
-    @State var imgName = ""
-    @State var cta = ""
-    @State var name = ""
+    var imgName:String
+    var cta:String
+    var name:String
     @EnvironmentObject var userData: UserData
     @EnvironmentObject var tabRouter:ViewRouter
     let screenSize = UIScreen.main.bounds
     var body: some View {
         ZStack {
-            
-                
-                   
-                    Image(imgName)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, idealWidth: screenSize.width/1.5, maxWidth: screenSize.width, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, idealHeight: screenSize.width/1.5, maxHeight: screenSize.height/7, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        .clipShape(RoundedRectangle(cornerRadius: 25.0))
+        
+       
+        Image(imgName)
+            .resizable()
+            .scaledToFit()
+            .frame(width: screenSize.width/1.5, height: screenSize.width/1.5)
+            .clipShape(RoundedRectangle(cornerRadius: 25.0))
             VStack {
             HStack {
             Text(name)
@@ -63,6 +62,6 @@ struct GroupsView: View {
 
 struct GroupsView_Previews: PreviewProvider {
     static var previews: some View {
-        GroupsView()
+        GroupsView(imgName: "2868759", cta: "Chat", name: "Name")
     }
 }

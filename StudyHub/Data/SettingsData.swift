@@ -9,9 +9,12 @@
 import SwiftUI
 
 struct SettingsData: Identifiable, Codable {
-    var id: String
-    var name: String
-    var state: String
-   
+    var id = UUID()
+    var settings:[SettingSubData]
 
+}
+struct SettingSubData:Codable{
+    var name:String
+    var state:Bool?
+    var field:String?
 }

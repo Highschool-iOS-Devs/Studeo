@@ -65,7 +65,6 @@ struct Homev2: View {
                         if recentPeople.count > 1 {
                             ProfilePic(name: recentPeople[1].groupName)
                                 
-                                
                             .animation(
                                 Animation.easeInOut(duration: 2)
                                     .delay(0.2)
@@ -149,3 +148,5 @@ struct Homev2: View {
 
 }
 }
+
+
