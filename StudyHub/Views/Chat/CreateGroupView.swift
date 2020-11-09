@@ -14,7 +14,7 @@ import FirebaseCore
 
 struct CreateGroupView: View {
     @Binding var presentCreateView:Bool
-    @State var selectedInterests:[String] = []
+    @State var selectedInterests:[UserInterestTypes] = []
     @EnvironmentObject var userData:UserData
     @Binding var myGroups:[Groups]
     @State var colorPick = Color.white
@@ -48,13 +48,13 @@ struct CreateGroupView: View {
                
             HStack {
                 Spacer()
-                CategoriesTag(displayText: "SAT", selectedInterests: $selectedInterests)
+                CategoriesTag(displayInterest: .SAT, selectedInterests: $selectedInterests)
                 Spacer()
-                CategoriesTag(displayText: "ACT", selectedInterests: $selectedInterests)
+                CategoriesTag(displayInterest: .ACT, selectedInterests: $selectedInterests)
                 Spacer()
-                CategoriesTag(displayText: "AP Calculus", selectedInterests: $selectedInterests)
+                CategoriesTag(displayInterest: .APCalculus, selectedInterests: $selectedInterests)
                 Spacer()
-                CategoriesTag(displayText: "AP Physics", selectedInterests: $selectedInterests)
+                CategoriesTag(displayInterest: .Algebra2, selectedInterests: $selectedInterests)
                 Spacer()
                 
             } .padding()
@@ -62,7 +62,7 @@ struct CreateGroupView: View {
             
             Spacer()
             Button(action: {
-                let newGroup = Groups(id: UUID().uuidString, groupName: self.groupName, groupID: UUID().uuidString, createdBy: self.userData.userID, members: [self.userData.userID], interests: self.selectedInterests)
+                let newGroup = Groups(id: UUID().uuidString, groupID: UUID().uuidString, groupName: self.groupName, members: [self.userData.userID], interests: self.selectedInterests)
                 self.joinGroup(newGroup: newGroup)
                 
             })
@@ -135,19 +135,19 @@ struct CreateGroupView: View {
 
 
 struct CategoriesTag: View {
-    var displayText:String
     @State var selected = false
-    @Binding var selectedInterests:[String]
+    var displayInterest:UserInterestTypes
+    @Binding var selectedInterests:[UserInterestTypes]
     var body: some View {
-        Text(displayText)
+        Text(displayInterest.rawValue)
             .font(.custom("Montserrat-Bold", size: 15))
-            .frame(width: CGFloat(60+10*(displayText.count)), height: 30)
+            .frame(width: CGFloat(60+10*(displayInterest.rawValue.count)), height: 30)
             .foregroundColor(.white)
             .background(selected ? Color.yellow : Color.yellow.opacity(0.3))
             .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
             .onTapGesture {
                 self.selected.toggle()
-                self.selectedInterests.append(self.displayText)
+                self.selectedInterests.append(self.displayInterest)
         }
         .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0))
     }

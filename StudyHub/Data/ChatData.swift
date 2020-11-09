@@ -28,11 +28,10 @@ struct ChattedWith: Identifiable {
 
 struct Groups: Identifiable, Codable, Hashable{
     var id: String
-    var groupName:String
     var groupID:String
-    var createdBy:String
+    var groupName:String
     var members:[String]
-    var interests:[String]
+    var interests:[UserInterestTypes?]
 }
 
 struct MessageData:Codable, Hashable{ 

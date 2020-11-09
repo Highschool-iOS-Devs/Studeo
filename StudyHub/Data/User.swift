@@ -9,12 +9,12 @@
 import SwiftUI
 
 struct User: Identifiable, Codable, Hashable {
-    var id: UUID
+    var id:UUID
     var firebaseID: String
     var name: String
     var email: String
     var image: String?
-    var interests: [String]?
+    var interests: [UserInterestTypes]?
     var groups: [String]?
     var studyHours: Double
     var studyDate: String

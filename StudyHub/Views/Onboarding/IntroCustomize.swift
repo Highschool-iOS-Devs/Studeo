@@ -19,9 +19,7 @@ func hapticEngine(style: UIImpactFeedbackGenerator.FeedbackStyle){
 }
 
 struct IntroCustomize: View {
-    @State var interestToShow:[UserInterest] = [
-        UserInterest(interestName: "SAT"), UserInterest(interestName: "ACT"), UserInterest(interestName: "AP Calculus"), UserInterest(interestName: "Algebra 2")
-    ]
+    @State var interestSelected:[UserInterestTypes] = []
     @EnvironmentObject var userData: UserData
     @State var isNotOnboarding: Bool = false
     @Binding var interests: [String]
@@ -45,8 +43,8 @@ struct IntroCustomize: View {
                     .padding(.horizontal, 20)
                 
                 VStack(spacing: 10) {
-                    ForEach(interestToShow.indices){index in
-                        InterestSelectRow(interestArray: $interestToShow, index: index, interests: $interests)
+                    ForEach(UserInterestTypes.allCases, id:\.self){name in
+                        InterestSelectRow(interestSelected: $interestSelected, interestName: name)
                             
                     }
                 }
@@ -60,8 +58,18 @@ struct IntroCustomize: View {
                     .foregroundColor(Color.black.opacity(0.5))
                     .padding(.bottom, 10)
                 Button(action: {
-                    userData.isOnboardingCompleted = true
-                    self.viewRouter.currentView = .home
+                    if interestSelected != []{
+                        do{
+                            try saveData()
+                            userData.isOnboardingCompleted = true
+                            self.viewRouter.currentView = .home
+                        }
+                        catch{
+                            print("Failed saving user interest data, \(error)")
+                        }
+                        
+                    }
+                    
                 }) {
                     Text("Finish")
                         .font(.custom("Montserrat-SemiBold", size: 18))
@@ -103,13 +111,10 @@ struct IntroCustomize: View {
         
     }
     
-    func saveData(){
+    func saveData() throws -> Void{
         let db = Firestore.firestore()
         let docRef = db.collection("users").document(userData.userID)
-        let selectedInterest = interestToShow.filter{$0.selected}
-        
-        
-        docRef.setData([ "interests": selectedInterest ], merge: true)
+        try docRef.setData(from: ["interests":interestSelected], merge: true)
     }
     
 }
@@ -118,21 +123,20 @@ struct IntroCustomize: View {
 
 
 struct InterestSelectRow: View {
-    @Binding var interestArray:[UserInterest]
-    var index:Int
+    @Binding var interestSelected:[UserInterestTypes]
+    var interestName:UserInterestTypes
     @State var selected = false
-    @Binding var interests: [String]
-    @EnvironmentObject var userData:UserData
-    var body: some View {
+    
+        var body: some View {
         HStack{
-            Text(interestArray[index].interestName)
+            Text(interestName.rawValue)
                 .font(.custom("Montserrat-regular", size: 16))
                 .foregroundColor(selected ? Color.white: Color.black.opacity(0.5))
-                .onAppear() {
-                    if interests.contains(interestArray[index].interestName) {
-                        selected = true
-                    }
-                }
+//                .onAppear() {
+//                    if interests.contains(interestArray[index].interestName) {
+//                        selected = true
+//                    }
+//                }
                 .padding(.leading, 30)
             Spacer()
             Circle()
@@ -155,23 +159,32 @@ struct InterestSelectRow: View {
         .clipShape(RoundedRectangle(cornerRadius: 30))
         .padding(.horizontal, 10)
         .onTapGesture(){
-            
+            if selected{
+               interestSelected = interestSelected.filter {$0 != interestName}
+            }
+            else{
+                interestSelected.append(interestName)
+            }
             selected.toggle()
-            interests.append(interestArray[index].interestName)
-            let db = Firestore.firestore()
-            let docRef = db.collection("users").document(userData.userID)
-            docRef.updateData(
-                  [
-                      "interests": interests
-                  ]
-              )
-            self.interestArray[index].selected = true
+//            interests.append(interestArray[index].interestName)
+//                        let db = Firestore.firestore()
+//            let docRef = db.collection("users").document(userData.userID)
+//            docRef.updateData(
+//                  [
+//                      "interests": interests
+//                  ]
+//              )
+//            self.interestArray[index].selected = true
             hapticEngine(style: .light)
         }
         .animation(.easeInOut)
     }
 }
-struct UserInterest:Hashable{
-    var interestName:String
-    var selected:Bool = false
+
+enum UserInterestTypes:String,CaseIterable, Codable{
+    case SAT = "SAT"
+    case ACT = "ACT"
+    case APCalculus = "AP Calculus"
+    case Algebra2 = "Algebra 2"
+    
 }

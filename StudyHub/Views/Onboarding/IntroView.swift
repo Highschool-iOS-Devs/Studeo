@@ -24,6 +24,7 @@ struct IntroView: View {
     @State var interests = [String]()
     @State var add: Bool = false
     @State var settings: Bool = false
+    @EnvironmentObject var viewRouter:ViewRouter
     @State var index = 0{
         willSet{
             print("will set \(index)")
@@ -41,7 +42,7 @@ struct IntroView: View {
     }
         
     
-    var body: some View {
+    var body: some View { 
         ZStack {
             Text("Placeholder")
             Pages(currentPage: $index,bounce: true, hasControl: true){
@@ -62,10 +63,14 @@ struct IntroView: View {
 //                  .padding(.bottom, 170)
 //              }
             
+        
+        .onAppear{
+            //viewRouter.showTabBar = false
         }
 
        
-}
+        }
+    }
 }
 
 struct IntroPages_Previews: PreviewProvider {

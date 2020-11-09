@@ -49,8 +49,6 @@ struct RecentsView2: View {
                     Spacer()
                     Button(action: {
                    
-                 
-                       
                             add.toggle()
                         
                     }) {

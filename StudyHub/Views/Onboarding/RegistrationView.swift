@@ -66,7 +66,7 @@ struct RegistrationView: View {
                                     }
                                     self.userData.userID = authResult!.id.uuidString
                                     self.userData.name = authResult!.name
-                                    self.viewRouter.updateCurrentView(view: .home)
+                                    self.viewRouter.updateCurrentView(view: .introView)
                                     self.viewRouter.showTabBar = true
                                 }
                         
@@ -104,7 +104,7 @@ struct RegistrationView: View {
             }
             VStack{
                 if self.displayError{
-                    OnboardingErrorMessage(errorObject: self.$errorObject, displayError: self.$displayError)
+                    ErrorMessage(errorObject: self.errorObject, displayError: self.displayError)
                         .onAppear{
                             DispatchQueue.main.asyncAfter(deadline: .now()+3){
                                 self.displayError = false
@@ -183,21 +183,4 @@ struct RegistrationView_Previews: PreviewProvider {
     }
 }
 
-struct OnboardingErrorMessage: View {
-    @Binding var errorObject:ErrorModel
-    @Binding var displayError:Bool
-    var body: some View {
-        Text("\(errorObject.errorMessage)")
-            .animation(nil)
-            .foregroundColor(.white)
-            .frame(width: screenSize.width-15, height: 60)
-            .background(Color(#colorLiteral(red: 0.8578633666, green: 0.1455268264, blue: 0.1380874515, alpha: 1)))
-            .clipShape(RoundedRectangle(cornerRadius: 10))
-            .opacity(displayError ? 1 : 0)
-            .offset(x: 0, y: displayError ? 0 : -200)
-            .shadow(color: Color(#colorLiteral(red: 0.8578633666, green: 0.1455268264, blue: 0.1380874515, alpha: 1)).opacity(0.2), radius: 10, x: 0, y: 7)
-            .animation(.spring(response: 0.5, dampingFraction: 0.5, blendDuration: 0))
-
-    }
-}
 

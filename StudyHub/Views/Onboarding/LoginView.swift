@@ -65,6 +65,7 @@ struct LoginView: View {
                                     return
                                 }
                                 self.viewRouter.updateCurrentView(view: .home)
+                                self.viewRouter.showTabBar = true
                                 
                             }
                             }
@@ -104,7 +105,7 @@ struct LoginView: View {
             }
             if self.displayError{
                 VStack {
-                    OnboardingErrorMessage(errorObject: self.$errorObject, displayError: self.$displayError)
+                    ErrorMessage(errorObject: self.errorObject, displayError: self.displayError)
                         .onAppear{
                             
                             DispatchQueue.main.asyncAfter(deadline: .now()+3){

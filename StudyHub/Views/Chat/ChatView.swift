@@ -19,7 +19,7 @@ struct ChatView: View {
     @State var scrollOffset = 0
     @State var currentOffset = 0
     @State var messages = [MessageData]()
-    @State var group = Groups(id: "", groupName: "", groupID: "", createdBy: "", members: [""], interests: [""])
+    @State var group = Groups(id: "", groupID: "", groupName: "", members: [""], interests: [nil])
     @Environment(\.presentationMode) var presentationMode
     @Binding var chatRoomID: String
     @State var image = UIImage()

@@ -18,7 +18,7 @@ struct RecentsView: View {
     @State var recentPeople = [User]()
     @EnvironmentObject var userData: UserData
     @EnvironmentObject var viewRouter: ViewRouter
-    @State var group = Groups(id: "", groupName: "", groupID: "", createdBy: "", members: [""], interests: [""])
+    @State var group = Groups(id: "", groupID: "", groupName: "", members: [""], interests: [nil])
     //For passing information into chat view. When user taps on a people in the scroll list, it should take user to the chat view.
     
     var body: some View {
@@ -211,7 +211,7 @@ struct ChatList_Previews: PreviewProvider {
 
 struct RecentPersonView: View {
     var name:String
-    @State var group = Groups(id: "", groupName: "", groupID: "", createdBy: "", members: [""], interests: [""])
+    @State var group = Groups(id: "", groupID: "", groupName: "", members: [""], interests: [nil])
     @State var tapped: Bool = false
     @State var image = UIImage()
     
