@@ -200,10 +200,14 @@ struct ContentView: View {
                 switch result {
                     case .success(let user):
                         if var user = user {
+                            i = 0
                             var array = user.groupName.components(separatedBy: " and ")
                             for a in array {
                                 if a == userData.name {
+                                    print(i)
+                                    if i < array.count {
                                     array.remove(at: i)
+                                }
                                 }
                                 i += 1
                             }

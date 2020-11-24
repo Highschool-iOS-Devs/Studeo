@@ -105,7 +105,7 @@ struct Homev2: View {
                         }
                     }
                     }
-                    .padding(.bottom, 62)
+                   
                     HStack {
                         Text("Groups")
                             .font(Font.custom("Montserrat-SemiBold", size: 20.0))
