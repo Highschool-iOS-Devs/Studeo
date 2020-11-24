@@ -8,128 +8,96 @@
 
 import SwiftUI
 
-struct TabBar: View {
-    @ObservedObject var tabRouter = ViewRouter()
-    var body: some View {
-        
-        ZStack {
-            if tabRouter.currentView == .chats{
-                Text("Chat View")
-            }
-            else if tabRouter.currentView == .books{
-                Text("Books View")
-            }
-            else if tabRouter.currentView == .groups{
-                Text("Groups View")
-            }
-            else if tabRouter.currentView == .settings{
-                SettingView()
-                    .transition(.move(edge: .bottom))
-                    .animation(.timingCurve(0.06,0.98,0.69,1))
-            }
-            else if tabRouter.currentView == .home{
-                Home()
-                .transition(.move(edge: .bottom))
-                .animation(.timingCurve(0.06,0.98,0.69,1))
-            }
-            tabBarView(tabRouter: tabRouter, currentView: $tabRouter.currentView)
-        }
-        
-    }
-}
-
-struct TabBar_Previews: PreviewProvider {
-    static var previews: some View {
-        TabBar()
-    }
-}
-
 struct tabItemView: View {
     var SFImage:String
     var text:String
     var tabType: ViewRouter.Views
-    @Binding var currentView: ViewRouter.Views
-    
+    @EnvironmentObject var viewRouter:ViewRouter
+
     var body: some View {
         VStack {
             Image(systemName: SFImage)
                 .font(.system(size: 20))
                 .padding(.bottom, 5)
-                .foregroundColor(self.currentView == tabType ? Color("barHighlight") : Color.black.opacity(0.25))
+                .foregroundColor(viewRouter.currentView == tabType ? Color("barHighlight") : Color.black.opacity(0.25))
             
             Text(text)
                 .font(.custom("Montserrat-Bold", size: 10))
-                .foregroundColor(self.currentView == tabType ? Color("barHighlight") : Color.black.opacity(0.25))
+                .foregroundColor(viewRouter.currentView == tabType ? Color("barHighlight") : Color.black.opacity(0.25))
             
         }
-        .frame(width:60)
+        
         .padding(.top, 15)
         
     }
 }
- 
+
 
 struct tabBarView: View {
-    var tabRouter:ViewRouter
-    @Binding var currentView: ViewRouter.Views
+    @EnvironmentObject var viewRouter:ViewRouter
     
     var body: some View {
         VStack {
+            
             Spacer()
-            HStack {
-                tabItemView(SFImage: "message.fill", text: "Chat", tabType: .chats, currentView: self.$currentView)
-                .onTapGesture {
-                    self.currentView = .chats
-            }
-          
-                tabItemView(SFImage: "book.fill", text: "Books", tabType: .books, currentView: self.$currentView)
-                    .padding(.trailing, 30)
-                .onTapGesture {
-                        self.currentView = .books
-                }
-                tabItemView(SFImage: "person.2.fill", text: "Groups", tabType: .groups, currentView: self.$currentView)
-                    .padding(.leading, 30)
-                .onTapGesture {
-                        self.currentView = .groups
-                }
-                tabItemView(SFImage: "gear", text: "Settings", tabType: .settings, currentView: self.$currentView)
-                .onTapGesture {
-                        self.currentView = .settings
-                }
+           
                 
+                HStack {
+                    
+                    tabItemView(SFImage: "message.fill", text: "Chat", tabType: .chatList)
+                        
+                        .onTapGesture {
+                            self.viewRouter.updateCurrentView(view: .chatList)
+                        }
+                    Spacer()
+                  
+           
+                    tabItemView(SFImage: "gear", text: "Settings", tabType: .settings)
+                        
+                        .onTapGesture {
+                            self.viewRouter.updateCurrentView(view: .settings)
+                        }
+               
+                   
             }
-            .frame(width: screenSize.width, height: screenSize.height/10)
+            .padding(62)
+
+          .frame(width: screenSize.width, height: 110)
             .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-            .background(Color.white.shadow(radius: 2))
+            .background(Color.white.shadow(radius: 0.5))
             .overlay(
-                
-                tabBigButton(currentView: $currentView)
+                tabBigButton()
                     .onTapGesture {
-                        self.currentView = .home
-                }
+                        self.viewRouter.updateCurrentView(view: .home)
+                    }
             )
             
             
             
         }.edgesIgnoringSafeArea(.all)
+        
     }
 }
-
+struct tabBarView_previews: PreviewProvider {
+    static var previews: some View {
+        tabBarView()
+    }
+}
 struct tabBigButton: View {
-    @Binding var currentView: ViewRouter.Views
-    
+    @EnvironmentObject var viewRouter:ViewRouter
+
     var body: some View {
         ZStack {
             Circle()
                 .fill(LinearGradient(gradient: Gradient(colors: [Color.gradientLight, Color.gradientDark]), startPoint: .topTrailing, endPoint: .bottomLeading))
-                .frame(width: 70, height: 70)
+                .frame(width: 80, height: 80)
                
             Image(systemName: "house.fill")
                 .frame(alignment: .center)
                 .foregroundColor(Color.white)
                 .font(.system(size: 28))
         }
-        .offset(x: 0, y: -30)
+        .offset(x: 0, y: -50)
         .animation(Animation
                     .easeInOut
                   )

@@ -31,13 +31,23 @@ final class UserData: ObservableObject {
     var userID: String = "nil"
     
     @Published(key: "hasInteractedWith")
-    var hasInteractedWith: [String] = [""]
+    var interactedPeople: [String] = [""]
+    
+    @Published(key: "hasInteractedWith")
+    var interactedChatRoom: [String] = [""]
     
     @Published(key: "chats")
     var chats: [String] = [""]
     
     @Published(key: "isLoggedIn")
     var isLoggedIn: Bool = false
+    
+    // Change notification settings when these 2 variables are changed
+    @Published(key: "chatNotificationsOn")
+    var chatNotificationsOn: Bool = true
+    
+    @Published(key: "joinedGroupNotificationsOn")
+    var joinedGroupNotificationsOn: Bool = true
     
     @Published
     var onboard: Int = 0
@@ -47,6 +57,21 @@ final class UserData: ObservableObject {
     
     @Published
     var tabBar: Int = 0
+    
+    @Published
+    var notifications: Bool = false
+    
+    @Published
+    var country: String = "United States"
+    
+    @Published
+    var language: String = "English"
+    
+    @Published
+    var tappedCTA: Bool = false
+    
+    @Published
+    var description: String = "Lorem ipsum dolor sit amet, mea et animal probatus, id mutat corpora conclusionemque mei. No soluta recteque nec, commodo corrumpit sit ei. Ei per menandri vituperata. Vis ex meis persius volutpat.  Stet ullum viderer ne vel. Stet decore sed ut, ut quaestio voluptaria mea. Velit imperdiet gubergren pro te, an magna interpretaris qui. Homero reprehendunt pro ea. Summo fierent eu ius."
 }
 
 import Foundation

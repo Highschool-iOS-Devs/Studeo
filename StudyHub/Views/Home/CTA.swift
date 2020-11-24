@@ -11,28 +11,57 @@ import SwiftUI
 struct CTA: View {
     @State var imgName = ""
     @State var cta = ""
-   
+    var tabRouter:ViewRouter = .shared
+    @State var currentView: ViewRouter.Views = .home
+    @EnvironmentObject var userData: UserData
     var body: some View {
         ZStack {
-            
-            Image(imgName)
-                .renderingMode(.original)
-                .resizable()
-                .frame(width: 350, height: 350)
-                .padding(.horizontal, 12)
             
             VStack {
                 Spacer()
                 HStack {
                     Spacer()
-                    Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
-                        Text(cta)
+            Image(imgName)
+                
+                .renderingMode(.original)
+           
+                .resizable()
+               // .frame(width: 350, height: 350)
+                
+                .scaledToFill()
+                    Spacer()
+                }
+                Spacer()
+            }
+            VStack {
+                Spacer()
+                HStack {
+                    Spacer()
+                        .padding(.leading, 30)
+                    Button(action: {
+                        self.userData.tappedCTA = true
+                        if self.cta == "Add Friends" {
+                            self.tabRouter.currentView = .chatList
+                            
+                            
+                        } else if self.cta == "Add Group" {
+                            self.tabRouter.currentView = .chatList
+                            
+                        } else {
+                            self.tabRouter.currentView = .leaderboard
+                            
+                        }
                         
+                    }) {
+                        Text(cta)
+                            .font(.headline)
+                            .multilineTextAlignment(.trailing)
                         
                         
                         
                     } .buttonStyle(BlueStyle())
-                        .frame(width: 125)
+                       
+                        
                 }
             } .padding(.all, 22)
         }

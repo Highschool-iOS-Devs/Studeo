@@ -8,42 +8,29 @@
 
 import SwiftUI
 
-struct User: Identifiable {
-    var id: String
+struct User: Identifiable, Codable, Hashable {
+    var id:UUID
+    var firebaseID: String
     var name: String
-    var image: String
-    var fcmToken: String
-    var school: [Double]
-    //long and lat coordinates
-    var hours: [Double]
-    var hoursDate: [Date]
-    var interests: [String]
-    var groups: [String]
-    var isMentor: Bool
-    var interactedPeople: [String]
-    var interactedChatRooms: [String]
-    init(id: String, name: String, image: String, fcmToken: String, school: [Double], hours: [Double], hoursDate: [Date], interests: [String], groups: [String], isMentor: Bool, interactedPeople: [String], interactedChatRooms: [String]) {
-        self.id = id
-        self.name = name
-        self.image = image
-        self.fcmToken = fcmToken
-        self.school = school
-        self.hours = hours
-        self.hoursDate = hoursDate
-        self.interests = interests
-        self.groups = groups
-        self.isMentor = isMentor
-        self.interactedPeople = interactedPeople
-        self.interactedChatRooms = interactedChatRooms
-    }
+    var email: String
+    var image: String?
+    var interests: [UserInterestTypes]?
+    var groups: [String]?
+    var studyHours: Double
+    var studyDate: String
+    var all: Double
+    var month: Double
+    var day: Double
+    var description: String
 }
-struct BasicUser: Identifiable {
+
+struct BasicUser: Identifiable, Codable {
     var id: String
     var name: String
-    var count: Int
-    init(id: String, name: String, count: Int) {
+   
+    init(id: String, name: String) {
         self.id = id
         self.name = name
-        self.count = count
+       
     }
 }

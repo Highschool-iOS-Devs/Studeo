@@ -9,22 +9,30 @@
 import SwiftUI
 
 struct Header: View {
+     @EnvironmentObject var userData: UserData
+    @EnvironmentObject var viewRouter:ViewRouter
+    @Binding var showTimer: Bool
     var body: some View {
         HStack {
             VStack {
+                HStack {
                 Text("Hello,")
-                    .frame(minWidth: 150, alignment: .leading)
+                   
                     .font(.custom("Montserrat-Regular", size: 16))
                     .foregroundColor(Color(.black))
                     .opacity(25)
                     .multilineTextAlignment(.leading)
-                
-                Text("John R")
+                    Spacer()
+                }
+                HStack {
+                Text("\(userData.name)")
                     .frame(minWidth: 150, alignment: .leading)
                     .font(.custom("Montserrat-Semibold", size: 27))
                     .foregroundColor(Color(.black))
                     .multilineTextAlignment(.leading)
-            }
+                    Spacer()
+                }
+            } .padding(.horizontal)
             Spacer()
             
             Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
@@ -36,9 +44,12 @@ struct Header: View {
                     .aspectRatio(contentMode: .fit)
                     .clipShape(Circle())
                     .overlay(Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 5))
+                    .onTapGesture(count: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/, perform: {
+                        viewRouter.currentView = .profile
+                    })
             } .padding(.trailing, 22)
             
-            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
+            Button(action: { self.showTimer = true }) {
                 ZStack {
                     Color(.white)
                         .frame(width: 40, height: 40)
@@ -61,6 +72,6 @@ struct Header: View {
 
 struct Header_Previews: PreviewProvider {
     static var previews: some View {
-        Header()
+        Header(showTimer: .constant(true))
     }
 }

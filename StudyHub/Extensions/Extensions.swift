@@ -48,6 +48,8 @@ struct CustomTextField: TextFieldStyle {
             .padding()
             .background(Color.gray.opacity(0.2))
             .cornerRadius(10.0)
+            .autocapitalization(.none)
+            .disableAutocorrection(true)
     }
 }
 

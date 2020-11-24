@@ -15,7 +15,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "FirebaseAuth/Sources/Public/FIRAuth.h"
+#import "FirebaseAuth/Sources/Public/FirebaseAuth/FIRAuth.h"
 #import "Interop/Auth/Public/FIRAuthInterop.h"
 
 @class FIRAuthRequestConfiguration;
@@ -141,6 +141,11 @@ NS_ASSUME_NONNULL_BEGIN
 */
 - (FIRAuthDataResultCallback)signInFlowAuthDataResultCallbackByDecoratingCallback:
     (nullable FIRAuthDataResultCallback)callback;
+
+/** @fn useEmulatorWithHost:port
+    @brief Configures Firebase Auth to connect to an emulated host instead of the remote backend.
+ */
+- (void)useEmulatorWithHost:(NSString *)host port:(NSInteger)port;
 
 @end
 
