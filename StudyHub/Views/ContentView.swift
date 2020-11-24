@@ -27,6 +27,8 @@ struct ContentView: View {
     @State var user = [User]()
     @State private var offset = CGSize.zero
     @State var hasLoaded: Bool = false
+    
+    @State var i = 0
     var body: some View {
         ZStack { 
             Color.white
@@ -197,9 +199,17 @@ struct ContentView: View {
                 }
                 switch result {
                     case .success(let user):
-                        if let user = user {
+                        if var user = user {
+                            var array = user.groupName.components(separatedBy: " and ")
+                            for a in array {
+                                if a == userData.name {
+                                    array.remove(at: i)
+                                }
+                                i += 1
+                            }
+                            user.groupName = array.joined()
                             userList.append(user)
-                 
+                            
                         } else {
                             
                             print("Document does not exist")

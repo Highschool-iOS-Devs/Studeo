@@ -115,9 +115,9 @@ struct Homev2: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
                                 Spacer(minLength: 20)
-                                GroupsView(imgName: "2868759", cta: "Chat", name: "Name")
-                                GroupsView(imgName: "3566801", cta: "Chat", name: "Name")
-                                GroupsView(imgName: "Group", cta: "Chat", name: "Name")
+                                GroupsView(imgName: "2868759", cta: "Join", name: "Debate")
+                                GroupsView(imgName: "3566801", cta: "Join", name: "Spanish")
+                                GroupsView(imgName: "Group", cta: "Join", name: "History")
                                 Spacer(minLength: 110)
                             }
                         }
@@ -125,7 +125,7 @@ struct Homev2: View {
                         
                         SelfRankView(hours: 3.0)
                         
-                        CTA(imgName: "Group", cta: "Add Group")
+                        //CTA(imgName: "Group", cta: "Add Group")
                            
                          
                             
