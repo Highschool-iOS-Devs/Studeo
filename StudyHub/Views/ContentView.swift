@@ -44,14 +44,14 @@ struct ContentView: View {
                         .edgesIgnoringSafeArea(.all)
                         .onAppear{
                             
-                            self.loadData(){ userData in
+                            self.loadGroupData(){ userData in
                                 //Get completion handler data results from loadData function and set it as the recentPeople local variable
-                                self.myGroups = userData
+                                self.myGroups = userData ?? []
                                 hasLoaded = true
                                 downloadImages()
                             }
                             downloadImage()
-                            self.loadData2(){ userData in
+                            self.loadUserData(){ userData in
                                 //Get completion handler data results from loadData function and set it as the recentPeople local variable
                                 self.user = userData
                             
@@ -156,7 +156,7 @@ struct ContentView: View {
     }
     
 
-    func loadData2(performAction: @escaping ([User]) -> Void) {
+    func loadUserData(performAction: @escaping ([User]) -> Void) {
         let db = Firestore.firestore()
      let docRef = db.collection("users").document(self.userData.userID)
         var userList:[User] = []
@@ -186,22 +186,23 @@ struct ContentView: View {
         }
     }
     
-    func loadData(performAction: @escaping ([Groups]) -> Void){
+    func loadGroupData(performAction: @escaping ([Groups]?) -> Void){
         let db = Firestore.firestore()
         let docRef = db.collection("groups")
-        var userList:[Groups] = []
+        var groupList:[Groups] = []
         //Get every single document under collection users
         let queryParameter = docRef.whereField("members", arrayContains: userData.userID)
         queryParameter.getDocuments{ (querySnapshot, error) in
-            for document in querySnapshot!.documents{
+            if let querySnapshot = querySnapshot,!querySnapshot.isEmpty{
+            for document in querySnapshot.documents{
                 let result = Result {
                     try document.data(as: Groups.self)
                 }
                 switch result {
-                    case .success(let user):
-                        if var user = user {
+                    case .success(let group):
+                        if var group = group {
                             i = 0
-                            var array = user.groupName.components(separatedBy: " and ")
+                            var array = group.groupName.components(separatedBy: " and ")
                             for a in array {
                                 if a == userData.name {
                                     print(i)
@@ -211,8 +212,8 @@ struct ContentView: View {
                                 }
                                 i += 1
                             }
-                            user.groupName = array.joined()
-                            userList.append(user)
+                            group.groupName = array.joined()
+                            groupList.append(group)
                             
                         } else {
                             
@@ -224,7 +225,11 @@ struct ContentView: View {
                 
               
             }
-              performAction(userList)
+            }
+            else{
+                performAction(nil)
+            }
+              performAction(groupList)
         }
         
         
