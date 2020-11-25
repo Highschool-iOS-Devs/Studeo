@@ -14,7 +14,6 @@ import FirebaseFirestoreSwift
 import FirebaseStorage
 
 struct RegistrationView: View {
-    
     @State private var username: String = "A3"
     @State private var password: String = "perry1"
     @State private var email: String = "andreas.ink@wascholar.org"
@@ -28,65 +27,23 @@ struct RegistrationView: View {
     
     var body: some View {
         ZStack {
-            GeometryReader { geometry in
-                ScrollView {
-                    VStack {
-                
-                        Text("Registration")
-                            .font(Font.custom("Montserrat-SemiBold", size: 34))
-                        }
-                        Image("5293")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: geometry.size.width-30, height: geometry.size.height/3.25)
-                            .padding(.horizontal)
-                            .padding(.top, 12)
-                            .padding(.bottom, 10)
+                VStack {
+                        TitleSubview(titleText: "Registration", image: Image("registration_drawing"))
                         
-                        VStack(spacing: 20){
-                            TextField("Username", text: self.$username)
-                                .textFieldStyle(CustomTextField())
-                            TextField("Email", text: self.$email)
-                                .textFieldStyle(CustomTextField())
-                            TextField("Password", text: self.$password)
-                                .textFieldStyle(CustomTextField())
-                        }
-                        .padding(.horizontal, 46)
-                        .padding(.bottom, 30)
+                        RegistrationInputSubview(password: $password, email: $email, name: $username)
+                            .padding(.top,30)
+                        Spacer()
+                        ButtonsSubview(mainButtonAction: {
+                          parseData()
+                        }, secondaryButtonAction: {self.viewRouter.updateCurrentView(view: .login)}, displayMode: .registration)
+                        .padding(.bottom, 50)
                         
-                        VStack(spacing: 35) {
-                            Button(action: {
-                                
-                                self.showLoadingAnimation = true
-                                self.sendData{error, authResult in
-                                    guard error.errorState == false else {
-                                        self.errorObject = error
-                                        self.displayError = true
-                                        return
-                                    }
-                                    self.userData.userID = authResult!.id.uuidString
-                                    self.userData.name = authResult!.name
-                                    self.viewRouter.updateCurrentView(view: .introView)
-                                    self.viewRouter.showTabBar = true
-                                }
-                        
-                            }) {
-                                Text("Sign up")
-                                    .font(Font.custom("Montserrat-SemiBold", size: 14.0))
-                            }
-                            .buttonStyle(BlueStyle())
-                            Button(action: {
-                                self.viewRouter.updateCurrentView(view: .login)
-                                
-                            }) {
-                                Text("Log in")
-                                    .font(Font.custom("Montserrat-SemiBold", size: 14.0))
-                            }
-                            .buttonStyle(WhiteStyle())
-                        }  .padding(.horizontal, 46)
                     }
-            }.blur(radius: showLoadingAnimation ? 20 : 0)
-            
+                    .blur(radius: showLoadingAnimation ? 20 : 0)
+                    .onAppear{
+                        viewRouter.showTabBar = false
+                    }
+                    
             if showLoadingAnimation{
                 VStack{
                     LottieUIView()
@@ -115,11 +72,25 @@ struct RegistrationView: View {
                 Spacer()
             }
         }
-        .onAppear{
-            viewRouter.showTabBar = false
+        .background(
+            FloatingBlobSubview()
+        )
+    }
+    func parseData(){
+            self.showLoadingAnimation = true
+            self.sendData{error, authResult in
+                guard error.errorState == false else {
+                    self.errorObject = error
+                    self.displayError = true
+                    return
+                }
+                self.userData.userID = authResult!.id.uuidString
+                self.userData.name = authResult!.name
+                self.viewRouter.updateCurrentView(view: .introView)
+                self.viewRouter.showTabBar = true
         }
-      
-        }
+    }
+        
     func sendData(performActions: @escaping (ErrorModel, User?) -> Void) {
         Auth.auth().createUser(withEmail: self.email, password: self.password) { authResult, error in
             guard authResult != nil else {
@@ -174,8 +145,8 @@ struct RegistrationView: View {
               
          
        }
-}
 
+}
 
 struct RegistrationView_Previews: PreviewProvider {
     static var previews: some View {

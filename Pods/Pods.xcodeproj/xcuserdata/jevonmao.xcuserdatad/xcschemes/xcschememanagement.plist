@@ -26,7 +26,7 @@
 		<key>FirebaseAnalytics.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>20</integer>
+			<integer>23</integer>
 		</dict>
 		<key>FirebaseAuth.xcscheme</key>
 		<dict>
@@ -71,7 +71,7 @@
 		<key>FirebaseInstallations.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>23</integer>
+			<integer>20</integer>
 		</dict>
 		<key>FirebaseInstanceID.xcscheme</key>
 		<dict>
@@ -81,7 +81,7 @@
 		<key>FirebaseInstanceID.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>26</integer>
+			<integer>19</integer>
 		</dict>
 		<key>FirebaseMessaging.xcscheme</key>
 		<dict>
@@ -91,7 +91,7 @@
 		<key>FirebaseMessaging.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>27</integer>
+			<integer>26</integer>
 		</dict>
 		<key>FirebaseStorage.xcscheme</key>
 		<dict>
@@ -101,7 +101,7 @@
 		<key>FirebaseStorage.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>21</integer>
+			<integer>25</integer>
 		</dict>
 		<key>GTMSessionFetcher.xcscheme</key>
 		<dict>
@@ -118,7 +118,7 @@
 		<key>GoogleAppMeasurement.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>25</integer>
+			<integer>21</integer>
 		</dict>
 		<key>GoogleDataTransport.xcscheme</key>
 		<dict>
@@ -156,7 +156,7 @@
 		<key>Protobuf.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>19</integer>
+			<integer>27</integer>
 		</dict>
 		<key>SDWebImage.xcscheme</key>
 		<dict>
@@ -166,7 +166,7 @@
 		<key>SDWebImage.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>24</integer>
+			<integer>22</integer>
 		</dict>
 		<key>abseil.xcscheme</key>
 		<dict>
@@ -211,7 +211,7 @@
 		<key>lottie-ios.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>22</integer>
+			<integer>24</integer>
 		</dict>
 		<key>nanopb.xcscheme</key>
 		<dict>

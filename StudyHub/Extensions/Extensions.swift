@@ -10,33 +10,7 @@ import SwiftUI
 
 //NOTE: - Styling for buttons
 
-struct BlueStyle: ButtonStyle {
- 
-    func makeBody(configuration: Self.Configuration) -> some View {
-        configuration.label
-            .frame(minWidth: 0, maxWidth: .infinity)
-            .padding()
-            .foregroundColor(.white)
-            .background(configuration.isPressed ? Color.buttonPressedBlue:Color.buttonBlue)
-            .cornerRadius(10)
-            .shadow(radius: 5)
-            .scaleEffect(configuration.isPressed ? 0.9:1.0)
-    }
-}
 
-struct WhiteStyle: ButtonStyle {
- 
-    func makeBody(configuration: Self.Configuration) -> some View {
-        configuration.label
-            .frame(minWidth: 0, maxWidth: .infinity)
-            .padding()
-            .foregroundColor(Color.buttonBlue)
-            .background(configuration.isPressed ? Color.buttonPressedBlue:Color.white)
-            .cornerRadius(10)
-            .shadow(radius: 5)
-            .scaleEffect(configuration.isPressed ? 0.9:1.0)
-    }
-}
 
 //NOTE: - Custom Text Field
 
