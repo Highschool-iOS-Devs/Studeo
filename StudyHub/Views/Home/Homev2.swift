@@ -141,6 +141,12 @@ struct Homev2: View {
                 if showingTimer {
                     TimerView(showingView: $showingTimer)
                         .padding(.bottom, 110)
+                        .onAppear {
+                            self.viewRouter.showTabBar = false
+                        }
+                        .onDisappear {
+                            self.viewRouter.showTabBar = true
+                        }
                 }
         }
     }

@@ -50,7 +50,16 @@ struct Home: View {
         
         if showingTimer {
             TimerView(showingView: $showingTimer)
+                .onAppear {
+                    self.viewRouter.showTabBar = false
+                }
+                .onDisappear {
+                    self.viewRouter.showTabBar = true
+                }
         }
+        }
+        .onAppear {
+            self.viewRouter.showTabBar = true
         }
     }
 }

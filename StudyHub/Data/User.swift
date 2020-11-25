@@ -22,6 +22,7 @@ struct User: Identifiable, Codable, Hashable {
     var month: Double
     var day: Double
     var description: String
+    var isAvailable: Bool?
 }
 
 struct BasicUser: Identifiable, Codable {
