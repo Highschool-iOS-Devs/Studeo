@@ -10,7 +10,7 @@ import SwiftUI
 import Firebase
 
 struct PairingView: View {
-    @State var matchedPerson = User(id: UUID(), firebaseID: "", name: "", email: "", image: "", interests: [], groups: [], studyHours: 0, studyDate: "", all: 0, month: 0, day: 0, description: "")
+    @State var matchedPerson = User(id: UUID(), firebaseID: "", name: "", email: "", image: "", interests: [], groups: [], studyHours: 0, studyDate: "", all: 0, month: 0, day: 0, description: "", isAvailable: true)
     @State var people = [User]()
     @EnvironmentObject var userData:UserData
     @State var paired: Bool = false
@@ -176,7 +176,7 @@ struct PairingView: View {
         }
     }
     
-func loadData(performAction: @escaping ([User]?) -> Void){
+    func loadData(performAction: @escaping ([User]?) -> Void){
     
     ///Simplified pairing process through complex queries
     ///Bug to be fixed
@@ -195,6 +195,7 @@ func loadData(performAction: @escaping ([User]?) -> Void){
             if let user = user{
                 for interest in user.interests ?? []{
                     currentUserInterests.append(interest.rawValue)
+                    selectedInterests.append(interest)
                 }
             }
             else{
@@ -204,20 +205,31 @@ func loadData(performAction: @escaping ([User]?) -> Void){
             print("Error decoding user data, \(error)")
         }
         let queryRef = db.collection("users").whereField("interests", arrayContainsAny: currentUserInterests).whereField("id", isNotEqualTo: userData.userID)
-        queryRef.getDocuments{snapshot, error in
+        queryRef.getDocuments{ snapshot, error in
             guard error == nil else {
                 print("Error query matching interests, \(error!)")
                 return
             }
             var matchedUsers = [User]()
-            for document in snapshot!.documents{
+            for document in snapshot!.documents {
                 let result = Result{
                     try document.data(as: User.self)
                 }
                 switch result {
                 case .success(let user):
-                    if let user = user{
+                    if let user = user {
+                        var pairedBefore = false
+                        for interest in user.interests ?? [] {
+                            pairedBefore = checkPreviousPairing(from: myGroups, withUser: user.id.uuidString, for: interest)
+                            if pairedBefore == true {
+                                break
+                            }
+                        }
+                        if !pairedBefore {
+//                        if user.isAvailable == true {
                         matchedUsers.append(user)
+//                        }
+                        }
                     }
                 case .failure(let error):
                     print("Error decoding pairing data, \(error)")
@@ -233,4 +245,22 @@ func loadData(performAction: @escaping ([User]?) -> Void){
     
     
 }
+    
+    func checkPreviousPairing(from myGroups: [Groups], withUser pairedUser: String, for interest: UserInterestTypes) -> Bool {
+        var pairedInterests: [UserInterestTypes: [String]] = [.ACT: [], .APCalculus : [], .SAT: [], .Algebra2: []]
+        for group in myGroups {
+            for interest in group.interests {
+                guard let interest = interest else { return false }
+                var membersWithSameInterest: [String] = []
+                for member in group.members {
+                    membersWithSameInterest.append(member)
+                }
+                for member in membersWithSameInterest {
+                    pairedInterests[interest]?.append(member)
+                }
+            }
+        }
+        guard let currentInterestPairings = pairedInterests[interest] else { return false }
+        return currentInterestPairings.contains(pairedUser)
+    }
 }

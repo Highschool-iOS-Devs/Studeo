@@ -93,7 +93,7 @@ struct RecentsView2: View {
         
         
         if add {
-            PairingView(settings: $settings, add: $add, myGroups: $recentPeople)
+            PairingView(settings: $settings, add: $add, myGroups: $myGroups)
                 .onDisappear {
                     self.loadData(){ userData in
                         recentPeople.removeAll()
