@@ -56,7 +56,7 @@
 		624FAF06256EF8BE000E0203 /* LoginButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624FAF05256EF8BE000E0203 /* LoginButtonStyles.swift */; };
 		624FAF2B256F0A00000E0203 /* RegistrationInputSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624FAF2A256F0A00000E0203 /* RegistrationInputSubview.swift */; };
 		628A12762518683B001C4B13 /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628A12752518683B001C4B13 /* IntroView.swift */; };
-		628A127A2518691A001C4B13 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 628A12792518691A001C4B13 /* SwiftPackageProductDependency */; };
+		628A127A2518691A001C4B13 /* Pages in Frameworks */ = {isa = PBXBuildFile; productRef = 628A12792518691A001C4B13 /* Pages */; };
 		628A127D25186938001C4B13 /* IntroPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628A127C25186938001C4B13 /* IntroPage.swift */; };
 		628A128025186940001C4B13 /* IntroCustomize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628A127F25186940001C4B13 /* IntroCustomize.swift */; };
 		62C3ED21250597A300CEA882 /* CreateGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C3ED20250597A300CEA882 /* CreateGroupView.swift */; };
@@ -81,8 +81,8 @@
 		E1C91E122503B80800001424 /* ReverseScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C91E112503B80800001424 /* ReverseScrollView.swift */; };
 		E1C91E142503B86300001424 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C91E132503B86300001424 /* Blur.swift */; };
 		E1F2F89B257008ED00D8B87E /* VideoChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F89A257008ED00D8B87E /* VideoChat.swift */; };
-		E1F2F8B9257009A800D8B87E /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = E1F2F8B8257009A800D8B87E /* SwiftPackageProductDependency */; };
-		E1FD834D24F54E670024D2A3 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = E1FD834C24F54E670024D2A3 /* SwiftPackageProductDependency */; };
+		E1F2F8B9257009A800D8B87E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E1F2F8B8257009A800D8B87E /* Alamofire */; };
+		E1FD834D24F54E670024D2A3 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E1FD834C24F54E670024D2A3 /* IQKeyboardManagerSwift */; };
 		E3CA983225167D4800602EB6 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CA983125167D4800602EB6 /* NotificationsView.swift */; };
 		E3CA983825180CAD00602EB6 /* PersonalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CA983725180CAD00602EB6 /* PersonalInfoView.swift */; };
 		FB33AEA3FD2D5803BE4DAF75 /* Pods_StudyHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47F4119D880B6AFBE91DBA85 /* Pods_StudyHub.framework */; };
@@ -176,10 +176,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				628A127A2518691A001C4B13 /* BuildFile in Frameworks */,
-				E1F2F8B9257009A800D8B87E /* BuildFile in Frameworks */,
+				628A127A2518691A001C4B13 /* Pages in Frameworks */,
+				E1F2F8B9257009A800D8B87E /* Alamofire in Frameworks */,
 				FB33AEA3FD2D5803BE4DAF75 /* Pods_StudyHub.framework in Frameworks */,
-				E1FD834D24F54E670024D2A3 /* BuildFile in Frameworks */,
+				E1FD834D24F54E670024D2A3 /* IQKeyboardManagerSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -491,9 +491,9 @@
 			);
 			name = StudyHub;
 			packageProductDependencies = (
-				E1FD834C24F54E670024D2A3 /* SwiftPackageProductDependency */,
-				628A12792518691A001C4B13 /* SwiftPackageProductDependency */,
-				E1F2F8B8257009A800D8B87E /* SwiftPackageProductDependency */,
+				E1FD834C24F54E670024D2A3 /* IQKeyboardManagerSwift */,
+				628A12792518691A001C4B13 /* Pages */,
+				E1F2F8B8257009A800D8B87E /* Alamofire */,
 			);
 			productName = StudyHub;
 			productReference = E339449224F1B71600F11BA9 /* StudyHub.app */;
@@ -524,9 +524,9 @@
 			);
 			mainGroup = E339448924F1B71600F11BA9;
 			packageReferences = (
-				E1FD834B24F54E670024D2A3 /* RemoteSwiftPackageReference */,
-				628A12782518691A001C4B13 /* RemoteSwiftPackageReference */,
-				E1F2F8B7257009A800D8B87E /* RemoteSwiftPackageReference */,
+				E1FD834B24F54E670024D2A3 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				628A12782518691A001C4B13 /* XCRemoteSwiftPackageReference "Pages" */,
+				E1F2F8B7257009A800D8B87E /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = E339449324F1B71600F11BA9 /* Products */;
 			projectDirPath = "";
@@ -868,7 +868,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		628A12782518691A001C4B13 /* RemoteSwiftPackageReference */ = {
+		628A12782518691A001C4B13 /* XCRemoteSwiftPackageReference "Pages" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/nachonavarro/Pages.git";
 			requirement = {
@@ -876,7 +876,7 @@
 				minimumVersion = 0.1.5;
 			};
 		};
-		E1F2F8B7257009A800D8B87E /* RemoteSwiftPackageReference */ = {
+		E1F2F8B7257009A800D8B87E /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
@@ -884,7 +884,7 @@
 				minimumVersion = 5.4.0;
 			};
 		};
-		E1FD834B24F54E670024D2A3 /* RemoteSwiftPackageReference */ = {
+		E1FD834B24F54E670024D2A3 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager";
 			requirement = {
@@ -895,19 +895,19 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		628A12792518691A001C4B13 /* SwiftPackageProductDependency */ = {
+		628A12792518691A001C4B13 /* Pages */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 628A12782518691A001C4B13 /* RemoteSwiftPackageReference */;
+			package = 628A12782518691A001C4B13 /* XCRemoteSwiftPackageReference "Pages" */;
 			productName = Pages;
 		};
-		E1F2F8B8257009A800D8B87E /* SwiftPackageProductDependency */ = {
+		E1F2F8B8257009A800D8B87E /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E1F2F8B7257009A800D8B87E /* RemoteSwiftPackageReference */;
+			package = E1F2F8B7257009A800D8B87E /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
 		};
-		E1FD834C24F54E670024D2A3 /* SwiftPackageProductDependency */ = {
+		E1FD834C24F54E670024D2A3 /* IQKeyboardManagerSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E1FD834B24F54E670024D2A3 /* RemoteSwiftPackageReference */;
+			package = E1FD834B24F54E670024D2A3 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
 			productName = IQKeyboardManagerSwift;
 		};
 /* End XCSwiftPackageProductDependency section */

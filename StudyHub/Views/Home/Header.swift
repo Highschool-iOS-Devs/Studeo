@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct Header: View {
-     @EnvironmentObject var userData: UserData
+    @EnvironmentObject var userData: UserData
     @EnvironmentObject var viewRouter:ViewRouter
     @Binding var showTimer: Bool
     var body: some View {
@@ -17,7 +17,6 @@ struct Header: View {
             VStack {
                 HStack {
                 Text("Hello,")
-                   
                     .font(.custom("Montserrat-Regular", size: 16))
                     .foregroundColor(Color(.black))
                     .opacity(25)
@@ -38,12 +37,11 @@ struct Header: View {
             Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
                 
                 Image("demoprofile")
-                    .renderingMode(.original)
                     .resizable()
+                    .aspectRatio(contentMode: .fill)
                     .frame(width: 50, height: 50)
-                    .aspectRatio(contentMode: .fit)
                     .clipShape(Circle())
-                    .overlay(Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 5))
+                    .overlay(Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 2.5))
                     .onTapGesture(count: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/, perform: {
                         viewRouter.currentView = .profile
                     })
@@ -51,22 +49,20 @@ struct Header: View {
             
             Button(action: { self.showTimer = true }) {
                 ZStack {
-                    Color(.white)
+                    Color.white
                         .frame(width: 40, height: 40)
                         .clipShape(Circle())
-                        .shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
-                        .shadow(color: Color.white.opacity(0.7), radius: 10, x: -5, y: -5)
-                    Image("clock")
-                        .renderingMode(.original)
-                        .resizable()
-                        .frame(width: 25, height: 25)
-                        .aspectRatio(contentMode: .fit)
-                        .clipShape(Circle())
+                        .shadow(color: Color.black.opacity(0.1), radius: 3)
+                        .overlay(
+                            Image(systemName: "timer")
+                                .foregroundColor(.black)
+                                .font(.system(size: 20)))
                     
                 }
             }
             
-        } .padding(.horizontal, 12)
+        }.padding(.horizontal, 15)
+        .padding(.top, 10)
     }
 }
 

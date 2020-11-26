@@ -32,85 +32,28 @@ struct Homev2: View {
     @State var currentOffset = 0
     @Binding var recentPeople: [Groups]
     var body: some View {
-        ZStack {
-            Color(.systemBackground)
+        ZStack(alignment: .top){
+            Color.white.edgesIgnoringSafeArea(.all)
             VStack {
-               
-            Header(showTimer: $showingTimer)
-         
-                .onAppear() {
-                    withAnimation(.easeInOut) {
-                    transition.toggle()
-                }
-                }
-                    
-              
-                VStack {
+                Spacer()
+                    .frame(minHeight: 60, idealHeight: 60, maxHeight: 60)
+                    .fixedSize()
+                
                     ScrollView(.vertical, showsIndicators: false) {
                     ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
-                       
-                        if recentPeople.count > 0 {
-                            ProfilePic(name: recentPeople[0].groupName)
-                                
-                                
-                            .animation(
-                                Animation.easeInOut(duration: 2)
-                                    .delay(0.1)
-                                  
-                            )
-                            .transition(.move(edge: .top))
+                        ForEach(recentPeople, id:\.self){groups in
+                            ProfilePic(name: groups.groupName, size: 70)
                         }
-                            
-                        if recentPeople.count > 1 {
-                            ProfilePic(name: recentPeople[1].groupName)
-                                
-                            .animation(
-                                Animation.easeInOut(duration: 2)
-                                    .delay(0.2)
-                                   
-                                  
-                            )
-                            .transition(.move(edge: .top))
-                      } else {
-                        Spacer()
-                    }
-                    
-                   
-                        if recentPeople.count > 2 {
-                            ProfilePic(name: recentPeople[2].groupName)
-                             
-                              
-                            .animation(
-                                Animation.easeInOut(duration: 2)
-                                    .delay(0.3)
-                                  
-                            )
-                            .transition(.move(edge: .top))
-                        }
-                        if recentPeople.count > 3 {
-                            ProfilePic(name: recentPeople[3].groupName)
-                                
-                               
-                            .animation(
-                                Animation.easeInOut(duration: 2)
-                                    .delay(0.4)
-                                   
-                                  
-                            )
-                            .transition(.move(edge: .top))
-                        } else {
-                            Spacer()
-                               
+
                         }
                     }
-                    } .padding()
-                   
+                    Divider()
                     HStack {
                         Text("Groups")
                             .font(Font.custom("Montserrat-SemiBold", size: 20.0))
                         Spacer()
-                    } .padding()
+                    }.padding()
                         
                     ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
@@ -121,7 +64,7 @@ struct Homev2: View {
                                 Spacer(minLength: 110)
                             }
                         }
-                    .padding()
+               
                        
                         
                         SelfRankView(hours: 3.0)
@@ -150,11 +93,17 @@ struct Homev2: View {
                             self.viewRouter.showTabBar = true
                         }
                 }
+            
+                 Header(showTimer: $showingTimer)
+                     .frame(height: 120)
+                     .background(BlurView(style: .systemMaterial))
+                     //.padding(.top, 40)
+                     .edgesIgnoringSafeArea(.all)
         }
     }
 
 
 }
-}
+
 
 
