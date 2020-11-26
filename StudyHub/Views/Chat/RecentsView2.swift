@@ -87,7 +87,7 @@ struct RecentsView2: View {
                 RoundedRectangle(cornerRadius: 20, style: .continuous)
                     .stroke(Color.black.opacity(0.3), lineWidth: 1)
             )
-                .offset(x: 0, y: 50)
+                .offset(x: 0, y: 70)
              
         
         

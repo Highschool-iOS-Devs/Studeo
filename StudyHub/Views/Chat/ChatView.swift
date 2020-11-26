@@ -41,12 +41,27 @@ struct ChatView: View {
                         .foregroundColor(.black)
                         Spacer()
                     } .padding()
-                    ReverseScrollView(scrollOffset: CGFloat(self.scrollOffset), currentOffset: CGFloat(self.currentOffset)){
-                        VStack {
-                    ForEach(self.messages, id: \.self){ message in
-                        MessageCellView(message)
-                       
-                    }
+//                    ReverseScrollView(scrollOffset: CGFloat(self.scrollOffset), currentOffset: CGFloat(self.currentOffset)){
+//                        VStack {
+//                    ForEach(self.messages, id: \.self){ message in
+//                        MessageCellView(message)
+//
+//                    }
+//                        }
+//                    }
+                    ScrollView(.vertical, showsIndicators: false) {
+                        ScrollViewReader { scrollView in
+                            LazyVStack {
+                                ForEach(self.messages) { message in
+                                    MessageCellView(message)
+                                        .id(message.id)
+                                }
+                            }
+                            .onChange(of: messages, perform: { value in
+                                withAnimation(.linear(duration: 0.1)) {
+                                    scrollView.scrollTo(messages.last?.id, anchor: .bottom)
+                                }
+                            })
                         }
                     }
                     Spacer()
