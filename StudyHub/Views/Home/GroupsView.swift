@@ -51,6 +51,7 @@ struct GroupsView: View {
                         
                     } .buttonStyle(BlueStyle())
                     .shadow(radius: 5)
+                    .offset(y: -30)
                 }
                         
                 }

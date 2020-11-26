@@ -104,7 +104,7 @@ struct Homev2: View {
                                
                         }
                     }
-                    }
+                    } .padding()
                    
                     HStack {
                         Text("Groups")
@@ -121,14 +121,16 @@ struct Homev2: View {
                                 Spacer(minLength: 110)
                             }
                         }
-                        Spacer(minLength: 62)
+                    .padding()
+                       
                         
                         SelfRankView(hours: 3.0)
-                        
+                            .padding()
                         //CTA(imgName: "Group", cta: "Add Group")
                            
                          
-                            
+                        CTA(imgName: "study", cta: "Compete")
+                            .padding()
                         Spacer(minLength: 140)
                
                 
