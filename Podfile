@@ -14,4 +14,5 @@ pod 'Firebase/Messaging'
 pod 'Firebase/Storage'
 pod 'SDWebImage', '~> 5.0'
 pod 'lottie-ios'
+ pod 'AgoraRtcEngine_iOS'
 end

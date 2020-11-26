@@ -1,6 +1,11 @@
 # Acknowledgements
 This application makes use of the following third party libraries:
 
+## AgoraRtcEngine_iOS
+
+Copyright 2018 agora.io. All rights reserved.
+
+
 ## BoringSSL-GRPC
 
 BoringSSL is a fork of OpenSSL. As such, large parts of it fall under OpenSSL
