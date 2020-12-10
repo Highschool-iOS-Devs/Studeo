@@ -10,7 +10,7 @@ import SwiftUI
 import UserNotifications
 
 struct TimerView: View {
-    @ObservedObject private var timer = TimerManager()
+    @StateObject private var timer = TimerManager()
     
     @Binding var showingView: Bool
     
