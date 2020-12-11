@@ -30,6 +30,31 @@ struct IntroCustomize: View {
         ZStack {
             Color(.systemBackground).edgesIgnoringSafeArea(.all)
             VStack {
+                if !isNotOnboarding {
+        
+            HStack {
+                Button(action: {
+                   
+                    if !settings {
+                        add = false
+                    }
+                    if settings {
+                        settings = false
+                    }
+                   
+                    
+                }) {
+                Image(systemName: "xmark")
+                    .font(.largeTitle)
+                
+                
+                
+            }
+                Spacer()
+            } .padding()
+            
+        
+            }
                 HStack {
                     Text("Customization")
                         .font(.custom("Montserrat-Bold", size: 25))
@@ -78,32 +103,8 @@ struct IntroCustomize: View {
                 .padding(.bottom, 110)
                 .padding(.horizontal, 35)
                 
-                } else {
-            
-            VStack {
-                HStack {
-                    Button(action: {
-                       
-                        if !settings {
-                            add = false
-                        }
-                        if settings {
-                            settings = false
-                        }
-                       
-                        
-                    }) {
-                    Image(systemName: "xmark")
-                        .font(.largeTitle)
-                    
-                    
-                    
                 }
-                    Spacer()
-                }
-                Spacer()
-            } .padding()
-                }
+                   
             }
         }
         
