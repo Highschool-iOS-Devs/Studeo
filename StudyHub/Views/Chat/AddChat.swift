@@ -28,7 +28,7 @@ struct AddChat: View {
     @State var groupID = ""
     
     @State var didAssignGroupID = false
-    
+    @State var error = false
     var body: some View {
         ZStack {
             VStack{
@@ -128,7 +128,9 @@ struct AddChat: View {
            
             
           
-            
+            if error {
+               
+            }
             
         }
 

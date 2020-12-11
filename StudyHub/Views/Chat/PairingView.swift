@@ -23,6 +23,7 @@ struct PairingView: View {
     @State var newGroup = Groups(id: "", groupID: "", groupName: "", members: [""], interests: [nil])
     @State var interests = [String]()
     @State var num = 0
+    @State var error = false
     var body: some View {
         ZStack {
             Color(.systemBackground)
@@ -86,6 +87,7 @@ struct PairingView: View {
                         
                     } else {
                         print("no one to pair with")
+                        self.error = true
                     }
                 }) {
                     Text("Pair")
@@ -130,6 +132,13 @@ struct PairingView: View {
                 
                 IntroCustomize(isNotOnboarding: false, interests: $interests, settings: $settings, add: $add)
                 
+            }
+            if error {
+                VStack {
+                   
+                ErrorMessage(errorObject: ErrorModel(errorMessage: "You've paired with everyone!", errorState: true), displayError: true)
+                    Spacer()
+                } .padding(.top, 100)
             }
             
         }
