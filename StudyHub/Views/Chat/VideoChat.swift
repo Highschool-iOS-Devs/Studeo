@@ -10,6 +10,7 @@ import SwiftUI
 import AgoraRtcKit
 import Alamofire
 import ARKit
+
 struct VideoChatView : View {
     @State var isLocalInSession = false
     @State var isLocalAudioMuted = false
@@ -182,7 +183,9 @@ fileprivate extension VideoChatView {
         videoCanvas.renderMode = .hidden
        // videoCanvas.view = self.sceneView
         
-        
+       // let animoji = Animoji(frame: videoCanvas.view!.frame)
+       // animoji.setPuppet(name: .cat)
+       // videoCanvas.view = animoji
         rtcEngine.setupLocalVideo(videoCanvas)
         
         
@@ -313,6 +316,7 @@ struct VideoCanvas : UIViewRepresentable {
     
     func makeUIView(context: Context) -> UIView {
         rendererView.backgroundColor = UIColor.gray
+        
         return rendererView
     }
     

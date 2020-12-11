@@ -2,8 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key></key>
-	<string></string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>To chat with others</string>
+	<key>NSCameraUsageDescription</key>
+	<string>To chat with others</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
@@ -69,5 +71,7 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string></string>
 </dict>
 </plist>

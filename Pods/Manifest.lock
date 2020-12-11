@@ -213,6 +213,7 @@ PODS:
     - abseil/base/config
     - abseil/meta/type_traits
   - AgoraRtcEngine_iOS (3.1.2)
+  - Animoji (1.1.0)
   - BoringSSL-GRPC (0.0.7):
     - BoringSSL-GRPC/Implementation (= 0.0.7)
     - BoringSSL-GRPC/Interface (= 0.0.7)
@@ -363,6 +364,7 @@ PODS:
 
 DEPENDENCIES:
   - AgoraRtcEngine_iOS
+  - Animoji
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Firestore
@@ -376,6 +378,7 @@ SPEC REPOS:
   trunk:
     - abseil
     - AgoraRtcEngine_iOS
+    - Animoji
     - BoringSSL-GRPC
     - Firebase
     - FirebaseAnalytics
@@ -404,6 +407,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
   AgoraRtcEngine_iOS: 0628532d3475471d1c352ba548cee98492850cc0
+  Animoji: 13cd755b96b3faa8e0aeb3c28fb4d9cab8fe20e2
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
   Firebase: c23a36d9e4cdf7877dfcba8dd0c58add66358999
   FirebaseAnalytics: 3bb096873ee0d7fa4b6c70f5e9166b6da413cc7f
@@ -429,6 +433,6 @@ SPEC CHECKSUMS:
   Protobuf: 3dac39b34a08151c6d949560efe3f86134a3f748
   SDWebImage: b69257f4ab14e9b6a2ef53e910fdf914d8f757c1
 
-PODFILE CHECKSUM: 68230b33bec695ff22e655a0817e411caac77c84
+PODFILE CHECKSUM: 722db740d7b6f5f1cd50d0394fd1aa2e2e285aeb
 
 COCOAPODS: 1.10.0

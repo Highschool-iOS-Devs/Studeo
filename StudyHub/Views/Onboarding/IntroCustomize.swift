@@ -49,7 +49,7 @@ struct IntroCustomize: View {
                     }
                 }
                 Spacer()
-            }
+            
                 if isNotOnboarding {
                
               
@@ -75,7 +75,7 @@ struct IntroCustomize: View {
                         .font(.custom("Montserrat-SemiBold", size: 18))
                 }
                 .buttonStyle(BlueStyle())
-                .padding(.bottom, 10)
+                .padding(.bottom, 110)
                 .padding(.horizontal, 35)
                 
                 } else {
@@ -103,7 +103,7 @@ struct IntroCustomize: View {
                 }
                 Spacer()
             } .padding()
-        
+                }
             }
         }
         
