@@ -84,7 +84,6 @@ class TimerManager: ObservableObject {
     }
     
     func resetTimer() {
-        stopTimer()
         timeGoal = 0.0
         timePassed = 0.0
         isRunning = false

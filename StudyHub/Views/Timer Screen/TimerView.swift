@@ -81,7 +81,6 @@ struct TimerView: View {
                 
                 Button(action: {
                     self.timer.substract(30)
-                    removeNotification()
                     addNotification()
                 }) {
                     Text("-30s")
@@ -108,18 +107,10 @@ struct TimerView: View {
                         Image(systemName: "stop.circle")
                     }
                     
-                    Button(action: {
-                        self.timer.resetTimer()
-                        removeNotification()
-                    }) {
-                        Text("Reset")
-                        Image(systemName: "arrow.counterclockwise")
-                    }
                 }
                 
                 Button(action: {
                     self.timer.add(30)
-                    removeNotification()
                     addNotification()
                 }) {
                     Text("+30s")
@@ -133,6 +124,7 @@ struct TimerView: View {
                     AddMinutesButton(minutes: minutes) {
                         print("\(minutes) selected")
                         self.timer.setTimer(minutes: minutes)
+                        addNotification()
                     }
                     .padding(8)
                 }
@@ -140,7 +132,8 @@ struct TimerView: View {
             
         }
         .padding()
-        .background(Color.white)
+        .background(Color(.systemBackground))
+        .frame(maxWidth: 400)
         .cornerRadius(20)
         .padding()
         .onAppear {
