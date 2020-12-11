@@ -46,7 +46,7 @@ struct Homev2: View {
                             ProfilePic(name: groups.groupName, size: 70)
                         }
 
-                        }
+                    } .padding(.top)
                     }
                     Divider()
                     HStack {
