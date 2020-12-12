@@ -24,7 +24,7 @@ class Video: UIViewController {
        
         let file = "test.MP4".components(separatedBy: ".")
 
-          guard let path = Bundle.main.path(forResource: file[0], ofType:file[1]) else {
+          guard let path = Bundle.main.path(forResource: file[0], ofType: file[1]) else {
               debugPrint( "\(file.joined(separator: ".")) not found")
               return
           }
@@ -34,6 +34,13 @@ class Video: UIViewController {
         playerLayer.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
           self.view.layer.addSublayer(playerLayer)
           player.play()
+        do{
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, options: [.mixWithOthers])
+            try AVAudioSession.sharedInstance().setActive(false, options: AVAudioSession.SetActiveOptions.notifyOthersOnDeactivation)
+           }catch{
+            
+           }
+        player.isMuted = true
         loopVideo(videoPlayer: player)
         }
     func loopVideo(videoPlayer: AVPlayer) {

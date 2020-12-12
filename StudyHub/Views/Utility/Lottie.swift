@@ -10,10 +10,11 @@ import SwiftUI
 import Lottie
 
 struct LottieView:UIViewRepresentable{
+    @State var name = "planeLoading"
     func makeUIView(context: UIViewRepresentableContext<LottieView>) -> UIView {
         let newView = UIView(frame: .zero)
         let animationView = AnimationView()
-        let animation = Animation.named("planeLoading")
+        let animation = Animation.named(name)
         animationView.animation = animation
         animationView.contentMode = .scaleAspectFit
         animationView.loopMode = .loop

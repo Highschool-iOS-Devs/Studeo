@@ -66,6 +66,7 @@
 		62F3D9B22557C156008B2356 /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F3D9B12557C156008B2356 /* ErrorMessage.swift */; };
 		BE167C452514333A00402C14 /* SettingsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE167C442514333A00402C14 /* SettingsData.swift */; };
 		BE3E16182517F96900E0A845 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E16172517F96900E0A845 /* TimerManager.swift */; };
+		E1112BEF2584B4CE00A7C2E2 /* 30111-confetti-animation.json in Sources */ = {isa = PBXBuildFile; fileRef = E1D04B4D2584B07000D74B14 /* 30111-confetti-animation.json */; };
 		E124C1B924FED758008EBD84 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 620590C324FDBB21001565BF /* GoogleService-Info.plist */; };
 		E12E5F0A2584552B00FB216C /* SCNVector3+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E5EF92584552B00FB216C /* SCNVector3+Extensions.swift */; };
 		E12E5F0B2584552B00FB216C /* ARBroadcaster+AgoraRtcEngineDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E5EFA2584552B00FB216C /* ARBroadcaster+AgoraRtcEngineDelegate.swift */; };
@@ -103,6 +104,8 @@
 		E1BCD406251E8A080051A28C /* PairingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BCD405251E8A080051A28C /* PairingView.swift */; };
 		E1C91E122503B80800001424 /* ReverseScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C91E112503B80800001424 /* ReverseScrollView.swift */; };
 		E1C91E142503B86300001424 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C91E132503B86300001424 /* Blur.swift */; };
+		E1D04B4B2584B03800D74B14 /* VictoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D04B4A2584B03800D74B14 /* VictoryView.swift */; };
+		E1D04B4E2584B07000D74B14 /* 30111-confetti-animation.json in Resources */ = {isa = PBXBuildFile; fileRef = E1D04B4D2584B07000D74B14 /* 30111-confetti-animation.json */; };
 		E1F2F8B9257009A800D8B87E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E1F2F8B8257009A800D8B87E /* Alamofire */; };
 		E1FD834D24F54E670024D2A3 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E1FD834C24F54E670024D2A3 /* IQKeyboardManagerSwift */; };
 		E3CA983225167D4800602EB6 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CA983125167D4800602EB6 /* NotificationsView.swift */; };
@@ -210,6 +213,8 @@
 		E1BCD405251E8A080051A28C /* PairingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingView.swift; sourceTree = "<group>"; };
 		E1C91E112503B80800001424 /* ReverseScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverseScrollView.swift; sourceTree = "<group>"; };
 		E1C91E132503B86300001424 /* Blur.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
+		E1D04B4A2584B03800D74B14 /* VictoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VictoryView.swift; sourceTree = "<group>"; };
+		E1D04B4D2584B07000D74B14 /* 30111-confetti-animation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "30111-confetti-animation.json"; sourceTree = "<group>"; };
 		E339449224F1B71600F11BA9 /* StudyHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3CA983125167D4800602EB6 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
 		E3CA983725180CAD00602EB6 /* PersonalInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoView.swift; sourceTree = "<group>"; };
@@ -345,6 +350,8 @@
 			children = (
 				E12E5FBA2584795B00FB216C /* TimerQueue.swift */,
 				E12E5FC325848C0A00FB216C /* CompeteView.swift */,
+				E1D04B4A2584B03800D74B14 /* VictoryView.swift */,
+				E1D04B4D2584B07000D74B14 /* 30111-confetti-animation.json */,
 				E12E5FC025847EA300FB216C /* OpponetAnimation.swift */,
 				E12E5FCB258492E200FB216C /* VideoPlayer.swift */,
 				E12E5FBD25847DBE00FB216C /* FindingText.swift */,
@@ -619,6 +626,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E124C1B924FED758008EBD84 /* GoogleService-Info.plist in Resources */,
+				E1D04B4E2584B07000D74B14 /* 30111-confetti-animation.json in Resources */,
 				E12E5FC92584924900FB216C /* test.MP4 in Resources */,
 				620590F224FDBB21001565BF /* Montserrat-Light.ttf in Resources */,
 				620590FA24FDBB21001565BF /* Assets.xcassets in Resources */,
@@ -722,6 +730,7 @@
 				628A12762518683B001C4B13 /* IntroView.swift in Sources */,
 				624FAF2B256F0A00000E0203 /* RegistrationInputSubview.swift in Sources */,
 				E12E5F122584552B00FB216C /* ARBroadcaster+ARSCNViewDelegate.swift in Sources */,
+				E1D04B4B2584B03800D74B14 /* VictoryView.swift in Sources */,
 				6205911824FDBB21001565BF /* RegistrationView.swift in Sources */,
 				E12E5F112584552B00FB216C /* ARBroadcaster.swift in Sources */,
 				6205910E24FDBB21001565BF /* ChatCell.swift in Sources */,
@@ -748,6 +757,7 @@
 				E12E5FBB2584795B00FB216C /* TimerQueue.swift in Sources */,
 				E155D69B251AA665008281AE /* ProfileStats.swift in Sources */,
 				6205910424FDBB21001565BF /* User.swift in Sources */,
+				E1112BEF2584B4CE00A7C2E2 /* 30111-confetti-animation.json in Sources */,
 				E1C91E142503B86300001424 /* Blur.swift in Sources */,
 				E15A20B9253FAC28006E042E /* Test.swift in Sources */,
 				6205911124FDBB21001565BF /* RecentsView.swift in Sources */,
