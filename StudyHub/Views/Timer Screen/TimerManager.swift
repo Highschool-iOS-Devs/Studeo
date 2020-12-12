@@ -177,6 +177,7 @@ class TimerManager: ObservableObject {
     
     
     private func saveToFB() {
+        print(totalTimePassed)
         let db = Firestore.firestore()
         let studyHours = totalTimePassed / 3600
         let dateFormatter = DateFormatter()

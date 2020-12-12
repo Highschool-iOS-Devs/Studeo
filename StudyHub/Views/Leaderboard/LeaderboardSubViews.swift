@@ -16,7 +16,7 @@ struct SelfRankView: View {
                 Image(systemName: "stopwatch.fill")
                     .foregroundColor(Color.black.opacity(0.8))
                     .font(.system(size: 13))
-               Text("\(Int(hours))")
+               Text("\(hours)")
                     .foregroundColor(.black)
                 HStack {
                     Text("Hours")
@@ -79,7 +79,7 @@ struct LeaderboardRow: View {
                 .foregroundColor(.black)
                 
             Spacer()
-            Text("\(Int(hours))")
+            Text("\(hours)")
                 .font(.custom("Montserrat-SemiBold", size: 12))
                 .foregroundColor(Color.black.opacity(0.25))
             Image(systemName: "stopwatch.fill")
@@ -145,7 +145,7 @@ struct LeaderRankView: View {
                 .foregroundColor(.black)
                 .font(.custom("Montserrat-SemiBold", size: 12))
             HStack {
-               Text("\(Int(hours))")
+               Text("\(hours)")
                     .font(.custom("Montserrat-SemiBold", size: 12))
                     .foregroundColor(Color.black.opacity(0.25))
                 Image(systemName: "stopwatch.fill")

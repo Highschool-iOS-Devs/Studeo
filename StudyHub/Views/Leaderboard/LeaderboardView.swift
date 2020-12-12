@@ -84,7 +84,7 @@ struct LeaderboardView: View {
                 
                 HStack {
                     ForEach(user){user in
-                        SelfRankView(hours: 2.75)
+                        SelfRankView(hours: user.studyHours)
                             .padding(.top, 20)
                             .onAppear {
                                 withAnimation {

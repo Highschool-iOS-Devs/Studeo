@@ -34,6 +34,7 @@ struct Homev2: View {
     @Binding var recentPeople: [Groups]
     @State var chat = false
     @State var group = Groups(id: UUID().uuidString, groupID: "", groupName: "", members: [String](), interests: [UserInterestTypes?]())
+    @Binding var user: [User]
     var body: some View {
         ZStack(alignment: .top){
             Color.white.edgesIgnoringSafeArea(.all)
@@ -74,7 +75,7 @@ struct Homev2: View {
                
                        
                         
-                        SelfRankView(hours: 3.0)
+                        SelfRankView(hours: user[0].studyHours)
                             .padding()
                         //CTA(imgName: "Group", cta: "Add Group")
                            

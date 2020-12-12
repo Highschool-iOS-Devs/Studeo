@@ -54,7 +54,7 @@ struct ContentView: View {
                             self.loadUserData(){ userData in
                                 //Get completion handler data results from loadData function and set it as the recentPeople local variable
                                 self.user = userData
-                            
+                               
                             
                             }
                            
@@ -92,7 +92,7 @@ struct ContentView: View {
                     if myGroups.isEmpty {
                         Home()
                     } else {
-                    Homev2(recentPeople: $myGroups)
+                        Homev2(recentPeople: $myGroups, user: $user)
                         .environmentObject(userData)
                         .environmentObject(viewRouter)
                    
@@ -179,8 +179,7 @@ struct ContentView: View {
                     case .failure(let error):
                         print("Error decoding user: \(error)")
                     }
-                
-              
+     
             
               performAction(userList)
         }
