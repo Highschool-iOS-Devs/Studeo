@@ -54,7 +54,7 @@ open class AgoraLobbyVC: UIViewController  {
      */
     var textFieldPlaceholder: String = "Channel Name"
     
-    
+    var channelName: String!
     // MARK: VC Events
     override open func loadView() {
         super.loadView()
@@ -105,7 +105,7 @@ open class AgoraLobbyVC: UIViewController  {
             } else {
                  banner.frame = CGRect(x: self.view.center.x-100, y: self.view.center.y-275, width: 200, height: 200)
             }
-            self.view.insertSubview(banner, at: 1)
+           // self.view.insertSubview(banner, at: 1)
         }
         
         // text input field
@@ -120,7 +120,7 @@ open class AgoraLobbyVC: UIViewController  {
         textField.clearButtonMode = UITextField.ViewMode.whileEditing;
         textField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
         textField.delegate = self
-        self.view.addSubview(textField)
+      //  self.view.addSubview(textField)
         userInput = textField
 
         //  create button
@@ -130,7 +130,7 @@ open class AgoraLobbyVC: UIViewController  {
         createBtn.layer.cornerRadius = 5
         createBtn.setTitle(broadcastBtnText, for: .normal)
         createBtn.addTarget(self, action: #selector(createSession), for: .touchUpInside)
-        self.view.addSubview(createBtn)
+       // self.view.addSubview(createBtn)
         
         // add the join button
         let joinBtn = UIButton()
@@ -139,7 +139,7 @@ open class AgoraLobbyVC: UIViewController  {
         joinBtn.layer.cornerRadius = 5
         joinBtn.setTitle(audienceBtnText, for: .normal)
         joinBtn.addTarget(self, action: #selector(joinSession), for: .touchUpInside)
-        self.view.addSubview(joinBtn)
+       // self.view.addSubview(joinBtn)
     }
     
     // MARK: Button Actions
@@ -148,16 +148,16 @@ open class AgoraLobbyVC: UIViewController  {
      */
     @IBAction open func createSession() {
         let arBroadcastVC: ARBroadcaster = ARBroadcaster()
-        if let channelName = self.userInput.text {
+        
             if channelName != "" {
-                arBroadcastVC.channelName = channelName
+                arBroadcastVC.channelName = AgoraARKit.channelname
                 arBroadcastVC.modalPresentationStyle = .fullScreen
                 self.present(arBroadcastVC, animated: true, completion: nil)
             } else {
                // TODO: add visible msg to user
                lprint("unable to launch a broadcast without a channel name")
             }
-        }
+        
     }
     
     /**
@@ -165,16 +165,16 @@ open class AgoraLobbyVC: UIViewController  {
      */
     @IBAction open func joinSession() {
         let arAudienceVC: ARAudience = ARAudience()
-        if let channelName = self.userInput.text {
+        
             if channelName != "" {
-                arAudienceVC.channelName = channelName
+                arAudienceVC.channelName = AgoraARKit.channelname
                 arAudienceVC.modalPresentationStyle = .fullScreen
                 self.present(arAudienceVC, animated: true, completion: nil)
             } else {
                // TODO: add visible msg to user
                lprint("unable to join a broadcast without a channel name")
             }
-        }
+        
     }
 
 }

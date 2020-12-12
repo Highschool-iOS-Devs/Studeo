@@ -37,5 +37,7 @@ public class AgoraARKit {
       - If you have not enabled certificate security on your AppiId, then you do not need to set this value.
      */
     static var agoraToken: String?
+    
+    static var channelname: String?
 }
 

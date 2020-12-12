@@ -9,7 +9,7 @@ import SwiftUI
 import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
-
+import Alamofire
 //!!!You do not use OnAppear method with this view, this view
 //is created at the same time as AddChat View!!!
 struct ChatView: View {
@@ -25,6 +25,7 @@ struct ChatView: View {
     @State var image = UIImage()
     @State var name: String = ""
     @Binding var chat: Bool
+    @State var ARChat = false
     var body: some View {
         ZStack {
             Color.white.edgesIgnoringSafeArea(.all)
@@ -36,11 +37,31 @@ struct ChatView: View {
                     //Testing UI with some messages
                     HStack {
                         ProfilePicture(pictureSize: 50, image: image)
-                    Text(name)
+                        Text(group.groupName)
                         .font(.custom("Montserrat", size: 15))
                         .padding()
                         .foregroundColor(.black)
                         Spacer()
+                        
+                        Button(action: {
+                            let request = AF.request("https://studyhub1.herokuapp.com/access_token?channel=\(group.groupID)&uid=0")
+
+                                          request.responseJSON { (response) in
+                                  print(response)
+                                              guard let tokenDict = response.value as! [String : Any]? else { return }
+                                          let token = tokenDict["token"] as! String
+                          
+                                            AgoraARKit.agoraToken = token
+                                            AgoraARKit.channelname = group.groupID
+                                            if AgoraARKit.agoraToken != "" {
+                                            ARChat.toggle()
+                                            }
+                                          }
+                           
+                        }) {
+                            Image(systemName: "phone")
+                                .foregroundColor(Color("aqua dark"))
+                        }
                     } .padding()
 //                    ReverseScrollView(scrollOffset: CGFloat(self.scrollOffset), currentOffset: CGFloat(self.currentOffset)){
 //                        VStack {
@@ -114,12 +135,28 @@ struct ChatView: View {
                     
                 }
                 
-               
+            if ARChat {
+                VStack {
+                    HStack {
+                        Button(action: {
+                           
+                           
+                        }) {
+                            Image(systemName: "xmark")
+                                .foregroundColor(Color("aqua dark"))
+                        }
+                        Spacer()
+                    }
+                    Spacer()
+                } .padding()
+                ARVideoChatView(channelName: $group.groupID)
             }
-        
+            }
         .onAppear{
             self.loadData()
         }
+       
+        
       
 
     }

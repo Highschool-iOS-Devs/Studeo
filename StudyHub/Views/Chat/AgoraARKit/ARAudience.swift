@@ -113,8 +113,7 @@ open class ARAudience: UIViewController {
     var isAndreas = true
     
     
-    var token = "0068345f101e56845fda7205089fef7824dIACbWCNCguEBeujgPTM75BUgXRGwZTai/IRrNJ/f6lI+ijHP0EoAAAAAEADQTRPKimHVXwEAAQCKYdVf"
-    
+    var token: String!
     override open func viewDidLoad() {
         super.viewDidLoad()
         lprint("AudienceVC - viewDidLoad", .Verbose)
@@ -156,7 +155,7 @@ open class ARAudience: UIViewController {
         // Set audio route to speaker
         self.agoraKit.setDefaultAudioRouteToSpeakerphone(defaultToSpeakerPhone)
         // Join the channel
-        self.agoraKit.joinChannel(byToken: token, channelId: self.channelName, info: nil, uid: 0)
+        self.agoraKit.joinChannel(byToken: AgoraARKit.agoraToken, channelId: AgoraARKit.channelname!, info: nil, uid: 0)
         UIApplication.shared.isIdleTimerDisabled = true     // Disable idle timmer
     }
     
@@ -211,8 +210,10 @@ open class ARAudience: UIViewController {
         backBtn.addTarget(self, action: #selector(popView), for: .touchUpInside)
         self.view.insertSubview(backBtn, at: 2)
         
-        if channelName != "" {
+        if AgoraARKit.channelname != "" {
         let arBroadcastVC = ARBroadcaster()
+            arBroadcastVC.token = AgoraARKit.agoraToken!
+            arBroadcastVC.channelName = AgoraARKit.channelname
         if let exitBtnImage = UIImage(named: "exit") {
            arBroadcastVC.backBtnImage = exitBtnImage
         }
@@ -225,11 +226,11 @@ open class ARAudience: UIViewController {
             arBroadcastVC.watermarkFrame = CGRect(x: self.view.frame.maxX-75, y: self.view.frame.maxY-75, width: 50, height: 50)
         }
             if isAndreas {
-        arBroadcastVC.channelName = "B"
-            arBroadcastVC.token = "0068345f101e56845fda7205089fef7824dIACbWCNCguEBeujgPTM75BUgXRGwZTai/IRrNJ/f6lI+ijHP0EoAAAAAEADQTRPKimHVXwEAAQCKYdVf"
+       // arBroadcastVC.channelName = "B"
+         //   arBroadcastVC.token = "0068345f101e56845fda7205089fef7824dIACbWCNCguEBeujgPTM75BUgXRGwZTai/IRrNJ/f6lI+ijHP0EoAAAAAEADQTRPKimHVXwEAAQCKYdVf"
             } else {
-                arBroadcastVC.channelName = "A"
-                    arBroadcastVC.token = "0068345f101e56845fda7205089fef7824dIABF69bEtecrAY0OIic44p22BlIIuDOwbOsSTws/C9q1uoue2dMAAAAAEADQTRPKrVjVXwEAAQCtWNVf"
+             //   arBroadcastVC.channelName = "A"
+               //    arBroadcastVC.token = "0068345f101e56845fda7205089fef7824dIABF69bEtecrAY0OIic44p22BlIIuDOwbOsSTws/C9q1uoue2dMAAAAAEADQTRPKrVjVXwEAAQCtWNVf"
             }
             view.addSubview(arBroadcastVC.view)
     }

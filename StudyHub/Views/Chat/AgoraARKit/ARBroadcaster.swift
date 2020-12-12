@@ -160,13 +160,13 @@ open class ARBroadcaster: UIViewController {
       
                
         if isAndreas {
-            channelName = "A"
-                token = "0068345f101e56845fda7205089fef7824dIABF69bEtecrAY0OIic44p22BlIIuDOwbOsSTws/C9q1uoue2dMAAAAAEADQTRPKrVjVXwEAAQCtWNVf"
+          //  channelName = "A"
+               // token = "0068345f101e56845fda7205089fef7824dIABF69bEtecrAY0OIic44p22BlIIuDOwbOsSTws/C9q1uoue2dMAAAAAEADQTRPKrVjVXwEAAQCtWNVf"
         } else {
            
             
-           channelName = "B"
-               token = "0068345f101e56845fda7205089fef7824dIACbWCNCguEBeujgPTM75BUgXRGwZTai/IRrNJ/f6lI+ijHP0EoAAAAAEADQTRPKimHVXwEAAQCKYdVf"
+          // channelName = "B"
+              // token = "0068345f101e56845fda7205089fef7824dIACbWCNCguEBeujgPTM75BUgXRGwZTai/IRrNJ/f6lI+ijHP0EoAAAAAEADQTRPKimHVXwEAAQCKYdVf"
         }
                 //self.present(arAudienceVC, animated: true, completion: nil)
 
@@ -231,12 +231,14 @@ open class ARBroadcaster: UIViewController {
     open func joinChannel() {
         // Set audio route to speaker
         // TODO: remove if statement once Agora iPhone X audio bug is resolved
+        print("token" +  AgoraARKit.agoraToken!)
+        print("name" +  AgoraARKit.channelname!)
         let screenMaxLength = max(UIScreen.main.bounds.size.width, UIScreen.main.bounds.size.height)
         if UIDevice.current.userInterfaceIdiom == .phone && (screenMaxLength >= 896.0 && screenMaxLength <= 1024) {
             self.agoraKit.setDefaultAudioRouteToSpeakerphone(defaultToSpeakerPhone)
         }
         // Join the channel
-        self.agoraKit.joinChannel(byToken: token, channelId: self.channelName, info: nil, uid: 0)
+        self.agoraKit.joinChannel(byToken: AgoraARKit.agoraToken ?? "", channelId: AgoraARKit.channelname ?? "", info: nil, uid: 0)
         UIApplication.shared.isIdleTimerDisabled = true     // Disable idle timmer
     }
     

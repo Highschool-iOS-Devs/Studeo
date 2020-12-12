@@ -8,9 +8,14 @@
 
 import Foundation
 import SwiftUI
+
 struct ARVideoChatView: UIViewControllerRepresentable {
+  
+    @Binding var channelName: String
     func makeUIViewController(context: UIViewControllerRepresentableContext<ARVideoChatView>) -> UIViewController {
         let picker = ARChat()
+        
+                      
         return picker
     }
 

@@ -9,46 +9,47 @@
 import UIKit
 
 class ARChat: AgoraLobbyVC {
-    
+    var token = ""
+   
     override func loadView() {
         super.loadView()
         
         AgoraARKit.agoraAppId = "8345f101e56845fda7205089fef7824d"
-
+        
         
         // set the banner image within the initial view
-        if let agoraLogo = UIImage(named: "ar-support-icon") {
-            self.bannerImage = agoraLogo
-        }
+       
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        AgoraARKit.agoraToken = "0068345f101e56845fda7205089fef7824dIABF69bEtecrAY0OIic44p22BlIIuDOwbOsSTws/C9q1uoue2dMAAAAAEADQTRPKrVjVXwEAAQCtWNVf"
-    }
-
-
-    // MARK: Button Actions
-    @IBAction override func joinSession() {
-        if let channelName = self.userInput.text {
+        //AgoraARKit.agoraToken = token
+        
+       
             if channelName != "" {
                 let arAudienceVC = ARAudience()
                 if let exitBtnImage = UIImage(named: "exit") {
                    arAudienceVC.backBtnImage = exitBtnImage
                 }
-                arAudienceVC.channelName = channelName
-                arAudienceVC.modalPresentationStyle = .fullScreen
-                self.present(arAudienceVC, animated: true, completion: nil)
+                arAudienceVC.channelName = AgoraARKit.channelname
+                arAudienceVC.token = AgoraARKit.agoraToken
+                self.view.addSubview(arAudienceVC.view)
             } else {
                 // TODO: add visible msg to user
                 print("unable to join a broadcast without a channel name")
             }
         }
+    
+
+
+    // MARK: Button Actions
+    @IBAction override func joinSession() {
+        
     }
 
     @IBAction override func createSession() {
-        if let channelName = self.userInput.text {
+      
             if channelName != "" {
             let arBroadcastVC = ARBroadcaster()
             if let exitBtnImage = UIImage(named: "exit") {
@@ -71,7 +72,7 @@ class ARChat: AgoraLobbyVC {
               print("unable to launch a broadcast without a channel name")
             }
           
-        }
+        
     }
 }
 
