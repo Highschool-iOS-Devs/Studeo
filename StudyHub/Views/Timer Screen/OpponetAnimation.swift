@@ -12,9 +12,8 @@ struct OpponetAnimation: View {
     @Binding var queueTime: Double
     @State var animating = false
     @State var randomPos = [Double]()
-    let data = (0...5).map { "Item \($0)" }
+    let data = (0...3).map { "Item \($0)" }
     let columns = [
-        GridItem(.flexible(minimum: 80, maximum: 100)),
         GridItem(.flexible(minimum: 80, maximum: 100)),
         GridItem(.flexible(minimum: 80, maximum: 100))
     ]
@@ -43,7 +42,7 @@ struct OpponetAnimation: View {
             LazyVGrid(columns: columns, spacing: 20) {
               
                 ForEach(Array(data.enumerated()), id: \.element) { i, item in
-                        ProfilePic(name: "", size: 100)
+                        ProfilePic(name: "", size: 100, isTimer: true)
                             .offset(y: animating ?  CGFloat(0) : CGFloat(randomPos[i]))
                             .transition(.slide)
                             .onAppear() {

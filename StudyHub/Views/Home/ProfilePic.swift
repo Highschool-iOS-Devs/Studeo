@@ -11,8 +11,10 @@ import SwiftUI
 struct ProfilePic: View {
     var name: String
     var size: CGFloat
+    @State var isTimer = false
     var body: some View {
         ZStack {
+            if !isTimer {
             VStack {
             Image("demoprofile")
                 .resizable()
@@ -24,7 +26,23 @@ struct ProfilePic: View {
                         )
              Text(name)
             }
+            } else {
+                Color(.black)
+                    .clipShape(Circle())
+                    .overlay(
+                                Circle()
+                                    .stroke(LinearGradient(gradient: Gradient(colors: [Color("barCenter"), Color("aqua")]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 3)
+                            )
+                VideoView()
+                    .frame(width:size,height:size)
+                    .clipShape(Circle())
+                    .overlay(
+                                Circle()
+                                    .stroke(LinearGradient(gradient: Gradient(colors: [Color("barCenter"), Color("aqua")]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 3)
+                            )
+            }
         } .padding()
+            
     }
 }
 
