@@ -10,13 +10,14 @@ import SwiftUI
 
 struct FloatingBlobSubview: View {
     @State var show = false
+    @State var duration = 90.0
     var body: some View {
         ZStack{
             VectorImageRepresentable(image: #imageLiteral(resourceName: "blob_blue"), imageColor: Color("aqua dark"))
                 .frame(width: 600, height: 600)
                 .rotationEffect(.degrees(show ? 360 : 0))
                 .offset(x: -120, y: 280)
-                .animation(Animation.linear(duration: 90).repeatForever(autoreverses: false))
+                .animation(Animation.linear(duration: duration).repeatForever(autoreverses: false))
                 .onAppear{show=true}
                 .opacity(0.85)
 
@@ -25,7 +26,7 @@ struct FloatingBlobSubview: View {
                 .rotationEffect(.degrees(show ? 360+90 : 90))
                 .offset(x: 120, y: 320)
                 .blendMode(.hardLight)
-                .animation(Animation.linear(duration: 90).repeatForever(autoreverses: false))
+                .animation(Animation.linear(duration: duration).repeatForever(autoreverses: false))
                 .opacity(0.85)
 
         }

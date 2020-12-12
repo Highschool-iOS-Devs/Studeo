@@ -32,19 +32,7 @@ struct TimerView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            HStack {
-                Spacer()
-                Button(action: {
-                    withAnimation {
-                        self.showingView = false
-                    }
-                }) {
-                    Image(systemName: "xmark")
-                        .foregroundColor(.gray)
-                        .font(.body)
-                }
-            }
-            .padding()
+          
             
             HStack {
                 Text("Set Timer")
@@ -57,7 +45,12 @@ struct TimerView: View {
                     .overlay(Circle()
                         .stroke(Color("clockStroke"), lineWidth: 2))
             }
-            
+            .onAppear() {
+                self.timer.add(600)
+                if !timer.isRunning  {
+                    self.timer.add(600)
+                }
+            }
             ZStack {
                 
                 Circle()
