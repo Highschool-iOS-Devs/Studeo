@@ -6,6 +6,7 @@
 //  Copyright © 2020 Dakshin Devanand. All rights reserved.
 //
 
+
 import SwiftUI
 
 struct Homev2: View {
@@ -31,6 +32,8 @@ struct Homev2: View {
     @State var scrollOffset = 0
     @State var currentOffset = 0
     @Binding var recentPeople: [Groups]
+    @State var chat = false
+    @State var group = Groups(id: UUID().uuidString, groupID: "", groupName: "", members: [String](), interests: [UserInterestTypes?]())
     var body: some View {
         ZStack(alignment: .top){
             Color.white.edgesIgnoringSafeArea(.all)
@@ -44,6 +47,10 @@ struct Homev2: View {
                     HStack {
                         ForEach(recentPeople, id:\.self){groups in
                             ProfilePic(name: groups.groupName, size: 70)
+                                .onTapGesture() {
+                                    group = groups
+                                    chat.toggle()
+                                }
                         }
 
                     } .padding(.top)
@@ -99,6 +106,18 @@ struct Homev2: View {
                      .background(BlurView(style: .systemMaterial))
                      //.padding(.top, 40)
                      .edgesIgnoringSafeArea(.all)
+            
+            if chat {
+                Color(.systemBackground)
+                ChatView(userData: _userData, group: group, chatRoomID: $group.groupID, chat: $chat)
+                    .environmentObject(userData)
+                    .onAppear() {
+                        viewRouter.showTabBar = false
+                    }
+                    .onDisappear() {
+                        viewRouter.showTabBar = true
+                    }
+            }
         }
     }
 

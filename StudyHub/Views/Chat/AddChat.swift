@@ -29,6 +29,7 @@ struct AddChat: View {
     
     @State var didAssignGroupID = false
     @State var error = false
+    @State var chat = false
     var body: some View {
         ZStack {
             VStack{
@@ -118,7 +119,7 @@ struct AddChat: View {
 
             if didAssignGroupID{
                 
-                ChatView(chatRoomID: $groupID)
+                ChatView(chatRoomID: $groupID, chat: $chat)
                     .offset(x: viewRouter.showChatView ? 0 : screenSize.width, y: 0)
                     .animation(.easeInOut)
                     .onAppear{

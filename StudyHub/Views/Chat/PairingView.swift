@@ -24,6 +24,7 @@ struct PairingView: View {
     @State var interests = [String]()
     @State var num = 0
     @State var error = false
+    @State var chat = false
     var body: some View {
         ZStack {
             Color(.systemBackground)
@@ -100,7 +101,7 @@ struct PairingView: View {
             .sheet(isPresented: self.$paired, onDismiss: {
                 self.add = false
             }){
-                ChatView(userData: _userData, group: newGroup, chatRoomID: $newGroup.groupID)
+                ChatView(userData: _userData, group: newGroup, chatRoomID: $newGroup.groupID, chat: $chat)
                     .environmentObject(userData)
             }
             
