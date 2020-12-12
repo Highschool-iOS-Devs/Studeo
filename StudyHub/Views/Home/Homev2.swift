@@ -93,7 +93,7 @@ struct Homev2: View {
     }.blur(radius: showingTimer ? 20 : 0)
                 if showingTimer {
                     TimerView(showingView: $showingTimer)
-                        .padding(.bottom, 110)
+                        .padding(.top, 110)
                         .onAppear {
                             self.viewRouter.showTabBar = false
                         }
