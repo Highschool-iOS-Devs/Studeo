@@ -53,7 +53,7 @@ open class ARBroadcaster: UIViewController {
     var agoraKit: AgoraRtcEngineKit!                    // Agora.io Video Engine reference
     var arVideoSource: ARVideoSource = ARVideoSource()  // for passing the AR camera as the stream
     var channelProfile: AgoraChannelProfile = .liveBroadcasting
-    var frameRate: AgoraVideoFrameRate = .fps30
+    var frameRate: AgoraVideoFrameRate = .fps60
     var videoDimension: CGSize = AgoraVideoDimension1280x720
     var videoBitRate: Int = AgoraVideoBitrateStandard
     var videoOutputOrientationMode: AgoraVideoOutputOrientationMode = .fixedPortrait
