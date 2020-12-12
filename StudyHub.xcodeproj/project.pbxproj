@@ -67,6 +67,23 @@
 		BE167C452514333A00402C14 /* SettingsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE167C442514333A00402C14 /* SettingsData.swift */; };
 		BE3E16182517F96900E0A845 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E16172517F96900E0A845 /* TimerManager.swift */; };
 		E124C1B924FED758008EBD84 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 620590C324FDBB21001565BF /* GoogleService-Info.plist */; };
+		E12E5F0A2584552B00FB216C /* SCNVector3+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E5EF92584552B00FB216C /* SCNVector3+Extensions.swift */; };
+		E12E5F0B2584552B00FB216C /* ARBroadcaster+AgoraRtcEngineDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E5EFA2584552B00FB216C /* ARBroadcaster+AgoraRtcEngineDelegate.swift */; };
+		E12E5F0C2584552B00FB216C /* ARVideoSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E5EFB2584552B00FB216C /* ARVideoSource.swift */; };
+		E12E5F0D2584552B00FB216C /* ARAudience+AgoraRtcEngineDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E5EFC2584552B00FB216C /* ARAudience+AgoraRtcEngineDelegate.swift */; };
+		E12E5F0E2584552B00FB216C /* AgoraLobbyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E5EFD2584552B00FB216C /* AgoraLobbyVC.swift */; };
+		E12E5F0F2584552B00FB216C /* AgoraLobbyVC+UITextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E5EFE2584552B00FB216C /* AgoraLobbyVC+UITextFieldDelegate.swift */; };
+		E12E5F102584552B00FB216C /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E5EFF2584552B00FB216C /* Logger.swift */; };
+		E12E5F112584552B00FB216C /* ARBroadcaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E5F002584552B00FB216C /* ARBroadcaster.swift */; };
+		E12E5F122584552B00FB216C /* ARBroadcaster+ARSCNViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E5F012584552B00FB216C /* ARBroadcaster+ARSCNViewDelegate.swift */; };
+		E12E5F132584552B00FB216C /* AgoraARKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E5F022584552B00FB216C /* AgoraARKit.swift */; };
+		E12E5F142584552B00FB216C /* ARAudience.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E5F032584552B00FB216C /* ARAudience.swift */; };
+		E12E5F152584552B00FB216C /* UIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E5F042584552B00FB216C /* UIManager.swift */; };
+		E12E5F172584552B00FB216C /* ARBroadcaster+RenderARDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E5F072584552B00FB216C /* ARBroadcaster+RenderARDelegate.swift */; };
+		E12E5F182584552B00FB216C /* ARBroadcaster+ARSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E5F082584552B00FB216C /* ARBroadcaster+ARSessionDelegate.swift */; };
+		E12E5F192584552B00FB216C /* Broadcaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E5F092584552B00FB216C /* Broadcaster.swift */; };
+		E12E5F1C2584555300FB216C /* ARChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E5F1B2584555300FB216C /* ARChatView.swift */; };
+		E12E5F1F2584555F00FB216C /* ARChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E5F1E2584555F00FB216C /* ARChat.swift */; };
 		E155D69B251AA665008281AE /* ProfileStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155D69A251AA665008281AE /* ProfileStats.swift */; };
 		E155D69E251AA66F008281AE /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155D69D251AA66F008281AE /* ProfileView.swift */; };
 		E155D6A3251AACA9008281AE /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155D6A2251AACA9008281AE /* ImagePicker.swift */; };
@@ -80,7 +97,6 @@
 		E1BCD406251E8A080051A28C /* PairingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BCD405251E8A080051A28C /* PairingView.swift */; };
 		E1C91E122503B80800001424 /* ReverseScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C91E112503B80800001424 /* ReverseScrollView.swift */; };
 		E1C91E142503B86300001424 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C91E132503B86300001424 /* Blur.swift */; };
-		E1F2F89B257008ED00D8B87E /* VideoChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F89A257008ED00D8B87E /* VideoChat.swift */; };
 		E1F2F8B9257009A800D8B87E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E1F2F8B8257009A800D8B87E /* Alamofire */; };
 		E1FD834D24F54E670024D2A3 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E1FD834C24F54E670024D2A3 /* IQKeyboardManagerSwift */; };
 		E3CA983225167D4800602EB6 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CA983125167D4800602EB6 /* NotificationsView.swift */; };
@@ -151,6 +167,24 @@
 		BE167C442514333A00402C14 /* SettingsData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsData.swift; sourceTree = "<group>"; };
 		BE3E16172517F96900E0A845 /* TimerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
 		C7A62219EB10FE2A621A6C84 /* Pods-StudyHub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudyHub.debug.xcconfig"; path = "Target Support Files/Pods-StudyHub/Pods-StudyHub.debug.xcconfig"; sourceTree = "<group>"; };
+		E12E5EF92584552B00FB216C /* SCNVector3+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SCNVector3+Extensions.swift"; sourceTree = "<group>"; };
+		E12E5EFA2584552B00FB216C /* ARBroadcaster+AgoraRtcEngineDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ARBroadcaster+AgoraRtcEngineDelegate.swift"; sourceTree = "<group>"; };
+		E12E5EFB2584552B00FB216C /* ARVideoSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARVideoSource.swift; sourceTree = "<group>"; };
+		E12E5EFC2584552B00FB216C /* ARAudience+AgoraRtcEngineDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ARAudience+AgoraRtcEngineDelegate.swift"; sourceTree = "<group>"; };
+		E12E5EFD2584552B00FB216C /* AgoraLobbyVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgoraLobbyVC.swift; sourceTree = "<group>"; };
+		E12E5EFE2584552B00FB216C /* AgoraLobbyVC+UITextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AgoraLobbyVC+UITextFieldDelegate.swift"; sourceTree = "<group>"; };
+		E12E5EFF2584552B00FB216C /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		E12E5F002584552B00FB216C /* ARBroadcaster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARBroadcaster.swift; sourceTree = "<group>"; };
+		E12E5F012584552B00FB216C /* ARBroadcaster+ARSCNViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ARBroadcaster+ARSCNViewDelegate.swift"; sourceTree = "<group>"; };
+		E12E5F022584552B00FB216C /* AgoraARKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgoraARKit.swift; sourceTree = "<group>"; };
+		E12E5F032584552B00FB216C /* ARAudience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARAudience.swift; sourceTree = "<group>"; };
+		E12E5F042584552B00FB216C /* UIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIManager.swift; sourceTree = "<group>"; };
+		E12E5F062584552B00FB216C /* AgoraARKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgoraARKit.h; sourceTree = "<group>"; };
+		E12E5F072584552B00FB216C /* ARBroadcaster+RenderARDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ARBroadcaster+RenderARDelegate.swift"; sourceTree = "<group>"; };
+		E12E5F082584552B00FB216C /* ARBroadcaster+ARSessionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ARBroadcaster+ARSessionDelegate.swift"; sourceTree = "<group>"; };
+		E12E5F092584552B00FB216C /* Broadcaster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Broadcaster.swift; sourceTree = "<group>"; };
+		E12E5F1B2584555300FB216C /* ARChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARChatView.swift; sourceTree = "<group>"; };
+		E12E5F1E2584555F00FB216C /* ARChat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARChat.swift; sourceTree = "<group>"; };
 		E155D69A251AA665008281AE /* ProfileStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStats.swift; sourceTree = "<group>"; };
 		E155D69D251AA66F008281AE /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		E155D6A2251AACA9008281AE /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -164,7 +198,6 @@
 		E1BCD405251E8A080051A28C /* PairingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingView.swift; sourceTree = "<group>"; };
 		E1C91E112503B80800001424 /* ReverseScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverseScrollView.swift; sourceTree = "<group>"; };
 		E1C91E132503B86300001424 /* Blur.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
-		E1F2F89A257008ED00D8B87E /* VideoChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoChat.swift; sourceTree = "<group>"; };
 		E339449224F1B71600F11BA9 /* StudyHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3CA983125167D4800602EB6 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
 		E3CA983725180CAD00602EB6 /* PersonalInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoView.swift; sourceTree = "<group>"; };
@@ -339,7 +372,9 @@
 				62C3ED20250597A300CEA882 /* CreateGroupView.swift */,
 				E1BCD405251E8A080051A28C /* PairingView.swift */,
 				E18C8363251E920D0087A2BB /* RecentsView2.swift */,
-				E1F2F89A257008ED00D8B87E /* VideoChat.swift */,
+				E12E5F1B2584555300FB216C /* ARChatView.swift */,
+				E12E5F1E2584555F00FB216C /* ARChat.swift */,
+				E12E5EF82584552B00FB216C /* AgoraARKit */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -421,6 +456,29 @@
 				EEC3B6AC4F1E11EB05097CA0 /* Pods-StudyHub.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		E12E5EF82584552B00FB216C /* AgoraARKit */ = {
+			isa = PBXGroup;
+			children = (
+				E12E5EF92584552B00FB216C /* SCNVector3+Extensions.swift */,
+				E12E5EFA2584552B00FB216C /* ARBroadcaster+AgoraRtcEngineDelegate.swift */,
+				E12E5EFB2584552B00FB216C /* ARVideoSource.swift */,
+				E12E5EFC2584552B00FB216C /* ARAudience+AgoraRtcEngineDelegate.swift */,
+				E12E5EFD2584552B00FB216C /* AgoraLobbyVC.swift */,
+				E12E5EFE2584552B00FB216C /* AgoraLobbyVC+UITextFieldDelegate.swift */,
+				E12E5EFF2584552B00FB216C /* Logger.swift */,
+				E12E5F002584552B00FB216C /* ARBroadcaster.swift */,
+				E12E5F012584552B00FB216C /* ARBroadcaster+ARSCNViewDelegate.swift */,
+				E12E5F022584552B00FB216C /* AgoraARKit.swift */,
+				E12E5F032584552B00FB216C /* ARAudience.swift */,
+				E12E5F042584552B00FB216C /* UIManager.swift */,
+				E12E5F062584552B00FB216C /* AgoraARKit.h */,
+				E12E5F072584552B00FB216C /* ARBroadcaster+RenderARDelegate.swift */,
+				E12E5F082584552B00FB216C /* ARBroadcaster+ARSessionDelegate.swift */,
+				E12E5F092584552B00FB216C /* Broadcaster.swift */,
+			);
+			path = AgoraARKit;
 			sourceTree = "<group>";
 		};
 		E155D6A0251AA682008281AE /* Profile */ = {
@@ -610,15 +668,18 @@
 			files = (
 				62F3D9B22557C156008B2356 /* ErrorMessage.swift in Sources */,
 				6205911D24FDBD1D001565BF /* ErrorModel.swift in Sources */,
+				E12E5F0A2584552B00FB216C /* SCNVector3+Extensions.swift in Sources */,
 				624FAF02256EF540000E0203 /* TitleSubview.swift in Sources */,
+				E12E5F1F2584555F00FB216C /* ARChat.swift in Sources */,
 				62F24C0B25141AF400777610 /* LottieUIView.swift in Sources */,
 				624FAEF6256EF08D000E0203 /* InputFieldSubview.swift in Sources */,
 				6205911724FDBB21001565BF /* ContentView.swift in Sources */,
 				6205910A24FDBB21001565BF /* SettingView.swift in Sources */,
+				E12E5F172584552B00FB216C /* ARBroadcaster+RenderARDelegate.swift in Sources */,
 				E1C91E122503B80800001424 /* ReverseScrollView.swift in Sources */,
 				6205910824FDBB21001565BF /* ChatData.swift in Sources */,
 				6205910724FDBB21001565BF /* ViewRouter.swift in Sources */,
-				E1F2F89B257008ED00D8B87E /* VideoChat.swift in Sources */,
+				E12E5F152584552B00FB216C /* UIManager.swift in Sources */,
 				BE167C452514333A00402C14 /* SettingsData.swift in Sources */,
 				E1BCD3E1251E46540051A28C /* EditProfile.swift in Sources */,
 				6205910D24FDBB21001565BF /* Header.swift in Sources */,
@@ -627,25 +688,35 @@
 				6205910C24FDBB21001565BF /* Home.swift in Sources */,
 				6205911224FDBB21001565BF /* AddChatCell.swift in Sources */,
 				E170EF562540BF9000BEE97C /* GroupsView.swift in Sources */,
+				E12E5F0B2584552B00FB216C /* ARBroadcaster+AgoraRtcEngineDelegate.swift in Sources */,
 				E15A20AF253FA796006E042E /* Homev2.swift in Sources */,
+				E12E5F0F2584552B00FB216C /* AgoraLobbyVC+UITextFieldDelegate.swift in Sources */,
 				E155D69E251AA66F008281AE /* ProfileView.swift in Sources */,
 				6205910F24FDBB21001565BF /* AddChat.swift in Sources */,
 				62C3ED21250597A300CEA882 /* CreateGroupView.swift in Sources */,
 				6205910124FDBB21001565BF /* FirebaseManager.swift in Sources */,
+				E12E5F182584552B00FB216C /* ARBroadcaster+ARSessionDelegate.swift in Sources */,
 				6205911324FDBB21001565BF /* LeaderboardView.swift in Sources */,
+				E12E5F0E2584552B00FB216C /* AgoraLobbyVC.swift in Sources */,
 				628A12762518683B001C4B13 /* IntroView.swift in Sources */,
 				624FAF2B256F0A00000E0203 /* RegistrationInputSubview.swift in Sources */,
+				E12E5F122584552B00FB216C /* ARBroadcaster+ARSCNViewDelegate.swift in Sources */,
 				6205911824FDBB21001565BF /* RegistrationView.swift in Sources */,
+				E12E5F112584552B00FB216C /* ARBroadcaster.swift in Sources */,
 				6205910E24FDBB21001565BF /* ChatCell.swift in Sources */,
 				624FAEFF256EF32D000E0203 /* FloatingBlobSubview.swift in Sources */,
 				624FAF06256EF8BE000E0203 /* LoginButtonStyles.swift in Sources */,
 				6205910B24FDBB21001565BF /* CTA.swift in Sources */,
 				E1BCD406251E8A080051A28C /* PairingView.swift in Sources */,
+				E12E5F0D2584552B00FB216C /* ARAudience+AgoraRtcEngineDelegate.swift in Sources */,
 				6205910324FDBB21001565BF /* Categories.swift in Sources */,
 				6205911624FDBB21001565BF /* TimerButtonStyles.swift in Sources */,
 				E1BCD401251E7CF50051A28C /* LeaderboardSubViews.swift in Sources */,
 				6205911B24FDBB21001565BF /* SceneDelegate.swift in Sources */,
 				6205911024FDBB21001565BF /* ChatView.swift in Sources */,
+				E12E5F0C2584552B00FB216C /* ARVideoSource.swift in Sources */,
+				E12E5F142584552B00FB216C /* ARAudience.swift in Sources */,
+				E12E5F1C2584555300FB216C /* ARChatView.swift in Sources */,
 				624FAEF9256EF137000E0203 /* ButtonsSubview.swift in Sources */,
 				620590FE24FDBB21001565BF /* Extensions.swift in Sources */,
 				6205911524FDBB21001565BF /* TabBar.swift in Sources */,
@@ -657,6 +728,7 @@
 				E1C91E142503B86300001424 /* Blur.swift in Sources */,
 				E15A20B9253FAC28006E042E /* Test.swift in Sources */,
 				6205911124FDBB21001565BF /* RecentsView.swift in Sources */,
+				E12E5F132584552B00FB216C /* AgoraARKit.swift in Sources */,
 				6205910224FDBB21001565BF /* AppDelegate.swift in Sources */,
 				E15A20B2253FA7A6006E042E /* ProfilePic.swift in Sources */,
 				628A128025186940001C4B13 /* IntroCustomize.swift in Sources */,
@@ -669,6 +741,8 @@
 				E3CA983825180CAD00602EB6 /* PersonalInfoView.swift in Sources */,
 				E18C8364251E920D0087A2BB /* RecentsView2.swift in Sources */,
 				E3CA983225167D4800602EB6 /* NotificationsView.swift in Sources */,
+				E12E5F102584552B00FB216C /* Logger.swift in Sources */,
+				E12E5F192584552B00FB216C /* Broadcaster.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

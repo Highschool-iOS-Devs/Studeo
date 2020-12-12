@@ -212,8 +212,8 @@ PODS:
     - abseil/base/base_internal
     - abseil/base/config
     - abseil/meta/type_traits
-  - AgoraRtcEngine_iOS (3.1.2)
-  - Animoji (1.1.0)
+  - AgoraRtcEngine_iOS (3.2.0)
+  - ARVideoKit (1.51)
   - BoringSSL-GRPC (0.0.7):
     - BoringSSL-GRPC/Implementation (= 0.0.7)
     - BoringSSL-GRPC/Interface (= 0.0.7)
@@ -357,14 +357,14 @@ PODS:
   - nanopb/decode (1.30906.0)
   - nanopb/encode (1.30906.0)
   - PromisesObjC (1.2.11)
-  - Protobuf (3.13.0)
-  - SDWebImage (5.9.4):
-    - SDWebImage/Core (= 5.9.4)
-  - SDWebImage/Core (5.9.4)
+  - Protobuf (3.14.0)
+  - SDWebImage (5.10.0):
+    - SDWebImage/Core (= 5.10.0)
+  - SDWebImage/Core (5.10.0)
 
 DEPENDENCIES:
   - AgoraRtcEngine_iOS
-  - Animoji
+  - ARVideoKit (from `https://github.com/AFathi/ARVideoKit`, branch `swift_4_2`)
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Firestore
@@ -378,7 +378,6 @@ SPEC REPOS:
   trunk:
     - abseil
     - AgoraRtcEngine_iOS
-    - Animoji
     - BoringSSL-GRPC
     - Firebase
     - FirebaseAnalytics
@@ -404,10 +403,20 @@ SPEC REPOS:
     - Protobuf
     - SDWebImage
 
+EXTERNAL SOURCES:
+  ARVideoKit:
+    :branch: swift_4_2
+    :git: https://github.com/AFathi/ARVideoKit
+
+CHECKOUT OPTIONS:
+  ARVideoKit:
+    :commit: 350a67d63e4fe523a5f5c5ec842f32d6b96d23dc
+    :git: https://github.com/AFathi/ARVideoKit
+
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
-  AgoraRtcEngine_iOS: 0628532d3475471d1c352ba548cee98492850cc0
-  Animoji: 13cd755b96b3faa8e0aeb3c28fb4d9cab8fe20e2
+  AgoraRtcEngine_iOS: 945df6ec3b50ead4451fb8ef231db8eeb6a2613d
+  ARVideoKit: d575d98274aab060748514aa32ac964c24c1923f
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
   Firebase: c23a36d9e4cdf7877dfcba8dd0c58add66358999
   FirebaseAnalytics: 3bb096873ee0d7fa4b6c70f5e9166b6da413cc7f
@@ -430,9 +439,9 @@ SPEC CHECKSUMS:
   lottie-ios: 3a3758ef5a008e762faec9c9d50a39842f26d124
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
-  Protobuf: 3dac39b34a08151c6d949560efe3f86134a3f748
-  SDWebImage: b69257f4ab14e9b6a2ef53e910fdf914d8f757c1
+  Protobuf: 0cde852566359049847168e51bd1c690e0f70056
+  SDWebImage: 9169792e9eec3e45bba2a0c02f74bf8bd922d1ee
 
-PODFILE CHECKSUM: 722db740d7b6f5f1cd50d0394fd1aa2e2e285aeb
+PODFILE CHECKSUM: 460025ec0fcd4ebfe259f1ce09b994031e4c800e
 
 COCOAPODS: 1.10.0

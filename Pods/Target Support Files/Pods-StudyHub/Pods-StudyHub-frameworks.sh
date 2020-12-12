@@ -175,8 +175,11 @@ code_sign_if_enabled() {
 }
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/ARVideoKit/ARVideoKit.framework"
   install_framework "${PODS_ROOT}/AgoraRtcEngine_iOS/AgoraRtcKit.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/Animoji/Animoji.framework"
+  install_framework "${PODS_ROOT}/AgoraRtcEngine_iOS/Agorafdkaac.framework"
+  install_framework "${PODS_ROOT}/AgoraRtcEngine_iOS/Agoraffmpeg.framework"
+  install_framework "${PODS_ROOT}/AgoraRtcEngine_iOS/AgoraSoundTouch.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework"
@@ -191,8 +194,11 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/ARVideoKit/ARVideoKit.framework"
   install_framework "${PODS_ROOT}/AgoraRtcEngine_iOS/AgoraRtcKit.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/Animoji/Animoji.framework"
+  install_framework "${PODS_ROOT}/AgoraRtcEngine_iOS/Agorafdkaac.framework"
+  install_framework "${PODS_ROOT}/AgoraRtcEngine_iOS/Agoraffmpeg.framework"
+  install_framework "${PODS_ROOT}/AgoraRtcEngine_iOS/AgoraSoundTouch.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework"

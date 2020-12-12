@@ -14,6 +14,7 @@ pod 'Firebase/Messaging'
 pod 'Firebase/Storage'
 pod 'SDWebImage', '~> 5.0'
 pod 'lottie-ios'
- pod 'AgoraRtcEngine_iOS'
-pod "Animoji"
+pod 'AgoraRtcEngine_iOS'
+  pod 'ARVideoKit', :git => 'https://github.com/AFathi/ARVideoKit', :branch => 'swift_4_2' # record ARKit session
+
 end
