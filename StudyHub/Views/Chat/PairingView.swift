@@ -71,11 +71,21 @@ struct PairingView: View {
                     Spacer()
                 }
                 Button(action: {
-                    if people.count > 0 {
-                        self.matchedPerson = self.people.randomElement()!
-                        let matchedPersonId = matchedPerson.id.uuidString
-                        print("Matched with: \(self.matchedPerson.name)")
-                        newGroup = Groups(id: UUID().uuidString, groupID: UUID().uuidString, groupName: matchedPerson.name + " and " + userData.name,members: [self.userData.userID, self.matchedPerson.id.uuidString], interests: self.selectedInterests)
+                    guard people.count != 0 else {self.error = true; return}
+                    var matchedPeople:[User] = []
+                    for _ in 0..<people.count{
+                        if matchedPeople.count < 4{
+                            let randomUser = people[Int.random(in: 0..<people.count)]
+                            matchedPeople.append(randomUser)
+                        }
+                    }
+                        var groupMemberIDs = matchedPeople.map{$0.id.uuidString}
+                        groupMemberIDs += [userData.userID]
+                        newGroup = Groups(id: UUID().uuidString,
+                                          groupID: UUID().uuidString,
+                                          groupName: "\(self.selectedInterests[0]) Group",
+                                          members: groupMemberIDs,
+                                          interests: self.selectedInterests)
                         if let group = newGroup{
                             self.joinGroup(newGroup: group)
                             paired = true
@@ -91,10 +101,8 @@ struct PairingView: View {
                         //                        }
                         
                         
-                    } else {
-                        print("no one to pair with")
-                        self.error = true
-                    }
+             
+                    
                 }) {
                     Text("Pair")
                         .font(Font.custom("Montserrat-SemiBold", size: 14.0))
@@ -196,9 +204,6 @@ struct PairingView: View {
     
     func loadData(performAction: @escaping ([User]?) -> Void){
     
-    ///Simplified pairing process through complex queries
-    ///Bug to be fixed
-        ///1. Can pair with same person multiples times. This can be solved by simply checking if you have been paired with a certain person, but that might create more issues. Ex. What if you and another student share two different interest groups.
 
     let db = Firestore.firestore()
     let ref = db.collection("users").document(self.userData.userID)

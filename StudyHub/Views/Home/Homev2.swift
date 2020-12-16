@@ -92,10 +92,7 @@ struct Homev2: View {
         }
               
                      Header(showTimer: $showingTimer)
-                         .frame(height: 120)
-                         .background(BlurView(style: .systemMaterial))
-                         //.padding(.top, 40)
-                         .edgesIgnoringSafeArea(.all)
+                  
             }.blur(radius: showingTimer ? 20 : 0)
             if showingTimer {
                 VStack {
@@ -110,11 +107,7 @@ struct Homev2: View {
                 }
 
             
-                 Header(showTimer: $showingTimer)
-                     .frame(height: 120)
-                     .background(BlurView(style: .systemMaterial))
-                     //.padding(.top, 40)
-                     .edgesIgnoringSafeArea(.all)
+           
             
             if chat {
                 Color(.systemBackground)

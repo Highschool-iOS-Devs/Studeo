@@ -32,9 +32,7 @@ struct TimerView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-<<<<<<< Updated upstream
-          
-=======
+
             HStack {
                 Spacer()
                 Button(action: {
@@ -48,7 +46,7 @@ struct TimerView: View {
                 }
             }
             .padding()
->>>>>>> Stashed changes
+
             
             HStack {
                 Text("Set Timer")

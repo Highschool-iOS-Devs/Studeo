@@ -399,6 +399,7 @@
 		620590DF24FDBB21001565BF /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				E1BCD405251E8A080051A28C /* PairingView.swift */,
 				624FAFDB25720AA0000E0203 /* RecentsView */,
 				620590E124FDBB21001565BF /* AddChat.swift */,
 				620590E224FDBB21001565BF /* ChatView.swift */,
@@ -407,7 +408,6 @@
 				620590E424FDBB21001565BF /* AddChatCell.swift */,
 				E1C91E112503B80800001424 /* ReverseScrollView.swift */,
 				62C3ED20250597A300CEA882 /* CreateGroupView.swift */,
-				E1BCD405251E8A080051A28C /* PairingView.swift */,
 				E12E5F1B2584555300FB216C /* ARChatView.swift */,
 				E12E5F1E2584555F00FB216C /* ARChat.swift */,
 				E12E5EF82584552B00FB216C /* AgoraARKit */,

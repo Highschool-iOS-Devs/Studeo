@@ -73,9 +73,7 @@ struct RecentsView2: View {
 
                 
                 Header(showTimer: $showTimer)
-                    .frame(height: 120)
-                    .background(BlurView(style: .systemMaterial))
-                    .edgesIgnoringSafeArea(.all)
+                   
 
 
         }

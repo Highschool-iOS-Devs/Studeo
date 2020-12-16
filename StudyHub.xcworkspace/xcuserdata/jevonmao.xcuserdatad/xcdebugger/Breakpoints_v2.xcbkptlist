@@ -64,8 +64,8 @@
             filePath = "StudyHub/Views/Chat/RecentsView/RecentsView2.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
             landmarkName = "body"
             landmarkType = "24">
             <Actions>
@@ -89,8 +89,8 @@
             filePath = "StudyHub/Views/Chat/RecentsView/RecentsView2.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
             landmarkName = "getRecentGroups(performAction:)"
             landmarkType = "7">
             <Locations>

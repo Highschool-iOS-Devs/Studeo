@@ -28,9 +28,7 @@ struct ChatView: View {
     var body: some View {
         ZStack {
             Color.white.edgesIgnoringSafeArea(.all)
-                .onAppear() {
-                    //viewRouter.showTabBar = false
-                }
+             
            
                 VStack {
                     //Testing UI with some messages
@@ -119,12 +117,9 @@ struct ChatView: View {
                             )
                         } .padding()
                         
-                       // Spacer()
                     }
                     .frame(maxWidth: .infinity)
-                   // .frame(height: 200)
-                    
-                    // .offset(x: 0, y: 100)
+        
                     
                 }
                 
@@ -142,7 +137,7 @@ struct ChatView: View {
                     }
                     Spacer()
                 } .padding()
-                ARVideoChatView(channelName: $group.groupID)
+                ARVideoChatView(channelName: group.groupID)
             }
             }
         .onAppear{

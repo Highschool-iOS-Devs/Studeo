@@ -55,9 +55,15 @@ struct Header: View {
             }
             
         }
+        .frame(height: 120)
         .padding(.horizontal, 15)
         .padding(.top, 10)
-        .border(Color.black.opacity(0.2), width:0.5)
+        .background(BlurView(style: .systemMaterial))
+        .border(Color("Background").opacity(0.3), width:0.5)
+        .edgesIgnoringSafeArea(.all)
+
+
+
         
     }
 }
