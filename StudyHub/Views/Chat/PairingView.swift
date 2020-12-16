@@ -20,7 +20,7 @@ struct PairingView: View {
     @Binding var myGroups:[Groups]
     @State var colorPick = Color.white
     @State var groupName = ""
-    @State var newGroup = Groups(id: "", groupID: "", groupName: "", members: [""], interests: [nil])
+    @State var newGroup:Groups?
     @State var interests = [String]()
     @State var num = 0
     @State var error = false
@@ -76,8 +76,13 @@ struct PairingView: View {
                         let matchedPersonId = matchedPerson.id.uuidString
                         print("Matched with: \(self.matchedPerson.name)")
                         newGroup = Groups(id: UUID().uuidString, groupID: UUID().uuidString, groupName: matchedPerson.name + " and " + userData.name,members: [self.userData.userID, self.matchedPerson.id.uuidString], interests: self.selectedInterests)
-                        self.joinGroup(newGroup: newGroup)
-                        paired = true
+                        if let group = newGroup{
+                            self.joinGroup(newGroup: group)
+                            paired = true
+                        }
+                        else{
+                            print("Pairing failed.")
+                        }
                         //                        people.removeAll()
                         //                        self.loadData(){ userData in
                         //                            //Get completion handler data results from loadData function and set it as the recentPeople local variable
@@ -101,8 +106,11 @@ struct PairingView: View {
             .sheet(isPresented: self.$paired, onDismiss: {
                 self.add = false
             }){
-                ChatView(userData: _userData, group: newGroup, chatRoomID: $newGroup.groupID, chat: $chat)
-                    .environmentObject(userData)
+                if let group = newGroup{
+                    ChatView(group: group, chat: $chat)
+                        .environmentObject(userData)
+                }
+               
             }
             
             VStack {

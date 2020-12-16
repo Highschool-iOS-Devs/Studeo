@@ -20,7 +20,7 @@ struct InputFieldSubview: View {
                     .frame(width: 44, height: 44)
                     .background(Color.white)
                     .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                    .shadow(color: Color("aqua dark").opacity(0.2), radius: 3, x: 0, y: 5)
+                    .shadow(color: Color("Primary").opacity(0.2), radius: 3, x: 0, y: 5)
                     .padding(.leading)
                 
                 TextField("Email".uppercased(), text: $email)
@@ -38,7 +38,7 @@ struct InputFieldSubview: View {
                     .frame(width: 44, height: 44)
                     .background(Color.white)
                     .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                    .shadow(color: Color("aqua dark").opacity(0.2), radius: 3, x: 0, y: 5)
+                    .shadow(color: Color("Primary").opacity(0.2), radius: 3, x: 0, y: 5)
                     .padding(.leading)
                 
                 SecureField("Password".uppercased(), text: $password)
@@ -55,8 +55,8 @@ struct InputFieldSubview: View {
         .background(BlurView(style: .systemMaterial))
         .clipShape(RoundedRectangle(cornerRadius: 15))
         .padding(.horizontal, 45)
-        .shadow(color: Color("aqua dark").opacity(0.1), radius: 15)
-        .shadow(color: Color("aqua dark").opacity(0.2), radius: 25, x: 0, y: 20)
+        .shadow(color: Color("Primary").opacity(0.1), radius: 15)
+        .shadow(color: Color("Primary").opacity(0.2), radius: 25, x: 0, y: 20)
 
         .overlay(
             HStack {

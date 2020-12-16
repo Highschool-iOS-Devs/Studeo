@@ -15,17 +15,16 @@ import Alamofire
 struct ChatView: View {
     @EnvironmentObject var userData:UserData
     @EnvironmentObject var viewRouter:ViewRouter
-    @State var messageField = ""
-    @State var scrollOffset = 0
-    @State var currentOffset = 0
-    @State var messages = [MessageData]()
-    @State var group = Groups(id: "", groupID: "", groupName: "", members: [""], interests: [nil])
     @Environment(\.presentationMode) var presentationMode
-    @Binding var chatRoomID: String
-    @State var image = UIImage()
-    @State var name: String = ""
+
+    @State var messageField = ""
+    @State var messages = [MessageData]()
+    
+    var group:Groups
+    //@State var image:Image
     @Binding var chat: Bool
     @State var ARChat = false
+
     var body: some View {
         ZStack {
             Color.white.edgesIgnoringSafeArea(.all)
@@ -36,7 +35,8 @@ struct ChatView: View {
                 VStack {
                     //Testing UI with some messages
                     HStack {
-                        ProfilePicture(pictureSize: 50, image: image)
+
+                        ProfilePicture(pictureSize: 50, image: Image("demoprofile"))
                         Text(group.groupName)
                         .font(.custom("Montserrat", size: 15))
                         .padding()
@@ -63,14 +63,7 @@ struct ChatView: View {
                                 .foregroundColor(Color("aqua dark"))
                         }
                     } .padding()
-//                    ReverseScrollView(scrollOffset: CGFloat(self.scrollOffset), currentOffset: CGFloat(self.currentOffset)){
-//                        VStack {
-//                    ForEach(self.messages, id: \.self){ message in
-//                        MessageCellView(message)
-//
-//                    }
-//                        }
-//                    }
+
                     ScrollView(.vertical, showsIndicators: false) {
                         ScrollViewReader { scrollView in
                             LazyVStack {
@@ -154,6 +147,8 @@ struct ChatView: View {
             }
         .onAppear{
             self.loadData()
+            self.addRecentRecord()
+            
         }
        
         
@@ -162,7 +157,7 @@ struct ChatView: View {
     }
     func saveMessage(outgoingMessage:MessageData){
         let db = Firestore.firestore()
-        let ref = db.collection("message/\(chatRoomID)/messages/").document(UUID().uuidString)
+        let ref = db.collection("message/\(group.groupID)/messages/").document(UUID().uuidString)
       do{
         try ref.setData(from: outgoingMessage)
       }
@@ -171,10 +166,45 @@ struct ChatView: View {
       }
     }
     
+    func addRecentRecord(){
+        let db = Firestore.firestore()
+        
+        let docRef = db.collection("users").document(userData.userID)
+        docRef.getDocument{document, error in
+            let result = Result {
+              try document?.data(as: User.self)
+            }
+            switch result {
+            case .success(let user):
+                if let user = user {
+                    var recentGroups = user.recentGroups ?? []
+                    if recentGroups.count < 4{
+                        docRef.updateData(
+                            ["recentGroups":FieldValue.arrayUnion([group.groupID])]
+                        )
+                    }
+                    else{
+                        recentGroups.removeFirst(1)
+                        recentGroups.append(group.groupID)
+                        docRef.updateData(
+                            ["recentGroups":recentGroups]
+                        )
+                    }
+                } else {
+  
+                    print("Document does not exist")
+                }
+            case .failure(let error):
+                print("Error decoding city: \(error)")
+            }
+        }
+        
+        
+    }
     func loadData(){
         let db = Firestore.firestore()
         
-        let docRef = db.collection("message/\(chatRoomID)/messages").order(by: "sentTime").limit(to: 50)
+        let docRef = db.collection("message/\(group.groupID)/messages").order(by: "sentTime").limit(to: 50)
                      docRef.addSnapshotListener{ (querySnapshot, error) in
                         var messageArray:[MessageData] = []
 

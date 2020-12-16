@@ -13,7 +13,7 @@ struct FloatingBlobSubview: View {
     @State var duration = 90.0
     var body: some View {
         ZStack{
-            VectorImageRepresentable(image: #imageLiteral(resourceName: "blob_blue"), imageColor: Color("aqua dark"))
+            VectorImageRepresentable(image: #imageLiteral(resourceName: "blob_blue"), imageColor: Color("Primary"))
                 .frame(width: 600, height: 600)
                 .rotationEffect(.degrees(show ? 360 : 0))
                 .offset(x: -120, y: 280)
@@ -21,7 +21,7 @@ struct FloatingBlobSubview: View {
                 .onAppear{show=true}
                 .opacity(0.85)
 
-            VectorImageRepresentable(image: #imageLiteral(resourceName: "blob_blue"), imageColor: Color("aqua"))
+            VectorImageRepresentable(image: #imageLiteral(resourceName: "blob_blue"), imageColor: Color("Primary"))
                 .frame(width: 600, height: 600)
                 .rotationEffect(.degrees(show ? 360+90 : 90))
                 .offset(x: 120, y: 320)

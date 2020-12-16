@@ -21,8 +21,8 @@ struct Home: View {
             VStack {
                 ScrollView(showsIndicators: false) {
                     Header(showTimer: $showingTimer)
-                    SearchBar()
-                        .padding()
+                    //SearchBar()
+                    
                     Spacer()
                     HStack {
                         

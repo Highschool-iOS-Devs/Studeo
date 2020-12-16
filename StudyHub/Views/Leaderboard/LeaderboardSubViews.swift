@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SelfRankView: View {
     
-        var hours:Double
+    var hours:Double
     var body: some View {
         HStack(alignment: .center, spacing: 45){
             VStack {
@@ -26,7 +26,7 @@ struct SelfRankView: View {
                 }
                 
             }
-            ProfilePicture(pictureSize: 45)
+            ProfilePicture(pictureSize: 45, image: Image("demoprofile"))
             
             VStack {
                 Image(systemName: "arrowtriangle.down.fill")
@@ -49,9 +49,9 @@ struct SelfRankView: View {
 
 struct ProfilePicture: View {
     var pictureSize:Int
-    @State var image = UIImage()
+    @State var image:Image
     var body: some View {
-        Image(uiImage: image)
+        image
             .resizable()
             .clipShape(Circle())
             .aspectRatio(contentMode: .fill)
@@ -72,7 +72,7 @@ struct LeaderboardRow: View {
                 Text("4")
                     .foregroundColor(.black)
             }
-            ProfilePicture(pictureSize: 45)
+            ProfilePicture(pictureSize: 45, image: Image("demoprofile"))
              
             Text(name)
              
@@ -140,7 +140,7 @@ struct LeaderRankView: View {
     var hours:Double
     var body: some View {
         VStack{
-            ProfilePicture(pictureSize: 70)
+            ProfilePicture(pictureSize: 70, image: Image("demoprofile"))
             Text(name)
                 .foregroundColor(.black)
                 .font(.custom("Montserrat-SemiBold", size: 12))

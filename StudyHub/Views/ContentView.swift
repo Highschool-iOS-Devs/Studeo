@@ -39,11 +39,9 @@ struct ContentView: View {
             }
            
                 if hasCheckedAuth {
-                    
                     Color.white
                         .edgesIgnoringSafeArea(.all)
                         .onAppear{
-                            
                             self.loadGroupData(){ userData in
                                 //Get completion handler data results from loadData function and set it as the recentPeople local variable
                                 self.myGroups = userData ?? []
@@ -59,58 +57,47 @@ struct ContentView: View {
                             }
                            
                     }
+                if hasLoaded {
+                    switch viewRouter.currentView {
+                    case .registration:
+                        RegistrationView()
+                            .environmentObject(viewRouter)
+                    case .login:
+                        LoginView()
+                            .environmentObject(viewRouter)
+                    case .chatList:
+                        RecentsView2()
+                            .environmentObject(userData)
+                            .environmentObject(viewRouter)
+                    case .profile:
+                        ProfileView(profileImage: $profileImage, user: $user)
+                            .environmentObject(userData)
+                            .environmentObject(viewRouter)
+                    case .home:
+                        if myGroups.isEmpty {
+                            Home()
+                        } else {
+                        Homev2(recentPeople: $myGroups)
+                            .environmentObject(userData)
+                            .environmentObject(viewRouter)
                        
-                    if hasLoaded {
-                if viewRouter.currentView == .registration{
-                    RegistrationView()
-                        .environmentObject(viewRouter)
-                }
-                else if viewRouter.currentView == .login {
-                    LoginView()
-                        .environmentObject(viewRouter)
-                }
-                else if viewRouter.currentView == .chatList {
-                   
-                    RecentsView2(recentPeople: $myGroups, images: $images)
-                        .environmentObject(userData)
-                        .environmentObject(viewRouter)
-                   
-                
-                }
-                else if viewRouter.currentView == .profile {
-                    ProfileView(profileImage: $profileImage, user: $user)
-                        .environmentObject(userData)
-                        .environmentObject(viewRouter)
-                }
-               
-                else if viewRouter.currentView == .leaderboard {
-                    LeaderboardView()
-                        .environmentObject(userData)
-                        .environmentObject(viewRouter)
-                }
-                else if viewRouter.currentView == .home {
-                    if myGroups.isEmpty {
-                        Home()
-                    } else {
-                        Homev2(recentPeople: $myGroups, user: $user)
-                        .environmentObject(userData)
-                        .environmentObject(viewRouter)
-                   
+                        }
+                    case .settings:
+                        SettingView()
+                            .environmentObject(viewRouter)
+                            .environmentObject(userData)
+                    case .leaderboard:
+                        LeaderboardView()
+                            .environmentObject(userData)
+                            .environmentObject(viewRouter)
+                    case .introView:
+                        IntroView()
+                        }
+
                     }
-                }
-                else if viewRouter.currentView == .settings{
-                    SettingView()
-                        .environmentObject(viewRouter)
-                        .environmentObject(userData)
-                }
-                else if viewRouter.currentView == .introView{
-                    IntroView()
-                        .environmentObject(viewRouter)
-                        .environmentObject(userData)
-                }
-                 
             
-                    }
+            
+                    
          
             // == true || viewRouter.currentView != .registration || viewRouter.currentView != .login 
             if viewRouter.showTabBar {

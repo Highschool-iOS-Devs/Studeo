@@ -8,14 +8,20 @@
 
 import SwiftUI
 
+
 struct User: Identifiable, Codable, Hashable {
     var id:UUID
     var firebaseID: String
+    
     var name: String
     var email: String
     var image: String?
+    
     var interests: [UserInterestTypes]?
     var groups: [String]?
+    var recentGroups: [String]?
+    var recentPeople: [String]?
+    
     var studyHours: Double
     var studyDate: String
     var all: Double

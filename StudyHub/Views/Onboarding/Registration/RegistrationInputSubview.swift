@@ -15,12 +15,12 @@ struct RegistrationInputSubview: View {
     var body: some View {
         VStack(spacing: 5) {
             HStack {
-                Image(systemName: "envelope.fill")
+                Image(systemName: "person.crop.circle.fill")
                     .foregroundColor(Color(#colorLiteral(red: 0.6549019608, green: 0.7137254902, blue: 0.862745098, alpha: 1)))
                     .frame(width: 44, height: 44)
                     .background(Color.white)
                     .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                    .shadow(color: Color("aqua dark").opacity(0.2), radius: 3, x: 0, y: 5)
+                    .shadow(color: Color("Primary").opacity(0.2), radius: 3, x: 0, y: 5)
                     .padding(.leading)
                 
                 TextField("Name".uppercased(), text: $name)
@@ -32,12 +32,12 @@ struct RegistrationInputSubview: View {
             }
             Divider().padding(.leading, 80).padding(.trailing, 15)
             HStack {
-                Image(systemName: "person.crop.circle.fill")
+                Image(systemName: "envelope.fill")
                     .foregroundColor(Color(#colorLiteral(red: 0.6549019608, green: 0.7137254902, blue: 0.862745098, alpha: 1)))
                     .frame(width: 44, height: 44)
                     .background(Color.white)
                     .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                    .shadow(color: Color("aqua dark").opacity(0.2), radius: 3, x: 0, y: 5)
+                    .shadow(color: Color("Primary").opacity(0.2), radius: 3, x: 0, y: 5)
                     .padding(.leading)
                 
                 TextField("Email".uppercased(), text: $email)
@@ -55,7 +55,7 @@ struct RegistrationInputSubview: View {
                     .frame(width: 44, height: 44)
                     .background(Color.white)
                     .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                    .shadow(color: Color("aqua dark").opacity(0.2), radius: 3, x: 0, y: 5)
+                    .shadow(color: Color("Primary").opacity(0.2), radius: 3, x: 0, y: 5)
                     .padding(.leading)
                 
                 SecureField("Password".uppercased(), text: $password)
@@ -73,7 +73,7 @@ struct RegistrationInputSubview: View {
         .clipShape(RoundedRectangle(cornerRadius: 15))
         .padding(.horizontal, 45)
         //.shadow(color: Color("aqua dark").opacity(0.1), radius: 15)
-        .shadow(color: Color("aqua dark").opacity(0.2), radius: 30, x: 0, y: 30)
+        .shadow(color: Color("Primary").opacity(0.2), radius: 30, x: 0, y: 30)
        
         .overlay(
             HStack {

@@ -22,7 +22,7 @@ struct ProfilePic: View {
                 .clipShape(Circle())
                 .overlay(
                             Circle()
-                                .stroke(LinearGradient(gradient: Gradient(colors: [Color("barCenter"), Color("aqua")]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 3)
+                                .stroke(LinearGradient(gradient: Gradient(colors: [Color("barCenter"), Color("Primary")]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 3)
                         )
              Text(name)
             }

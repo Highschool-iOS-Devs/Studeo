@@ -34,64 +34,71 @@ struct Homev2: View {
     @Binding var recentPeople: [Groups]
     @State var chat = false
     @State var group = Groups(id: UUID().uuidString, groupID: "", groupName: "", members: [String](), interests: [UserInterestTypes?]())
-    @Binding var user: [User]
-    var body: some View {
-        ZStack(alignment: .top){
-            Color.white.edgesIgnoringSafeArea(.all)
-            VStack {
-                Spacer()
-                    .frame(minHeight: 60, idealHeight: 60, maxHeight: 60)
-                    .fixedSize()
-                
-                    ScrollView(.vertical, showsIndicators: false) {
-                    ScrollView(.horizontal, showsIndicators: false) {
-                    HStack {
-                        ForEach(recentPeople, id:\.self){groups in
-                            ProfilePic(name: groups.groupName, size: 70)
-                                .onTapGesture() {
-                                    group = groups
-                                    chat.toggle()
-                                }
-                        }
 
-                    } .padding(.top)
-                    }
-                    Divider()
-                    HStack {
-                        Text("Groups")
-                            .font(Font.custom("Montserrat-SemiBold", size: 20.0))
-                        Spacer()
-                    }.padding()
-                        
-                    ScrollView(.horizontal, showsIndicators: false) {
-                            HStack {
-                                Spacer(minLength: 20)
-                                GroupsView(imgName: "2868759", cta: "Join", name: "Debate")
-                                GroupsView(imgName: "3566801", cta: "Join", name: "Spanish")
-                                GroupsView(imgName: "Group", cta: "Join", name: "History")
-                                Spacer(minLength: 110)
+    var body: some View {
+
+        ZStack {
+            ZStack(alignment: .top){
+                Color.white.edgesIgnoringSafeArea(.all)
+                VStack {
+                    Spacer()
+                        .frame(minHeight: 60, idealHeight: 60, maxHeight: 60)
+                        .fixedSize()
+                    
+                        ScrollView(.vertical, showsIndicators: false) {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                        HStack {
+                            ForEach(recentPeople, id:\.self){groups in
+                                ProfilePic(name: groups.groupName, size: 70)
+                            }
+
                             }
                         }
-               
-                       
-                        
-                        SelfRankView(hours: user[0].studyHours)
-                            .padding()
-                        //CTA(imgName: "Group", cta: "Add Group")
+                        Divider()
+                        HStack {
+                            Text("Groups")
+                                .font(Font.custom("Montserrat-SemiBold", size: 20.0))
+                            Spacer()
+                        }.padding()
+                            
+                        ScrollView(.horizontal, showsIndicators: false) {
+                                HStack {
+                                    Spacer(minLength: 20)
+                                    GroupsView(imgName: "2868759", cta: "Join", name: "Debate")
+                                    GroupsView(imgName: "3566801", cta: "Join", name: "Spanish")
+                                    GroupsView(imgName: "Group", cta: "Join", name: "History")
+                                    Spacer(minLength: 110)
+                                }
+                            }
+                   
+
                            
-                         
-                        CTA(imgName: "study", cta: "Compete")
-                            .padding()
-                        Spacer(minLength: 140)
-               
-                
-                    .transition(.move(edge: .bottom))
-                    .zIndex(1)
-                    .edgesIgnoringSafeArea(.all)
+                            
+                            SelfRankView(hours: 3.0)
+                                .padding()
+                            //CTA(imgName: "Group", cta: "Add Group")
+                               
+                             
+                            CTA(imgName: "study", cta: "Compete")
+                                .padding()
+                            Spacer(minLength: 140)
+                   
                     
-                    }
-    }.blur(radius: showingTimer ? 20 : 0)
-                if showingTimer {
+                        .transition(.move(edge: .bottom))
+                        .zIndex(1)
+                        .edgesIgnoringSafeArea(.all)
+                        
+                        }
+        }
+              
+                     Header(showTimer: $showingTimer)
+                         .frame(height: 120)
+                         .background(BlurView(style: .systemMaterial))
+                         //.padding(.top, 40)
+                         .edgesIgnoringSafeArea(.all)
+            }.blur(radius: showingTimer ? 20 : 0)
+            if showingTimer {
+                VStack {
                     TimerView(showingView: $showingTimer)
                         .padding(.top, 110)
                         .onAppear {
@@ -99,8 +106,9 @@ struct Homev2: View {
                         }
                         .onDisappear {
                             self.viewRouter.showTabBar = true
-                        }
+                    }
                 }
+
             
                  Header(showTimer: $showingTimer)
                      .frame(height: 120)
@@ -110,7 +118,7 @@ struct Homev2: View {
             
             if chat {
                 Color(.systemBackground)
-                ChatView(userData: _userData, group: group, chatRoomID: $group.groupID, chat: $chat)
+                ChatView(group: group, chat: $chat)
                     .environmentObject(userData)
                     .onAppear() {
                         viewRouter.showTabBar = false
@@ -118,12 +126,14 @@ struct Homev2: View {
                     .onDisappear() {
                         viewRouter.showTabBar = true
                     }
+
             }
+        
         }
     }
 
 
 }
 
-
+}
 

@@ -32,7 +32,23 @@ struct TimerView: View {
     
     var body: some View {
         VStack(spacing: 0) {
+<<<<<<< Updated upstream
           
+=======
+            HStack {
+                Spacer()
+                Button(action: {
+                    withAnimation {
+                        self.showingView = false
+                    }
+                }) {
+                    Image(systemName: "xmark")
+                        .foregroundColor(Color.black.opacity(0.7))
+                        .font(.body)
+                }
+            }
+            .padding()
+>>>>>>> Stashed changes
             
             HStack {
                 Text("Set Timer")
@@ -129,6 +145,7 @@ struct TimerView: View {
         .frame(maxWidth: 400)
         .cornerRadius(20)
         .padding()
+        .shadow(color: Color.black.opacity(0.3), radius: 20, x: 0, y: 10)
         .onAppear {
             self.timer.loadData()
         }
@@ -201,7 +218,10 @@ struct TimerView: View {
 
 struct TimerView_Previews: PreviewProvider {
     static var previews: some View {
-        TimerView(showingView: .constant(true))
+        ZStack {
+            Color(.red).edgesIgnoringSafeArea(.all)
+            TimerView(showingView: .constant(true))
+        } 
     }
 }
 
