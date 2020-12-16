@@ -25,13 +25,15 @@ struct ChattedWith: Identifiable {
     }
 }
 
-
+ 
 struct Groups: Identifiable, Codable, Hashable{
     var id: String
     var groupID:String
     var groupName:String
     var members:[String]
     var interests:[UserInterestTypes?]
+    var recentMessage:String?
+    var recentMessageTime:Date?
 }
 
 struct MessageData: Codable, Identifiable, Hashable {
