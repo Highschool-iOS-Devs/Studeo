@@ -24,11 +24,14 @@ struct RegistrationInputSubview: View {
                     .padding(.leading)
                 
                 TextField("Name".uppercased(), text: $name)
+                    .lineLimit(nil)
                     .keyboardType(.alphabet)
                     .font(.subheadline)
                     .foregroundColor(Color(#colorLiteral(red: 0.6549019608, green: 0.7137254902, blue: 0.862745098, alpha: 1)))
-                    .padding(.leading)
+                    .padding(.horizontal)
                     .frame(height: 44)
+                    .padding(.trailing, 15)
+
             }
             Divider().padding(.leading, 80).padding(.trailing, 15)
             HStack {
@@ -41,12 +44,14 @@ struct RegistrationInputSubview: View {
                     .padding(.leading)
                 
                 TextField("Email".uppercased(), text: $email)
+                    .lineLimit(nil)
                     .font(.subheadline)
                     .foregroundColor(Color(#colorLiteral(red: 0.6549019608, green: 0.7137254902, blue: 0.862745098, alpha: 1)))
-                    .padding(.leading)
+                    .padding(.horizontal)
                     .frame(height: 44)
                     .autocapitalization(.none)
                     .textContentType(.emailAddress)
+                    .padding(.trailing, 15)
             }
             Divider().padding(.leading, 80).padding(.trailing, 15)
             HStack {
@@ -59,11 +64,14 @@ struct RegistrationInputSubview: View {
                     .padding(.leading)
                 
                 SecureField("Password".uppercased(), text: $password)
+                    .lineLimit(nil)
                     .font(.subheadline)
                     .foregroundColor(Color(#colorLiteral(red: 0.6549019608, green: 0.7137254902, blue: 0.862745098, alpha: 1)))
-                    .padding(.leading)
+                    .padding(.horizontal)
                     .frame(height: 44)
                     .textContentType(.newPassword)
+                    .padding(.trailing, 15)
+
             }
 
         }

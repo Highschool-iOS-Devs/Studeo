@@ -26,10 +26,12 @@ struct InputFieldSubview: View {
                 TextField("Email".uppercased(), text: $email)
                     .font(.subheadline)
                     .foregroundColor(Color(#colorLiteral(red: 0.6549019608, green: 0.7137254902, blue: 0.862745098, alpha: 1)))
-                    .padding(.leading)
+                    .padding(.horizontal)
                     .frame(height: 44)
                     .autocapitalization(.none)
                     .textContentType(.emailAddress)
+                    .padding(.trailing, 15)
+
             }
             Divider().padding(.leading, 80).padding(.trailing, 15)
             HStack {
@@ -44,9 +46,11 @@ struct InputFieldSubview: View {
                 SecureField("Password".uppercased(), text: $password)
                     .font(.subheadline)
                     .foregroundColor(Color(#colorLiteral(red: 0.6549019608, green: 0.7137254902, blue: 0.862745098, alpha: 1)))
-                    .padding(.leading)
+                    .padding(.horizontal)
                     .frame(height: 44)
                     .textContentType(.password)
+                    .padding(.trailing, 15)
+
             }
 
         }

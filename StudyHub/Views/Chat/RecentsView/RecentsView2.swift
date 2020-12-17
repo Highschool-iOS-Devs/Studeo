@@ -79,14 +79,6 @@ struct RecentsView2: View {
         }
             if add {
                 PairingView(settings: $settings, add: $add, myGroups: $allGroups)
-                    .onDisappear {
-
-//                        getAllGroups{self.allGroups=$0}
-//                        self.getRecentGroups{self.recentGroups=$0}
-//                        self.recentPeople = getRecentPeople()
-                            //downloadImages()
-
-                    }
 
             }
  
@@ -100,6 +92,8 @@ struct RecentsView2: View {
             }
         
     }
+
+    
     func loadMessageData(){
         let db = Firestore.firestore()
 //        let docRef = db.collection("message/\(group.groupID)/messages").order(by: "sentTime", descending: true).limit(to: 1)
@@ -170,8 +164,6 @@ struct RecentsView2: View {
                         if !recentGroups.contains(group){
                             recentGroups.append(group)
                         }
-                        print("Content of recentGroup list in func: \(recentGroups)")
-                        print("return completion")
                         performAction(recentGroups)
                     }
                 }
@@ -237,7 +229,6 @@ struct RecentsView2: View {
      
     }
 
-    
 //    func downloadImages(for userID:String) -> Image? {
 //        let metadata = StorageMetadata()
 //        metadata.contentType = "image/jpeg"
