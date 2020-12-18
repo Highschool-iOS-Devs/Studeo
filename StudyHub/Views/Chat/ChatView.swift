@@ -24,7 +24,7 @@ struct ChatView: View {
     //@State var image:Image
     @Binding var chat: Bool
     @State var ARChat = false
-    
+    @State var test = false
     var body: some View {
         ZStack {
             Color.white.edgesIgnoringSafeArea(.all)
@@ -40,7 +40,7 @@ struct ChatView: View {
                         .padding()
                         .foregroundColor(.black)
                     Spacer()
-                    
+                    if test {
                     Button(action: {
                         let request = AF.request("https://studyhub1.herokuapp.com/access_token?channel=\(group.groupID)&uid=0")
                         
@@ -59,6 +59,7 @@ struct ChatView: View {
                     }) {
                         Image(systemName: "phone")
                             .foregroundColor(Color("Secondary"))
+                    }
                     }
                 } .padding()
                 

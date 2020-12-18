@@ -288,9 +288,9 @@ struct ContentView: View {
                            
                            
                             
-                            
+                            var pairedBefore = false
                                 for person in group.members {
-                                    var pairedBefore = false
+                                    
                                     print(myGroups)
                                 pairedBefore = checkPreviousPairing(from: myGroups, withUser: person, for: user[0].interests!.first!)
                                
