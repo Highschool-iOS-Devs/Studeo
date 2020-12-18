@@ -161,7 +161,7 @@ struct PairingView: View {
         }
     }
     
-    func joinGroup(newGroup:Groups){
+    func joinGroup(newGroup:Groups) {
         let db = Firestore.firestore()
         let docRef = db.collection("groups")
         do{

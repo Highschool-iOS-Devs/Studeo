@@ -50,7 +50,7 @@ struct Homev2: View {
                     ScrollView(.vertical, showsIndicators: false) {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
-                                ForEach(recentPeople, id:\.self){groups in
+                                ForEach(recentPeople, id:\.self){ groups in
                                     ProfilePic(name: groups.groupName, size: 70)
                                         .onTapGesture() {
                                             group = groups
@@ -74,7 +74,10 @@ struct Homev2: View {
                                 HStack {
                                     ForEach(Array(recommendGroups.enumerated()), id: \.element) { i, group in
                     
-                                        GroupsView(imgName: imgs[i], cta: "Join", name: group.groupName)
+                                        GroupsView(imgName: imgs[i], cta: "Join", name: group.groupName, group: $group, chat: $chat)
+                                            .onAppear() {
+                                                self.group = group
+                                            }
                                         .padding()
                                    
                                     }
@@ -122,6 +125,7 @@ struct Homev2: View {
                             self.viewRouter.showTabBar = true
                     }
                 }
+            }
             if chat {
                 Color(.systemBackground)
                 ChatView(group: group, chat: $chat)
@@ -136,7 +140,7 @@ struct Homev2: View {
             }
         
         }
-    }
+    
 
 
 }

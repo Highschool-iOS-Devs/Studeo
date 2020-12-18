@@ -7,6 +7,8 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 struct GroupsView: View {
     var imgName:String
@@ -14,7 +16,9 @@ struct GroupsView: View {
     var name:String
     @EnvironmentObject var userData: UserData
     @EnvironmentObject var tabRouter:ViewRouter
+    @Binding var group: Groups
     let screenSize = UIScreen.main.bounds
+    @Binding var chat: Bool
     var body: some View {
         ZStack {
         
@@ -40,7 +44,8 @@ struct GroupsView: View {
                         .padding(.leading, 30)
                     Button(action: {
                         self.userData.tappedCTA = true
-                       
+                        chat = true
+                        joinGroup(newGroup: group)
                         
                     }) {
                         Text(cta)
@@ -59,10 +64,47 @@ struct GroupsView: View {
            
         }
     }
-}
-
-struct GroupsView_Previews: PreviewProvider {
-    static var previews: some View {
-        GroupsView(imgName: "2868759", cta: "Chat", name: "Name")
+    func joinGroup(newGroup: Groups) {
+        let db = Firestore.firestore()
+        let docRef = db.collection("groups")
+        do{
+            try docRef.document(newGroup.groupID).setData(from: newGroup)
+            
+        }
+        catch{
+            print("Error writing to database, \(error)")
+        }
+        
+        let ref = db.collection("users").document(self.userData.userID)
+        ref.getDocument{document, error in
+            
+            if let document = document, document.exists {
+                
+         
+                let groupListCast = document.data()?["groups"] as? [String]
+                
+                if var currentGroups = groupListCast {
+                    
+                    guard !(groupListCast?.contains(newGroup.groupID))! else{return}
+                    currentGroups.append(newGroup.groupID)
+                    
+                    ref.updateData(
+                        [
+                            "groups": currentGroups
+                        ]
+                    )
+                } else {
+                    ref.updateData(
+                        [
+                            "groups":[newGroup.groupID]
+                        ]
+                    )
+                }
+            } else {
+                print("Error getting user data, \(error!)")
+            }
+        }
+        chat = true
     }
 }
+
