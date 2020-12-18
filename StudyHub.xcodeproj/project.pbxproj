@@ -55,6 +55,8 @@
 		624FAF06256EF8BE000E0203 /* LoginButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624FAF05256EF8BE000E0203 /* LoginButtonStyles.swift */; };
 		624FAF2B256F0A00000E0203 /* RegistrationInputSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624FAF2A256F0A00000E0203 /* RegistrationInputSubview.swift */; };
 		624FAFDE25720ACC000E0203 /* RecentGroupRowSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624FAFDD25720ACC000E0203 /* RecentGroupRowSubview.swift */; };
+		626E7815258D3EEB008633AB /* ProfileRingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626E7814258D3EEB008633AB /* ProfileRingView.swift */; };
+		626E7839258D40E1008633AB /* KingfisherSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 626E7838258D40E1008633AB /* KingfisherSwiftUI */; };
 		626EEC8C25897BC200E7A7A5 /* RecentChatTextRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626EEC8B25897BC200E7A7A5 /* RecentChatTextRow.swift */; };
 		626EEC8F25897BD200E7A7A5 /* AllGroupTextRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626EEC8E25897BD200E7A7A5 /* AllGroupTextRow.swift */; };
 		626EECB2258988D700E7A7A5 /* RecentsView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626EECB1258988D700E7A7A5 /* RecentsView2.swift */; };
@@ -170,6 +172,7 @@
 		624FAF05256EF8BE000E0203 /* LoginButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButtonStyles.swift; sourceTree = "<group>"; };
 		624FAF2A256F0A00000E0203 /* RegistrationInputSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationInputSubview.swift; sourceTree = "<group>"; };
 		624FAFDD25720ACC000E0203 /* RecentGroupRowSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentGroupRowSubview.swift; sourceTree = "<group>"; };
+		626E7814258D3EEB008633AB /* ProfileRingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileRingView.swift; sourceTree = "<group>"; };
 		626EEC8B25897BC200E7A7A5 /* RecentChatTextRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentChatTextRow.swift; sourceTree = "<group>"; };
 		626EEC8E25897BD200E7A7A5 /* AllGroupTextRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupTextRow.swift; sourceTree = "<group>"; };
 		626EECB1258988D700E7A7A5 /* RecentsView2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentsView2.swift; sourceTree = "<group>"; };
@@ -234,7 +237,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E13032B0258CD9ED00135CAC /* KingfisherSwiftUI in Frameworks */,
+				626E7839258D40E1008633AB /* KingfisherSwiftUI in Frameworks */,
+				628A127A2518691A001C4B13 /* Pages in Frameworks */,
 				E1F2F8B9257009A800D8B87E /* Alamofire in Frameworks */,
 				FB33AEA3FD2D5803BE4DAF75 /* Pods_StudyHub.framework in Frameworks */,
 				E1FD834D24F54E670024D2A3 /* IQKeyboardManagerSwift in Frameworks */,
@@ -544,6 +548,7 @@
 		E155D6A0251AA682008281AE /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				626E7814258D3EEB008633AB /* ProfileRingView.swift */,
 				E155D69A251AA665008281AE /* ProfileStats.swift */,
 				E155D69D251AA66F008281AE /* ProfileView.swift */,
 				E1BCD3E0251E46540051A28C /* EditProfile.swift */,
@@ -749,7 +754,7 @@
 				624FAFDE25720ACC000E0203 /* RecentGroupRowSubview.swift in Sources */,
 				6205910824FDBB21001565BF /* ChatData.swift in Sources */,
 				622430A125747BDE0031CF78 /* RecentChatGroupSubview.swift in Sources */,
-				E13032A9258CCFD500135CAC /* ProfileRingView.swift in Sources */,
+				626E7815258D3EEB008633AB /* ProfileRingView.swift in Sources */,
 				626EECB2258988D700E7A7A5 /* RecentsView2.swift in Sources */,
 				6205910724FDBB21001565BF /* ViewRouter.swift in Sources */,
 				E12E5F152584552B00FB216C /* UIManager.swift in Sources */,
@@ -959,7 +964,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyHub/Preview Content\"";
-				DEVELOPMENT_TEAM = MC27HKM86M;
+				DEVELOPMENT_TEAM = Q3GJATDTFC;
 				ENABLE_PREVIEWS = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = StudyHub/Info.plist;
@@ -981,7 +986,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyHub/Preview Content\"";
-				DEVELOPMENT_TEAM = MC27HKM86M;
+				DEVELOPMENT_TEAM = Q3GJATDTFC;
 				ENABLE_PREVIEWS = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = StudyHub/Info.plist;
@@ -1020,7 +1025,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		E13032AE258CD9ED00135CAC /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+		626E7837258D40E1008633AB /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
 			requirement = {
@@ -1028,12 +1033,12 @@
 				minimumVersion = 5.15.8;
 			};
 		};
-		E13032B8258CE34200135CAC /* XCRemoteSwiftPackageReference "PageView" */ = {
+		628A12782518691A001C4B13 /* XCRemoteSwiftPackageReference "Pages" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/fredyshox/PageView.git";
+			repositoryURL = "https://github.com/nachonavarro/Pages.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.4.1;
+				minimumVersion = 0.1.5;
 			};
 		};
 		E17401F7258C357200A259CC /* XCRemoteSwiftPackageReference "ChartView" */ = {
@@ -1063,9 +1068,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E13032AF258CD9ED00135CAC /* KingfisherSwiftUI */ = {
+		626E7838258D40E1008633AB /* KingfisherSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E13032AE258CD9ED00135CAC /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			package = 626E7837258D40E1008633AB /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = KingfisherSwiftUI;
 		};
 		E13032B9258CE34200135CAC /* PageView */ = {
