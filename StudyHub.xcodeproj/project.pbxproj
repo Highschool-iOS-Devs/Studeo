@@ -105,6 +105,7 @@
 		E15A20B2253FA7A6006E042E /* ProfilePic.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15A20B1253FA7A6006E042E /* ProfilePic.swift */; };
 		E15A20B9253FAC28006E042E /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15A20B8253FAC28006E042E /* Test.swift */; };
 		E170EF562540BF9000BEE97C /* GroupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E170EF552540BF9000BEE97C /* GroupsView.swift */; };
+		E17401F9258C357200A259CC /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = E17401F8258C357200A259CC /* SwiftUICharts */; };
 		E1BCD3E1251E46540051A28C /* EditProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BCD3E0251E46540051A28C /* EditProfile.swift */; };
 		E1BCD401251E7CF50051A28C /* LeaderboardSubViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BCD400251E7CF50051A28C /* LeaderboardSubViews.swift */; };
 		E1BCD406251E8A080051A28C /* PairingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BCD405251E8A080051A28C /* PairingView.swift */; };
@@ -242,6 +243,7 @@
 				E1F2F8B9257009A800D8B87E /* Alamofire in Frameworks */,
 				FB33AEA3FD2D5803BE4DAF75 /* Pods_StudyHub.framework in Frameworks */,
 				E1FD834D24F54E670024D2A3 /* IQKeyboardManagerSwift in Frameworks */,
+				E17401F9258C357200A259CC /* SwiftUICharts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -611,6 +613,7 @@
 				E1FD834C24F54E670024D2A3 /* IQKeyboardManagerSwift */,
 				628A12792518691A001C4B13 /* Pages */,
 				E1F2F8B8257009A800D8B87E /* Alamofire */,
+				E17401F8258C357200A259CC /* SwiftUICharts */,
 			);
 			productName = StudyHub;
 			productReference = E339449224F1B71600F11BA9 /* StudyHub.app */;
@@ -644,6 +647,7 @@
 				E1FD834B24F54E670024D2A3 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				628A12782518691A001C4B13 /* XCRemoteSwiftPackageReference "Pages" */,
 				E1F2F8B7257009A800D8B87E /* XCRemoteSwiftPackageReference "Alamofire" */,
+				E17401F7258C357200A259CC /* XCRemoteSwiftPackageReference "ChartView" */,
 			);
 			productRefGroup = E339449324F1B71600F11BA9 /* Products */;
 			projectDirPath = "";
@@ -955,7 +959,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyHub/Preview Content\"";
-				DEVELOPMENT_TEAM = Q3GJATDTFC;
+				DEVELOPMENT_TEAM = MC27HKM86M;
 				ENABLE_PREVIEWS = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = StudyHub/Info.plist;
@@ -977,7 +981,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyHub/Preview Content\"";
-				DEVELOPMENT_TEAM = Q3GJATDTFC;
+				DEVELOPMENT_TEAM = MC27HKM86M;
 				ENABLE_PREVIEWS = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = StudyHub/Info.plist;
@@ -1024,6 +1028,14 @@
 				minimumVersion = 0.1.5;
 			};
 		};
+		E17401F7258C357200A259CC /* XCRemoteSwiftPackageReference "ChartView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AppPear/ChartView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.4;
+			};
+		};
 		E1F2F8B7257009A800D8B87E /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -1047,6 +1059,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 628A12782518691A001C4B13 /* XCRemoteSwiftPackageReference "Pages" */;
 			productName = Pages;
+		};
+		E17401F8258C357200A259CC /* SwiftUICharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E17401F7258C357200A259CC /* XCRemoteSwiftPackageReference "ChartView" */;
+			productName = SwiftUICharts;
 		};
 		E1F2F8B8257009A800D8B87E /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;

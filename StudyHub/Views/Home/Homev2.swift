@@ -8,7 +8,7 @@
 
 
 import SwiftUI
-
+import SwiftUICharts
 struct Homev2: View {
     var columns = [
         GridItem(.fixed(250)),
@@ -34,7 +34,7 @@ struct Homev2: View {
     @Binding var recentPeople: [Groups]
     @State var chat = false
     @State var group = Groups(id: UUID().uuidString, groupID: "", groupName: "", members: [String](), interests: [UserInterestTypes?]())
-
+    @Binding var user: [User]
     var body: some View {
 
         ZStack {
@@ -47,12 +47,16 @@ struct Homev2: View {
                     
                         ScrollView(.vertical, showsIndicators: false) {
                         ScrollView(.horizontal, showsIndicators: false) {
-                        HStack {
-                            ForEach(recentPeople, id:\.self){groups in
-                                ProfilePic(name: groups.groupName, size: 70)
-                            }
+                            HStack {
+                                                  ForEach(recentPeople, id:\.self){groups in
+                                                      ProfilePic(name: groups.groupName, size: 70)
+                                                          .onTapGesture() {
+                                                              group = groups
+                                                              chat.toggle()
+                                                          }
+                                                  }
 
-                            }
+                                              } .padding(.top)
                         }
                         Divider()
                         HStack {
@@ -74,14 +78,17 @@ struct Homev2: View {
 
                            
                             
-                            SelfRankView(hours: 3.0)
+                            SelfRankView(hours: user[0].studyHours)
                                 .padding()
                             //CTA(imgName: "Group", cta: "Add Group")
                                
                              
                             CTA(imgName: "study", cta: "Compete")
                                 .padding()
-                            Spacer(minLength: 140)
+                            
+                            LineView(data: [8,23,54,32,12,37,7,23,43], title: "Hours Studied", legend: "", style: Styles.barChartStyleNeonBlueLight)
+                                .padding()
+                            Spacer(minLength: 500)
                    
                     
                         .transition(.move(edge: .bottom))

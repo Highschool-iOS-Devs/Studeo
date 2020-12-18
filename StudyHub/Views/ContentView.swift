@@ -22,6 +22,7 @@ struct ContentView: View {
     @State var settings = false
     @State var add = false
     @State var recentPeople = [Groups]()
+    @State var recentGroups = [Groups]()
     @State var images = [UIImage]()
     @State var profileImage = UIImage()
     @State var user = [User]()
@@ -42,13 +43,15 @@ struct ContentView: View {
                     Color.white
                         .edgesIgnoringSafeArea(.all)
                         .onAppear{
-                            self.loadGroupData(){ userData in
+                            self.loadDMsData(){ userData in
                                 //Get completion handler data results from loadData function and set it as the recentPeople local variable
                                 self.myGroups = userData ?? []
                                 hasLoaded = true
                                 downloadImages()
                             }
+                           
                             downloadImage()
+                          
                             self.loadUserData(){ userData in
                                 //Get completion handler data results from loadData function and set it as the recentPeople local variable
                                 self.user = userData
@@ -74,10 +77,10 @@ struct ContentView: View {
                             .environmentObject(userData)
                             .environmentObject(viewRouter)
                     case .home:
-                        if myGroups.isEmpty {
+                        if !userData.isOnboardingCompleted {
                             Home()
                         } else {
-                        Homev2(recentPeople: $myGroups)
+                            Homev2(recentPeople: $myGroups, user: $user)
                             .environmentObject(userData)
                             .environmentObject(viewRouter)
                        
@@ -172,9 +175,9 @@ struct ContentView: View {
         }
     }
     
-    func loadGroupData(performAction: @escaping ([Groups]?) -> Void){
+    func loadDMsData(performAction: @escaping ([Groups]?) -> Void) {
         let db = Firestore.firestore()
-        let docRef = db.collection("groups")
+        let docRef = db.collection("dms")
         var groupList:[Groups] = []
         //Get every single document under collection users
         let queryParameter = docRef.whereField("members", arrayContains: userData.userID)
@@ -220,7 +223,7 @@ struct ContentView: View {
         
         
     }
-    
+   
     func downloadImages() {
         for people in myGroups {
             print(0)
