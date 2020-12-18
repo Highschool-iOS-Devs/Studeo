@@ -83,9 +83,12 @@ struct Homev2: View {
                    
 
                            
+                        if user.isEmpty {
                             
+                        } else {
                             SelfRankView(hours: user[0].studyHours)
                                 .padding()
+                        }
                             //CTA(imgName: "Group", cta: "Add Group")
                                
                              

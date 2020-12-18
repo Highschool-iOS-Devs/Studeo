@@ -12,7 +12,7 @@ struct IntroPage: View {
     var titleText:String
     var bodyText:String
     var image:String
-    @EnvironmentObject var viewRouter:ViewRouter
+    @EnvironmentObject var viewRouter: ViewRouter
     var body: some View {
         ZStack {
             Color.white.edgesIgnoringSafeArea(.all)
@@ -36,13 +36,14 @@ struct IntroPage: View {
                     .frame(width: screenSize.width-40, height:screenSize.height/2.3)
                 
                 Spacer()
-                Text("Skip for now")
-                    .font(.custom("Montserrat-Regular", size: 17))
-                    .foregroundColor(Color.black.opacity(0.5))
-                    .padding(.bottom, 10)
+               // Text("Skip for now")
+                  //  .font(.custom("Montserrat-Regular", size: 17))
+                   // .foregroundColor(Color.black.opacity(0.5))
+                    //.padding(.bottom, 10)
 
            
             }
+            
         }
     }
 }

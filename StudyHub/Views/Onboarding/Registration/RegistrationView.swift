@@ -86,8 +86,8 @@ struct RegistrationView: View {
                 }
                 self.userData.userID = authResult!.id.uuidString
                 self.userData.name = authResult!.name
-                self.viewRouter.updateCurrentView(view: .introView)
-                self.viewRouter.showTabBar = true
+                self.viewRouter.updateCurrentView(view: .custom)
+               // self.viewRouter.showTabBar = true
         }
     }
         

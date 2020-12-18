@@ -107,8 +107,9 @@ struct IntroCustomize: View {
                    
             }
         }
-        
         .animation(.easeInOut)
+       
+        
         
     }
     
@@ -116,6 +117,9 @@ struct IntroCustomize: View {
         let db = Firestore.firestore()
         let docRef = db.collection("users").document(userData.userID)
         try docRef.setData(from: ["interests":interestSelected], merge: true)
+        if isNotOnboarding {
+        self.viewRouter.updateCurrentView(view: .home)
+        }
     }
     
 }

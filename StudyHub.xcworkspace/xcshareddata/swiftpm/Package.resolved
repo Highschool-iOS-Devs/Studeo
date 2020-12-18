@@ -38,12 +38,12 @@
         }
       },
       {
-        "package": "Pages",
-        "repositoryURL": "https://github.com/nachonavarro/Pages.git",
+        "package": "PageView",
+        "repositoryURL": "https://github.com/fredyshox/PageView.git",
         "state": {
           "branch": null,
-          "revision": "4cdbe4ff2f9ddbfda8cf0376a2acb678a1a0a0a2",
-          "version": "0.1.5"
+          "revision": "6265175e74b69a94b965510b2b4af7936fb87b77",
+          "version": "1.4.1"
         }
       }
     ]

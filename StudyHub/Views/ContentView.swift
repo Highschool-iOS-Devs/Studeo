@@ -28,7 +28,7 @@ struct ContentView: View {
     @State var user = [User]()
     @State private var offset = CGSize.zero
     @State var hasLoaded: Bool = false
-    
+    @State var interests = [String]()
     @State var i = 0
     var body: some View {
         ZStack { 
@@ -94,6 +94,11 @@ struct ContentView: View {
 
                        
                         }
+                    case .custom:
+                        IntroCustomize(isNotOnboarding: true, interests: $interests, settings: $settings, add: $add)
+                            .onDisappear() {
+                                viewRouter.showTabBar = true
+                            }
                     case .settings:
                         SettingView()
                             .environmentObject(viewRouter)
@@ -107,9 +112,7 @@ struct ContentView: View {
                             .onAppear() {
                                 viewRouter.showTabBar = false
                             }
-                            .onDisappear() {
-                                viewRouter.showTabBar = true
-                            }
+                            
                         }
 
                     }
@@ -265,8 +268,14 @@ struct ContentView: View {
         let db = Firestore.firestore()
         let docRef = db.collection("groups")
         var groupList:[Groups] = []
+        if user.isEmpty {
+            
+        } else {
+            if ((user[0].interests?.isEmpty) != nil) {
+                
+            } else {
         //Get every single document under collection users
-        print(user[0].interests!.first!)
+        
         let queryParameter = docRef.whereField("interests", arrayContains: "\(user[0].interests!.first!)")
         queryParameter.getDocuments{ (querySnapshot, error) in
             if let querySnapshot = querySnapshot,!querySnapshot.isEmpty{
@@ -312,8 +321,8 @@ struct ContentView: View {
             }
               performAction(groupList)
         }
-        
-        
+        }
+        }
     }
     
     func checkPreviousPairing(from myGroups: [Groups], withUser pairedUser: String, for interest: UserInterestTypes) -> Bool {
