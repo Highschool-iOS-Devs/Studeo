@@ -47,9 +47,11 @@ struct ContentView: View {
                                 //Get completion handler data results from loadData function and set it as the recentPeople local variable
                                 self.recentPeople = userData ?? []
                                
-                                downloadImages()
+        
+
+                                hasLoaded = true
                             }
-                           
+   
                             self.loadUserData(){ userData in
                                 //Get completion handler data results from loadData function and set it as the recentPeople local variable
                                 self.user = userData
@@ -62,11 +64,7 @@ struct ContentView: View {
                                 }
                                 }
                             }
-                            
-                           
-                           
-                            downloadImage()
-                            
+
                           
                            
                     }
@@ -77,7 +75,7 @@ struct ContentView: View {
                             .environmentObject(viewRouter)
                     case .login:
                         LoginView()
-                            .environmentObject(viewRouter)
+                       
                     case .chatList:
                         RecentsView2()
                             .environmentObject(userData)
@@ -93,6 +91,7 @@ struct ContentView: View {
                             Homev2(recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user)
                             .environmentObject(userData)
                             .environmentObject(viewRouter)
+
                        
                         }
                     case .settings:
@@ -124,36 +123,12 @@ struct ContentView: View {
                 
                 }
         }
+        .environmentObject(userData)
+        .environmentObject(viewRouter)
         
 
 }
-    func downloadImage() {
-   
-        let metadata = StorageMetadata()
-        metadata.contentType = "image/jpeg"
 
-        let storage = Storage.storage()
-        let pathReference = storage.reference(withPath: userData.userID)
-       
-       // gs://study-hub-7540b.appspot.com/images
-        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
-        pathReference.getData(maxSize: 1 * 5000 * 5000) { data, error in
-          if let error = error {
-            print(error)
-            // Uh-oh, an error occurred!
-          } else {
-            // Data for "images/island.jpg" is returned
-            var image = UIImage(data: data!)
-            profileImage = image!
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
-            //showLoadingAnimation = false
-            }
-          }
-        }
-        
-        
-        
-    }
     
 
     func loadUserData(performAction: @escaping ([User]) -> Void) {

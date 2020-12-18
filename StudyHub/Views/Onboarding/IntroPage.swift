@@ -40,13 +40,7 @@ struct IntroPage: View {
                     .font(.custom("Montserrat-Regular", size: 17))
                     .foregroundColor(Color.black.opacity(0.5))
                     .padding(.bottom, 10)
-//                Button(action: {}) {
-//                    Text("Continue")
-//                        .font(.custom("Montserrat-SemiBold", size: 18))
-//                }
-//                .buttonStyle(BlueStyle())
-//                .padding(.bottom, 10)
-//                .padding(.horizontal, 35)
+
            
             }
         }

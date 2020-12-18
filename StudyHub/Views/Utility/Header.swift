@@ -17,8 +17,8 @@ struct Header: View {
             VStack {
                 HStack {
                 Text("Hello,")
-                    .font(.custom("Montserrat-Regular", size: 16))
-                    .foregroundColor(Color(.black))
+                    .font(.custom("Montserrat-Regular", size: 17))
+                    .foregroundColor(Color("Text"))
                     .opacity(25)
                     .multilineTextAlignment(.leading)
                     Spacer()
@@ -26,8 +26,8 @@ struct Header: View {
                 HStack {
                 Text("\(userData.name)")
                     .frame(minWidth: 150, alignment: .leading)
-                    .font(.custom("Montserrat-Semibold", size: 27))
-                    .foregroundColor(Color(.black))
+                    .font(.custom("Montserrat-Semibold", size: 29))
+                    .foregroundColor(Color("Text"))
                     .multilineTextAlignment(.leading)
                     Spacer()
                 }
@@ -57,7 +57,7 @@ struct Header: View {
         }
         .frame(height: 120)
         .padding(.horizontal, 15)
-        .padding(.top, 10)
+        .padding(.top, 20)
         .background(BlurView(style: .systemMaterial))
         .border(Color("Background").opacity(0.3), width:0.5)
         .edgesIgnoringSafeArea(.all)

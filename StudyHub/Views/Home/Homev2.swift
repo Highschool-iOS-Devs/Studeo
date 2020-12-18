@@ -40,7 +40,7 @@ struct Homev2: View {
 
         ZStack {
             ZStack(alignment: .top){
-                Color.white.edgesIgnoringSafeArea(.all)
+                Color("Background").edgesIgnoringSafeArea(.all)
                 VStack {
                     Spacer()
                         .frame(minHeight: 60, idealHeight: 60, maxHeight: 60)
@@ -61,8 +61,8 @@ struct Homev2: View {
                         }
                         Divider()
                         HStack {
-                            Text("Groups")
-                                .font(Font.custom("Montserrat-SemiBold", size: 20.0))
+                            Text("Recommended")
+                                .font(.custom("Montserrat Bold", size: 24)).foregroundColor(Color("Primary"))
                             Spacer()
                         }.padding()
                             
@@ -98,7 +98,7 @@ struct Homev2: View {
                         .zIndex(1)
                         .edgesIgnoringSafeArea(.all)
                         
-                        }
+                    }.disabled(showingTimer ? true : false)
         }
               
                      Header(showTimer: $showingTimer)
@@ -115,10 +115,6 @@ struct Homev2: View {
                             self.viewRouter.showTabBar = true
                     }
                 }
-
-            
-           
-            
             if chat {
                 Color(.systemBackground)
                 ChatView(group: group, chat: $chat)

@@ -18,7 +18,6 @@ struct GroupsView: View {
     var body: some View {
         ZStack {
         
-       
         Image(imgName)
             .resizable()
             .scaledToFit()
@@ -27,6 +26,7 @@ struct GroupsView: View {
             VStack {
             HStack {
             Text(name)
+                .foregroundColor(Color("Text"))
                 .font(.headline)
                 Spacer()
             }
