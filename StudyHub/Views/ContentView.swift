@@ -59,7 +59,7 @@ struct ContentView: View {
                                     myGroups = userData ?? []
                                 self.loadGroupsData(){ userData in
                                     //Get completion handler data results from loadData function and set it as the recentPeople local variable
-                                    self.recommendGroups = userData ?? []
+                                    self.recommendGroups = userData!.removeDuplicates()
                                     hasLoaded = true
                                 }
                                 }
@@ -275,8 +275,8 @@ struct ContentView: View {
             } else {
         //Get every single document under collection users
         
-        let queryParameter = docRef.whereField("interests", arrayContains: "\(user[0].interests!.first!)")
-        queryParameter.getDocuments{ (querySnapshot, error) in
+                let queryParameter = docRef.whereField("interests", arrayContains: "\(user[0].interests!.first!)").limit(to: 4)
+                queryParameter.getDocuments { (querySnapshot, error) in
             if let querySnapshot = querySnapshot,!querySnapshot.isEmpty{
             for document in querySnapshot.documents{
                 let result = Result {

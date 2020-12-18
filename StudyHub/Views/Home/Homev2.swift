@@ -36,6 +36,7 @@ struct Homev2: View {
     @State var group = Groups(id: UUID().uuidString, groupID: "", groupName: "", members: [String](), interests: [UserInterestTypes?]())
     @Binding var recommendGroups: [Groups]
     @Binding var user: [User]
+    @State var imgs = ["2868759", "66209", "Group", "studying_drawing"]
     var body: some View {
 
         ZStack {
@@ -71,9 +72,9 @@ struct Homev2: View {
                         }
                         ScrollView(.horizontal, showsIndicators: false) {
                                 HStack {
-                                    ForEach(recommendGroups, id:\.self){ group in
+                                    ForEach(Array(recommendGroups.enumerated()), id: \.element) { i, group in
                     
-                                        GroupsView(imgName: "2868759", cta: "Join", name: group.groupName)
+                                        GroupsView(imgName: imgs[i], cta: "Join", name: group.groupName)
                                         .padding()
                                    
                                     }
