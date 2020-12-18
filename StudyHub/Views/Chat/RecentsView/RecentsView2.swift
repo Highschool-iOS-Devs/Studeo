@@ -60,10 +60,10 @@ struct RecentsView2: View {
                             }
 
                         }
-
+                        Spacer(minLength: 110)
                     }
                   
-                 
+                
                 }
                 .frame(width: screenSize.width, height: screenSize.height-150)
                 .background(Color("Background"))

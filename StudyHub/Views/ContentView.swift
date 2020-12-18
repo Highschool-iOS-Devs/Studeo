@@ -104,6 +104,12 @@ struct ContentView: View {
                             .environmentObject(viewRouter)
                     case .introView:
                         IntroView()
+                            .onAppear() {
+                                viewRouter.showTabBar = false
+                            }
+                            .onDisappear() {
+                                viewRouter.showTabBar = true
+                            }
                         }
 
                     }
