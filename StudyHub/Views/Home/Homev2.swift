@@ -36,7 +36,7 @@ struct Homev2: View {
     @State var group = Groups(id: UUID().uuidString, groupID: "", groupName: "", members: [String](), interests: [UserInterestTypes?]())
     @Binding var recommendGroups: [Groups]
     @Binding var user: [User]
-    @State var imgs = ["2868759", "66209", "Group", "studying_drawing"]
+    @State var imgs = ["2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing"]
     var body: some View {
 
         ZStack {

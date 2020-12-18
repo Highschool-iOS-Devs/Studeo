@@ -30,7 +30,7 @@ struct ContentView: View {
     @State var hasLoaded: Bool = false
     @State var interests = [String]()
     @State var i = 0
-    @State var i2 = 0
+    @State var i2 = -1
     var body: some View {
         ZStack { 
             Color.white
@@ -60,17 +60,18 @@ struct ContentView: View {
                                     myGroups = userData ?? []
                                 self.loadGroupsData(){ userData in
                                     //Get completion handler data results from loadData function and set it as the recentPeople local variable
-                                    self.recommendGroups = userData!.removeDuplicates()
                                     
-                                  let g =  recommendGroups + myGroups
-                                    self.recommendGroups = g.removeDuplicates()
-                                   
+                                    self.recommendGroups = userData!.removeDuplicates()
+                                    let g = recommendGroups + myGroups
+                                  recommendGroups = g.removeDuplicates()
                                     for g in recommendGroups {
                                         if i2 > 3 {
-                                            recommendGroups.remove(at: i)
+                                        recommendGroups.remove(at: i2)
+                                            i2 -= 1
                                         }
                                         i2 += 1
                                     }
+                                  
                                     hasLoaded = true
                                 }
                                 }
@@ -299,21 +300,20 @@ struct ContentView: View {
                            
                            
                             
-                            var pairedBefore = false
-                                for person in group.members {
-                                    
-                                    print(myGroups)
-                                pairedBefore = checkPreviousPairing(from: myGroups, withUser: person, for: user[0].interests!.first!)
-                               
+                           
                             
-                            if !pairedBefore {
+                         
     //                        if user.isAvailable == true {
+                                if myGroups.contains(group) {
+                                    
+                                } else {
                                 if group.members.count < 4 {
                                 groupList.append(group)
                                 }
+                                }
     //                        }
-                            }
-                            }
+                            
+                            
                             
                         } else {
                             

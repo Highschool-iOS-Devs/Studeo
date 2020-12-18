@@ -67,8 +67,9 @@ struct GroupsView: View {
     func joinGroup(newGroup: Groups) {
         let db = Firestore.firestore()
         let docRef = db.collection("groups")
+        group.members.append(userData.userID)
         do{
-            try docRef.document(newGroup.groupID).setData(from: newGroup)
+            try docRef.document(group.groupID).setData(from: group)
             
         }
         catch{
@@ -96,7 +97,7 @@ struct GroupsView: View {
                 } else {
                     ref.updateData(
                         [
-                            "groups":[newGroup.groupID]
+                            "groups":[group.groupID]
                         ]
                     )
                 }
