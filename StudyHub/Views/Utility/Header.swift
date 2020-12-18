@@ -36,7 +36,7 @@ struct Header: View {
             
             Button(action: {viewRouter.currentView = .profile}) {
                 
-                ProfileRingView(image: Image("demoprofile"),size: 55)
+                ProfileRingView(size: 55)
             
             } .padding(.trailing, 22)
             

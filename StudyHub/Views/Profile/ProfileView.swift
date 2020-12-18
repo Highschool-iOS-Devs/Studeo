@@ -20,7 +20,7 @@ import UIKit
     @Binding var user: [User]
     @State var showLoadingAnimation = false
     @State private var showImagePicker : Bool = false
-       @State private var image : UIImage? = nil
+    @State private var image : UIImage? = nil
     @EnvironmentObject var userData: UserData
     @Environment(\.presentationMode) var presentationMode
      var body: some View {
@@ -54,15 +54,7 @@ import UIKit
                 HStack {
                     Spacer()
                    
-                    Image(uiImage: (profileImage))
-                       
-                        .renderingMode(.original)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .clipShape(Circle())
-                        .overlay(Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 5))
-                        
-                        .frame(width: 150, height: 150, alignment: .center)
+                ProfileRingView(size: 350)
                         .onTapGesture{
                             showImagePicker.toggle()
                          }

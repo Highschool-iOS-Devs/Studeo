@@ -22,7 +22,7 @@ struct RecentPeopleRowSubview: View {
                 .fill(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
    
             HStack {
-                ProfileRingView(image: profilePicture, size:45)
+                ProfileRingView(size:45)
                 VStack {
                 //ACT Group
                     Text(person.name).font(.custom("Montserrat SemiBold", size: 13)).foregroundColor(Color(#colorLiteral(red: 0, green: 0.6, blue: 1, alpha: 1)))

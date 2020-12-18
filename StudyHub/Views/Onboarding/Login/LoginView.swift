@@ -107,14 +107,23 @@ struct LoginView: View {
             query.getDocuments{snapshot, error in
                 if let error = error {
                     print("Error getting documents: \(error)")
-                } else {
-                    if snapshot!.documents.count > 1{
-                        fatalError("Error, multiple user with the same ID exists.")
+                    let document = snapshot!.documents[0]
+                let result = Result{
+                    try document.data(as: User.self)
                     }
-                    for document in snapshot!.documents{
-                        self.userData.userID = document["id"] as! String
-                        self.userData.name = document["name"] as! String
-                    } 
+                    switch result{
+                    case .success(let user):
+                        if let user=user{
+                            self.userData.userID = user.id.uuidString
+                            self.userData.name = user.name
+                            self.userData.profilePictureURL = user.profileImageURL
+                        }
+                        else{
+                            print("Document does not exist")
+                        }
+                    case .failure(let error):
+                        print("Error decoding user: \(error)")
+                    }
                     
                 }
                 self.showLoadingAnimation = false

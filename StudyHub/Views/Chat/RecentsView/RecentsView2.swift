@@ -8,7 +8,6 @@
 
 import SwiftUI
 import Firebase
-import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
@@ -229,27 +228,7 @@ struct RecentsView2: View {
      
     }
 
-//    func downloadImages(for userID:String) -> Image? {
-//        let metadata = StorageMetadata()
-//        metadata.contentType = "image/jpeg"
-//
-//        let storage = Storage.storage()
-//        let pathReference = storage.reference(withPath: userData.userID)
-//
-//       // gs://study-hub-7540b.appspot.com/images
-//        pathReference.getData(maxSize: 1 * 500 * 500) { data, error in
-//          if let error = error {
-//            print(error)
-//            // Uh-oh, an error occurred!
-//          } else {
-//            // Data for "images/island.jpg" is returned
-//            var image = UIImage(data: data!) ?? nil
-//            return Image(uiImage: image!)
-//
-//
-//          }
-//        }
-//    }
+
         
         
     }

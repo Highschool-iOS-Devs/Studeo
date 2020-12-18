@@ -87,7 +87,7 @@ struct EditProfile: View {
             .padding(.bottom, 22)
         
         Button(action: {
-         sendData()
+            sendData()
             uploadImage()
             
     
@@ -109,13 +109,13 @@ struct EditProfile: View {
         }
     }
 }
+
     func uploadImage() {
       
            let metadata = StorageMetadata()
            metadata.contentType = "image/jpeg"
-
-           let storage = Storage.storage().reference()
-        storage.child(userData.userID).putData(profileImage.jpegData(compressionQuality: 0.4)!, metadata: metadata) { meta, error in
+        let storage = Storage.storage().reference().child("User_Profile/\(userData.userID)")
+            storage.putData(profileImage.jpegData(compressionQuality: 0.1)!, metadata: metadata) { meta, error in
                if let error = error {
                    print(error)
                    return
@@ -123,9 +123,7 @@ struct EditProfile: View {
 
               
            }
-          
-     
-   }
+    }
     func sendData() {
        
                 let db = Firestore.firestore()
