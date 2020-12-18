@@ -355,6 +355,7 @@
 				620590E524FDBB21001565BF /* Leaderboard */,
 				620590E824FDBB21001565BF /* SubViews */,
 				620590EC24FDBB21001565BF /* Onboarding */,
+				E17401FF258C3D7D00A259CC /* Admin */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -549,6 +550,13 @@
 				E155D6A2251AACA9008281AE /* ImagePicker.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		E17401FF258C3D7D00A259CC /* Admin */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Admin;
 			sourceTree = "<group>";
 		};
 		E1C91E152503B86800001424 /* Utility */ = {
@@ -970,7 +978,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.StudyHub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -992,7 +1000,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.StudyHub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

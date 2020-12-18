@@ -22,7 +22,7 @@ struct ContentView: View {
     @State var settings = false
     @State var add = false
     @State var recentPeople = [Groups]()
-    @State var recentGroups = [Groups]()
+    @State var recommendGroups = [Groups]()
     @State var images = [UIImage]()
     @State var profileImage = UIImage()
     @State var user = [User]()
@@ -45,19 +45,29 @@ struct ContentView: View {
                         .onAppear{
                             self.loadDMsData(){ userData in
                                 //Get completion handler data results from loadData function and set it as the recentPeople local variable
-                                self.myGroups = userData ?? []
-                                hasLoaded = true
+                                self.recentPeople = userData ?? []
+                               
                                 downloadImages()
                             }
                            
-                            downloadImage()
-                          
                             self.loadUserData(){ userData in
                                 //Get completion handler data results from loadData function and set it as the recentPeople local variable
                                 self.user = userData
-                               
-                            
+                                self.loadMyGroupsData(){ userData in
+                                    myGroups = userData ?? []
+                                self.loadGroupsData(){ userData in
+                                    //Get completion handler data results from loadData function and set it as the recentPeople local variable
+                                    self.recommendGroups = userData ?? []
+                                    hasLoaded = true
+                                }
+                                }
                             }
+                            
+                           
+                           
+                            downloadImage()
+                            
+                          
                            
                     }
                 if hasLoaded {
@@ -80,7 +90,7 @@ struct ContentView: View {
                         if !userData.isOnboardingCompleted {
                             Home()
                         } else {
-                            Homev2(recentPeople: $myGroups, user: $user)
+                            Homev2(recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user)
                             .environmentObject(userData)
                             .environmentObject(viewRouter)
                        
@@ -174,7 +184,54 @@ struct ContentView: View {
               performAction(userList)
         }
     }
-    
+    func loadMyGroupsData(performAction: @escaping ([Groups]?) -> Void) {
+        let db = Firestore.firestore()
+        let docRef = db.collection("groups")
+        var groupList:[Groups] = []
+        //Get every single document under collection users
+        let queryParameter = docRef.whereField("members", arrayContains: userData.userID)
+        queryParameter.getDocuments{ (querySnapshot, error) in
+            if let querySnapshot = querySnapshot,!querySnapshot.isEmpty{
+            for document in querySnapshot.documents{
+                let result = Result {
+                    try document.data(as: Groups.self)
+                }
+                switch result {
+                    case .success(let group):
+                        if var group = group {
+                            i = 0
+                            var array = group.groupName.components(separatedBy: " and ")
+                            for a in array {
+                                if a == userData.name {
+                                    print(i)
+                                    if i < array.count {
+                                    array.remove(at: i)
+                                }
+                                }
+                                i += 1
+                            }
+                            group.groupName = array.joined()
+                            groupList.append(group)
+                            
+                        } else {
+                            
+                            print("Document does not exist")
+                        }
+                    case .failure(let error):
+                        print("Error decoding user: \(error)")
+                    }
+                
+              
+            }
+            }
+            else{
+                performAction(nil)
+            }
+              performAction(groupList)
+        }
+        
+        
+    }
     func loadDMsData(performAction: @escaping ([Groups]?) -> Void) {
         let db = Firestore.firestore()
         let docRef = db.collection("dms")
@@ -223,7 +280,78 @@ struct ContentView: View {
         
         
     }
-   
+    func loadGroupsData(performAction: @escaping ([Groups]?) -> Void) {
+        let db = Firestore.firestore()
+        let docRef = db.collection("groups")
+        var groupList:[Groups] = []
+        //Get every single document under collection users
+        print(user[0].interests!.first!)
+        let queryParameter = docRef.whereField("interests", arrayContains: "\(user[0].interests!.first!)")
+        queryParameter.getDocuments{ (querySnapshot, error) in
+            if let querySnapshot = querySnapshot,!querySnapshot.isEmpty{
+            for document in querySnapshot.documents{
+                let result = Result {
+                    try document.data(as: Groups.self)
+                }
+                switch result {
+                    case .success(let group):
+                        if var group = group {
+                           
+                           
+                            
+                            
+                                for person in group.members {
+                                    var pairedBefore = false
+                                    print(myGroups)
+                                pairedBefore = checkPreviousPairing(from: myGroups, withUser: person, for: user[0].interests!.first!)
+                               
+                            
+                            if !pairedBefore {
+    //                        if user.isAvailable == true {
+                                if group.members.count < 4 {
+                                groupList.append(group)
+                                }
+    //                        }
+                            }
+                            }
+                            
+                        } else {
+                            
+                            print("Document does not exist")
+                        }
+                    case .failure(let error):
+                        print("Error decoding user: \(error)")
+                    }
+                
+              
+            }
+            }
+            else{
+                performAction(nil)
+            }
+              performAction(groupList)
+        }
+        
+        
+    }
+    
+    func checkPreviousPairing(from myGroups: [Groups], withUser pairedUser: String, for interest: UserInterestTypes) -> Bool {
+        var pairedInterests: [UserInterestTypes: [String]] = [.ACT: [], .APCalculus : [], .SAT: [], .Algebra2: []]
+        for group in myGroups {
+            for interest in group.interests {
+                guard let interest = interest else { return false }
+                var membersWithSameInterest: [String] = []
+                for member in group.members {
+                    membersWithSameInterest.append(member)
+                }
+                for member in membersWithSameInterest {
+                    pairedInterests[interest]?.append(member)
+                }
+            }
+        }
+        guard let currentInterestPairings = pairedInterests[interest] else { return false }
+        return currentInterestPairings.contains(pairedUser)
+    }
     func downloadImages() {
         for people in myGroups {
             print(0)
