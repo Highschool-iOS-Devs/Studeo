@@ -19,7 +19,7 @@ struct SettingView: View {
                 ScrollView {
                     VStack {
                         VStack {
-                            profilePictureCircle()
+                            ProfileRingView(size: 100)
                             Text(userData.name)
                             .font(.custom("Montserrat-Bold", size: 28))
                             .padding(.top, 10)

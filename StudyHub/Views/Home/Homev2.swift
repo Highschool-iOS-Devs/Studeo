@@ -60,12 +60,15 @@ struct Homev2: View {
                             } .padding(.top)
                         }
                         Divider()
+                        if recommendGroups.isEmpty {
+                            
+                        } else {
                         HStack {
                             Text("Recommended")
                                 .font(.custom("Montserrat Bold", size: 24)).foregroundColor(Color("Primary"))
                             Spacer()
                         }.padding()
-                            
+                        }
                         ScrollView(.horizontal, showsIndicators: false) {
                                 HStack {
                                     ForEach(recommendGroups, id:\.self){ group in
