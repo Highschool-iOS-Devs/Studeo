@@ -11,7 +11,10 @@ struct SelfRankView: View {
     
     var hours:Double
     var body: some View {
-        HStack(alignment: .center, spacing: 45){
+        HStack(alignment: .center) {
+            ProfileRingView(size: 60)
+            
+            Spacer()
             VStack {
                 Image(systemName: "stopwatch.fill")
                     .foregroundColor(Color.black.opacity(0.8))
@@ -19,26 +22,27 @@ struct SelfRankView: View {
                Text(hours.removeZerosFromEnd())
                     .foregroundColor(.black)
                 HStack {
-                    Text("Hours")
+                    Text("All Time Hours")
                         .foregroundColor(.black)
                         .padding(.top, 5)
                     
                 }
                 
             }
-            ProfileRingView(size: 60)
+           
+          
             
             VStack {
-                Image(systemName: "arrowtriangle.down.fill")
-                    .font(.system(size: 13))
-                    .foregroundColor(.red)
-                Text("96")
-                    .foregroundColor(.black)
-                Text("Ranking")
-                    .foregroundColor(.black)
-                    .padding(.top, 5)
+                //Image(systemName: "arrowtriangle.down.fill")
+                    //.font(.system(size: 13))
+                    //.foregroundColor(.red)
+               // Text("96")
+                  //  .foregroundColor(.black)
+                //Text("Ranking")
+                  //  .foregroundColor(.black)
+                   // .padding(.top, 5)
             }
-        }
+        } .padding()
         .font(.custom("Montserrat-SemiBold", size: 15))
         .frame(width: 300, height: 100)
         .background(Color.white)
