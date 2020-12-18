@@ -271,8 +271,7 @@ struct ContentView: View {
         if user.isEmpty {
             
         } else {
-            if ((user[0].interests?.isEmpty) != nil) {
-                
+            if user[0].interests!.count < 0 {
             } else {
         //Get every single document under collection users
         

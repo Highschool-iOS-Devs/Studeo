@@ -78,12 +78,12 @@ struct IntroCustomize: View {
                 if isNotOnboarding {
                
               
-                Text("Skip for now")
-                    .font(.custom("Montserrat-Regular", size: 17))
-                    .foregroundColor(Color.black.opacity(0.5))
-                    .padding(.bottom, 10)
+             //   Text("Skip for now")
+                  //  .font(.custom("Montserrat-Regular", size: 17))
+                    //.foregroundColor(Color.black.opacity(0.5))
+                   // .padding(.bottom, 10)
                 Button(action: {
-                    if interestSelected != []{
+                    if interestSelected != [] {
                         do{
                             try saveData()
                             userData.isOnboardingCompleted = true
@@ -116,7 +116,7 @@ struct IntroCustomize: View {
     func saveData() throws -> Void{
         let db = Firestore.firestore()
         let docRef = db.collection("users").document(userData.userID)
-        try docRef.setData(from: ["interests":interestSelected], merge: true)
+        try docRef.setData(from: ["interests": interestSelected], merge: true)
         if isNotOnboarding {
         self.viewRouter.updateCurrentView(view: .home)
         }
