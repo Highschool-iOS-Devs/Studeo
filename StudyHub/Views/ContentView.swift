@@ -30,6 +30,7 @@ struct ContentView: View {
     @State var hasLoaded: Bool = false
     @State var interests = [String]()
     @State var i = 0
+    @State var i2 = 0
     var body: some View {
         ZStack { 
             Color.white
@@ -60,6 +61,16 @@ struct ContentView: View {
                                 self.loadGroupsData(){ userData in
                                     //Get completion handler data results from loadData function and set it as the recentPeople local variable
                                     self.recommendGroups = userData!.removeDuplicates()
+                                    
+                                  let g =  recommendGroups + myGroups
+                                    self.recommendGroups = g.removeDuplicates()
+                                   
+                                    for g in recommendGroups {
+                                        if i2 > 3 {
+                                            recommendGroups.remove(at: i)
+                                        }
+                                        i2 += 1
+                                    }
                                     hasLoaded = true
                                 }
                                 }
@@ -275,7 +286,7 @@ struct ContentView: View {
             } else {
         //Get every single document under collection users
         
-                let queryParameter = docRef.whereField("interests", arrayContains: "\(user[0].interests!.first!)").limit(to: 4)
+                let queryParameter = docRef.whereField("interests", arrayContains: "\(user[0].interests!.first!)")
                 queryParameter.getDocuments { (querySnapshot, error) in
             if let querySnapshot = querySnapshot,!querySnapshot.isEmpty{
             for document in querySnapshot.documents{
