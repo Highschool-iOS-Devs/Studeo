@@ -12,218 +12,93 @@ import FirebaseFirestore
 import UIKit
 
  struct ProfileView: View {
-    @State var imagePicker: Bool = false
-    @Binding var profileImage: UIImage
+    @State var profileImage:UIImage?
     @State var hasLoaded: Bool = true
     @State var isUser: Bool = false
     @State var edit: Bool = false
     @Binding var user: [User]
-    @State var showLoadingAnimation = false
-    @State private var showImagePicker : Bool = false
+    @State var showEditProfile = false
     @State private var image : UIImage? = nil
     @EnvironmentObject var userData: UserData
     @Environment(\.presentationMode) var presentationMode
      var body: some View {
          ZStack {
-            if !showImagePicker {
+      
                 Color(.systemBackground)
                    .onAppear() {
-                     // profileImage = UIImage(named: "5539")
-                   
-                   
-                    //  downloadImage()
-                      
-                   }
-            }
-            if isUser {
-                Color(.systemBackground)
-                    .onAppear() {
-                      // profileImage = UIImage(named: "5539")
-                        //downloadImage()
-                        
-                    }
-             
-                
-                
-            if hasLoaded {
-                if !showLoadingAnimation {
-                   
-             ScrollView(showsIndicators: false) {
-             VStack {
-                 Spacer()
-                HStack {
-                    Spacer()
-                   
-                ProfileRingView(size: 350)
-                        .onTapGesture{
-                            showImagePicker.toggle()
-                         }
-                    Spacer()
-                    
-                } .padding(.horizontal, 42)
-                
-                    
-                
-
-                Text(userData.name)
-                    // .frame(minWidth: 100, alignment: .leading)
-                     .font(.custom("Montserrat-Semibold", size: 22))
-                     .foregroundColor(Color(.black))
-                     .multilineTextAlignment(.center)
-                    
-                    Spacer()
-                 HStack {
-                    ForEach(user){ user in
-                        ProfileStats(allNum: user.all, all: true)
-                        ProfileStats(monthNum: user.month, month: true)
-                        ProfileStats(dayNum: user.day, day: true)
-                   
-                    }
-                   
-                 }
-                Text(userData.description)
-                     .frame(minWidth: 100, alignment: .leading)
-                     .font(.custom("Montserrat-Semibold", size: 18))
-                     .foregroundColor(Color(.black))
-                     .multilineTextAlignment(.center)
-                   
-                     .padding()
-                    .onTapGesture() {
-                        showImagePicker = true
-                    }
-             }
-                
-             }
-                    
-            
-             .sheet(isPresented: self.$showImagePicker){
-                ImagePicker(isShown: self.$showImagePicker, image: self.$image, userID: $userData.userID)
-                    .environmentObject(userData)
-             }
-                
-                }
-                    
-            }
-                Spacer(minLength: 110)
-                
-                
-            } else {
-                Color(.systemBackground)
-                   .onAppear() {
-                     // profileImage = UIImage(named: "5539")
-                      //downloadImage()
                        self.loadData(){userData in
-                           //Get completion handler data results from loadData function and set it as the recentPeople local variable
                            self.user = userData
                         hasLoaded = true
                        
                        }
                    }
-                //if hasLoaded {
-                    ForEach(user){ user in
-                 ScrollView(showsIndicators: false) {
                  VStack {
                  
                     HStack {
-                        
                         Spacer()
-                       
-                        Image(uiImage: (profileImage))
-                            .renderingMode(.original)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .clipShape(Circle())
-                            .overlay(Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 5))
-                            .frame(width: 300, height: 300, alignment: .center)
-                           
-                           
-                        Spacer()
-                        
+                        Text("Edit Profile")
+                            .font(.custom("Montserrat", size: 18))
+                        Image(systemName: "pencil.circle.fill")
                     }
-                 
                     .onTapGesture {
-                      //  showImagePicker = true
-                     }
-                    .sheet(isPresented: self.$showImagePicker){
-                        ImagePicker(isShown: self.$showImagePicker, image: self.$image, userID: $userData.userID)
-                            .environmentObject(userData)
-                     }
-                    .padding(.horizontal, 42)
-                     
+                        showEditProfile = true
+                    }
+                    .foregroundColor(Color("Primary"))
+                        if profileImage != nil{
+                            Image(uiImage: (profileImage!))
+                                .renderingMode(.original)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 350, height: 350, alignment: .center)
+                                .clipShape(Circle())
+                                .overlay(Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 5))
+                           
+                        }
+                        else{
+                            ProfileRingView(size: 350)
+                                 
+                            
+                            
+                        }
+           
 
-                    Text(user.name)
+                    Text(userData.name)
                         // .frame(minWidth: 100, alignment: .leading)
                          .font(.custom("Montserrat-Semibold", size: 22))
                          .foregroundColor(Color(.black))
                          .multilineTextAlignment(.leading)
-                        .padding(.bottom, 22)
-                       
+                        .padding(.bottom, 15)
+                    Divider()
+                        .foregroundColor(Color("Primary"))
                      HStack {
                        
-                        ProfileStats(allNum: user.all, all: true)
-                        ProfileStats(monthNum: user.month, month: true)
-                        ProfileStats(dayNum: user.day, day: true)
+                        ProfileStats(allNum: 0, all: true)
+                        ProfileStats(monthNum: 0, month: true)
+                        ProfileStats(dayNum: 0, day: true)
                        
                       
                        
-                     }  .padding(.bottom, 22)
-                    Text(user.description)
+                     }
+                     .padding(.bottom, 15)
+                     .padding(.top, 40)
+                    Text(userData.description)
                          .frame(minWidth: 100, alignment: .center)
                          .font(.custom("Montserrat-Semibold", size: 18))
                          .foregroundColor(Color(.black))
                          .multilineTextAlignment(.center)
-                         .padding()
                         .padding(.bottom, 22)
-                    Spacer(minLength: 110)
+                   Spacer()
                  }
-                 }
+                 .padding(.horizontal)
 
-                
-           //     }
-                    }
-                if !isUser {
-                    VStack {
-                        
-                        HStack {
-                            Spacer()
-                            Image(systemName: "pencil.circle")
-                                .foregroundColor(.black)
-                                .font(.title)
-                                .onTapGesture {
-                                    edit.toggle()
-                                }
-                            
-                        }
-                        Spacer()
-                    } .padding()
-                    .sheet(isPresented: $edit) {
-                        EditProfile(profileImage: $profileImage, user: $user)
-                            .environmentObject(userData)
-                    }
-                }
-                
-                if showLoadingAnimation {
-                    BlurView(style: .systemChromeMaterial)
-                        .edgesIgnoringSafeArea(.all)
-                    VStack{
-                        LottieUIView()
-                            .animation(.easeInOut)
-                        Text("Loading...")
-                            .font(.custom("Montserrat-SemiBold", size: 25))
-                            .offset(y: -40)
-                    }
-                    .frame(width: 300, height: 400)
-                    .background(Color.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-                   // .shadow(color: Color.black.opacity(0.3), radius: 5, x: 0, y: 0)
-                    .animation(.easeInOut)
-                  
-                }
-            } 
-         }
+                 
+
+            
+         
+     } .sheet(isPresented: self.$showEditProfile){
+        EditProfile(profileImage: $profileImage, user: $user)
      }
-   
-   
+     }
   
     func sendData() {
        

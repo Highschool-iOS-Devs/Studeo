@@ -12,7 +12,7 @@ import Firebase
 import FirebaseStorage
 struct EditProfile: View {
     @State var imagePicker: Bool = false
-    @Binding var profileImage: UIImage
+    @Binding var profileImage: UIImage?
     @State var hasLoaded: Bool = false
     @State var isUser: Bool = false
     @State var edit: Bool = false
@@ -24,27 +24,49 @@ struct EditProfile: View {
     @EnvironmentObject var userData: UserData
        @State private var image : UIImage? = nil
     @Environment(\.presentationMode) var presentationMode
+    var imagePlaceholder = Image(systemName: "person.circle.fill")
+
     var body: some View {
         ZStack {
           
         ForEach(user){ user in
-     ScrollView(showsIndicators: false) {
      VStack {
          Spacer()
         HStack {
             
             Spacer()
-           
-            Image(uiImage: (profileImage))
-                .renderingMode(.original)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .clipShape(Circle())
-                .overlay(Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 5))
-                .padding(.top, 110)
-                .padding(.bottom, 22)
+            if profileImage == nil{
+                ZStack(alignment:.center) {
+                    imagePlaceholder
+                        .renderingMode(.original)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 350, height: 350)
+                        .overlay(BlurView(style: .systemThinMaterial))
+                        .clipShape(Circle())
+                        .overlay(
+                                Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 5)
+                        )
+                    Text("Tap to choose")
+                        .font(.custom("Montserrat-Bold", size: 30))
+                        .foregroundColor(Color("Primary"))
+                }
+                
+            }
+            else{
+                Image(uiImage: (profileImage!))
+                    .renderingMode(.original)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 350, height: 350)
+                    .clipShape(Circle())
+                    .overlay(Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 5))
+                    .padding(.top, 110)
+                    .padding(.bottom, 22)
+            }
+         
                
-            Spacer()
+
             
         }
         .onTapGesture {
@@ -55,10 +77,11 @@ struct EditProfile: View {
                 .environmentObject(userData)
                 .onDisappear() {
                     profileImage = image ?? profileImage
+                    self.userData.profilePictureURL = nil
                 }
          }
         .padding(.horizontal, 42)
-         Spacer()
+
 
         TextField(user.name, text: $name)
             
@@ -67,7 +90,7 @@ struct EditProfile: View {
              .multilineTextAlignment(.leading)
             .padding(.bottom, 22)
             .padding()
-            Spacer()
+
          HStack {
            
             ProfileStats(allNum: user.all, all: true)
@@ -97,14 +120,13 @@ struct EditProfile: View {
         }
         .buttonStyle(BlueStyle())
         .padding()
-        Spacer(minLength: 110)
+        Spacer()
         
         
      
      }
-        }
-    
-//     }
+     .padding(.horizontal)
+
       
         }
     }
@@ -115,7 +137,8 @@ struct EditProfile: View {
            let metadata = StorageMetadata()
            metadata.contentType = "image/jpeg"
         let storage = Storage.storage().reference().child("User_Profile/\(userData.userID)")
-            storage.putData(profileImage.jpegData(compressionQuality: 0.1)!, metadata: metadata) { meta, error in
+        if let image = profileImage{
+            storage.putData(image.jpegData(compressionQuality: 0.01)!, metadata: metadata) { meta, error in
                if let error = error {
                    print(error)
                    return
@@ -123,6 +146,8 @@ struct EditProfile: View {
 
               
            }
+        }
+     
     }
     func sendData() {
        

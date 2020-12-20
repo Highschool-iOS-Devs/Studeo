@@ -24,7 +24,6 @@ struct ContentView: View {
     @State var recentPeople = [Groups]()
     @State var recommendGroups = [Groups]()
     @State var images = [UIImage]()
-    @State var profileImage = UIImage()
     @State var user = [User]()
     @State private var offset = CGSize.zero
     @State var hasLoaded: Bool = false
@@ -93,7 +92,7 @@ struct ContentView: View {
                             .environmentObject(userData)
                             .environmentObject(viewRouter)
                     case .profile:
-                        ProfileView(profileImage: $profileImage, user: $user)
+                        ProfileView(user: $user)
                             .environmentObject(userData)
                             .environmentObject(viewRouter)
                     case .home:
