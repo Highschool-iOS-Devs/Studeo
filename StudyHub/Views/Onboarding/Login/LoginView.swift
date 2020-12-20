@@ -32,7 +32,8 @@ struct LoginView: View {
                 Spacer()
                 ButtonsSubview(mainButtonAction: {showError()},
                                secondaryButtonAction:{self.viewRouter.updateCurrentView(view: .registration)}, displayMode: .login)
-                    .padding(.bottom, 50)
+                    .padding(.top, 30)
+                    .padding(.bottom)
             }
             .padding(.bottom, 22)
             .blur(radius: showLoadingAnimation ? 20 : 0)
@@ -51,7 +52,7 @@ struct LoginView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
                 .shadow(color: Color.black.opacity(0.3), radius: 15, x: 10, y: 10)
                 .animation(.easeInOut)
-                .padding(.bottom)
+                
             }
             if self.displayError{
                 VStack {
