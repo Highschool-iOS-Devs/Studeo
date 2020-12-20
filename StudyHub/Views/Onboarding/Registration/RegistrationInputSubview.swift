@@ -22,6 +22,7 @@ struct RegistrationInputSubview: View {
                     .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                     .shadow(color: Color("Primary").opacity(0.2), radius: 3, x: 0, y: 5)
                     .padding(.leading)
+                    .accessibility(hidden: true)
                 
                 TextField("Name".uppercased(), text: $name)
                     .lineLimit(nil)
@@ -31,6 +32,7 @@ struct RegistrationInputSubview: View {
                     .padding(.horizontal)
                     .frame(height: 44)
                     .padding(.trailing, 15)
+                    .accessibility(hint: Text("Enter the username for your new account"))
 
             }
             Divider().padding(.leading, 80).padding(.trailing, 15)
@@ -42,6 +44,7 @@ struct RegistrationInputSubview: View {
                     .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                     .shadow(color: Color("Primary").opacity(0.2), radius: 3, x: 0, y: 5)
                     .padding(.leading)
+                    .accessibility(hidden: true)
                 
                 TextField("Email".uppercased(), text: $email)
                     .lineLimit(nil)
@@ -52,6 +55,7 @@ struct RegistrationInputSubview: View {
                     .autocapitalization(.none)
                     .textContentType(.emailAddress)
                     .padding(.trailing, 15)
+                    .accessibility(hint: Text("Enter the email address for your new account"))
             }
             Divider().padding(.leading, 80).padding(.trailing, 15)
             HStack {
@@ -62,6 +66,7 @@ struct RegistrationInputSubview: View {
                     .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                     .shadow(color: Color("Primary").opacity(0.2), radius: 3, x: 0, y: 5)
                     .padding(.leading)
+                    .accessibility(hidden: true)
                 
                 SecureField("Password".uppercased(), text: $password)
                     .lineLimit(nil)

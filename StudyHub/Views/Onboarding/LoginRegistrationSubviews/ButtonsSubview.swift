@@ -34,6 +34,7 @@ struct ButtonsSubview: View {
             }
             .buttonStyle(WhiteStyle())
             .padding(.horizontal, 60)
+            .accessibility(hint: Text("Double tap here if you don't have an account"))
         }
             else{
                 Button(action: mainButtonAction) {
@@ -50,6 +51,7 @@ struct ButtonsSubview: View {
                 }
                 .buttonStyle(WhiteStyle())
                 .padding(.horizontal, 60)
+                .accessibility(hint: Text("Double tap here if you already have an account"))
             }
     }
 }

@@ -30,7 +30,7 @@ struct IntroPage: View {
                     .padding(.bottom, 30)
                     .padding(.horizontal, 20)
                 
-                Image(image)
+                Image(decorative: image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: screenSize.width-40, height:screenSize.height/2.3)

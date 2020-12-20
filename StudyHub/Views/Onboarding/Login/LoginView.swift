@@ -14,8 +14,8 @@ import FirebaseAuth
 import FirebaseCore
 
 struct LoginView: View {
-    @State private var password: String = "perry1"
-    @State private var email: String = "andreasink@outlook.com"
+    @State private var password: String = ""
+    @State private var email: String = ""
     @State var displayError = false
     @State var showLoadingAnimation = false
     @State var test = true
@@ -26,7 +26,7 @@ struct LoginView: View {
     var body: some View {
         ZStack {
             VStack {
-            TitleSubview(titleText: "Login", image: Image("login_drawing"))
+            TitleSubview(titleText: "Login", image: "login_drawing")
                InputFieldSubview(password: $password, email: $email)
                     .padding(.top,30)
                 Spacer()
@@ -107,6 +107,7 @@ struct LoginView: View {
             query.getDocuments{snapshot, error in
                 if let error = error {
                     print("Error getting documents: \(error)")
+                } else {
                     let document = snapshot!.documents[0]
                 let result = Result{
                     try document.data(as: User.self)

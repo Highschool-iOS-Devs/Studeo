@@ -10,13 +10,13 @@ import SwiftUI
 
 struct TitleSubview: View {
     var titleText:String
-    var image:Image
+    var image:String
     var body: some View {
         VStack {
             Text(titleText)
                 .font(Font.custom("Montserrat-SemiBold", size: 34))
                 .padding(.bottom, 40)
-            image
+            Image(decorative: image)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(height: 220)

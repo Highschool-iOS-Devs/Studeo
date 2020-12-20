@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 import Network
 
 let screenSize = UIScreen.main.bounds.size
@@ -14,6 +15,7 @@ let screenSize = UIScreen.main.bounds.size
 struct SettingView: View {
     @EnvironmentObject var userData: UserData
     @EnvironmentObject var viewRouter: ViewRouter
+    @State var userIsAvailable = true
     var body: some View {
             NavigationView {
                 ScrollView {
@@ -37,6 +39,7 @@ struct SettingView: View {
                                 .padding(.top, 40)
                                 .padding(.horizontal, 22)
                             VStack(spacing: 30) {
+                                availabilityRowView(settingText: "Available for new pairings", userAvailable: $userIsAvailable)
                                 settingRowView(settingText: "Notifications", settingState: "On", newView: AnyView(NotificationsView()))
                                 settingRowView(settingText: "Personal info", settingState: "", newView: AnyView(PersonalInfoView()))
                                 settingRowView(settingText: "Country", settingState: "United States", newView: AnyView(Text("Placeholder")))
@@ -44,6 +47,7 @@ struct SettingView: View {
                                 settingRowView(settingText: "Sign out", settingState: "", newView: AnyView(Text("Placeholder")), disableNavigation: true)
                                     .onTapGesture(){
                                         FirebaseManager.signOut()
+                                        resetUserDefaults()
                                         viewRouter.updateCurrentView(view:.login)
                                     }
                                 settingRowView(settingText: "Help", settingState: "", newView: AnyView(Text("Placeholder")))
@@ -61,12 +65,52 @@ struct SettingView: View {
                 .navigationBarTitle("")
                 .navigationBarHidden(true)
             }
+            .onAppear {
+                self.loadAvailabilityData()
+            }
             .onDisappear{
                 print("Settings disappeared, save data now.")
+                self.saveAvailabilityData()
                 monitor.cancel()
             }
         
+        
+        
+        
     }
+    
+    func resetUserDefaults() {
+        let defaults = UserDefaults.standard
+        let dict = defaults.dictionaryRepresentation()
+        dict.keys.forEach { key in
+            defaults.removeObject(forKey: key)
+        }
+    }
+    
+    func saveAvailabilityData() {
+        let db = Firestore.firestore()
+        let ref = db.collection("users").document(userData.userID)
+        ref.updateData(["isAvailable" : userIsAvailable]) { error in
+            guard let error = error else { return }
+//            print("Error updating data: \(error)")
+        }
+    }
+    
+    func loadAvailabilityData() {
+        let db = Firestore.firestore()
+        let ref = db.collection("users").document(userData.userID)
+        ref.getDocument { snapshot, error in
+            guard let snapshot = snapshot else {
+                print("Error loading data: \(error)")
+                return
+            }
+            let data = snapshot.data()?["isAvailable"] as? Bool
+            
+            self.userIsAvailable = data ?? false
+        }
+    }
+}
+    
     
     struct SettingView_Previews: PreviewProvider {
         static var previews: some View {
@@ -129,6 +173,29 @@ struct SettingView: View {
             
         }
     }
-}
+    
+    struct availabilityRowView: View {
+        var settingText: String
+        @Binding var userAvailable: Bool
+        var body: some View {
+                HStack{
+                    Text(settingText)
+                        .font(.custom("Montserrat-SemiBold", size: 12))
+                        .foregroundColor(.black)
+                        .opacity(0.4)
+                    
+                    Spacer()
+                    
+                    Toggle("Availability for pairing", isOn: $userAvailable)
+                        .opacity(0.4)
+                        .labelsHidden()
+                    
+                } .padding(.horizontal, 22)
+            
+            
+           
+            
+        }
+    }
 
 

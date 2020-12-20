@@ -14,9 +14,9 @@ import FirebaseFirestoreSwift
 import FirebaseStorage
 
 struct RegistrationView: View {
-    @State private var username: String = "A3"
-    @State private var password: String = "perry1"
-    @State private var email: String = "andreas.ink@wascholar.org"
+    @State private var username: String = ""
+    @State private var password: String = ""
+    @State private var email: String = ""
     @State var errorObject: ErrorModel = ErrorModel(errorMessage: "", errorState: false)
     @State var displayError = false
     @State var test = false
@@ -28,7 +28,7 @@ struct RegistrationView: View {
     var body: some View {
         ZStack {
                 VStack {
-                        TitleSubview(titleText: "Registration", image: Image("registration_drawing"))
+                        TitleSubview(titleText: "Registration", image: "registration_drawing")
                         
                         RegistrationInputSubview(password: $password, email: $email, name: $username)
                             .padding(.top,30)
