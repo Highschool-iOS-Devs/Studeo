@@ -16,10 +16,11 @@ struct TitleSubview: View {
             Text(titleText)
                 .font(Font.custom("Montserrat-SemiBold", size: 34))
                 .padding(.bottom, 40)
+                .foregroundColor(.black)
             Image(decorative: image)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(height: 220)
+                //.frame(height: 220)
         }
     }
         

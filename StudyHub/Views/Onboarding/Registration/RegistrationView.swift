@@ -31,13 +31,13 @@ struct RegistrationView: View {
                         TitleSubview(titleText: "Registration", image: "registration_drawing")
                         
                         RegistrationInputSubview(password: $password, email: $email, name: $username)
-                            .padding(.top,30)
+                            .padding(.top)
                         Spacer()
                         ButtonsSubview(mainButtonAction: {
                           parseData()
                         }, secondaryButtonAction: {self.viewRouter.updateCurrentView(view: .login)}, displayMode: .registration)
-                        .padding(.bottom, 50)
-                        
+                        .padding(.top, 30)
+                        .padding(.bottom)
                     }
                     .blur(radius: showLoadingAnimation ? 20 : 0)
                     .onAppear{
@@ -57,7 +57,7 @@ struct RegistrationView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
                 .shadow(color: Color.black.opacity(0.3), radius: 15, x: 10, y: 10)
                 .animation(.easeInOut)
-              
+                
             }
             VStack{
                 if self.displayError{

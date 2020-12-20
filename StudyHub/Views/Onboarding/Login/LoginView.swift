@@ -51,7 +51,7 @@ struct LoginView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
                 .shadow(color: Color.black.opacity(0.3), radius: 15, x: 10, y: 10)
                 .animation(.easeInOut)
-                
+                .padding(.bottom)
             }
             if self.displayError{
                 VStack {
