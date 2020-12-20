@@ -37,11 +37,15 @@ struct Homev2: View {
     @Binding var recommendGroups: [Groups]
     @Binding var user: [User]
     @State var imgs = ["2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing"]
+    @State var sum = 0.0
     var body: some View {
 
         ZStack {
             ZStack(alignment: .top){
                 Color("Background").edgesIgnoringSafeArea(.all)
+                    .onAppear() {
+                        sum = user[0].studyHours.reduce(0, +)
+                    }
                 VStack {
                     Spacer()
                         .frame(minHeight: 60, idealHeight: 60, maxHeight: 60)
@@ -90,7 +94,7 @@ struct Homev2: View {
                         if user.isEmpty {
                             
                         } else {
-                            SelfRankView(hours: user[0].studyHours.last ?? 0.0)
+                            SelfRankView(hours: sum)
                                 .padding()
                         }
                             //CTA(imgName: "Group", cta: "Add Group")
