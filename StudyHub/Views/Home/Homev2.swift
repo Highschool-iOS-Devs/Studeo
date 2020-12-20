@@ -90,7 +90,7 @@ struct Homev2: View {
                         if user.isEmpty {
                             
                         } else {
-                            SelfRankView(hours: user[0].studyHours)
+                            SelfRankView(hours: user[0].studyHours.last ?? 0.0)
                                 .padding()
                         }
                             //CTA(imgName: "Group", cta: "Add Group")
@@ -99,7 +99,7 @@ struct Homev2: View {
                             CTA(imgName: "study", cta: "Compete")
                                 .padding()
                             
-                            //LineView(data: [8,23,54,32,12,37,7,23,43], title: "Hours Studied", legend: "", style: Styles.barChartStyleNeonBlueLight)
+                        LineView(data: user[0].studyHours, title: "Hours Studied", legend: "", style: Styles.barChartStyleNeonBlueLight)
                                 .padding()
                             Spacer(minLength: 500)
                    

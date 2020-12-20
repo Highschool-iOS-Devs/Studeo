@@ -35,7 +35,8 @@ class TimerManager: ObservableObject {
     
     private var hasSavedBefore = false
     
-    
+    @Published var studyHours = [Double]()
+    @Published var studyDates = [String]()
     private func startTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { _ in
             withAnimation(.linear(duration: 1.0)) {
@@ -179,12 +180,12 @@ class TimerManager: ObservableObject {
     private func saveToFB() {
         print(totalTimePassed)
         let db = Firestore.firestore()
-        let studyHours = totalTimePassed / 3600
+         studyHours.append(totalTimePassed / 3600)
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .short
-        let studyDate = dateFormatter.string(from: endDate)
+         studyDates.append(dateFormatter.string(from: endDate))
         let timerData: [String: Any] = [
-            "studyDate" : studyDate,
+            "studyDate" : studyDates,
             "studyHours" : studyHours
         ]
         db.collection("users").document(userData.userID).updateData(timerData) { error in
@@ -206,9 +207,11 @@ class TimerManager: ObservableObject {
                 print("Error loading data: \(error)")
                 return
             }
-            let data = document.data()?["studyHours"] as? Double
+            self.studyHours = document.data()?["studyHours"] as? [Double] ?? [0.0]
+            self.studyDates = document.data()?["studyHours"] as? [String] ?? [""]
             
-            self.totalTimePassed = data ?? 0
+            let data = document.data()?["studyHours"] as? [Double]
+            self.totalTimePassed = data?.last ?? 0
 
         }
     }

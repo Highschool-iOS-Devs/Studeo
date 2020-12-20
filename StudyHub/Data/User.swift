@@ -22,8 +22,8 @@ struct User: Identifiable, Codable, Hashable {
     var recentGroups: [String]?
     var recentPeople: [String]?
     
-    var studyHours: Double
-    var studyDate: String
+    var studyHours: [Double]
+    var studyDate: [String]
     var all: Double
     var month: Double
     var day: Double

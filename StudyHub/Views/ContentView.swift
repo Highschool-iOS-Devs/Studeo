@@ -63,13 +63,7 @@ struct ContentView: View {
                                     self.recommendGroups = userData!.removeDuplicates()
                                     let g = recommendGroups + myGroups
                                   recommendGroups = g.removeDuplicates()
-                                    for g in recommendGroups {
-                                        if i2 > 3 {
-                                        recommendGroups.remove(at: i2)
-                                            i2 -= 1
-                                        }
-                                        i2 += 1
-                                    }
+                                   
                                   
                                     hasLoaded = true
                                 }
