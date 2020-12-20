@@ -167,16 +167,16 @@ struct LeadersStack: View {
     var body: some View {
         HStack(spacing: 30) {
             if leaders.count > 1 {
-                LeaderRankView(name: leaders[1].name, hours: leaders[1].studyHours.last ?? 0.0)
+                LeaderRankView(name: leaders[1].name, hours: leaders[1].all)
                     .offset(x: 0, y: 10)
             }
             if leaders.isEmpty {
             } else {
-            LeaderRankView(name: leaders[0].name, hours: leaders[0].studyHours.last ?? 0.0)
+            LeaderRankView(name: leaders[0].name, hours: leaders[0].all)
             }
             
             if leaders.count > 2 {
-                LeaderRankView(name: leaders[2].name, hours: leaders[2].studyHours.last ?? 0.0)
+                LeaderRankView(name: leaders[2].name, hours: leaders[2].all)
                     .offset(x: 0, y: 10)
             }
         }

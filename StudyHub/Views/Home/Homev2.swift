@@ -44,7 +44,12 @@ struct Homev2: View {
             ZStack(alignment: .top){
                 Color("Background").edgesIgnoringSafeArea(.all)
                     .onAppear() {
+                        if !user.isEmpty {
+                        if !user[0].studyHours.isEmpty {
+                        
                         sum = user[0].studyHours.reduce(0, +)
+                        }
+                    }
                     }
                 VStack {
                     Spacer()
@@ -102,9 +107,12 @@ struct Homev2: View {
                              
                             CTA(imgName: "study", cta: "Compete")
                                 .padding()
+                        if user.isEmpty {
                             
+                        } else {
                         LineView(data: user[0].studyHours, title: "Hours Studied", legend: "", style: Styles.barChartStyleNeonBlueLight)
                                 .padding()
+                        }
                             Spacer(minLength: 500)
                    
                     

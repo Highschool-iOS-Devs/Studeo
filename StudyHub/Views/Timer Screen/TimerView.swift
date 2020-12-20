@@ -38,6 +38,7 @@ struct TimerView: View {
                 Button(action: {
                     withAnimation {
                         self.showingView = false
+                       
                     }
                 }) {
                     Image(systemName: "xmark")
@@ -149,7 +150,8 @@ struct TimerView: View {
         }
         .onDisappear {
             self.timer.saveToUD()
-            self.timer.stopTimer()
+            self.timer.endTimer()
+            self.timer.invalidateTimer()
         }
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification), perform: { _ in
             self.timer.saveToUD()

@@ -81,6 +81,7 @@ struct LeaderboardView: View {
                             //self.leadersHasLoaded = true
                             
                             user[0].all = user[0].studyHours.reduce(0, +)
+                           
                         }
                     }
                 
@@ -108,7 +109,7 @@ struct LeaderboardView: View {
                         VStack(spacing: 30) {
                             ForEach(people){user in
                                 
-                                LeaderboardRow(name: user.name, hours: user.studyHours.last ?? 0.0)
+                                LeaderboardRow(name: user.name, hours: user.all)
                                     .onAppear() {
                                         print(user.name)
                                     }

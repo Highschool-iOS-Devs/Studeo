@@ -37,6 +37,11 @@ class TimerManager: ObservableObject {
     
     @Published var studyHours = [Double]()
     @Published var studyDates = [String]()
+    
+    @Published var today = [Double]()
+    @Published var month = [Double]()
+    @State var i = 0
+    
     private func startTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { _ in
             withAnimation(.linear(duration: 1.0)) {
@@ -75,11 +80,12 @@ class TimerManager: ObservableObject {
     
     func endTimer() {
         stopTimer()
-        if timePassed > 300 {
+        //if timePassed > 300 {
             //only give credit if study time is longer than 5 minutes
             self.totalTimePassed += self.timePassed
+        
             saveToFB()
-        }
+     //   }
         resetTimer()
         saveToUD()
     }
@@ -179,14 +185,37 @@ class TimerManager: ObservableObject {
     
     private func saveToFB() {
         print(totalTimePassed)
+        getStudyHoursFromFB() 
         let db = Firestore.firestore()
          studyHours.append(totalTimePassed / 3600)
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .short
          studyDates.append(dateFormatter.string(from: endDate))
+        
+        for date in studyDates {
+        
+           
+            print(dateFormatter.date(from: date)!.get(.day))
+        print( Date().get(.day) )
+            if dateFormatter.date(from: date)!.get(.day) == Date().get(.day) {
+                today.append(studyHours[i])
+            }
+           
+            
+            if dateFormatter.date(from: date)!.get(.month) == Date().get(.month) {
+                month.append(studyHours[i])
+            }
+            i += 1
+        }
+        let sum = studyHours.reduce(0, +)
+        let day = today.reduce(0, +)
+        let months = month.reduce(0, +)
         let timerData: [String: Any] = [
             "studyDate" : studyDates,
-            "studyHours" : studyHours
+            "studyHours" : studyHours,
+            "all": sum,
+            "day": day,
+            "month": months
         ]
         db.collection("users").document(userData.userID).updateData(timerData) { error in
             if let error = error {
@@ -208,10 +237,10 @@ class TimerManager: ObservableObject {
                 return
             }
             self.studyHours = document.data()?["studyHours"] as? [Double] ?? [0.0]
-            self.studyDates = document.data()?["studyHours"] as? [String] ?? [""]
+            self.studyDates = document.data()?["studyDate"] as? [String] ?? [""]
             
             let data = document.data()?["studyHours"] as? [Double]
-            self.totalTimePassed = data?.last ?? 0
+            self.totalTimePassed = data?.first ?? 0
 
         }
     }
