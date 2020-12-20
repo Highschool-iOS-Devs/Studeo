@@ -48,6 +48,8 @@ struct Homev2: View {
                         if !user[0].studyHours.isEmpty {
                         
                         sum = user[0].studyHours.reduce(0, +)
+                            
+                            
                         }
                     }
                     }

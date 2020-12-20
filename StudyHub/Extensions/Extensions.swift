@@ -74,3 +74,31 @@ extension Date {
         return calendar.component(component, from: self)
     }
 }
+protocol Accumulatable {
+    static func +(lhs: Self, rhs: Self) -> Self
+}
+extension Int : Accumulatable {}
+
+struct AccumulateSequence<T: Sequence>: Sequence, IteratorProtocol
+where T.Element: Accumulatable {
+    var iterator: T.Iterator
+    var accumulatedValue: T.Element?
+
+    init(_ sequence: T) {
+        self.iterator = sequence.makeIterator()
+    }
+
+    mutating func next() -> T.Element? {
+        if let val = iterator.next() {
+            if accumulatedValue == nil {
+                accumulatedValue = val
+            }
+            else { defer { accumulatedValue = accumulatedValue! + val } }
+            return accumulatedValue
+
+        }
+        return nil
+    }
+}
+
+

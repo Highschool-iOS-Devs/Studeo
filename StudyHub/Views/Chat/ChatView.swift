@@ -24,7 +24,7 @@ struct ChatView: View {
     //@State var image:Image
     @Binding var chat: Bool
     @State var ARChat = false
-    @State var test = false
+    @State var test = true
     var body: some View {
         ZStack {
             Color.white.edgesIgnoringSafeArea(.all)

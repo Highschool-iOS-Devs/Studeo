@@ -30,6 +30,7 @@ struct RecentsView2: View {
                 VStack {
                     ScrollView{
                         RecentChatTextRow(add: $add)
+                            .environmentObject(userData)
                         Spacer()
                         if allGroups == []{
                             Text("You are not in any study group yet,\n\nUse the add button to pair. 🙌").font(.custom("Montserrat Bold", size: 24)).foregroundColor(Color(#colorLiteral(red: 0.27, green: 0.89, blue: 0.98, alpha: 1)))
@@ -51,7 +52,7 @@ struct RecentsView2: View {
                         Spacer()
                         VStack{
                             AllGroupTextRow()
-                            
+                                .environmentObject(userData)
                             LazyVGrid(columns: gridItemLayout, spacing: 40){
                                 ForEach(allGroups){group in
                                     RecentChatGroupSubview(group: group)

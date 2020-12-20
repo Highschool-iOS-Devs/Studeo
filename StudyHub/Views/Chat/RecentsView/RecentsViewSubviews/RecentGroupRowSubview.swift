@@ -65,6 +65,7 @@ struct RecentGroupRowSubview: View {
         }
         .sheet(isPresented: self.$tapped){
             ChatView(group: group, chat: $chat)
+                .environmentObject(userData)
         }
         .onAppear{
             getTimeAndMessageRecord()
