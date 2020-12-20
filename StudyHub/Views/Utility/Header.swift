@@ -12,6 +12,7 @@ struct Header: View {
     @EnvironmentObject var userData: UserData
     @EnvironmentObject var viewRouter:ViewRouter
     @Binding var showTimer: Bool
+    @State var testing = false
     var body: some View {
         HStack {
             VStack {
@@ -33,13 +34,13 @@ struct Header: View {
                 }
             } .padding(.horizontal)
             Spacer()
-            
+           
             Button(action: {viewRouter.currentView = .profile}) {
                 
                 ProfileRingView(size: 55)
             
             } .padding(.trailing, 22)
-            
+            if testing {
             Button(action: { self.showTimer = true }) {
                 ZStack {
                     Color.white
@@ -54,7 +55,7 @@ struct Header: View {
                 }
             }
             
-        }
+        
         .frame(height: 120)
         .padding(.horizontal, 15)
         .padding(.top, 20)
@@ -62,7 +63,8 @@ struct Header: View {
         .border(Color("Background").opacity(0.3), width:0.5)
         .edgesIgnoringSafeArea(.all)
 
-
+            }
+        }
 
         
     }

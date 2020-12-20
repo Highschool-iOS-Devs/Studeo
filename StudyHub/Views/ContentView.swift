@@ -93,7 +93,7 @@ struct ContentView: View {
                         if !userData.isOnboardingCompleted {
                             Home()
                         } else {
-                            Homev2(recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user)
+                            Home()
                             .environmentObject(userData)
                             .environmentObject(viewRouter)
 

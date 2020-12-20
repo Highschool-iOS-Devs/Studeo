@@ -46,7 +46,7 @@ struct LoginView: View {
                         .font(.custom("Montserrat-SemiBold", size: 25))
                         .offset(y: -40)
                 }
-                .frame(width: 300, height: 400)
+               // .frame(width: 300, height: 400)
                 .background(Color.white)
                 .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
                 .shadow(color: Color.black.opacity(0.3), radius: 15, x: 10, y: 10)

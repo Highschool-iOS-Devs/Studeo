@@ -14,12 +14,12 @@ struct TitleSubview: View {
     var body: some View {
         VStack {
             Text(titleText)
-                .font(Font.custom("Montserrat-SemiBold", size: 34))
-                .padding(.bottom, 40)
+                .font(Font.custom("Montserrat-SemiBold", size: 24))
+                .padding(.bottom, 20)
             Image(decorative: image)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(height: 220)
+                //.frame(height: 220)
         }
     }
         

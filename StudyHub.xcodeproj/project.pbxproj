@@ -219,6 +219,7 @@
 		E15A20B1253FA7A6006E042E /* ProfilePic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePic.swift; sourceTree = "<group>"; };
 		E15A20B8253FAC28006E042E /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		E170EF552540BF9000BEE97C /* GroupsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupsView.swift; sourceTree = "<group>"; };
+		E1B4B26E258F3B530079D000 /* StudyHub.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StudyHub.entitlements; sourceTree = "<group>"; };
 		E1BCD3E0251E46540051A28C /* EditProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfile.swift; sourceTree = "<group>"; };
 		E1BCD400251E7CF50051A28C /* LeaderboardSubViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardSubViews.swift; sourceTree = "<group>"; };
 		E1BCD405251E8A080051A28C /* PairingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingView.swift; sourceTree = "<group>"; };
@@ -260,6 +261,7 @@
 		620590B624FDBB21001565BF /* StudyHub */ = {
 			isa = PBXGroup;
 			children = (
+				E1B4B26E258F3B530079D000 /* StudyHub.entitlements */,
 				620590EF24FDBB21001565BF /* Info.plist */,
 				620590C224FDBB21001565BF /* Assets.xcassets */,
 				620590B724FDBB21001565BF /* Resources */,
@@ -961,7 +963,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C7A62219EB10FE2A621A6C84 /* Pods-StudyHub.debug.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
+				CODE_SIGN_ENTITLEMENTS = StudyHub/StudyHub.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyHub/Preview Content\"";
 				DEVELOPMENT_TEAM = MC27HKM86M;
@@ -972,7 +977,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.StudyHub;
+				PRODUCT_BUNDLE_IDENTIFIER = com.StudyHub.Studeo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -983,7 +988,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EEC3B6AC4F1E11EB05097CA0 /* Pods-StudyHub.release.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
+				CODE_SIGN_ENTITLEMENTS = StudyHub/StudyHub.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyHub/Preview Content\"";
 				DEVELOPMENT_TEAM = MC27HKM86M;
@@ -994,7 +1002,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.StudyHub;
+				PRODUCT_BUNDLE_IDENTIFIER = com.StudyHub.Studeo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

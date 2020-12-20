@@ -71,7 +71,7 @@ struct RecentsView2: View {
                 .offset(y: 15)
 
                 
-                Header(showTimer: $showTimer)
+               // Header(showTimer: $showTimer)
                    
 
 
