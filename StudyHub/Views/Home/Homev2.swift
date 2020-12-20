@@ -41,7 +41,7 @@ struct Homev2: View {
     var body: some View {
 
         ZStack {
-            ZStack(alignment: .top){
+            ZStack(alignment: .top) {
                 Color("Background").edgesIgnoringSafeArea(.all)
                     .onAppear() {
                         if !user.isEmpty {
@@ -78,6 +78,7 @@ struct Homev2: View {
                                 .font(.custom("Montserrat Bold", size: 24)).foregroundColor(Color("Primary"))
                             Spacer()
                         }.padding()
+                        .padding(.top, 40)
                         }
                         ScrollView(.horizontal, showsIndicators: false) {
                                 HStack {

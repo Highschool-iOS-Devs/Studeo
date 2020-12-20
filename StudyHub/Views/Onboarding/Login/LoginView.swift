@@ -119,6 +119,7 @@ struct LoginView: View {
                             self.userData.userID = user.id.uuidString
                             self.userData.name = user.name
                             self.userData.profilePictureURL = user.profileImageURL
+                            userData.isOnboardingCompleted = true
                         }
                         else{
                             print("Document does not exist")

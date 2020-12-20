@@ -28,7 +28,7 @@ struct EditProfile: View {
 
     var body: some View {
         ZStack {
-          
+            ScrollView(/*@START_MENU_TOKEN@*/.vertical/*@END_MENU_TOKEN@*/, showsIndicators: false) {
         ForEach(user){ user in
      VStack {
          Spacer()
@@ -108,7 +108,7 @@ struct EditProfile: View {
              .multilineTextAlignment(.center)
              .padding()
             .padding(.bottom, 22)
-        
+            .padding(.horizontal, 22)
         Button(action: {
             sendData()
             uploadImage()
@@ -120,9 +120,10 @@ struct EditProfile: View {
         }
         .buttonStyle(BlueStyle())
         .padding()
+        .padding(.horizontal, 22)
         Spacer()
         
-        
+     }
      
      }
      .padding(.horizontal)

@@ -19,8 +19,10 @@ struct Home: View {
     var body: some View {
         ZStack {
             VStack {
+                Header(showTimer: $showingTimer)
+                    .ignoresSafeArea()
                 ScrollView(showsIndicators: false) {
-                    Header(showTimer: $showingTimer)
+                    
                     //SearchBar()
                     
                     Spacer()

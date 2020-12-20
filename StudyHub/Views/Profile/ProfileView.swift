@@ -32,6 +32,8 @@ import UIKit
                        
                        }
                    }
+            ScrollView(/*@START_MENU_TOKEN@*/.vertical/*@END_MENU_TOKEN@*/, showsIndicators: false) {
+            
                  VStack {
                  
                     HStack {
@@ -87,9 +89,10 @@ import UIKit
                          .foregroundColor(Color(.black))
                          .multilineTextAlignment(.center)
                         .padding(.bottom, 22)
-                   Spacer()
+                   Spacer(minLength: 140)
                  }
                  .padding(.horizontal)
+            }
 
                  
 
@@ -97,6 +100,7 @@ import UIKit
          
      } .sheet(isPresented: self.$showEditProfile){
         EditProfile(profileImage: $profileImage, user: $user)
+            .environmentObject(UserData.shared)
      }
      }
   
