@@ -80,15 +80,16 @@ class TimerManager: ObservableObject {
     
     func endTimer() {
         stopTimer()
-        //if timePassed > 300 {
+        if timePassed > 300 {
             //only give credit if study time is longer than 5 minutes
             self.totalTimePassed += self.timePassed
         
             saveToFB()
-     //   }
+        }
         resetTimer()
         saveToUD()
     }
+    
     
     func resetTimer() {
         timeGoal = 0.0
