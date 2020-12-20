@@ -32,7 +32,7 @@ import UIKit
                        
                        }
                    }
-            ScrollView(/*@START_MENU_TOKEN@*/.vertical/*@END_MENU_TOKEN@*/, showsIndicators: false) {
+
             
                  VStack {
                  
@@ -46,22 +46,11 @@ import UIKit
                         showEditProfile = true
                     }
                     .foregroundColor(Color("Primary"))
-                        if profileImage != nil{
-                            Image(uiImage: (profileImage!))
-                                .renderingMode(.original)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 350, height: 350, alignment: .center)
-                                .clipShape(Circle())
-                                .overlay(Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 5))
-                           
-                        }
-                        else{
                             ProfileRingView(size: 350)
                                  
                             
                             
-                        }
+                        
            
 
                     Text(userData.name)
@@ -92,7 +81,7 @@ import UIKit
                    Spacer(minLength: 140)
                  }
                  .padding(.horizontal)
-            }
+            
 
                  
 
