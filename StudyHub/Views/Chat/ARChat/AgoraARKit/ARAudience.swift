@@ -8,7 +8,7 @@
 
 import UIKit
 import AgoraRtcKit
-
+import Alamofire
 /**
 The `ARAudience` is a `UIViewController` that implements all the needed methods for the viewer (aundience member)  of the AR Live Stream. The class provides a manged UI for the audience user.
  - Note: All class methods can be extended or overwritten.
@@ -155,8 +155,21 @@ open class ARAudience: UIViewController {
         // Set audio route to speaker
         self.agoraKit.setDefaultAudioRouteToSpeakerphone(defaultToSpeakerPhone)
         // Join the channel
-        self.agoraKit.joinChannel(byToken: AgoraARKit.agoraToken, channelId: AgoraARKit.channelname!, info: nil, uid: 0)
-        UIApplication.shared.isIdleTimerDisabled = true     // Disable idle timmer
+        let request = AF.request("https://studyhub1.herokuapp.com/access_token?channel=\("B")&uid=0")
+        
+        request.responseJSON { (response) in
+            print(response)
+            guard let tokenDict = response.value as! [String : Any]? else { return }
+            let token = tokenDict["token"] as! String
+            
+            
+            self.channelName = "B"
+            if token != "" {
+                self.agoraKit.joinChannel(byToken: token, channelId: self.channelName!, info: nil, uid: 0)
+                UIApplication.shared.isIdleTimerDisabled = true
+            }
+        }
+            // Disable idle timmer
     }
     
     open func leaveChannel() {
@@ -210,10 +223,10 @@ open class ARAudience: UIViewController {
         backBtn.addTarget(self, action: #selector(popView), for: .touchUpInside)
         self.view.insertSubview(backBtn, at: 2)
         
-        if AgoraARKit.channelname != "" {
+        
         let arBroadcastVC = ARBroadcaster()
             arBroadcastVC.token = AgoraARKit.agoraToken!
-            arBroadcastVC.channelName = AgoraARKit.channelname
+            arBroadcastVC.channelName = channelName
         if let exitBtnImage = UIImage(named: "exit") {
            arBroadcastVC.backBtnImage = exitBtnImage
         }
@@ -234,7 +247,7 @@ open class ARAudience: UIViewController {
             }
             view.addSubview(arBroadcastVC.view)
     }
-    }
+    
     
     // MARK: Button Events
     /**

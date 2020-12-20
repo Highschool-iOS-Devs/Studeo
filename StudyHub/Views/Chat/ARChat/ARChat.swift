@@ -27,18 +27,16 @@ class ARChat: AgoraLobbyVC {
         //AgoraARKit.agoraToken = token
         
        
-            if channelName != "" {
+           
                 let arAudienceVC = ARAudience()
                 if let exitBtnImage = UIImage(named: "exit") {
                    arAudienceVC.backBtnImage = exitBtnImage
                 }
-                arAudienceVC.channelName = AgoraARKit.channelname
-                arAudienceVC.token = AgoraARKit.agoraToken
+                arAudienceVC.channelName = channelName!
+        
+                arAudienceVC.token = AgoraARKit.agoraToken!
                 self.view.addSubview(arAudienceVC.view)
-            } else {
-                // TODO: add visible msg to user
-                print("unable to join a broadcast without a channel name")
-            }
+          
         }
     
 

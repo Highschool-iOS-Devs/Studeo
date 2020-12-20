@@ -238,7 +238,7 @@ open class ARBroadcaster: UIViewController {
             self.agoraKit.setDefaultAudioRouteToSpeakerphone(defaultToSpeakerPhone)
         }
         // Join the channel
-        self.agoraKit.joinChannel(byToken: AgoraARKit.agoraToken ?? "", channelId: AgoraARKit.channelname ?? "", info: nil, uid: 0)
+        self.agoraKit.joinChannel(byToken: AgoraARKit.agoraToken!, channelId: AgoraARKit.channelname!, info: nil, uid: 0)
         UIApplication.shared.isIdleTimerDisabled = true     // Disable idle timmer
     }
     

@@ -45,6 +45,7 @@ struct RecentChatGroupSubview: View {
         }
         .sheet(isPresented: self.$tapped){
             ChatView(group: group, chat: self.$tapped)
+                .environmentObject(UserData.shared)
         }
     }
 }

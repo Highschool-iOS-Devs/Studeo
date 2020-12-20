@@ -42,7 +42,7 @@ struct ChatView: View {
                     Spacer()
                     if test {
                     Button(action: {
-                        let request = AF.request("https://studyhub1.herokuapp.com/access_token?channel=\(group.groupID)&uid=0")
+                        let request = AF.request("https://studyhub1.herokuapp.com/access_token?channel=\("A")&uid=0")
                         
                         request.responseJSON { (response) in
                             print(response)
@@ -50,7 +50,7 @@ struct ChatView: View {
                             let token = tokenDict["token"] as! String
                             
                             AgoraARKit.agoraToken = token
-                            AgoraARKit.channelname = group.groupID
+                            AgoraARKit.channelname = "A"
                             if AgoraARKit.agoraToken != "" {
                                 ARChat.toggle()
                             }
