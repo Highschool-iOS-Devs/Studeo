@@ -59,8 +59,8 @@ struct ContentView: View {
                                     myGroups = userData ?? []
                                 self.loadGroupsData(){ userData in
                                     //Get completion handler data results from loadData function and set it as the recentPeople local variable
-                                    
-                                    self.recommendGroups = userData!.removeDuplicates()
+                                    recommendGroups = userData ?? []
+                                   // self.recommendGroups = userData!.removeDuplicates()
                                     let g = recommendGroups + myGroups
                                   recommendGroups = g.removeDuplicates()
                                    

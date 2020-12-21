@@ -10,7 +10,7 @@ import SwiftUI
 
 ///Work in progress
 struct RecentPeopleRowSubview: View {
-    var person:User
+    @State var person:User
     @State var tapped:Bool = false
     var profilePicture:Image
     @EnvironmentObject var userData: UserData

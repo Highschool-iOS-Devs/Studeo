@@ -19,22 +19,38 @@ struct ChatView: View {
     
     @State var messageField = ""
     @State var messages = [MessageData]()
-    
-    var group:Groups
+    @State var members = [User]()
+    @State var group:Groups
     //@State var image:Image
     @Binding var chat: Bool
     @State var ARChat = false
     @State var test = true
+    @State var membersList = false
+    @State var person = User(id: UUID(), firebaseID: "", name: "", email: "", profileImageURL: URL(string: ""), interests: [UserInterestTypes](), groups: [String](), recentGroups: [String](), recentPeople: [String](), studyHours: [Double](), studyDate: [String](), all: 0.0, month: 0.0, day: 0.0, description: "", isAvailable: false)
     var body: some View {
         ZStack {
             Color.white.edgesIgnoringSafeArea(.all)
-            
+                .onAppear() {
+                    
+                    
+                }
             
             VStack {
                 //Testing UI with some messages
                 HStack {
                     
                     ProfilePicture(pictureSize: 50, image: Image("demoprofile"))
+                        .onTapGesture {
+                            self.loadMembers(){ userData in
+                                //Get completion handler data results from loadData function and set it as the recentPeople local variable
+                                self.members = userData ?? []
+                               
+                                membersList = true
+
+                                
+                            }
+                            
+                        }
                     Text(group.groupName)
                         .font(.custom("Montserrat", size: 15))
                         .padding()
@@ -121,7 +137,9 @@ struct ChatView: View {
                 
                 
             }
-            
+            if membersList {
+                MembersList(members: $members, memberList: $membersList, group: $group, person: $person, messages: $messages)
+            }
             if ARChat {
                 VStack {
                     HStack {
@@ -142,7 +160,7 @@ struct ChatView: View {
         .onAppear{
             self.loadData()
             self.addRecentRecord()
-            
+        
         }
         
         
@@ -196,6 +214,45 @@ struct ChatView: View {
             case .failure(let error):
                 print("Error decoding city: \(error)")
             }
+        }
+        
+        
+    }
+  
+   
+    func loadMembers(performAction: @escaping ([User]?) -> Void) {
+        let db = Firestore.firestore()
+        let docRef = db.collection("users").whereField("groups", arrayContains: group.groupID)
+        var groupList:[User] = []
+        //Get every single document under collection users
+        
+        docRef.getDocuments{ (querySnapshot, error) in
+            if let querySnapshot = querySnapshot,!querySnapshot.isEmpty{
+            for document in querySnapshot.documents{
+                let result = Result {
+                    try document.data(as: User.self)
+                }
+                switch result {
+                    case .success(let group):
+                        if var group = group {
+                            
+                            groupList.append(group)
+                            
+                        } else {
+                            
+                            print("Document does not exist")
+                        }
+                    case .failure(let error):
+                        print("Error decoding user: \(error)")
+                    }
+                
+              
+            }
+            }
+            else{
+                performAction(nil)
+            }
+              performAction(groupList)
         }
         
         

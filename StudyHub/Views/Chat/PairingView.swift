@@ -172,8 +172,11 @@ struct PairingView: View {
             print("Error writing to database, \(error)")
         }
         
-        let ref = db.collection("users").document(self.userData.userID)
-        ref.getDocument{document, error in
+       
+        for member in newGroup.members {
+            print(member)
+        let ref2 = db.collection("users").document(member)
+        ref2.getDocument{document, error in
             
             if let document = document, document.exists {
                 
@@ -184,13 +187,13 @@ struct PairingView: View {
                     
                     guard !(groupListCast?.contains(newGroup.groupID))! else{return}
                     currentGroups.append(newGroup.groupID)
-                    ref.updateData(
+                    ref2.updateData(
                         [
                             "groups":currentGroups
                         ]
                     )
                 } else {
-                    ref.updateData(
+                    ref2.updateData(
                         [
                             "groups":[newGroup.groupID]
                         ]
@@ -201,7 +204,7 @@ struct PairingView: View {
             }
         }
     }
-    
+    }
     func loadData(performAction: @escaping ([User]?) -> Void){
     
 

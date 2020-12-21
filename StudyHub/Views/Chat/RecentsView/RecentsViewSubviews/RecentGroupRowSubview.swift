@@ -13,7 +13,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 struct RecentGroupRowSubview: View {
-    var group:Groups
+   @State var group: Groups
     @State var tapped:Bool = false
     var profilePicture:Image
     @EnvironmentObject var userData: UserData

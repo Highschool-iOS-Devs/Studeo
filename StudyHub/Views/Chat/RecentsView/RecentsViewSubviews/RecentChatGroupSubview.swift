@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct RecentChatGroupSubview: View {
-    var group:Groups
+    @State var group:Groups
     @State var tapped:Bool = false
 
     var body: some View {
