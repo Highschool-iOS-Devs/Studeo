@@ -55,7 +55,7 @@ struct MiniProfileSubview: View {
                 if let error = error{
                     print("Error downloading image, \(error)")
                 }
-                profileImages.append(url!)
+                profileImages.append(url ?? URL(string: "https://firebasestorage.googleapis.com/v0/b/study-hub-7540b.appspot.com/o/User_Profile%2F632803C1-F7B2-44C0-86A6-C589F17DEE97?alt=media&token=18198a24-b65e-4209-8c77-1f78ac6e6925")!)
             }
         }
        

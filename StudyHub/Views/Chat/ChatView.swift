@@ -24,7 +24,7 @@ struct ChatView: View {
     //@State var image:Image
     @Binding var chat: Bool
     @State var ARChat = false
-    @State var test = true
+    @State var test = false
     @State var membersList = false
     @State var person = User(id: UUID(), firebaseID: "", name: "", email: "", profileImageURL: URL(string: ""), interests: [UserInterestTypes](), groups: [String](), recentGroups: [String](), recentPeople: [String](), studyHours: [Double](), studyDate: [String](), all: 0.0, month: 0.0, day: 0.0, description: "", isAvailable: false)
     var body: some View {
@@ -295,7 +295,7 @@ struct ChatView: View {
         if message.sentBySelf! {
             return AnyView(ChatCellSelf(message: message.messageText))
         } else {
-            return AnyView(ChatCell(message: message.messageText))
+            return AnyView(ChatCell(name: message.sentBy, message: message.messageText))
         }
     }
     
