@@ -39,6 +39,7 @@ struct Homev2: View {
     @State var imgs = ["2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing"]
     @State var sum = 0.0
     @State var animate = false
+    @State var animation = false
     var body: some View {
 
         ZStack {
@@ -53,6 +54,11 @@ struct Homev2: View {
                             
                         }
                     }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            withAnimation(.easeInOut(duration: 1.0)) {
+                                animation.toggle()
+                            }
+                        
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             withAnimation(.easeInOut(duration: 1.0)) {
                                 if userData.uses == 2 || userData.uses == 3 || userData.uses == 10 {
@@ -62,7 +68,9 @@ struct Homev2: View {
                         }
                             }
                         }
+                        }
                     }
+                if animation {
                 VStack {
                     Spacer()
                         .frame(minHeight: 60, idealHeight: 60, maxHeight: 60)
@@ -144,12 +152,14 @@ struct Homev2: View {
         }
               
                      Header(showTimer: $showingTimer)
-                  
+                }
             }.blur(radius: showingTimer ? 20 : 0)
+            
             if showingTimer {
                 VStack {
                     TimerView(showingView: $showingTimer)
                         .padding(.top, 110)
+                        .transition(.move(edge: .bottom))
                         .onAppear {
                             self.viewRouter.showTabBar = false
                         }

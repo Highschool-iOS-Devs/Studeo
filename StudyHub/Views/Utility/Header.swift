@@ -40,7 +40,8 @@ struct Header: View {
             
             } .padding(.trailing, 22)
             
-            Button(action: { self.showTimer = true }) {
+            Button(action: { withAnimation(.easeInOut(duration: 0.5)) {
+                    self.showTimer = true }}) {
                 ZStack {
                     Color.white
                         .frame(width: 40, height: 40)

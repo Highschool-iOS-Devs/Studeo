@@ -39,7 +39,7 @@ struct ContentView: View {
                 .onAppear{
                     self.checkAuth()
                     userData.uses += 1
-                  //  userData.uses = 2
+                    userData.uses = 2
             }
            
                 if hasCheckedAuth {
