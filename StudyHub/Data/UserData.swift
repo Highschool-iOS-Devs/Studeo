@@ -75,6 +75,11 @@ final class UserData: ObservableObject {
     
     @Published
     var description: String = "This is your bio for others to see. Tap to edit."
+    
+    @Published(key: "uses")
+    var uses: Int = 0
+    @Published(key: "hasDev")
+    var hasDev: Bool = false
 }
 
 import Foundation

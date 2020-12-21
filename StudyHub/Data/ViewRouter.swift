@@ -21,7 +21,7 @@ class ViewRouter:ObservableObject{
         case leaderboard
         case profile
         case custom
-        
+        case devChat
     }
     @Published var currentView = Views.registration
     @Published var showChatView = false {

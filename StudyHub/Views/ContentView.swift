@@ -30,13 +30,16 @@ struct ContentView: View {
     @State var interests = [String]()
     @State var i = 0
     @State var i2 = -1
+    @State var chat = true
+    @State var devGroup: Groups
     var body: some View {
         ZStack { 
             Color.white
                 .edgesIgnoringSafeArea(.all)
                 .onAppear{
                     self.checkAuth()
-                   
+                    userData.uses += 1
+                  //  userData.uses = 2
             }
            
                 if hasCheckedAuth {
@@ -78,6 +81,25 @@ struct ContentView: View {
                     }
                 if hasLoaded {
                     switch viewRouter.currentView {
+                    case .devChat:
+                        if chat {
+                            ChatView(group: devGroup, chat: $chat)
+                                
+                                .onAppear() {
+                                    viewRouter.showTabBar = false
+                                    joinGroup(newGroup: devGroup)
+                                    userData.hasDev = true
+                                }
+                            
+                        } else {
+                            Homev2(recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user)
+                                .onAppear() {
+                                    viewRouter.showTabBar = false
+                                    viewRouter.currentView = .home
+                                }
+                            .environmentObject(userData)
+                            .environmentObject(viewRouter)
+                        }
                     case .registration:
                         RegistrationView()
                             .environmentObject(viewRouter)
@@ -408,13 +430,51 @@ struct ContentView: View {
         
          
     }
-    
-}
-
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
+    func joinGroup(newGroup: Groups) {
+        let db = Firestore.firestore()
+        let docRef = db.collection("groups")
+        do{
+            try docRef.document(newGroup.groupID).setData(from: newGroup)
+            
+        }
+        catch{
+            print("Error writing to database, \(error)")
+        }
+        
+        devGroup.members.append("DevID")
+        for member in devGroup.members {
+            print(member)
+        let ref2 = db.collection("users").document(member)
+        ref2.getDocument{document, error in
+            
+            if let document = document, document.exists {
+                
+         
+                let groupListCast = document.data()?["groups"] as? [String]
+                
+                if var currentGroups = groupListCast{
+                    
+                    guard !(groupListCast?.contains(newGroup.groupID))! else{return}
+                    currentGroups.append(newGroup.groupID)
+                    ref2.updateData(
+                        [
+                            "groups":currentGroups
+                        ]
+                    )
+                } else {
+                    ref2.updateData(
+                        [
+                            "groups":[newGroup.groupID]
+                        ]
+                    )
+                }
+            } else {
+                print("Error getting user data, \(error)")
+            }
+        }
+    }
     }
 }
+
+
 

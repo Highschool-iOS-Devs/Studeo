@@ -21,8 +21,10 @@ struct Home: View {
             VStack {
                 Header(showTimer: $showingTimer)
                     .ignoresSafeArea()
+               
                 ScrollView(showsIndicators: false) {
-                    
+                    DevChatBanner()
+                        .padding(.top)
                     //SearchBar()
                     
                     Spacer()

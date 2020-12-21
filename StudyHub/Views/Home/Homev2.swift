@@ -38,6 +38,7 @@ struct Homev2: View {
     @Binding var user: [User]
     @State var imgs = ["2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing"]
     @State var sum = 0.0
+    @State var animate = false
     var body: some View {
 
         ZStack {
@@ -52,6 +53,15 @@ struct Homev2: View {
                             
                         }
                     }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            withAnimation(.easeInOut(duration: 1.0)) {
+                                if userData.uses == 2 || userData.uses == 3 || userData.uses == 10 {
+                                    if !userData.hasDev {
+                        animate = true
+                                    }
+                        }
+                            }
+                        }
                     }
                 VStack {
                     Spacer()
@@ -59,6 +69,12 @@ struct Homev2: View {
                         .fixedSize()
                     
                     ScrollView(.vertical, showsIndicators: false) {
+                        if animate {
+                        DevChatBanner()
+                            .padding(.top)
+                            .transition(.move(edge: .top))
+                        }
+                        
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
                                 ForEach(recentPeople, id:\.self){ groups in
@@ -72,6 +88,7 @@ struct Homev2: View {
                             } .padding(.top, 42)
                         }
                         Divider()
+                        
                         if recommendGroups.isEmpty {
                             
                         } else {
