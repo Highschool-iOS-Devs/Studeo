@@ -41,9 +41,9 @@ struct Home: View {
                     
                     CTA(imgName: "friends", cta: "Add Friends")
                         
-                    CTA(imgName: "Group", cta: "Add Group")
+                   // CTA(imgName: "Group", cta: "Add Group")
                        
-                     CTA(imgName: "study", cta: "Compete")
+                    // CTA(imgName: "study", cta: "Compete")
                         
                     Spacer(minLength: 140)
                     

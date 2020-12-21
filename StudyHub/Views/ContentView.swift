@@ -441,7 +441,8 @@ struct ContentView: View {
             print("Error writing to database, \(error)")
         }
         
-        devGroup.members.append("DevID")
+        devGroup.members.append("n3SQZeq1oMhJzHNd1WlMSEClLHp2")
+        devGroup.members.append(userData.userID)
         for member in devGroup.members {
             print(member)
         let ref2 = db.collection("users").document(member)

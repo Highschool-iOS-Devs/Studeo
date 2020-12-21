@@ -133,8 +133,8 @@ struct Homev2: View {
                             //CTA(imgName: "Group", cta: "Add Group")
                                
                              
-                            CTA(imgName: "study", cta: "Compete")
-                                .padding()
+                         //   CTA(imgName: "study", cta: "Compete")
+                           //     .padding()
                         if user.isEmpty {
                             
                         } else {
