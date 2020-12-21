@@ -105,7 +105,6 @@ open class ARAudience: UIViewController {
     internal let debug: Bool = true
     
     // MARK: VC Events
-
     /**
      
     AgoraARKit uses the `viewDidLoad` method to create the UI and set up the Agora engine configuration
@@ -113,7 +112,8 @@ open class ARAudience: UIViewController {
     var isAndreas = true
     
     
-    var token: String!
+    var token: String = ""
+    
     override open func viewDidLoad() {
         super.viewDidLoad()
         lprint("AudienceVC - viewDidLoad", .Verbose)
@@ -155,21 +155,8 @@ open class ARAudience: UIViewController {
         // Set audio route to speaker
         self.agoraKit.setDefaultAudioRouteToSpeakerphone(defaultToSpeakerPhone)
         // Join the channel
-        let request = AF.request("https://studyhub1.herokuapp.com/access_token?channel=\("B")&uid=0")
-        
-        request.responseJSON { (response) in
-            print(response)
-            guard let tokenDict = response.value as! [String : Any]? else { return }
-            let token = tokenDict["token"] as! String
-            
-            
-            self.channelName = "B"
-            if token != "" {
-                self.agoraKit.joinChannel(byToken: token, channelId: self.channelName!, info: nil, uid: 0)
-                UIApplication.shared.isIdleTimerDisabled = true
-            }
-        }
-            // Disable idle timmer
+        self.agoraKit.joinChannel(byToken: token, channelId: self.channelName, info: nil, uid: 0)
+        UIApplication.shared.isIdleTimerDisabled = true     // Disable idle timmer
     }
     
     open func leaveChannel() {
@@ -225,8 +212,6 @@ open class ARAudience: UIViewController {
         
         
         let arBroadcastVC = ARBroadcaster()
-            arBroadcastVC.token = AgoraARKit.agoraToken!
-            arBroadcastVC.channelName = channelName
         if let exitBtnImage = UIImage(named: "exit") {
            arBroadcastVC.backBtnImage = exitBtnImage
         }
@@ -239,15 +224,25 @@ open class ARAudience: UIViewController {
             arBroadcastVC.watermarkFrame = CGRect(x: self.view.frame.maxX-75, y: self.view.frame.maxY-75, width: 50, height: 50)
         }
             if isAndreas {
-       // arBroadcastVC.channelName = "B"
-         //   arBroadcastVC.token = "0068345f101e56845fda7205089fef7824dIACbWCNCguEBeujgPTM75BUgXRGwZTai/IRrNJ/f6lI+ijHP0EoAAAAAEADQTRPKimHVXwEAAQCKYdVf"
+                let request = AF.request("https://studyhub1.herokuapp.com/access_token?channel=\("B")&uid=0")
+                
+                request.responseJSON { (response) in
+                    print(response)
+                    guard let tokenDict = response.value as! [String : Any]? else { return }
+                    let token = tokenDict["token"] as! String
+                    
+                    arBroadcastVC.channelName = "B"
+                        arBroadcastVC.token = token
+                    self.view.addSubview(arBroadcastVC.view)
+                }
+      
             } else {
-             //   arBroadcastVC.channelName = "A"
-               //    arBroadcastVC.token = "0068345f101e56845fda7205089fef7824dIABF69bEtecrAY0OIic44p22BlIIuDOwbOsSTws/C9q1uoue2dMAAAAAEADQTRPKrVjVXwEAAQCtWNVf"
+                arBroadcastVC.channelName = "A"
+                    arBroadcastVC.token = token
             }
-            view.addSubview(arBroadcastVC.view)
-    }
+            
     
+    }
     
     // MARK: Button Events
     /**

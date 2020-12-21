@@ -6,6 +6,7 @@
 //  Copyright © 2020 Hermes. All rights reserved.
 //
 
+
 import UIKit
 import AgoraRtcKit
 
@@ -176,10 +177,8 @@ class Broadcaster : UIViewController, AgoraRtcEngineDelegate {
         self.agoraKit.setDefaultAudioRouteToSpeakerphone(true)
         // get the token - returns nil if no value is set
         let token = AgoraARKit.agoraToken
-        
-        self.channelName = AgoraARKit.channelname
         // Join the channel
-        self.agoraKit.joinChannel(byToken: AgoraARKit.agoraToken!, channelId: AgoraARKit.channelname!, info: nil, uid: 0) { (channel, uid, elapsed) in
+        self.agoraKit.joinChannel(byToken: token, channelId: self.channelName, info: nil, uid: 0) { (channel, uid, elapsed) in
           if self.debug {
               print("Successfully joined: \(channel), with \(uid): \(elapsed) secongs ago")
           }

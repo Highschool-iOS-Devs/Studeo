@@ -53,7 +53,7 @@ open class ARBroadcaster: UIViewController {
     var agoraKit: AgoraRtcEngineKit!                    // Agora.io Video Engine reference
     var arVideoSource: ARVideoSource = ARVideoSource()  // for passing the AR camera as the stream
     var channelProfile: AgoraChannelProfile = .liveBroadcasting
-    var frameRate: AgoraVideoFrameRate = .fps60
+    var frameRate: AgoraVideoFrameRate = .fps30
     var videoDimension: CGSize = AgoraVideoDimension1280x720
     var videoBitRate: Int = AgoraVideoBitrateStandard
     var videoOutputOrientationMode: AgoraVideoOutputOrientationMode = .fixedPortrait
@@ -129,7 +129,6 @@ open class ARBroadcaster: UIViewController {
 //        agoraKit.enableExternalAudioSource(withSampleRate: audioSampleRate, channelsPerFrame: audioChannelsPerFrame) // - enable external audio souce (since video and audio are coming from seperate sources)
         agoraKit.enableWebSdkInteroperability(true)
         self.agoraKit = agoraKit // set a reference to the Agora engine
-
         // set render delegate
         self.sceneView.delegate = self
         self.sceneView.session.delegate = self
@@ -147,7 +146,6 @@ open class ARBroadcaster: UIViewController {
         self.arvkRenderer?.inputViewOrientations = [.portrait]
         self.arvkRenderer?.enableAudio = false
         // TODO: create enum to translate between Agora Orientation and ARVideoKit
-
         if debug {
            self.sceneView.debugOptions = arSceneDebugOptions
            self.sceneView.showsStatistics = showStatistics
@@ -159,17 +157,8 @@ open class ARBroadcaster: UIViewController {
         
       
                
-        if isAndreas {
-          //  channelName = "A"
-               // token = "0068345f101e56845fda7205089fef7824dIABF69bEtecrAY0OIic44p22BlIIuDOwbOsSTws/C9q1uoue2dMAAAAAEADQTRPKrVjVXwEAAQCtWNVf"
-        } else {
-           
-            
-          // channelName = "B"
-              // token = "0068345f101e56845fda7205089fef7824dIACbWCNCguEBeujgPTM75BUgXRGwZTai/IRrNJ/f6lI+ijHP0EoAAAAAEADQTRPKimHVXwEAAQCKYdVf"
-        }
+       
                 //self.present(arAudienceVC, animated: true, completion: nil)
-
    }
 
     /**
@@ -178,7 +167,6 @@ open class ARBroadcaster: UIViewController {
     override open func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
         print("viewWillAppear")        // Configure ARKit Session
-
     }
     
     /**
@@ -231,14 +219,12 @@ open class ARBroadcaster: UIViewController {
     open func joinChannel() {
         // Set audio route to speaker
         // TODO: remove if statement once Agora iPhone X audio bug is resolved
-        print("token" +  AgoraARKit.agoraToken!)
-        print("name" +  AgoraARKit.channelname!)
         let screenMaxLength = max(UIScreen.main.bounds.size.width, UIScreen.main.bounds.size.height)
         if UIDevice.current.userInterfaceIdiom == .phone && (screenMaxLength >= 896.0 && screenMaxLength <= 1024) {
             self.agoraKit.setDefaultAudioRouteToSpeakerphone(defaultToSpeakerPhone)
         }
         // Join the channel
-        self.agoraKit.joinChannel(byToken: AgoraARKit.agoraToken!, channelId: AgoraARKit.channelname!, info: nil, uid: 0)
+        self.agoraKit.joinChannel(byToken: token, channelId: self.channelName, info: nil, uid: 0)
         UIApplication.shared.isIdleTimerDisabled = true     // Disable idle timmer
     }
     

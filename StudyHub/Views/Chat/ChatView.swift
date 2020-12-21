@@ -58,19 +58,7 @@ struct ChatView: View {
                     Spacer()
                     if test {
                     Button(action: {
-                        let request = AF.request("https://studyhub1.herokuapp.com/access_token?channel=\("A")&uid=0")
-                        
-                        request.responseJSON { (response) in
-                            print(response)
-                            guard let tokenDict = response.value as! [String : Any]? else { return }
-                            let token = tokenDict["token"] as! String
-                            
-                            AgoraARKit.agoraToken = token
-                            AgoraARKit.channelname = "A"
-                            if AgoraARKit.agoraToken != "" {
-                                ARChat.toggle()
-                            }
-                        }
+                        ARChat = true
                         
                     }) {
                         Image(systemName: "phone")
@@ -154,7 +142,7 @@ struct ChatView: View {
                     }
                     Spacer()
                 } .padding()
-                ARVideoChatView(channelName: group.groupID)
+                ARVideoChatView()
             }
         }
         .onAppear{
