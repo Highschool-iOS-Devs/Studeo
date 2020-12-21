@@ -38,7 +38,7 @@ struct MembersList: View {
                         let groupMemberIDs = [member.id.uuidString, userData.userID]
                         let newGroup = Groups(id: UUID().uuidString,
                                           groupID: UUID().uuidString,
-                                          groupName: String(describing: self.group.interests[0]!),
+                                          groupName: String(describing: userData.name + " and " + member.name),
                                           members: groupMemberIDs,
                                           interests: group.interests)
                        
@@ -77,8 +77,10 @@ struct MembersList: View {
             print("Error writing to database, \(error)")
         }
         
-        let ref = db.collection("users").document(self.userData.userID)
-        ref.getDocument{document, error in
+        for member in newGroup.members {
+            print(member)
+        let ref2 = db.collection("users").document(member)
+        ref2.getDocument{document, error in
             
             if let document = document, document.exists {
                 
@@ -89,13 +91,13 @@ struct MembersList: View {
                     
                     guard !(groupListCast?.contains(newGroup.groupID))! else{return}
                     currentGroups.append(newGroup.groupID)
-                    ref.updateData(
+                    ref2.updateData(
                         [
                             "dms":currentGroups
                         ]
                     )
                 } else {
-                    ref.updateData(
+                    ref2.updateData(
                         [
                             "dms":[newGroup.groupID]
                         ]
@@ -105,7 +107,7 @@ struct MembersList: View {
                 print("Error getting user data, \(error!)")
             }
         }
-    }
+    }    }
 }
 
 

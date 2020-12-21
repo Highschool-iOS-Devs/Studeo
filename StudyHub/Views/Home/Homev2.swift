@@ -69,7 +69,7 @@ struct Homev2: View {
                                         }
                                 }
                                 
-                            } .padding(.top)
+                            } .padding(.top, 42)
                         }
                         Divider()
                         if recommendGroups.isEmpty {
