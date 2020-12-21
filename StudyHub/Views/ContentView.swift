@@ -46,15 +46,18 @@ struct ContentView: View {
                             self.loadDMsData(){ userData in
                                 //Get completion handler data results from loadData function and set it as the recentPeople local variable
                                 self.recentPeople = userData ?? []
-                               
+                                
         
 
-                                hasLoaded = true
+                               
                             }
    
                             self.loadUserData(){ userData in
                                 //Get completion handler data results from loadData function and set it as the recentPeople local variable
                                 self.user = userData
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                                    hasLoaded = true
+                                }
                                 self.loadMyGroupsData(){ userData in
                                     myGroups = userData ?? []
                                 self.loadGroupsData(){ userData in
