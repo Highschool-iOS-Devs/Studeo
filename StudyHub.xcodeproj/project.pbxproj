@@ -46,6 +46,7 @@
 		6205911924FDBB21001565BF /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620590EE24FDBB21001565BF /* LoginView.swift */; };
 		6205911B24FDBB21001565BF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620590F024FDBB21001565BF /* SceneDelegate.swift */; };
 		6205911D24FDBD1D001565BF /* ErrorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6205911C24FDBD1D001565BF /* ErrorModel.swift */; };
+		62109C89259055B700483ADB /* MiniProfileSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62109C88259055B700483ADB /* MiniProfileSubview.swift */; };
 		622430A125747BDE0031CF78 /* RecentChatGroupSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622430A025747BDE0031CF78 /* RecentChatGroupSubview.swift */; };
 		624FAEF6256EF08D000E0203 /* InputFieldSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624FAEF5256EF08D000E0203 /* InputFieldSubview.swift */; };
 		624FAEF9256EF137000E0203 /* ButtonsSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624FAEF8256EF137000E0203 /* ButtonsSubview.swift */; };
@@ -163,6 +164,7 @@
 		620590EF24FDBB21001565BF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		620590F024FDBB21001565BF /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		6205911C24FDBD1D001565BF /* ErrorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorModel.swift; sourceTree = "<group>"; };
+		62109C88259055B700483ADB /* MiniProfileSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniProfileSubview.swift; sourceTree = "<group>"; };
 		622430A025747BDE0031CF78 /* RecentChatGroupSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentChatGroupSubview.swift; sourceTree = "<group>"; };
 		624FAEF5256EF08D000E0203 /* InputFieldSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputFieldSubview.swift; sourceTree = "<group>"; };
 		624FAEF8256EF137000E0203 /* ButtonsSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsSubview.swift; sourceTree = "<group>"; };
@@ -495,6 +497,7 @@
 				62E98612257D96C9003B5113 /* RecentPeopleRowSubview.swift */,
 				626EEC8B25897BC200E7A7A5 /* RecentChatTextRow.swift */,
 				626EEC8E25897BD200E7A7A5 /* AllGroupTextRow.swift */,
+				62109C88259055B700483ADB /* MiniProfileSubview.swift */,
 			);
 			path = RecentsViewSubviews;
 			sourceTree = "<group>";
@@ -762,6 +765,7 @@
 				622430A125747BDE0031CF78 /* RecentChatGroupSubview.swift in Sources */,
 				626E7815258D3EEB008633AB /* ProfileRingView.swift in Sources */,
 				626EECB2258988D700E7A7A5 /* RecentsView2.swift in Sources */,
+				62109C89259055B700483ADB /* MiniProfileSubview.swift in Sources */,
 				6205910724FDBB21001565BF /* ViewRouter.swift in Sources */,
 				E12E5F152584552B00FB216C /* UIManager.swift in Sources */,
 				BE167C452514333A00402C14 /* SettingsData.swift in Sources */,
@@ -972,7 +976,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyHub/Preview Content\"";
-				DEVELOPMENT_TEAM = MC27HKM86M;
+				DEVELOPMENT_TEAM = Q3GJATDTFC;
 				ENABLE_PREVIEWS = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = StudyHub/Info.plist;
@@ -980,7 +984,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.StudyHub2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.StudyHub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
@@ -997,7 +1001,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyHub/Preview Content\"";
-				DEVELOPMENT_TEAM = MC27HKM86M;
+				DEVELOPMENT_TEAM = Q3GJATDTFC;
 				ENABLE_PREVIEWS = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = StudyHub/Info.plist;
@@ -1005,7 +1009,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.StudyHub2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.StudyHub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;

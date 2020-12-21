@@ -27,7 +27,7 @@ struct RecentGroupRowSubview: View {
                 .fill(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
    
             HStack {
-                ProfileRingView(size: 53)
+                MiniProfileSubview(group:group)
                 VStack {
                     Text(group.groupName).font(.custom("Montserrat SemiBold", size: 15)).foregroundColor(Color(#colorLiteral(red: 0, green: 0.6, blue: 1, alpha: 1)))
                             .textCase(.uppercase)
