@@ -152,22 +152,22 @@ struct SettingView: View {
                             .font(.custom("Montserrat-SemiBold", size: 12))
                             .foregroundColor(.black)
                             .opacity(0.4)
-                            
-                        Spacer()
+                            .padding()
                         
+                        Spacer()
                         Text(settingState)
-                            .frame(width: 50)
                             .font(.custom("Montserrat-SemiBold", size: 12))
                             .lineLimit(1)
                             .foregroundColor(.black)
                             .opacity(0.4)
-                            .padding(.trailing, 5)
+                            
                         Image(systemName: "chevron.right")
                             .foregroundColor(Color("barCenter"))
                             .font(Font.system(size: 13).weight(.semibold))
+                            .padding()
                     }.disabled(disableNavigation)
                     
-                } .padding(.horizontal, 22)
+                }
             
             
            
@@ -184,14 +184,14 @@ struct SettingView: View {
                         .font(.custom("Montserrat-SemiBold", size: 12))
                         .foregroundColor(.black)
                         .opacity(0.4)
-                    
+                        .padding()
                     Spacer()
                     
                     Toggle("Availability for pairing", isOn: $userAvailable)
-                        .opacity(0.4)
+                        .opacity(0.6)
                         .labelsHidden()
-                    
-                } .padding(.horizontal, 22)
+                        .padding()
+                } 
             
             
            
