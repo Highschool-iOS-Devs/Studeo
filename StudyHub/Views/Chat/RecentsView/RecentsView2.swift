@@ -48,7 +48,8 @@ struct RecentsView2: View {
                                 }
                                 Spacer()
                             }
-                            .frame(height:425)
+                            .padding(.vertical)
+                           
                             
                         }
                         Spacer()
