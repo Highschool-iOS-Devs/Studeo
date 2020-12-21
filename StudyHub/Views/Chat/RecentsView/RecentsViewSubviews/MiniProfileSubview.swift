@@ -37,10 +37,12 @@ struct MiniProfileSubview: View {
                     .frame(minWidth:10, minHeight:10)
                     .overlay(Circle().stroke(Color("Background"), lineWidth: 1))
                     //.offset(x: -CGFloat(index*5))
-
+                    .animation(.easeInOut)
+                    .transition(.opacity)
 
             }
-        }
+        } .animation(.easeInOut)
+        .transition(.opacity)
         
         .frame(width:70, height: 40)
         .padding()
