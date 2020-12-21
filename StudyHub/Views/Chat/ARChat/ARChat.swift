@@ -13,7 +13,7 @@ class ARChat: AgoraLobbyVC {
     override func loadView() {
         super.loadView()
         
-        AgoraARKit.agoraAppId = "8345f101e56845fda7205089fef7824d"
+        
 
         
         // set the banner image within the initial view
@@ -25,7 +25,9 @@ class ARChat: AgoraLobbyVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        let request = AF.request("https://studyhub1.herokuapp.com/access_token?channel=\("A")&uid=0")
+        
+        AgoraARKit.agoraAppId = "8345f101e56845fda7205089fef7824d"
+        let request = AF.request("https://studyhub1.herokuapp.com/access_token?channel=\("B")&uid=0")
         
         request.responseJSON { (response) in
             print(response)
@@ -33,22 +35,31 @@ class ARChat: AgoraLobbyVC {
             let token = tokenDict["token"] as! String
             
             AgoraARKit.agoraToken = token
-            AgoraARKit.channelname = "A"
+            AgoraARKit.channelname = "B"
             
-            if AgoraARKit.agoraToken != "" {
                 let arAudienceVC = ARAudience()
-                if let exitBtnImage = UIImage(named: "exit") {
-                   arAudienceVC.backBtnImage = exitBtnImage
-                }
-                arAudienceVC.channelName = "A"
-                arAudienceVC.token = AgoraARKit.agoraToken!
+            AgoraARKit.channelname = "B"
+            AgoraARKit.agoraToken = token
+               
                 arAudienceVC.modalPresentationStyle = .fullScreen
+            arAudienceVC.view.frame = self.view.frame
+            arAudienceVC.view.center = self.view.center
+            arAudienceVC.view.backgroundColor = .blue
                 self.view.addSubview(arAudienceVC.view)
-            }
+            
+           
+            
         }
-        
+      
+      
+      
        
-    }
+          
+           
+        }
+       
+    
+
 
 
     // MARK: Button Actions

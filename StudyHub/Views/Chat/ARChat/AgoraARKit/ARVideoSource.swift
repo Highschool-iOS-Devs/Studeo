@@ -15,11 +15,11 @@ import AgoraRtcKit
  */
 class ARVideoSource: NSObject, AgoraVideoSourceProtocol {
     func captureType() -> AgoraVideoCaptureType {
-        return .camera
+        return .unknown
     }
     
     func contentHint() -> AgoraVideoContentHint {
-        return .motion
+        return .none
     }
     
     

@@ -182,7 +182,7 @@ extension ARAudience: AgoraRtcEngineDelegate {
         lprint("didOfflineOfUid: \(uid) with code: \(reason)", .Verbose)
         if remoteVideoView.subviews.count > 0 {
             for subview in remoteVideoView.subviews {
-                subview.removeFromSuperview()
+               // subview.removeFromSuperview()
             }
         }
         if uid == self.remoteUser {
@@ -193,11 +193,11 @@ extension ARAudience: AgoraRtcEngineDelegate {
             let videoCanvas = AgoraRtcVideoCanvas()
             videoCanvas.uid = newHostViewDictRow.key
             videoCanvas.view = remoteView
-            videoCanvas.renderMode = .hidden
+            videoCanvas.renderMode = .fill
             agoraKit.setupRemoteVideo(videoCanvas)
         } else if let remoteVideoView = self.remoteVideoViews[uid] {
-            remoteVideoView.removeFromSuperview() // remove the remote view from the super view
-            self.remoteVideoViews.removeValue(forKey: uid) // remove the remote view from the dictionary
+            //remoteVideoView.removeFromSuperview() // remove the remote view from the super view
+            //self.remoteVideoViews.removeValue(forKey: uid) // remove the remote view from the dictionary
         }
         adjustRemoteViews(remoteViews: self.remoteVideoViews, view: self.view)
     }

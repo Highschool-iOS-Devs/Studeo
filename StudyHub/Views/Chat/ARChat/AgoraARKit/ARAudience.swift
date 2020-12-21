@@ -117,7 +117,7 @@ open class ARAudience: UIViewController {
     override open func viewDidLoad() {
         super.viewDidLoad()
         lprint("AudienceVC - viewDidLoad", .Verbose)
-        createUI()
+       
         guard let agoraAppID = AgoraARKit.agoraAppId else { return }
         // Add Agora setup
         let agoraKit = AgoraRtcEngineKit.sharedEngine(withAppId: agoraAppID, delegate: self) // - init engine
@@ -138,6 +138,7 @@ open class ARAudience: UIViewController {
         if AgoraARKit.agoraAppId == nil {
             popView()
         } else {
+             createUI()
             joinChannel() // Agora - join the channel
         }
     }
@@ -155,7 +156,7 @@ open class ARAudience: UIViewController {
         // Set audio route to speaker
         self.agoraKit.setDefaultAudioRouteToSpeakerphone(defaultToSpeakerPhone)
         // Join the channel
-        self.agoraKit.joinChannel(byToken: token, channelId: self.channelName, info: nil, uid: 0)
+        self.agoraKit.joinChannel(byToken: AgoraARKit.agoraToken!, channelId: AgoraARKit.channelname!, info: nil, uid: 0)
         UIApplication.shared.isIdleTimerDisabled = true     // Disable idle timmer
     }
     
@@ -172,77 +173,67 @@ open class ARAudience: UIViewController {
      Programmatically generated UI, creates the view, and buttons.
      */
     open func createUI() {
-        lprint("createUI", .Verbose)
-        // add remote video view
-        let remoteView = UIView()
-        remoteView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
-        remoteView.backgroundColor = remoteViewBackgroundColor
-        remoteView.contentMode = .scaleAspectFit
-        self.view.insertSubview(remoteView, at: 1)
-        self.remoteVideoView = remoteView
-        
-        // add branded logo to view
-        if let watermarkImage = self.watermarkImage {
-            let watermark = UIImageView(image: watermarkImage)
-            watermark.contentMode = .scaleAspectFit
-            if let watermarkFrame = self.watermarkFrame {
-                watermark.frame = watermarkFrame
-            } else {
-                watermark.frame = CGRect(x: self.view.frame.maxX-100, y: self.view.frame.maxY-100, width: 75, height: 75)
-            }
-            watermark.alpha = watermarkAlpha
-            self.view.insertSubview(watermark, at: 2)
-            self.watermark = watermark
-        }
-        
-        //  back button
-        let backBtn = UIButton()
-        if let backBtnFrame = self.backBtnFrame {
-            backBtn.frame = backBtnFrame
-        } else {
-            backBtn.frame = CGRect(x: self.view.frame.maxX-55, y: self.view.frame.minY + 20, width: 30, height: 30)
-        }
-        if let backBtnImage = self.backBtnImage {
-            backBtn.setImage(backBtnImage, for: .normal)
-        } else {
-            backBtn.setTitle(backBtnTextLabel, for: .normal)
-        }
-        backBtn.addTarget(self, action: #selector(popView), for: .touchUpInside)
-        self.view.insertSubview(backBtn, at: 2)
-        
-        
-        let arBroadcastVC = ARBroadcaster()
-        if let exitBtnImage = UIImage(named: "exit") {
-           arBroadcastVC.backBtnImage = exitBtnImage
-        }
-        if let micBtnImage = UIImage(named: "mic"),
-            let muteBtnImage = UIImage(named: "mute"),
-            let watermakerImage = UIImage(named: "agora-logo") {
-            arBroadcastVC.micBtnImage = micBtnImage
-            arBroadcastVC.muteBtnImage = muteBtnImage
-            arBroadcastVC.watermarkImage = watermakerImage
-            arBroadcastVC.watermarkFrame = CGRect(x: self.view.frame.maxX-75, y: self.view.frame.maxY-75, width: 50, height: 50)
-        }
-            if isAndreas {
-                let request = AF.request("https://studyhub1.herokuapp.com/access_token?channel=\("B")&uid=0")
-                
-                request.responseJSON { (response) in
-                    print(response)
-                    guard let tokenDict = response.value as! [String : Any]? else { return }
-                    let token = tokenDict["token"] as! String
-                    
-                    arBroadcastVC.channelName = "B"
-                        arBroadcastVC.token = token
-                    self.view.addSubview(arBroadcastVC.view)
+            lprint("createUI", .Verbose)
+            // add remote video view
+            let remoteView = UIView()
+            remoteView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        remoteView.backgroundColor = .blue
+            remoteView.contentMode = .scaleAspectFit
+            self.view.insertSubview(remoteView, at: 1)
+            self.remoteVideoView = remoteView
+
+            // add branded logo to view
+            if let watermarkImage = self.watermarkImage {
+                let watermark = UIImageView(image: watermarkImage)
+                watermark.contentMode = .scaleAspectFit
+                if let watermarkFrame = self.watermarkFrame {
+                    watermark.frame = watermarkFrame
+                } else {
+                    watermark.frame = CGRect(x: self.view.frame.maxX-100, y: self.view.frame.maxY-100, width: 75, height: 75)
                 }
-      
-            } else {
-                arBroadcastVC.channelName = "A"
-                    arBroadcastVC.token = token
+                watermark.alpha = watermarkAlpha
+                self.view.insertSubview(watermark, at: 2)
+                self.watermark = watermark
             }
-            
-    
-    }
+
+            //  back button
+            let backBtn = UIButton()
+            if let backBtnFrame = self.backBtnFrame {
+                backBtn.frame = backBtnFrame
+            } else {
+                backBtn.frame = CGRect(x: self.view.frame.maxX-55, y: self.view.frame.minY + 20, width: 30, height: 30)
+            }
+            if let backBtnImage = self.backBtnImage {
+                backBtn.setImage(backBtnImage, for: .normal)
+            } else {
+                backBtn.setTitle(backBtnTextLabel, for: .normal)
+            }
+            backBtn.addTarget(self, action: #selector(popView), for: .touchUpInside)
+            self.view.insertSubview(backBtn, at: 2)
+
+            if channelName != "" {
+            let arBroadcastVC = ARBroadcaster()
+            if let exitBtnImage = UIImage(named: "exit") {
+               arBroadcastVC.backBtnImage = exitBtnImage
+            }
+            if let micBtnImage = UIImage(named: "mic"),
+                let muteBtnImage = UIImage(named: "mute"),
+                let watermakerImage = UIImage(named: "agora-logo") {
+                arBroadcastVC.micBtnImage = micBtnImage
+                arBroadcastVC.muteBtnImage = muteBtnImage
+                arBroadcastVC.watermarkImage = watermakerImage
+                arBroadcastVC.watermarkFrame = CGRect(x: self.view.frame.maxX-75, y: self.view.frame.maxY-75, width: 50, height: 50)
+            }
+                if isAndreas {
+        //    arBroadcastVC.channelName = "B"
+              //  arBroadcastVC.token = "0068345f101e56845fda7205089fef7824dIACbWCNCguEBeujgPTM75BUgXRGwZTai/IRrNJ/f6lI+ijHP0EoAAAAAEADQTRPKimHVXwEAAQCKYdVf"
+                } else {
+                 //   arBroadcastVC.channelName = "A"
+                  //      arBroadcastVC.token = "0068345f101e56845fda7205089fef7824dIABF69bEtecrAY0OIic44p22BlIIuDOwbOsSTws/C9q1uoue2dMAAAAAEADQTRPKrVjVXwEAAQCtWNVf"
+                }
+              //  view.addSubview(arBroadcastVC.view)
+        }
+        }
     
     // MARK: Button Events
     /**

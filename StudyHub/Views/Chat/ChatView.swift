@@ -20,11 +20,11 @@ struct ChatView: View {
     @State var messageField = ""
     @State var messages = [MessageData]()
     @State var members = [User]()
-    @State var group:Groups
+    @State var group: Groups
     //@State var image:Image
     @Binding var chat: Bool
     @State var ARChat = false
-    @State var test = false
+    @State var test = true
     @State var membersList = false
     @State var person = User(id: UUID(), firebaseID: "", name: "", email: "", profileImageURL: URL(string: ""), interests: [UserInterestTypes](), groups: [String](), recentGroups: [String](), recentPeople: [String](), studyHours: [Double](), studyDate: [String](), all: 0.0, month: 0.0, day: 0.0, description: "", isAvailable: false)
     var body: some View {

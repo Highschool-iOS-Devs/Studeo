@@ -17,12 +17,12 @@ import class Kingfisher.ImageCache
 
 struct MiniProfileSubview: View {
     @State var profileImages:[URL] = []
-    var gridItemLayout = [GridItem(.flexible()), GridItem(.flexible())]
+    var gridItemLayout = [GridItem(.flexible()), GridItem(.flexible()),GridItem(.flexible())]
     var group:Groups
     var body: some View {
         LazyVGrid(columns: gridItemLayout){
             ForEach(0..<profileImages.count, id: \.self){index in
-                KFImage(profileImages[index], options: [.transition(.fade(0.5)), .processor(DownsamplingImageProcessor(size: CGSize(width: 120, height: 120))), .cacheOriginalImage])
+                KFImage(profileImages[index], options: [.transition(.fade(0.5)), .processor(DownsamplingImageProcessor(size: CGSize(width: 60, height: 60))), .cacheOriginalImage])
                     .onSuccess { r in
                          // r: RetrieveImageResult
                          print("success: \(r)")
@@ -34,14 +34,16 @@ struct MiniProfileSubview: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .clipShape(Circle())
-                    .frame(minWidth:40, minHeight:40)
-                    .overlay(Circle().stroke(Color("Background"), lineWidth: 3))
-                    .offset(x: -CGFloat(index*5))
+                    .frame(minWidth:10, minHeight:10)
+                    .overlay(Circle().stroke(Color("Background"), lineWidth: 1))
+                    //.offset(x: -CGFloat(index*5))
 
 
             }
         }
-        .frame(width:70)
+        
+        .frame(width:70, height: 40)
+        .padding()
         .onAppear{
             getProfileImage()
         }
