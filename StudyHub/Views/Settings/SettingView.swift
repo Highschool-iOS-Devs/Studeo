@@ -9,7 +9,7 @@
 import SwiftUI
 import FirebaseFirestore
 import Network
-
+import class Kingfisher.KingfisherManager
 let screenSize = UIScreen.main.bounds.size
 
 struct SettingView: View {
@@ -48,6 +48,7 @@ struct SettingView: View {
                                     .onTapGesture(){
                                         FirebaseManager.signOut()
                                         resetUserDefaults()
+                                        KingfisherManager.shared.cache.clearCache()
                                         viewRouter.updateCurrentView(view:.login)
                                     }
                                 settingRowView(settingText: "Help", settingState: "", newView: AnyView(Text("Placeholder")))

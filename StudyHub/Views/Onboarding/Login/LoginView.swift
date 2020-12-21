@@ -118,7 +118,10 @@ struct LoginView: View {
                         if let user=user{
                             self.userData.userID = user.id.uuidString
                             self.userData.name = user.name
-                            self.userData.profilePictureURL = user.profileImageURL
+                            if let url = user.profileImageURL{
+                                self.userData.profilePictureURL = url.absoluteString
+
+                            }
                             userData.isOnboardingCompleted = true
                         }
                         else{

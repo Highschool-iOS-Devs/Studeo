@@ -70,8 +70,8 @@ final class UserData: ObservableObject {
     @Published
     var tappedCTA: Bool = false
     
-    @Published
-    var profilePictureURL: URL?
+    @Published(wrappedValue: "", key: "profilePictureURL")
+    var profilePictureURL: String
     
     @Published
     var description: String = "This is your bio for others to see. Tap to edit."

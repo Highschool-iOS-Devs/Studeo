@@ -86,9 +86,11 @@ struct RegistrationView: View {
                 }
                 self.userData.userID = authResult!.id.uuidString
                 self.userData.name = authResult!.name
+                uploadImage()
                 self.viewRouter.updateCurrentView(view: .custom)
                // self.viewRouter.showTabBar = true
         }
+
     }
         
     func sendData(performActions: @escaping (ErrorModel, User?) -> Void) {
@@ -121,30 +123,37 @@ struct RegistrationView: View {
                 
                 self.showLoadingAnimation = false
 
-                uploadImage()
                 performActions(ErrorModel(errorMessage: "", errorState: false), newUser)
         }
             
            
     }
+    
         
-        func uploadImage() {
+    func uploadImage() {
+
+             let metadata = StorageMetadata()
+             metadata.contentType = "image/jpeg"
+          let storage = Storage.storage().reference().child("User_Profile/\(userData.userID)")
+            let imagePlaceholder = UIImage(systemName: "person.circle.fill")!
+
+              storage.putData(imagePlaceholder.jpegData(compressionQuality: 10)!, metadata: metadata) { meta, error in
+                if let error = error{
+                    print("Error uploading image, \(error)")
+                    return
+                }
+                storage.downloadURL { url, error in
+                    if let error = error {
+                      print("Error downloading image, \(error)")
+                    } else {
+                        userData.profilePictureURL = url!.absoluteString
+                    }
+                  }
+             }
           
-               let metadata = StorageMetadata()
-               metadata.contentType = "image/jpeg"
-
-               let storage = Storage.storage().reference()
-            storage.child(userData.userID).putData(UIImage(named: "5293")!.jpegData(compressionQuality: 0.4)!, metadata: metadata) { meta, error in
-                   if let error = error {
-                       print(error)
-                       return
-                   }
-
-                  
-               }
-              
-         
        }
+        
+
 
 }
 

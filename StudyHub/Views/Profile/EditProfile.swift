@@ -10,6 +10,8 @@ import Foundation
 import SwiftUI
 import Firebase
 import FirebaseStorage
+import class Kingfisher.KingfisherManager
+
 struct EditProfile: View {
     @State var imagePicker: Bool = false
     @Binding var profileImage: UIImage?
@@ -28,47 +30,32 @@ struct EditProfile: View {
 
     var body: some View {
         ZStack {
-            ScrollView(/*@START_MENU_TOKEN@*/.vertical/*@END_MENU_TOKEN@*/, showsIndicators: false) {
         ForEach(user){ user in
      VStack {
-         Spacer()
-        HStack {
-            
-            Spacer()
-            if profileImage == nil{
                 ZStack(alignment:.center) {
-                    imagePlaceholder
-                        .renderingMode(.original)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 350, height: 350)
-                        .overlay(BlurView(style: .systemThinMaterial))
-                        .clipShape(Circle())
-                        .overlay(
-                                Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 5)
-                        )
+                    if profileImage == nil{
+                        ProfileRingView(size: 350)
+                            .opacity(0.5)
+                    }
+                    else{
+                        Image(uiImage: profileImage!)
+                            .renderingMode(.original)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 350, height: 350)
+                            .clipShape(Circle())
+                            .overlay(
+                                    Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 5)
+                            )
+                            .opacity(0.5)
+
+    
+                    }
                     Text("Tap to choose")
                         .font(.custom("Montserrat-Bold", size: 30))
                         .foregroundColor(Color("Primary"))
-                }
-                
             }
-            else{
-                Image(uiImage: (profileImage!))
-                    .renderingMode(.original)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 350, height: 350)
-                    .clipShape(Circle())
-                    .overlay(Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 5))
-                    .padding(.top, 110)
-                    .padding(.bottom, 22)
-            }
-         
-               
-
-            
-        }
+                .padding(.top, 20)
         .onTapGesture {
             showImagePicker = true
          }
@@ -77,42 +64,43 @@ struct EditProfile: View {
                 .environmentObject(userData)
                 .onDisappear() {
                     profileImage = image ?? profileImage
-                    self.userData.profilePictureURL = nil
                 }
          }
         .padding(.horizontal, 42)
 
+        VStack{
+            TextField(user.name, text: $name)
+                
+                 .font(.custom("Montserrat-Semibold", size: 22))
+                 .foregroundColor(Color(.black))
+                 .multilineTextAlignment(.leading)
 
-        TextField(user.name, text: $name)
-            
-             .font(.custom("Montserrat-Semibold", size: 22))
-             .foregroundColor(Color(.black))
-             .multilineTextAlignment(.leading)
-            .padding(.bottom, 22)
-            .padding()
-
-         HStack {
-           
-            ProfileStats(allNum: user.all, all: true)
-            ProfileStats(monthNum: user.month, month: true)
-            ProfileStats(dayNum: user.day, day: true)
-           
-          
-           
-         }  .padding(.bottom, 22)
-     
-        TextField(user.description, text: $description)
-             .frame(minWidth: 100, alignment: .leading)
-             .font(.custom("Montserrat-Semibold", size: 18))
-             .foregroundColor(Color(.black))
-             .multilineTextAlignment(.center)
-             .padding()
-            .padding(.bottom, 22)
-            .padding(.horizontal, 22)
+             HStack {
+               
+                ProfileStats(allNum: user.all, all: true)
+                ProfileStats(monthNum: user.month, month: true)
+                ProfileStats(dayNum: user.day, day: true)
+               
+              
+               
+             } .padding(.vertical, 22)
+         
+            TextField(user.description, text: $description)
+                 .frame(minWidth: 100, alignment: .leading)
+                 .font(.custom("Montserrat-Semibold", size: 18))
+                 .foregroundColor(Color(.black))
+                 .multilineTextAlignment(.center)
+               
+        }
+        .padding()
+       .padding(.bottom, 22)
+       .padding(.horizontal, 22)
+      
         Button(action: {
             sendData()
+            resizeImage()
             uploadImage()
-            
+            //downloadImages()
     
         }) {
             Text("Save")
@@ -129,23 +117,48 @@ struct EditProfile: View {
      .padding(.horizontal)
 
       
-        }
+        
     }
 }
-
+//    func downloadImages(){
+//         let metadata = StorageMetadata()
+//         metadata.contentType = "image/jpeg"
+//
+//         let storage = Storage.storage()
+//         let pathReference = storage.reference(forURL: "gs://study-hub-7540b.appspot.com/User_Profile/\(userData.userID)")
+//        pathReference.downloadURL { url, error in
+//            if let error = error {
+//              print("Error downloading image, \(error)")
+//            } else {
+//                userData.profilePictureURL = url
+//            }
+//          }
+//              
+//     }
+    func resizeImage(){
+        if var image = profileImage{
+            while image.getSizeIn(.megabyte)! >= Double(2){
+                image = image.resizeWithPercent(percentage: 0.8)!
+            }
+            profileImage = image
+        }
+        
+    }
     func uploadImage() {
       
            let metadata = StorageMetadata()
            metadata.contentType = "image/jpeg"
         let storage = Storage.storage().reference().child("User_Profile/\(userData.userID)")
         if let image = profileImage{
-            storage.putData(image.jpegData(compressionQuality: 0.01)!, metadata: metadata) { meta, error in
+        
+            storage.putData(image.jpegData(compressionQuality: 100)!, metadata: metadata) { meta, error in
                if let error = error {
                    print(error)
                    return
                }
 
-              
+                KingfisherManager.shared.cache.clearCache()
+
            }
         }
      
@@ -184,3 +197,53 @@ struct EditProfile: View {
                
             }
             
+extension UIImage {
+
+    public enum DataUnits: String {
+        case byte, kilobyte, megabyte, gigabyte
+    }
+
+    func getSizeIn(_ type: DataUnits)-> Double? {
+
+        guard let data = self.pngData() else {
+            return nil
+        }
+
+        var size: Double = 0.0
+
+        switch type {
+        case .byte:
+            size = Double(data.count)
+        case .kilobyte:
+            size = Double(data.count) / 1024
+        case .megabyte:
+            size = Double(data.count) / 1024 / 1024
+        case .gigabyte:
+            size = Double(data.count) / 1024 / 1024 / 1024
+        }
+
+        return size
+    }
+    func resizeWithPercent(percentage: CGFloat) -> UIImage? {
+        let imageView = UIImageView(frame: CGRect(origin: .zero, size: CGSize(width: size.width * percentage, height: size.height * percentage)))
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = self
+        UIGraphicsBeginImageContextWithOptions(imageView.bounds.size, false, scale)
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
+        imageView.layer.render(in: context)
+        guard let result = UIGraphicsGetImageFromCurrentImageContext() else { return nil }
+        UIGraphicsEndImageContext()
+        return result
+    }
+    func resizeWithWidth(width: CGFloat) -> UIImage? {
+        let imageView = UIImageView(frame: CGRect(origin: .zero, size: CGSize(width: width, height: CGFloat(ceil(width/size.width * size.height)))))
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = self
+        UIGraphicsBeginImageContextWithOptions(imageView.bounds.size, false, scale)
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
+        imageView.layer.render(in: context)
+        guard let result = UIGraphicsGetImageFromCurrentImageContext() else { return nil }
+        UIGraphicsEndImageContext()
+        return result
+    }
+}
