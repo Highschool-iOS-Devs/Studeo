@@ -10,7 +10,7 @@ import SwiftUI
 import Firebase
 
 struct PairingView: View {
-    @State var matchedPerson = User(id: UUID(), firebaseID: "", name: "", email: "", interests: [], groups: [], studyHours: [0], studyDate: [""], all: 0, month: 0, day: 0, description: "", isAvailable: true)
+    @State var matchedPerson = User(id: UUID(), firebaseID: "", name: "", email: "", interests: [], groups: [], studyHours: [0], studyDate: [""], all: 0, month: 0, day: 0, description: "", isAvailable: true, finishedOnboarding: true)
     @State var people = [User]()
     @EnvironmentObject var userData:UserData
     @State var paired: Bool = false

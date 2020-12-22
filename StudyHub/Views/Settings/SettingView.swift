@@ -9,6 +9,7 @@
 import SwiftUI
 import FirebaseFirestore
 import Network
+import UserNotifications
 import class Kingfisher.KingfisherManager
 let screenSize = UIScreen.main.bounds.size
 
@@ -48,6 +49,7 @@ struct SettingView: View {
                                     .onTapGesture(){
                                         FirebaseManager.signOut()
                                         resetUserDefaults()
+                                        removeAllPendingNotifications()
                                         KingfisherManager.shared.cache.clearCache()
                                         viewRouter.updateCurrentView(view:.login)
                                     }
@@ -86,6 +88,11 @@ struct SettingView: View {
         dict.keys.forEach { key in
             defaults.removeObject(forKey: key)
         }
+    }
+    
+    func removeAllPendingNotifications() {
+        let center = UNUserNotificationCenter.current()
+        center.removeAllPendingNotificationRequests()
     }
     
     func saveAvailabilityData() {

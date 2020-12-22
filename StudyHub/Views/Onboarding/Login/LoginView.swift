@@ -20,6 +20,7 @@ struct LoginView: View {
     @State var showLoadingAnimation = false
     @State var test = true
     @State var errorObject:ErrorModel = ErrorModel(errorMessage: "", errorState: false)
+    @State var finishedOnboarding = false
     @EnvironmentObject var userData: UserData
     @EnvironmentObject var viewRouter:ViewRouter
     
@@ -84,8 +85,12 @@ struct LoginView: View {
                         self.displayError = true
                         return
                     }
-                    self.viewRouter.updateCurrentView(view: .home)
-                    self.viewRouter.showTabBar = true
+                    if self.finishedOnboarding {
+                        self.viewRouter.updateCurrentView(view: .home)
+                        self.viewRouter.showTabBar = true
+                    } else {
+                        self.viewRouter.updateCurrentView(view: .custom)
+                    }
                     
                 }
             }
@@ -122,7 +127,8 @@ struct LoginView: View {
                                 self.userData.profilePictureURL = url.absoluteString
 
                             }
-                            userData.isOnboardingCompleted = true
+                            userData.isOnboardingCompleted = user.finishedOnboarding ?? false
+                            self.finishedOnboarding = user.finishedOnboarding ?? false
                         }
                         else{
                             print("Document does not exist")

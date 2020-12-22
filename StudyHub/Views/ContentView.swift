@@ -37,6 +37,7 @@ struct ContentView: View {
             Color.white
                 .edgesIgnoringSafeArea(.all)
                 .onAppear{
+                    self.firstLaunchAction()
                     self.checkAuth()
                     userData.uses += 1
                     userData.uses = 2
@@ -415,7 +416,7 @@ struct ContentView: View {
                     }
                     else{
                         self.viewRouter.showTabBar = false
-                        self.viewRouter.currentView = .introView
+                        self.viewRouter.currentView = .custom
                     }
                     self.hasCheckedAuth = true
 
@@ -430,6 +431,15 @@ struct ContentView: View {
         
          
     }
+    
+    func firstLaunchAction() {
+        let firstLaunch = userData.firstRun
+        if firstLaunch {
+            FirebaseManager.signOut()
+            userData.firstRun = false
+        }
+    }
+    
     func joinGroup(newGroup: Groups) {
         let db = Firestore.firestore()
         let docRef = db.collection("groups")
