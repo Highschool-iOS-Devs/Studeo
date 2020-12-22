@@ -13,17 +13,19 @@ struct tabItemView: View {
     var text:String
     var tabType: ViewRouter.Views
     @EnvironmentObject var viewRouter:ViewRouter
+    
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         VStack {
             Image(systemName: SFImage)
                 .font(.system(size: 20))
                 .padding(.bottom, 5)
-                .foregroundColor(viewRouter.currentView == tabType ? Color("barHighlight") : Color.black.opacity(0.25))
+                .foregroundColor(viewRouter.currentView == tabType ? Color("barHighlight") : Color("Text").opacity(0.25))
             
             Text(text)
                 .font(.custom("Montserrat-Bold", size: 10))
-                .foregroundColor(viewRouter.currentView == tabType ? Color("barHighlight") : Color.black.opacity(0.25))
+                .foregroundColor(viewRouter.currentView == tabType ? Color("barHighlight") : Color("Text").opacity(0.25))
             
         }
         
@@ -64,7 +66,8 @@ struct tabBarView: View {
 
           .frame(width: screenSize.width, height: 110)
             .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-            .background(Color.white.shadow(radius: 0.5))
+            //.background(BlurView(style: .systemMaterial).shadow(radius: 0.5))
+                .background(Color("Background").shadow(color: Color("shadow"), radius: 0.75))
             .overlay(
                 tabBigButton()
                     .onTapGesture {

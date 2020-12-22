@@ -18,51 +18,57 @@ struct SettingView: View {
     @State var userIsAvailable = true
     var body: some View {
             NavigationView {
-                ScrollView {
-                    VStack {
+                ZStack {
+                    ScrollView {
                         VStack {
-                            ProfileRingView(size: 100)
-                            Text(userData.name)
-                            .font(.custom("Montserrat-Bold", size: 28))
-                            .padding(.top, 10)
-                        }.padding(.top, 20)
-                       
-                        
-                        Spacer(minLength: 50)
-                        
-                        VStack(alignment:.leading) {
+                            VStack {
+                                ProfileRingView(size: 100)
+                                Text(userData.name)
+                                .font(.custom("Montserrat-Bold", size: 28))
+                                .padding(.top, 10)
+                                .foregroundColor(Color("Text"))
+                            }.padding(.top, 20)
+                           
                             
-                            Text("Account Settings")
-                                .font(.custom("Montserrat-Bold", size: 16))
-                                .foregroundColor(.black)
-                                .padding(.bottom, 70)
-                                .padding(.top, 40)
-                                .padding(.horizontal, 22)
-                            VStack(spacing: 30) {
-                                availabilityRowView(settingText: "Available for new pairings", userAvailable: $userIsAvailable)
-                                settingRowView(settingText: "Notifications", settingState: "On", newView: AnyView(NotificationsView()))
-                                settingRowView(settingText: "Personal info", settingState: "", newView: AnyView(PersonalInfoView()))
-                                settingRowView(settingText: "Country", settingState: "United States", newView: AnyView(Text("Placeholder")))
-                                settingRowView(settingText: "Language", settingState: "English", newView: AnyView(Text("Placeholder")))
-                                settingRowView(settingText: "Sign out", settingState: "", newView: AnyView(Text("Placeholder")), disableNavigation: true)
-                                    .onTapGesture(){
-                                        FirebaseManager.signOut()
-                                        resetUserDefaults()
-                                        KingfisherManager.shared.cache.clearCache()
-                                        viewRouter.updateCurrentView(view:.login)
-                                    }
-                                settingRowView(settingText: "Help", settingState: "", newView: AnyView(Text("Placeholder")))
+                            Spacer(minLength: 50)
+                            
+                            VStack(alignment:.leading) {
+                                
+                                Text("Account Settings")
+                                    .font(.custom("Montserrat-Bold", size: 20))
+                                    .foregroundColor(Color("Text"))
+                                    .padding(.bottom, 40)
+                                    .padding(.top, 40)
+                                    .padding(.horizontal, 22)
+                                VStack(spacing: 30) {
+                                    availabilityRowView(settingText: "Available for new pairings", userAvailable: $userIsAvailable)
+                                    settingRowView(settingText: "Notifications", settingState: "On", newView: AnyView(NotificationsView()))
+                                    settingRowView(settingText: "Personal info", settingState: "", newView: AnyView(PersonalInfoView()))
+                                    settingRowView(settingText: "Country", settingState: "United States", newView: AnyView(Text("Placeholder")))
+                                    settingRowView(settingText: "Language", settingState: "English", newView: AnyView(Text("Placeholder")))
+                                    settingRowView(settingText: "Sign out", settingState: "", newView: AnyView(Text("Placeholder")), disableNavigation: true)
+                                        .onTapGesture(){
+                                            FirebaseManager.signOut()
+                                            resetUserDefaults()
+                                            KingfisherManager.shared.cache.clearCache()
+                                            viewRouter.updateCurrentView(view:.login)
+                                        }
+                                    settingRowView(settingText: "Help", settingState: "", newView: AnyView(Text("Placeholder")))
+                                }
+                                Spacer()
                             }
-                            Spacer()
+                            .padding(.bottom, 20)
+                            .background(Color("Background"))
+                            .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
+                            .shadow(color: Color("shadow") ,radius: 5)
+                            .padding(.horizontal, 10)
+                            Spacer(minLength: 120)
                         }
-                        .padding(.bottom, 20)
-                        .background(Color.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
-                        .shadow(radius: 5)
-                        .padding(.horizontal, 10)
-                        Spacer(minLength: 120)
+                        .padding(.top, 50)
                     }
                 }
+                .background(Color("Background"))
+                .edgesIgnoringSafeArea(.all)
                 .navigationBarTitle("")
                 .navigationBarHidden(true)
             }
@@ -150,15 +156,15 @@ struct SettingView: View {
                     NavigationLink(destination: newView) {
                         Text(settingText)
                             .font(.custom("Montserrat-SemiBold", size: 12))
-                            .foregroundColor(.black)
-                            .opacity(0.4)
+                            .foregroundColor(Color("Text"))
+                            .opacity(0.9)
                             .padding()
                         
                         Spacer()
                         Text(settingState)
                             .font(.custom("Montserrat-SemiBold", size: 12))
                             .lineLimit(1)
-                            .foregroundColor(.black)
+                            .foregroundColor(Color("Text"))
                             .opacity(0.4)
                             
                         Image(systemName: "chevron.right")
@@ -182,8 +188,8 @@ struct SettingView: View {
                 HStack{
                     Text(settingText)
                         .font(.custom("Montserrat-SemiBold", size: 12))
-                        .foregroundColor(.black)
-                        .opacity(0.4)
+                        .foregroundColor(Color("Text"))
+                        .opacity(0.9)
                         .padding()
                     Spacer()
                     
