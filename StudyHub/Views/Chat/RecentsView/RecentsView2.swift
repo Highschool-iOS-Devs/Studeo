@@ -42,9 +42,10 @@ struct RecentsView2: View {
                         else{
                             VStack(spacing: 20) {
                                 ForEach(recentGroups){group in
-                                    RecentGroupRowSubview(group: group, profilePicture: Image("demoprofile"))
+                                    RecentGroupRowSubview(group: group, profilePicture: Image("demoprofile"), viewModel: RecentsView2ViewModel())
                                         .padding(.horizontal, 20)
                                         .environmentObject(UserData.shared)
+                                      
                                 }
                                 Spacer()
                             }

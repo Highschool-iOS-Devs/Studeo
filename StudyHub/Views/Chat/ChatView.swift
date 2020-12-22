@@ -10,6 +10,11 @@ import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Alamofire
+import KingfisherSwiftUI
+import struct Kingfisher.DownsamplingImageProcessor
+import struct Kingfisher.ImageResource
+import class Kingfisher.ImageCache
+
 //!!!You do not use OnAppear method with this view, this view
 //is created at the same time as AddChat View!!!
 struct ChatView: View {
@@ -27,20 +32,35 @@ struct ChatView: View {
     @State var test = true
     @State var membersList = false
     @State var person = User(id: UUID(), firebaseID: "", name: "", email: "", profileImageURL: URL(string: ""), interests: [UserInterestTypes](), groups: [String](), recentGroups: [String](), recentPeople: [String](), studyHours: [Double](), studyDate: [String](), all: 0.0, month: 0.0, day: 0.0, description: "", isAvailable: false, finishedOnboarding: false)
+    @State var profileImages:[URL] = []
+
     var body: some View {
         ZStack {
             Color.white.edgesIgnoringSafeArea(.all)
-                .onAppear() {
-                    
-                    
-                }
-            
             VStack {
                 //Testing UI with some messages
                 HStack {
-                    
-                    ProfilePicture(pictureSize: 50, image: Image("demoprofile"))
-                        .onTapGesture {
+                    HStack{
+                        ForEach(0..<profileImages.count, id: \.self){index in
+                            KFImage(profileImages[index], options: [.transition(.fade(0.5)), .processor(DownsamplingImageProcessor(size: CGSize(width: 150, height: 150))), .cacheOriginalImage])
+                                .onSuccess { r in
+                              
+                                 }
+                                 .onFailure { e in
+                                     // e: KingfisherError
+                                     print("failure: \(e)")
+                                 }
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width:50, height:50)
+                                .clipShape(Circle())
+                                .overlay(Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 2))
+                                .offset(x: -CGFloat(index*6))
+                        
+
+                        }
+                    }
+                    .onTapGesture {
                             self.loadMembers(){ userData in
                                 //Get completion handler data results from loadData function and set it as the recentPeople local variable
                                 self.members = userData ?? []
@@ -51,10 +71,7 @@ struct ChatView: View {
                             }
                             
                         }
-                    Text(group.groupName)
-                        .font(.custom("Montserrat", size: 15))
-                        .padding()
-                        .foregroundColor(.black)
+  
                     Spacer()
                     if test {
                     Button(action: {
@@ -66,6 +83,12 @@ struct ChatView: View {
                     }
                     }
                 } .padding()
+                .overlay(
+                    Text(group.groupName)
+                        .font(.custom("Montserrat-Bold", size: 23))
+                        .padding()
+                        .foregroundColor(.black)
+                        .frame(maxWidth:.infinity, alignment:.center))
                 
                 ScrollView(.vertical, showsIndicators: false) {
                     ScrollViewReader { scrollView in
@@ -126,7 +149,7 @@ struct ChatView: View {
                 
             }
             if membersList {
-                MembersList(members: $members, memberList: $membersList, group: $group, person: $person, messages: $messages)
+                MembersList(members: $members, memberList: $membersList, group: $group, person: $person, messages: $messages, viewModel:RecentsView2ViewModel())
             }
             if ARChat {
                 VStack {
@@ -148,6 +171,7 @@ struct ChatView: View {
         .onAppear{
             self.loadData()
             self.addRecentRecord()
+            self.getProfileImages()
         
         }
         
@@ -156,6 +180,25 @@ struct ChatView: View {
         
         
     }
+    func getProfileImages(){
+        ///Firebase networking to fetch images
+        if profileImages == []{
+            for member in group.members{
+                let metadata = StorageMetadata()
+                metadata.contentType = "image/jpeg"
+                let storage = Storage.storage().reference().child("User_Profile/\(member)")
+                storage.downloadURL{url, error in
+                    if let error = error{
+                        print("Error downloading image, \(error)")
+                    }
+                    profileImages.append(url!)
+                }
+            }
+            
+        }
+    }
+    
+    
     func saveMessage(outgoingMessage:MessageData){
         let db = Firestore.firestore()
         let ref = db.collection("message/\(group.groupID)/messages/").document(UUID().uuidString)

@@ -8,6 +8,8 @@
 
 import SwiftUI
 import Firebase
+import KingfisherSwiftUI
+import struct Kingfisher.DownsamplingImageProcessor
 
 struct MembersList: View {
     @Binding var members: [User]
@@ -16,6 +18,8 @@ struct MembersList: View {
     @Binding var person: User
     @EnvironmentObject var userData:UserData
     @Binding var messages: [MessageData]
+    @StateObject var viewModel:RecentsView2ViewModel
+
     var body: some View {
         ZStack {
             Color.white
@@ -32,13 +36,13 @@ struct MembersList: View {
                 Spacer()
             } .padding()
         
-            ForEach(members) { member in
+            ForEach(Array(zip(members, viewModel.profileImages)), id: \.0) {item in
                 VStack {
                     Button(action: {
-                        let groupMemberIDs = [member.id.uuidString, userData.userID]
+                        let groupMemberIDs = [item.0.id.uuidString, userData.userID]
                         let newGroup = Groups(id: UUID().uuidString,
                                           groupID: UUID().uuidString,
-                                          groupName: String(describing: userData.name + " and " + member.name),
+                                          groupName: String(describing: userData.name + " and " + item.0.name),
                                           members: groupMemberIDs,
                                           interests: group.interests)
                        
@@ -46,11 +50,11 @@ struct MembersList: View {
                         memberList = false
                         group = newGroup
                         messages.removeAll()
-                        
+
                     }) {
                         HStack {
-                           ProfileRingView(imagePlaceholder: Image("person"), size: 75)
-                        Text(member.name)
+                            MemberProfileSubView(size: 75, url: item.1)
+                            Text(item.0.name)
                             .font(.custom("Montserrat", size: 24))
                             .foregroundColor(.black)
                             .padding()
@@ -65,6 +69,10 @@ struct MembersList: View {
             Spacer()
         }
     }
+        .onAppear{
+            viewModel.setGroup(group: group)
+            viewModel.getProfileImages()
+        }
     }
     func joinGroup(newGroup:Groups) {
         let db = Firestore.firestore()
@@ -111,3 +119,40 @@ struct MembersList: View {
 }
 
 
+struct MemberProfileSubView: View {
+    var imagePlaceholder = Image(systemName: "person.circle.fill")
+    var size:CGFloat
+    var url:URL
+    var body: some View {
+        KFImage(url, options: [.transition(.fade(0.5)), .processor(DownsamplingImageProcessor(size: CGSize(width: size*3, height: size*3))), .cacheOriginalImage])
+            .onSuccess { r in
+                 // r: RetrieveImageResult
+                 print("success: \(r)")
+             }
+             .onFailure { e in
+                 // e: KingfisherError
+                 print("failure: \(e)")
+             }
+             .placeholder {
+                 ProgressView()
+             }
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: size, height: size)
+                .clipShape(Circle())
+                .overlay(Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: computeLineWidth()))
+     
+          
+    }
+    func computeLineWidth() -> CGFloat{
+        let lineWidth = 0.046*size
+        if lineWidth > 4{
+            return 4
+        }
+        else{
+            return lineWidth
+        }
+    }
+
+  
+}

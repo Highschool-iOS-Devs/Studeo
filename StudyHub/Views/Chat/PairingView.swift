@@ -114,10 +114,10 @@ struct PairingView: View {
             .sheet(isPresented: self.$paired, onDismiss: {
                 self.add = false
             }){
-                if let group = newGroup{
-                    ChatView(group: group, chat: $chat)
-                        .environmentObject(userData)
-                }
+//                if let group = newGroup{
+//                    ChatView(group: group, chat: $chat)
+//                        .environmentObject(userData)
+//                }
                
             }
             

@@ -20,6 +20,7 @@ struct RecentGroupRowSubview: View {
     @State var chat = false
     @State var sentTime = ""
     @State var messagePreview = ""
+    @StateObject var viewModel:RecentsView2ViewModel
     var body: some View {
         //Chat row background
         ZStack {
@@ -27,7 +28,7 @@ struct RecentGroupRowSubview: View {
                 .fill(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
    
             HStack {
-                MiniProfileSubview(group:group)
+                MiniProfileSubview(group:group, viewModel: viewModel)
                 VStack {
                     Text(group.groupName).font(.custom("Montserrat SemiBold", size: 15)).foregroundColor(Color(#colorLiteral(red: 0, green: 0.6, blue: 1, alpha: 1)))
                             .textCase(.uppercase)
@@ -69,6 +70,11 @@ struct RecentGroupRowSubview: View {
         }
         .onAppear{
             getTimeAndMessageRecord()
+
+        viewModel.setGroup(group: group)
+        viewModel.getProfileImages()
+                    
+                
         }
     }
     func getTimeAndMessageRecord(){
@@ -113,8 +119,3 @@ struct RecentGroupRowSubview: View {
     }
 }
 
-struct RecentChatRowSubview_Previews: PreviewProvider {
-    static var previews: some View {
-        RecentGroupRowSubview(group: Groups(id: "", groupID: "", groupName: "SAT Group", members: [""], interests: [nil]), profilePicture: Image("demoprofile"))
-    }
-}

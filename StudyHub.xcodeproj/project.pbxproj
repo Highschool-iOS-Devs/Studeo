@@ -47,6 +47,7 @@
 		6205911B24FDBB21001565BF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620590F024FDBB21001565BF /* SceneDelegate.swift */; };
 		6205911D24FDBD1D001565BF /* ErrorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6205911C24FDBD1D001565BF /* ErrorModel.swift */; };
 		62109C89259055B700483ADB /* MiniProfileSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62109C88259055B700483ADB /* MiniProfileSubview.swift */; };
+		62109C912591DA1A00483ADB /* RecentsView2ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62109C902591DA1A00483ADB /* RecentsView2ViewModel.swift */; };
 		622430A125747BDE0031CF78 /* RecentChatGroupSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622430A025747BDE0031CF78 /* RecentChatGroupSubview.swift */; };
 		624FAEF6256EF08D000E0203 /* InputFieldSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624FAEF5256EF08D000E0203 /* InputFieldSubview.swift */; };
 		624FAEF9256EF137000E0203 /* ButtonsSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624FAEF8256EF137000E0203 /* ButtonsSubview.swift */; };
@@ -166,6 +167,7 @@
 		620590F024FDBB21001565BF /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		6205911C24FDBD1D001565BF /* ErrorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorModel.swift; sourceTree = "<group>"; };
 		62109C88259055B700483ADB /* MiniProfileSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniProfileSubview.swift; sourceTree = "<group>"; };
+		62109C902591DA1A00483ADB /* RecentsView2ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentsView2ViewModel.swift; sourceTree = "<group>"; };
 		622430A025747BDE0031CF78 /* RecentChatGroupSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentChatGroupSubview.swift; sourceTree = "<group>"; };
 		624FAEF5256EF08D000E0203 /* InputFieldSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputFieldSubview.swift; sourceTree = "<group>"; };
 		624FAEF8256EF137000E0203 /* ButtonsSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsSubview.swift; sourceTree = "<group>"; };
@@ -486,6 +488,7 @@
 		624FAFDB25720AA0000E0203 /* RecentsView */ = {
 			isa = PBXGroup;
 			children = (
+				62109C902591DA1A00483ADB /* RecentsView2ViewModel.swift */,
 				626EECB1258988D700E7A7A5 /* RecentsView2.swift */,
 				624FAFDC25720AAC000E0203 /* RecentsViewSubviews */,
 			);
@@ -789,6 +792,7 @@
 				E12E5FC425848C0A00FB216C /* CompeteView.swift in Sources */,
 				6205910124FDBB21001565BF /* FirebaseManager.swift in Sources */,
 				E12E5F182584552B00FB216C /* ARBroadcaster+ARSessionDelegate.swift in Sources */,
+				62109C912591DA1A00483ADB /* RecentsView2ViewModel.swift in Sources */,
 				626EEC8C25897BC200E7A7A5 /* RecentChatTextRow.swift in Sources */,
 				6205911324FDBB21001565BF /* LeaderboardView.swift in Sources */,
 				E12E5F0E2584552B00FB216C /* AgoraLobbyVC.swift in Sources */,
@@ -980,7 +984,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyHub/Preview Content\"";
-				DEVELOPMENT_TEAM = MC27HKM86M;
+				DEVELOPMENT_TEAM = Q3GJATDTFC;
 				ENABLE_PREVIEWS = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = StudyHub/Info.plist;
@@ -1005,7 +1009,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyHub/Preview Content\"";
-				DEVELOPMENT_TEAM = MC27HKM86M;
+				DEVELOPMENT_TEAM = Q3GJATDTFC;
 				ENABLE_PREVIEWS = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = StudyHub/Info.plist;
