@@ -130,7 +130,7 @@ struct Homev2: View {
                             SelfRankView(hours: sum)
                                 .padding()
                         }
-                            //CTA(imgName: "Group", cta: "Add Group")
+                            CTA(imgName: "mentor", cta: "Find a Mentor")
                                
                              
                          //   CTA(imgName: "study", cta: "Compete")

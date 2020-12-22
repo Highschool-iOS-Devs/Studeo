@@ -22,6 +22,7 @@ class ViewRouter:ObservableObject{
         case profile
         case custom
         case devChat
+        case mentor
     }
     @Published var currentView = Views.registration
     @Published var showChatView = false {

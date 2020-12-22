@@ -47,6 +47,8 @@ struct CTA: View {
                         } else if self.cta == "Add Group" {
                             self.tabRouter.currentView = .chatList
                             
+                        } else if self.cta == "Find a Mentor" {
+                            self.tabRouter.currentView = .mentor
                         } else {
                             self.tabRouter.currentView = .leaderboard
                             
