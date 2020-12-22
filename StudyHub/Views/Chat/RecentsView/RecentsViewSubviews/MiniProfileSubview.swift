@@ -32,11 +32,14 @@ struct MiniProfileSubview: View {
                          print("failure: \(e)")
                      }
                     .resizable()
+
                     .aspectRatio(contentMode: .fill)
                     .clipShape(Circle())
-                    .frame(minWidth:30, minHeight:30)
+                    .frame(minWidth:20, minHeight:20)
                     .overlay(Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 1))
-                    .offset(x: -CGFloat(index*4))
+                    //.offset(x: -CGFloat(index*5))
+                    .animation(.easeInOut)
+                    .transition(.opacity)
             
 
             }
