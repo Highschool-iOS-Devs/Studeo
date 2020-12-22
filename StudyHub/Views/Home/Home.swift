@@ -41,6 +41,8 @@ struct Home: View {
                     
                     CTA(imgName: "friends", cta: "Add Friends")
                         
+                    CTA(imgName: "mentor", cta: "Find a Mentor")
+                    
                    // CTA(imgName: "Group", cta: "Add Group")
                        
                     // CTA(imgName: "study", cta: "Compete")

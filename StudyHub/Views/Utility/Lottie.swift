@@ -11,13 +11,18 @@ import Lottie
 
 struct LottieView:UIViewRepresentable{
     @State var name = "planeLoading"
+    @State var loop = false
     func makeUIView(context: UIViewRepresentableContext<LottieView>) -> UIView {
         let newView = UIView(frame: .zero)
         let animationView = AnimationView()
         let animation = Animation.named(name)
         animationView.animation = animation
         animationView.contentMode = .scaleAspectFit
+        if loop {
         animationView.loopMode = .loop
+        } else {
+            animationView.loopMode = .playOnce
+        }
         animationView.play()
         newView.addSubview(animationView)
         animationView.translatesAutoresizingMaskIntoConstraints = false

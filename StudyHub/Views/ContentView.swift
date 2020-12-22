@@ -81,6 +81,8 @@ struct ContentView: View {
                     }
                 if hasLoaded {
                     switch viewRouter.currentView {
+                    case .mentor:
+                        MentorPairingView(settings: $settings, add: $add, myGroups: $myGroups)
                     case .devChat:
                         if chat {
                             ChatView(group: devGroup, chat: $chat)
@@ -94,7 +96,7 @@ struct ContentView: View {
                         } else {
                             Homev2(recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user)
                                 .onAppear() {
-                                    viewRouter.showTabBar = false
+                                    viewRouter.showTabBar = true
                                     viewRouter.currentView = .home
                                 }
                             .environmentObject(userData)
@@ -117,8 +119,14 @@ struct ContentView: View {
                     case .home:
                         if !userData.isOnboardingCompleted {
                             Home()
+                                .onAppear() {
+                                    viewRouter.showTabBar = true
+                                }
                         } else {
                             Homev2(recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user)
+                                .onAppear() {
+                                    viewRouter.showTabBar = true
+                                }
                             .environmentObject(userData)
                             .environmentObject(viewRouter)
 
