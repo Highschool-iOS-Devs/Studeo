@@ -55,6 +55,7 @@ struct CTA: View {
                         }
                         
                     }) {
+                        
                         Text(cta)
                             .font(.headline)
                             .multilineTextAlignment(.trailing)

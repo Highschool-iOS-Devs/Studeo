@@ -10,7 +10,8 @@ import SwiftUI
 
 
 struct User: Identifiable, Codable, Hashable {
-    var id:UUID
+    
+    var id: UUID
     var firebaseID: String
     
     var name: String
@@ -29,6 +30,8 @@ struct User: Identifiable, Codable, Hashable {
     var day: Double
     var description: String
     var isAvailable: Bool?
+    
+    var isMentor: Bool?
 }
 
 struct BasicUser: Identifiable, Codable {

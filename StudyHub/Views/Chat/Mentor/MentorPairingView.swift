@@ -168,7 +168,7 @@ struct MentorPairingView: View {
     
     func joinGroup(newGroup:Groups) {
         let db = Firestore.firestore()
-        let docRef = db.collection("groups")
+        let docRef = db.collection("mentorships")
         do{
             try docRef.document(newGroup.groupID).setData(from: newGroup)
             
@@ -186,7 +186,7 @@ struct MentorPairingView: View {
             if let document = document, document.exists {
                 
          
-                let groupListCast = document.data()?["groups"] as? [String]
+                let groupListCast = document.data()?["mentorships"] as? [String]
                 
                 if var currentGroups = groupListCast{
                     
@@ -194,13 +194,13 @@ struct MentorPairingView: View {
                     currentGroups.append(newGroup.groupID)
                     ref2.updateData(
                         [
-                            "groups":currentGroups
+                            "mentorships":currentGroups
                         ]
                     )
                 } else {
                     ref2.updateData(
                         [
-                            "groups":[newGroup.groupID]
+                            "mentorships":[newGroup.groupID]
                         ]
                     )
                 }
@@ -235,7 +235,7 @@ struct MentorPairingView: View {
         case .failure(let error):
             print("Error decoding user data, \(error)")
         }
-        let queryRef = db.collection("users").whereField("interests", arrayContainsAny: currentUserInterests).whereField("id", isNotEqualTo: userData.userID)
+        let queryRef = db.collection("users").whereField("isMentor", isEqualTo: true).whereField("id", isNotEqualTo: userData.userID)
         queryRef.getDocuments{ snapshot, error in
             guard error == nil else {
                 print("Error query matching interests, \(error!)")
