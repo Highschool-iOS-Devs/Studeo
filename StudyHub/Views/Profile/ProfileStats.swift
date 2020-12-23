@@ -23,28 +23,28 @@ struct ProfileStats: View {
                 HStack {
                     Text("\(Int(dayNum))")
                         .font(.custom("Montserrat-SemiBold", size: 12))
-                        .foregroundColor(Color.black.opacity(0.25))
+                        .foregroundColor(Color("Text").opacity(0.5))
                     Image(systemName: "stopwatch.fill")
-                        .foregroundColor(Color.black.opacity(0.25))
+                        .foregroundColor(Color("Text").opacity(0.5))
                         .offset(x: 0, y: -2)
                 }
                 Text("Day")
                     .font(.custom("Montserrat-SemiBold", size: 10))
-                    .foregroundColor(Color.black.opacity(0.25))
+                    .foregroundColor(Color("Text").opacity(0.5))
             } .padding(.horizontal, 22)
         } else if month {
             VStack {
                 HStack {
                     Text("\(Int(monthNum))")
                         .font(.custom("Montserrat-SemiBold", size: 12))
-                        .foregroundColor(Color.black.opacity(0.25))
+                        .foregroundColor(Color("Text").opacity(0.5))
                     Image(systemName: "stopwatch.fill")
-                        .foregroundColor(Color.black.opacity(0.25))
+                        .foregroundColor(Color("Text").opacity(0.5))
                         .offset(x: 0, y: -2)
                 }
                 Text("Month")
                     .font(.custom("Montserrat-SemiBold", size: 10))
-                    .foregroundColor(Color.black.opacity(0.25))
+                    .foregroundColor(Color("Text").opacity(0.5))
             } .padding(.horizontal, 22)
         } else if all {
             VStack {
@@ -52,14 +52,14 @@ struct ProfileStats: View {
                     
                     Text("\(Int(allNum))")
                         .font(.custom("Montserrat-SemiBold", size: 12))
-                        .foregroundColor(Color.black.opacity(0.25))
+                        .foregroundColor(Color("Text").opacity(0.5))
                     Image(systemName: "stopwatch.fill")
-                        .foregroundColor(Color.black.opacity(0.25))
+                        .foregroundColor(Color("Text").opacity(0.5))
                         .offset(x: 0, y: -2)
                 }
                 Text("Month")
                     .font(.custom("Montserrat-SemiBold", size: 10))
-                    .foregroundColor(Color.black.opacity(0.25))
+                    .foregroundColor(Color("Text").opacity(0.5))
             } .padding(.horizontal, 22)
         }
     }

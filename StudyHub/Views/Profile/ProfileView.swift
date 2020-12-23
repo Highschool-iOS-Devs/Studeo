@@ -22,10 +22,12 @@ import UIKit
     @EnvironmentObject var userData: UserData
     @Environment(\.presentationMode) var presentationMode
      var body: some View {
-         ZStack {
-      
-                Color(.systemBackground)
-                   .onAppear() {
+        GeometryReader { geo in
+             ZStack {
+          
+                Color("Background")
+                    .edgesIgnoringSafeArea(.all)
+                    .onAppear() {
                        self.loadData(){userData in
                            self.user = userData
                         hasLoaded = true
@@ -33,7 +35,7 @@ import UIKit
                        }
                    }
 
-            
+                
                  VStack {
                  
                     HStack {
@@ -46,51 +48,46 @@ import UIKit
                         showEditProfile = true
                     }
                     .foregroundColor(Color("Primary"))
-                            ProfileRingView(size: 350)
-                                 
-                            
-                            
-                        
-           
+                    .padding(.top, 10)
+                    
+                    ProfileRingView(size: geo.size.width-100)
 
                     Text(userData.name)
                         // .frame(minWidth: 100, alignment: .leading)
                          .font(.custom("Montserrat-Semibold", size: 22))
-                         .foregroundColor(Color(.black))
+                         .foregroundColor(Color("Text"))
                          .multilineTextAlignment(.leading)
-                        .padding(.bottom, 15)
+                        .padding(.vertical, 15)
+                    
                     Divider()
                         .foregroundColor(Color("Primary"))
+                    
                      HStack {
                        
                         ProfileStats(allNum: 0, all: true)
                         ProfileStats(monthNum: 0, month: true)
                         ProfileStats(dayNum: 0, day: true)
                        
-                      
-                       
                      }
                      .padding(.bottom, 15)
                      .padding(.top, 40)
+                    
                     Text(userData.description)
                          .frame(minWidth: 100, alignment: .center)
                          .font(.custom("Montserrat-Semibold", size: 18))
-                         .foregroundColor(Color(.black))
+                         .foregroundColor(Color("Text"))
                          .multilineTextAlignment(.center)
                         .padding(.bottom, 22)
+                    
                    Spacer(minLength: 140)
                  }
                  .padding(.horizontal)
-            
-
-                 
-
-            
-         
-     } .sheet(isPresented: self.$showEditProfile){
-        EditProfile(profileImage: $profileImage, user: $user)
-            .environmentObject(UserData.shared)
-     }
+                
+             } .sheet(isPresented: self.$showEditProfile){
+                EditProfile(profileImage: $profileImage, user: $user)
+                    .environmentObject(UserData.shared)
+             }
+        }
      }
   
     func sendData() {
