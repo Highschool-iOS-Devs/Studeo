@@ -27,22 +27,24 @@ struct RegistrationView: View {
     
     var body: some View {
         ZStack {
-                VStack {
-                        TitleSubview(titleText: "Registration", image: "registration_drawing")
-                        
-                        RegistrationInputSubview(password: $password, email: $email, name: $username)
-                            .padding(.top)
-                        Spacer()
-                        ButtonsSubview(mainButtonAction: {
-                          parseData()
-                        }, secondaryButtonAction: {self.viewRouter.updateCurrentView(view: .login)}, displayMode: .registration)
-                        .padding(.top, 30)
-                        .padding(.bottom)
-                    }
-                    .blur(radius: showLoadingAnimation ? 20 : 0)
-                    .onAppear{
-                        viewRouter.showTabBar = false
-                    }
+            
+            VStack {
+                    TitleSubview(titleText: "Registration", image: "registration_drawing")
+                    
+                    RegistrationInputSubview(password: $password, email: $email, name: $username)
+                        .padding(.top)
+                        .padding(.bottom, 20)
+                    Spacer()
+                    ButtonsSubview(mainButtonAction: {
+                      parseData()
+                    }, secondaryButtonAction: {self.viewRouter.updateCurrentView(view: .login)}, displayMode: .registration)
+                    .padding(.top, 30)
+                    .padding(.bottom, 30)
+                }
+                .blur(radius: showLoadingAnimation ? 20 : 0)
+                .onAppear{
+                    viewRouter.showTabBar = false
+                }
                     
             if showLoadingAnimation{
                 VStack{
@@ -53,9 +55,9 @@ struct RegistrationView: View {
                         .offset(y: -40)
                 }
                 .frame(width: 300, height: 400)
-                .background(Color.white)
+                .background(Color("Background"))
                 .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-                .shadow(color: Color.black.opacity(0.3), radius: 15, x: 10, y: 10)
+                .shadow(color: Color("Text").opacity(0.3), radius: 15, x: 10, y: 10)
                 .animation(.easeInOut)
                 
             }
@@ -73,7 +75,11 @@ struct RegistrationView: View {
             }
         }
         .background(
-            FloatingBlobSubview()
+            ZStack {
+                Color("Background")
+                    .edgesIgnoringSafeArea(.all)
+                FloatingBlobSubview()
+            }
         )
     }
     func parseData(){

@@ -25,6 +25,7 @@ struct LoginView: View {
     
     var body: some View {
         ZStack {
+            
             VStack {
             TitleSubview(titleText: "Login", image: "login_drawing")
                InputFieldSubview(password: $password, email: $email)
@@ -72,7 +73,11 @@ struct LoginView: View {
             viewRouter.showTabBar = false
         }
         .background(
-            FloatingBlobSubview()
+            ZStack {
+                Color("Background")
+                    .edgesIgnoringSafeArea(.all)
+                FloatingBlobSubview()
+            }
         )
     }
     func showError() -> Void{

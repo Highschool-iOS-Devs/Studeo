@@ -16,7 +16,7 @@ struct TitleSubview: View {
             Text(titleText)
                 .font(Font.custom("Montserrat-SemiBold", size: 34))
                 .padding(.bottom, 40)
-                .foregroundColor(.black)
+                .foregroundColor(Color("Text"))
             Image(decorative: image)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
