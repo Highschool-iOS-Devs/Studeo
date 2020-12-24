@@ -53,22 +53,14 @@ class ImagePickerCordinator : NSObject, UINavigationControllerDelegate, UIImageP
         image =  uiImage
         isShown = false
         
-        let metadata = StorageMetadata()
-        metadata.contentType = "image/jpeg"
-
-        let storage = Storage.storage().reference()
-        storage.child(userID).putData(image!.jpegData(compressionQuality: 0.4)!, metadata: metadata) { meta, error in
-            if let error = error {
-                print(error)
-                return
-            }
 
            
         }
-    }
+    
     
     //Image selection got cancel
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         isShown = false
     }
 }
+

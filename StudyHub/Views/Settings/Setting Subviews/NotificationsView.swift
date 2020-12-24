@@ -18,6 +18,10 @@ struct NotificationsView: View {
     @State var errorObject = ErrorModel(errorMessage: "Settings can not be updated at this time", errorState: false)
     var body: some View {
         ZStack{
+            
+            Color("Background")
+                .edgesIgnoringSafeArea(.all)
+            
             VStack{
                 Spacer()
                 if displayError{
@@ -27,7 +31,7 @@ struct NotificationsView: View {
             VStack {
                 HStack {
                     Text("Notifications")
-                        .foregroundColor(.black)
+                        .foregroundColor(Color("Text"))
                         .font(.custom("Montserrat-SemiBold", size: 25))
                     Spacer()
                 }
@@ -39,9 +43,9 @@ struct NotificationsView: View {
                     NotificationRow(text: "Enable New Group Notifications", subText: "Get notified when we find you a new group", settingsVar: $userData.joinedGroupNotificationsOn, displayError: $displayError)
                 }
                 .padding(.vertical)
-                .background(Color.white)
+                .background(Color("Background"))
                 .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
-                .shadow(radius: 5)
+                .shadow(color: Color("shadow"), radius: 5)
                 .padding()
                 Spacer()
             }
@@ -76,12 +80,14 @@ struct NotificationRow: View {
             Toggle(isOn: $settingsVar) {
                 VStack(alignment: .leading, spacing: 5){
                     Text(text)
-                        .font(.custom("Montserrat-SemiBold", size: 12))
-                        .opacity(0.6)
+                        .foregroundColor(Color("Text"))
+                        .font(.custom("Montserrat-SemiBold", size: 14))
+                        .opacity(0.8)
                         .lineLimit(1)
                     Text(subText)
-                        .font(.custom("Montserrat-Regular", size: 9))
-                        .opacity(0.4)
+                        .foregroundColor(Color("Text"))
+                        .font(.custom("Montserrat-Regular", size: 11))
+                        .opacity(0.6)
                         .lineLimit(1)
                 }
             }

@@ -9,36 +9,40 @@ import SwiftUI
 
 struct SelfRankView: View {
     
-        var hours:Double
+    var hours:Double
     var body: some View {
-        HStack(alignment: .center, spacing: 45){
+        HStack(alignment: .center) {
+            ProfileRingView(size: 60)
+            
+            Spacer()
             VStack {
                 Image(systemName: "stopwatch.fill")
                     .foregroundColor(Color.black.opacity(0.8))
                     .font(.system(size: 13))
-               Text("\(Int(hours))")
+               Text(hours.removeZerosFromEnd())
                     .foregroundColor(.black)
                 HStack {
-                    Text("Hours")
+                    Text("All Time Hours")
                         .foregroundColor(.black)
                         .padding(.top, 5)
                     
                 }
                 
             }
-            ProfilePicture(pictureSize: 45)
+           
+          
             
             VStack {
-                Image(systemName: "arrowtriangle.down.fill")
-                    .font(.system(size: 13))
-                    .foregroundColor(.red)
-                Text("96")
-                    .foregroundColor(.black)
-                Text("Ranking")
-                    .foregroundColor(.black)
-                    .padding(.top, 5)
+                //Image(systemName: "arrowtriangle.down.fill")
+                    //.font(.system(size: 13))
+                    //.foregroundColor(.red)
+               // Text("96")
+                  //  .foregroundColor(.black)
+                //Text("Ranking")
+                  //  .foregroundColor(.black)
+                   // .padding(.top, 5)
             }
-        }
+        } .padding()
         .font(.custom("Montserrat-SemiBold", size: 15))
         .frame(width: 300, height: 100)
         .background(Color.white)
@@ -49,9 +53,9 @@ struct SelfRankView: View {
 
 struct ProfilePicture: View {
     var pictureSize:Int
-    @State var image = UIImage()
+    @State var image:Image
     var body: some View {
-        Image(uiImage: image)
+        image
             .resizable()
             .clipShape(Circle())
             .aspectRatio(contentMode: .fill)
@@ -72,14 +76,14 @@ struct LeaderboardRow: View {
                 Text("4")
                     .foregroundColor(.black)
             }
-            ProfilePicture(pictureSize: 45)
+            ProfilePicture(pictureSize: 45, image: Image("demoprofile"))
              
             Text(name)
              
                 .foregroundColor(.black)
                 
             Spacer()
-            Text("\(Int(hours))")
+            Text(hours.removeZerosFromEnd())
                 .font(.custom("Montserrat-SemiBold", size: 12))
                 .foregroundColor(Color.black.opacity(0.25))
             Image(systemName: "stopwatch.fill")
@@ -140,12 +144,12 @@ struct LeaderRankView: View {
     var hours:Double
     var body: some View {
         VStack{
-            ProfilePicture(pictureSize: 70)
+            ProfilePicture(pictureSize: 70, image: Image("demoprofile"))
             Text(name)
                 .foregroundColor(.black)
                 .font(.custom("Montserrat-SemiBold", size: 12))
             HStack {
-               Text("\(Int(hours))")
+               Text(hours.removeZerosFromEnd())
                     .font(.custom("Montserrat-SemiBold", size: 12))
                     .foregroundColor(Color.black.opacity(0.25))
                 Image(systemName: "stopwatch.fill")
@@ -163,14 +167,16 @@ struct LeadersStack: View {
     var body: some View {
         HStack(spacing: 30) {
             if leaders.count > 1 {
-                LeaderRankView(name: leaders[1].name, hours: leaders[1].studyHours)
+                LeaderRankView(name: leaders[1].name, hours: leaders[1].all)
                     .offset(x: 0, y: 10)
             }
-
-            LeaderRankView(name: leaders[0].name, hours: leaders[0].studyHours)
+            if leaders.isEmpty {
+            } else {
+            LeaderRankView(name: leaders[0].name, hours: leaders[0].all)
+            }
             
             if leaders.count > 2 {
-                LeaderRankView(name: leaders[2].name, hours: leaders[2].studyHours)
+                LeaderRankView(name: leaders[2].name, hours: leaders[2].all)
                     .offset(x: 0, y: 10)
             }
         }

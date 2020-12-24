@@ -19,10 +19,14 @@ struct Home: View {
     var body: some View {
         ZStack {
             VStack {
+                Header(showTimer: $showingTimer)
+                    .ignoresSafeArea()
+               
                 ScrollView(showsIndicators: false) {
-                    Header(showTimer: $showingTimer)
-                    SearchBar()
-                        .padding()
+                    DevChatBanner()
+                        .padding(.top)
+                    //SearchBar()
+                    
                     Spacer()
                     HStack {
                         
@@ -37,9 +41,11 @@ struct Home: View {
                     
                     CTA(imgName: "friends", cta: "Add Friends")
                         
-                    CTA(imgName: "Group", cta: "Add Group")
+                    CTA(imgName: "mentor", cta: "Find a Mentor")
+                    
+                   // CTA(imgName: "Group", cta: "Add Group")
                        
-                     CTA(imgName: "study", cta: "Compete")
+                    // CTA(imgName: "study", cta: "Compete")
                         
                     Spacer(minLength: 140)
                     
@@ -50,7 +56,16 @@ struct Home: View {
         
         if showingTimer {
             TimerView(showingView: $showingTimer)
+                .onAppear {
+                    self.viewRouter.showTabBar = false
+                }
+                .onDisappear {
+                    self.viewRouter.showTabBar = true
+                }
         }
+        }
+        .onAppear {
+            self.viewRouter.showTabBar = true
         }
     }
 }

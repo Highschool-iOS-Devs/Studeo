@@ -47,6 +47,7 @@ struct ChatCell: View {
     var body: some View {
         
         ZStack(alignment: .leading) {
+            VStack {
             HStack {
                 
                 Text(self.message)
@@ -59,9 +60,10 @@ struct ChatCell: View {
                 
                 Spacer()
             } .padding(.horizontal, 12)
+                
         }
         
-        
+        }
         
     }
 }

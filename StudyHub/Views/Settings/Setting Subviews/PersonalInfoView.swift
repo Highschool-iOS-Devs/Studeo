@@ -13,49 +13,55 @@ struct PersonalInfoView: View {
     @EnvironmentObject var userData: UserData
     
     var body: some View {
-        VStack {
-            HStack {
-                Text("Personal Info")
-                    .foregroundColor(.black)
-                    .font(.custom("Montserrat-SemiBold", size: 25))
-                Spacer()
-            }
-            .padding(.vertical, 25)
-            .padding(.horizontal)
+        ZStack {
+            
+            Color("Background")
+                .edgesIgnoringSafeArea(.all)
             
             VStack {
-                PersonalInfoRow(text: "Username", otherText: userData.name)
-                // Find where the real name is stored
-                PersonalInfoRow(text: "Full Name", otherText: userData.name)
-                
-                Button(action: {
-                    FirebaseManager.forgotPassword()
-                }) {
-                    Text("Forgot password?")
-                        .font(.custom("Montserrat-SemiBold", size: 14))
+                HStack {
+                    Text("Personal Info")
+                        .foregroundColor(Color("Text"))
+                        .font(.custom("Montserrat-SemiBold", size: 25))
+                    Spacer()
                 }
-                .buttonStyle(BlueStyle())
-                .padding(.horizontal, 45)
-                .padding(.top, 25)
-                .padding(.bottom, 13)
+                .padding(.vertical, 25)
+                .padding(.horizontal)
                 
-                Button(action: {
-                    // show popup text field and call updateEmail() on disappear
-                    FirebaseManager.updateEmail("")
-                }) {
-                    Text("Change Email")
-                        .font(.custom("Montserrat-SemiBold", size: 14))
-                }
-                .buttonStyle(WhiteStyle())
-                .padding(.horizontal, 45)
+                VStack {
+                    PersonalInfoRow(text: "Username", otherText: userData.name)
+                    // Find where the real name is stored
+                    PersonalInfoRow(text: "Full Name", otherText: userData.name)
+                    
+                    Button(action: {
+                        FirebaseManager.forgotPassword()
+                    }) {
+                        Text("Forgot password?")
+                            .font(.custom("Montserrat-SemiBold", size: 14))
+                    }
+                    .buttonStyle(BlueStyle())
+                    .padding(.horizontal, 45)
+                    .padding(.top, 25)
+                    .padding(.bottom, 13)
+                    
+                    Button(action: {
+                        // show popup text field and call updateEmail() on disappear
+                        FirebaseManager.updateEmail("")
+                    }) {
+                        Text("Change Email")
+                            .font(.custom("Montserrat-SemiBold", size: 14))
+                    }
+                    .buttonStyle(WhiteStyle())
+                    .padding(.horizontal, 45)
 
+                }
+                .padding(.vertical)
+                .background(Color("Background"))
+                .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
+                .shadow(color: Color("shadow"), radius: 5)
+                .padding()
+                Spacer()
             }
-            .padding(.vertical)
-            .background(Color.white)
-            .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
-            .shadow(radius: 5)
-            .padding()
-            Spacer()
         }
     }
 }
@@ -70,11 +76,11 @@ struct PersonalInfoRow: View {
         HStack {
             Text(text)
                 .font(.custom("Montserrat-SemiBold", size: 15))
-                .foregroundColor(Color.black.opacity(0.6))
+                .foregroundColor(Color("Text").opacity(0.8))
             Spacer()
             Text(otherText)
                 .font(.custom("Montserrat-SemiBold", size: 15))
-                .foregroundColor(Color.black.opacity(0.4))
+                .foregroundColor(Color("Text").opacity(0.6))
         }
         .padding(.horizontal, 25)
         .padding(.vertical, 10)

@@ -17,7 +17,7 @@ struct ErrorMessage: View {
             .animation(nil)
             .foregroundColor(.white)
             .frame(width: screenSize.width-15, height: 60)
-            .background(Color(#colorLiteral(red: 0.8578633666, green: 0.1455268264, blue: 0.1380874515, alpha: 1)))
+            .background(Color(#colorLiteral(red: 0.8588235294, green: 0.1450980392, blue: 0.137254902, alpha: 1)))
             .clipShape(RoundedRectangle(cornerRadius: 10))
             .opacity(displayError ? 1 : 0)
             .offset(x: 0, y: displayError ? 0 : -200)

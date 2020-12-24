@@ -9,156 +9,297 @@ import SwiftUI
 import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
-
+import Alamofire
+import AgoraRtcKit
 //!!!You do not use OnAppear method with this view, this view
 //is created at the same time as AddChat View!!!
 struct ChatView: View {
     @EnvironmentObject var userData:UserData
     @EnvironmentObject var viewRouter:ViewRouter
-    @State var messageField = ""
-    @State var scrollOffset = 0
-    @State var currentOffset = 0
-    @State var messages = [MessageData]()
-    @State var group = Groups(id: "", groupID: "", groupName: "", members: [""], interests: [nil])
     @Environment(\.presentationMode) var presentationMode
-    @Binding var chatRoomID: String
-    @State var image = UIImage()
-    @State var name: String = ""
+    
+    @State var messageField = ""
+    @State var messages = [MessageData]()
+    @State var members = [User]()
+    @State var group: Groups
+    //@State var image:Image
+    @Binding var chat: Bool
+    @State var ARChat = false
+    @State var test = true
+    @State var membersList = false
+    @State var person = User(id: UUID(), firebaseID: "", name: "", email: "", profileImageURL: URL(string: ""), interests: [UserInterestTypes](), groups: [String](), recentGroups: [String](), recentPeople: [String](), studyHours: [Double](), studyDate: [String](), all: 0.0, month: 0.0, day: 0.0, description: "", isAvailable: false)
+    @State var token = ""
     var body: some View {
         ZStack {
             Color.white.edgesIgnoringSafeArea(.all)
                 .onAppear() {
-                    //viewRouter.showTabBar = false
+                    
+                    
                 }
-           
-                VStack {
-                    //Testing UI with some messages
-                    HStack {
-                        ProfilePicture(pictureSize: 50, image: image)
-                    Text(name)
+            
+            VStack {
+                //Testing UI with some messages
+                HStack {
+                    
+                    ProfilePicture(pictureSize: 50, image: Image("demoprofile"))
+                        .onTapGesture {
+                            self.loadMembers(){ userData in
+                                //Get completion handler data results from loadData function and set it as the recentPeople local variable
+                                self.members = userData ?? []
+                               
+                                membersList = true
+
+                                
+                            }
+                            
+                        }
+                    Text(group.groupName)
                         .font(.custom("Montserrat", size: 15))
                         .padding()
                         .foregroundColor(.black)
-                        Spacer()
-                    } .padding()
-                    ReverseScrollView(scrollOffset: CGFloat(self.scrollOffset), currentOffset: CGFloat(self.currentOffset)){
-                        VStack {
-                    ForEach(self.messages, id: \.self){ message in
-                        MessageCellView(message)
-                       
-                    }
-                        }
-                    }
                     Spacer()
-                    
-                    //The bottom function bar that displays field, send button, and some other functions such as mic and cancel
-                    VStack{
-                        Divider()
-                        HStack {
-                            
-                            MessageButtons(imageName: "xmark")
-                                .onTapGesture {
-                                   
-                                   
-                                    presentationMode.wrappedValue.dismiss()
-                                    
-                            }
-                            MessageButtons(imageName: "mic.fill")
-                            Spacer()
-                            TextField("Enter message", text: self.$messageField)
-                                .font(.custom("Montserrat", size: 15))
-                                .padding()
-                                .frame(height: 40)
-                                .background(Color.gray.opacity(0.2))
-                                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                                .overlay(
-                                    HStack {
-                                        Spacer()
-                                        Image(systemName: "paperplane.fill")
-                                            .foregroundColor(Color.gray.opacity(1))
-                                            .padding(.trailing, 15)
-                                            .onTapGesture{
-                                                if self.messageField != ""{
-                                                    let newMessage =                     MessageData(messageText: self.messageField, sentBy: self.userData.userID, sentTime: Date())
+                    if test {
+                    Button(action: {
+                        let request = AF.request("https://studyhub1.herokuapp.com/access_token?channel=\(group.groupID)&uid=0")
 
-                                                    self.saveMessage(outgoingMessage: newMessage)
-                                                }
-                                            }
-                                           
-                                    }
-                            )
-                        } .padding()
+                                                                  request.responseJSON { (response) in
+                                                          print(response)
+                                                                      guard let tokenDict = response.value as! [String : Any]? else { return }
+                                                                  let token = tokenDict["token"] as! String
+                                                  
+                                                                    self.token = token
+                                                                   
+                                                                    if token != "" {
+                                                                    ARChat.toggle()
+                                                                    }
+                                                                  }
                         
-                       // Spacer()
+                    }) {
+                        Image(systemName: "phone")
+                            .foregroundColor(Color("Secondary"))
                     }
-                    .frame(maxWidth: .infinity)
-                   // .frame(height: 200)
-                    
-                    // .offset(x: 0, y: 100)
+                    }
+                } .padding()
+                
+                ScrollView(.vertical, showsIndicators: false) {
+                    ScrollViewReader { scrollView in
+                        LazyVStack {
+                            ForEach(self.messages) { message in
+                                MessageCellView(message)
+                                    .id(message.id)
+                            }
+                        }
+                        .onChange(of: messages, perform: { value in
+                            withAnimation(Animation.linear.speed(5)) {
+                                scrollView.scrollTo(messages.last?.id, anchor: .bottom)
+                            }
+                        })
+                    }
+                }
+                Spacer()
+                
+                //The bottom function bar that displays field, send button, and some other functions such as mic and cancel
+                VStack{
+                    Divider()
+                    HStack {
+                        
+                        MessageButtons(imageName: "xmark")
+                            .onTapGesture {
+                                
+                                
+                                presentationMode.wrappedValue.dismiss()
+                                chat = false
+                            }
+                        MessageButtons(imageName: "mic.fill")
+                        Spacer()
+                        TextField("Enter message", text: self.$messageField)
+                            .font(.custom("Montserrat", size: 15))
+                            .padding()
+                            .frame(height: 40)
+                            .frame(maxWidth:.infinity)
+                            .background(Color.gray.opacity(0.2))
+                            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+        
+                            Image(systemName: "paperplane.fill")
+                                .foregroundColor(Color.gray.opacity(1))
+                                .onTapGesture{
+                                    if self.messageField != ""{
+                                        let newMessage =                     MessageData(messageText: self.messageField, sentBy: self.userData.userID, sentTime: Date())
+                                        self.messageField = ""
+                                        self.saveMessage(outgoingMessage: newMessage)
+                                    }
+
+                                }
+                            
+                        
+                    } .padding()
                     
                 }
+                .frame(maxWidth: .infinity)
                 
-               
+                
             }
-        
+            if membersList {
+                MembersList(members: $members, memberList: $membersList, group: $group, person: $person, messages: $messages)
+            }
+            if ARChat {
+                VStack {
+                    HStack {
+                        Button(action: {
+                            
+                            
+                        }) {
+                            Image(systemName: "xmark")
+                                .foregroundColor(Color("Secondary"))
+                        }
+                        Spacer()
+                    }
+                    Spacer()
+                } .padding()
+                VoiceChat(agoraKit: AgoraRtcEngineKit(), token: token, name: group.groupID, vc: $ARChat)
+            }
+        }
         .onAppear{
             self.loadData()
+            self.addRecentRecord()
+        
         }
-      
-
+        
+        
+        
+        
+        
     }
     func saveMessage(outgoingMessage:MessageData){
         let db = Firestore.firestore()
-        let ref = db.collection("message/\(chatRoomID)/messages/").document(UUID().uuidString)
-      do{
-        try ref.setData(from: outgoingMessage)
-      }
-      catch{
-          print("Error saving data, \(error)")
-      }
+        let ref = db.collection("message/\(group.groupID)/messages/").document(UUID().uuidString)
+        do{
+            try ref.setData(from: outgoingMessage)
+        }
+        catch{
+            print("Error saving data, \(error)")
+        }
     }
     
+    
+    
+    
+    
+    func addRecentRecord(){
+        let db = Firestore.firestore()
+        
+        let docRef = db.collection("users").document(userData.userID)
+        docRef.getDocument{document, error in
+            let result = Result {
+                try document?.data(as: User.self)
+            }
+            switch result {
+            case .success(let user):
+                if let user = user {
+                    var recentGroups = user.recentGroups ?? []
+                    if recentGroups.count < 4{
+                        docRef.updateData(
+                            ["recentGroups":FieldValue.arrayUnion([group.groupID])]
+                        )
+                    }
+                    else{
+                        recentGroups.removeFirst(1)
+                        recentGroups.append(group.groupID)
+                        docRef.updateData(
+                            ["recentGroups":recentGroups]
+                        )
+                    }
+                } else {
+                    
+                    print("Document does not exist")
+                }
+            case .failure(let error):
+                print("Error decoding city: \(error)")
+            }
+        }
+        
+        
+    }
+  
+   
+    func loadMembers(performAction: @escaping ([User]?) -> Void) {
+        let db = Firestore.firestore()
+        let docRef = db.collection("users").whereField("groups", arrayContains: group.groupID)
+        var groupList:[User] = []
+        //Get every single document under collection users
+        
+        docRef.getDocuments{ (querySnapshot, error) in
+            if let querySnapshot = querySnapshot,!querySnapshot.isEmpty{
+            for document in querySnapshot.documents{
+                let result = Result {
+                    try document.data(as: User.self)
+                }
+                switch result {
+                    case .success(let group):
+                        if var group = group {
+                            
+                            groupList.append(group)
+                            
+                        } else {
+                            
+                            print("Document does not exist")
+                        }
+                    case .failure(let error):
+                        print("Error decoding user: \(error)")
+                    }
+                
+              
+            }
+            }
+            else{
+                performAction(nil)
+            }
+              performAction(groupList)
+        }
+        
+        
+    }
     func loadData(){
         let db = Firestore.firestore()
         
-        let docRef = db.collection("message/\(chatRoomID)/messages").order(by: "sentTime").limit(to: 50)
-                     docRef.addSnapshotListener{ (querySnapshot, error) in
-                        var messageArray:[MessageData] = []
-
-                        if let document = querySnapshot, !document.isEmpty{
+        let docRef = db.collection("message/\(group.groupID)/messages").order(by: "sentTime").limit(to: 50)
+        docRef.addSnapshotListener{ (querySnapshot, error) in
+            var messageArray:[MessageData] = []
+            
+            if let document = querySnapshot, !document.isEmpty{
+                
+                
+                for document in document.documents{
+                    
+                    let result = Result {
+                        try document.data(as: MessageData.self)
+                    }
+                    switch result {
+                    case .success(let messageData):
+                        if let messageData = messageData {
+                            messageArray.append(self.parseMessageData(messageData: messageData))
+                        } else {
                             
-                            
-                        for document in document.documents{
-                            
-                                   let result = Result {
-                                       try document.data(as: MessageData.self)
-                                   }
-                                   switch result {
-                                       case .success(let messageData):
-                                           if let messageData = messageData {
-                                            messageArray.append(self.parseMessageData(messageData: messageData))
-                                           } else {
-                                               
-                                               print("Document does not exist")
-                                           }
-                                       case .failure(let error):
-                                           print("Error decoding user: \(error)")
-                                       }
-                  }
+                            print("Document does not exist")
+                        }
+                    case .failure(let error):
+                        print("Error decoding user: \(error)")
+                    }
                 }
-                        print(messageArray)
-                        self.messages = messageArray
-                 
+            }
+            print(messageArray)
+            self.messages = messageArray
+            
         }
     }
     func parseMessageData(messageData:MessageData) -> MessageData{
         var messageData = messageData
-            if messageData.sentBy == userData.userID{
-                messageData.sentBySelf = true
-            }
-            else{
-                messageData.sentBySelf = false
-            }
+        if messageData.sentBy == userData.userID{
+            messageData.sentBySelf = true
+        }
+        else{
+            messageData.sentBySelf = false
+        }
         
         return messageData
         
@@ -168,11 +309,11 @@ struct ChatView: View {
         if message.sentBySelf! {
             return AnyView(ChatCellSelf(message: message.messageText))
         } else {
-            return AnyView(ChatCell(message: message.messageText))
+            return AnyView(ChatCell(name: message.sentBy, message: message.messageText))
         }
     }
- 
-
+    
+    
 }
 
 
@@ -190,113 +331,7 @@ struct MessageButtons: View {
                     .stroke(style: StrokeStyle(lineWidth: 2))
                     .foregroundColor(Color.gray.opacity(0.3))
                     .background(Color.gray.opacity(0.2))
-        )
+            )
             .clipShape(Circle())
     }
 }
-
-//    @State var matchedPerson = ""
-//    @State var chatRoom = ""
-//    @State var matchedPersonID = ""
-//    @State var chat = [ChatData]()
-//    @State var i = 0
-//    @State var total = -1
-//    @State var hasAppeared = false
-//    @State var hasMessage = false
-//    @State var message = "Message"
-//    @State var goBack = false
-//    @State var add = false
-//    @State var testing = true
-//    @State var testName = ""
-//    @State var currentOffset = 0
-//    @State var scrollOffset = 0
-//    @State var addChat = false
-//
-//    @EnvironmentObject var userData: UserData
-//    var body: some View {
-//
-//        ZStack {
-//            Color(.white)
-//                .edgesIgnoringSafeArea(.all)
-//
-//
-//                .onAppear() {
-//                    // self.chat.removeAll()
-//                    self.i = 0
-//                    self.total = -1
-//                    withAnimation() {
-//                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-//                            self.loadData()
-//                        }
-//                    }
-//            }
-//
-//            VStack {
-//
-//
-//                Text(matchedPerson)
-//                    .font(.title)
-//                    .padding(.top, 22)
-//                Spacer()
-//            }
-//            VStack {
-//                if self.hasAppeared {
-//                    ReverseScrollView(scrollOffset: CGFloat(self.scrollOffset), currentOffset: CGFloat(self.currentOffset)) {
-//
-//
-//                        VStack {
-//
-//
-//
-//                            ForEach(self.chat, id: \.id) { chating in
-//                                Group {
-//
-//                                    if !chating.isMe {
-//                                        ChatV2Cell2(name: chating.name, message: chating.message)
-//                                            .padding(.top, 62)
-//                                            .padding(.horizontal, 12)
-//                                    }
-//                                    if chating.isMe {
-//
-//                                        ChatV2Cell(name: chating.name, message: chating.message)
-//                                            .padding(.top, 62)
-//                                            .padding(.horizontal, 12)
-//
-//                                    }
-//
-//
-//                                }
-//                            }
-//
-//                        }
-//                    }
-//
-//                }
-//
-//                Spacer()
-//                Divider()
-//                HStack {
-//
-//                    TextField("Message", text: $message)
-//                        .foregroundColor(.gray)
-//                        .frame(height: 50)
-//                        .onTapGesture {
-//                            self.message = ""
-//                    }
-//                    Spacer()
-//                    Ellipse()
-//                        .foregroundColor(Color(.systemBlue))
-//                        .frame(width: 50, height: 50)
-//                        .onTapGesture {
-//
-//                    }
-//                } .padding([.trailing, .leading], 12)
-//                    .padding(.bottom, 22)
-//            }
-//
-//        }
-//    }
-//    func loadData() {
-//
-//    }
-//}

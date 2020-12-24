@@ -30,6 +30,31 @@ struct IntroCustomize: View {
         ZStack {
             Color(.systemBackground).edgesIgnoringSafeArea(.all)
             VStack {
+                if !isNotOnboarding {
+        
+            HStack {
+                Button(action: {
+                   
+                    if !settings {
+                        add = false
+                    }
+                    if settings {
+                        settings = false
+                    }
+                   
+                    
+                }) {
+                Image(systemName: "xmark")
+                    .font(.largeTitle)
+                
+                
+                
+            }
+                Spacer()
+            } .padding()
+            
+        
+            }
                 HStack {
                     Text("Customization")
                         .font(.custom("Montserrat-Bold", size: 25))
@@ -49,16 +74,16 @@ struct IntroCustomize: View {
                     }
                 }
                 Spacer()
-            }
+            
                 if isNotOnboarding {
                
               
-                Text("Skip for now")
-                    .font(.custom("Montserrat-Regular", size: 17))
-                    .foregroundColor(Color.black.opacity(0.5))
-                    .padding(.bottom, 10)
+             //   Text("Skip for now")
+                  //  .font(.custom("Montserrat-Regular", size: 17))
+                    //.foregroundColor(Color.black.opacity(0.5))
+                   // .padding(.bottom, 10)
                 Button(action: {
-                    if interestSelected != []{
+                    if interestSelected != [] {
                         do{
                             try saveData()
                             userData.isOnboardingCompleted = true
@@ -75,46 +100,26 @@ struct IntroCustomize: View {
                         .font(.custom("Montserrat-SemiBold", size: 18))
                 }
                 .buttonStyle(BlueStyle())
-                .padding(.bottom, 10)
+                .padding(.bottom, 110)
                 .padding(.horizontal, 35)
                 
-                } else {
-            
-            VStack {
-                HStack {
-                    Button(action: {
-                       
-                        if !settings {
-                            add = false
-                        }
-                        if settings {
-                            settings = false
-                        }
-                       
-                        
-                    }) {
-                    Image(systemName: "xmark")
-                        .font(.largeTitle)
-                    
-                    
-                    
                 }
-                    Spacer()
-                }
-                Spacer()
-            } .padding()
-        
+                   
             }
         }
-        
         .animation(.easeInOut)
+       
+        
         
     }
     
     func saveData() throws -> Void{
         let db = Firestore.firestore()
         let docRef = db.collection("users").document(userData.userID)
-        try docRef.setData(from: ["interests":interestSelected], merge: true)
+        try docRef.setData(from: ["interests": interestSelected], merge: true)
+        if isNotOnboarding {
+        self.viewRouter.updateCurrentView(view: .home)
+        }
     }
     
 }

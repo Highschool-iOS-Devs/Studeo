@@ -6,7 +6,7 @@
 //  Copyright © 2020 Dakshin Devanand. All rights reserved.
 //
 import SwiftUI
-
+import FirebaseFirestoreSwift
 
 
 struct ChattedWith: Identifiable {
@@ -25,16 +25,19 @@ struct ChattedWith: Identifiable {
     }
 }
 
-
+ 
 struct Groups: Identifiable, Codable, Hashable{
     var id: String
     var groupID:String
     var groupName:String
     var members:[String]
     var interests:[UserInterestTypes?]
+    var recentMessage:String?
+    var recentMessageTime:Date?
 }
 
-struct MessageData:Codable, Hashable{ 
+struct MessageData: Codable, Identifiable, Hashable {
+    @DocumentID var id: String?
     var messageText:String
     var sentBy:String
     var sentTime:Date

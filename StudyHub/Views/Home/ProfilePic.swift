@@ -9,27 +9,45 @@
 import SwiftUI
 
 struct ProfilePic: View {
-    @State var name: String = ""
+    var name: String
+    var size: CGFloat
+    @State var isTimer = false
     var body: some View {
         ZStack {
+            if !isTimer {
             VStack {
             Image("demoprofile")
                 .resizable()
-                .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, idealWidth: 75, maxWidth: 100, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, idealHeight: 75, maxHeight: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                .scaledToFit()
+                .frame(width:size,height:size)
                 .clipShape(Circle())
                 .overlay(
                             Circle()
-                                .stroke(LinearGradient(gradient: Gradient(colors: [Color("barCenter"), Color("aqua")]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 3)
+                                .stroke(LinearGradient(gradient: Gradient(colors: [Color("Secondary"), Color("Primary")]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 3)
                         )
              Text(name)
             }
+            } else {
+                Color(.black)
+                    .clipShape(Circle())
+                    .overlay(
+                                Circle()
+                                    .stroke(LinearGradient(gradient: Gradient(colors: [Color("Secondary"), Color("Primary")]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 3)
+                            )
+                VideoView()
+                    .frame(width:size,height:size)
+                    .clipShape(Circle())
+                    .overlay(
+                                Circle()
+                                    .stroke(LinearGradient(gradient: Gradient(colors: [Color("Secondary"), Color("Primary")]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 3)
+                            )
+            }
         } .padding()
+            
     }
 }
 
-struct ProfilePic_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfilePic()
-    }
-}
+//struct ProfilePic_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ProfilePic()
+//    }
+//}

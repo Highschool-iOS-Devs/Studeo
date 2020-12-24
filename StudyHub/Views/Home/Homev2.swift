@@ -6,8 +6,9 @@
 //  Copyright © 2020 Dakshin Devanand. All rights reserved.
 //
 
-import SwiftUI
 
+import SwiftUI
+import SwiftUICharts
 struct Homev2: View {
     var columns = [
         GridItem(.fixed(250)),
@@ -31,122 +32,160 @@ struct Homev2: View {
     @State var scrollOffset = 0
     @State var currentOffset = 0
     @Binding var recentPeople: [Groups]
+    @State var chat = false
+    @State var group = Groups(id: UUID().uuidString, groupID: "", groupName: "", members: [String](), interests: [UserInterestTypes?]())
+    @Binding var recommendGroups: [Groups]
+    @Binding var user: [User]
+    @State var imgs = ["2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing"]
+    @State var sum = 0.0
+    @State var animate = false
+    @State var animation = false
     var body: some View {
+
         ZStack {
-            Color(.systemBackground)
-            VStack {
-               
-            Header(showTimer: $showingTimer)
-         
-                .onAppear() {
-                    withAnimation(.easeInOut) {
-                    transition.toggle()
-                }
-                }
-                    
-              
-                VStack {
-                    ScrollView(.vertical, showsIndicators: false) {
-                    ScrollView(.horizontal, showsIndicators: false) {
-                    HStack {
-                       
-                        if recentPeople.count > 0 {
-                            ProfilePic(name: recentPeople[0].groupName)
-                                
-                                
-                            .animation(
-                                Animation.easeInOut(duration: 2)
-                                    .delay(0.1)
-                                  
-                            )
-                            .transition(.move(edge: .top))
-                        }
-                            
-                        if recentPeople.count > 1 {
-                            ProfilePic(name: recentPeople[1].groupName)
-                                
-                            .animation(
-                                Animation.easeInOut(duration: 2)
-                                    .delay(0.2)
-                                   
-                                  
-                            )
-                            .transition(.move(edge: .top))
-                      } else {
-                        Spacer()
-                    }
-                    
-                   
-                        if recentPeople.count > 2 {
-                            ProfilePic(name: recentPeople[2].groupName)
-                             
-                              
-                            .animation(
-                                Animation.easeInOut(duration: 2)
-                                    .delay(0.3)
-                                  
-                            )
-                            .transition(.move(edge: .top))
-                        }
-                        if recentPeople.count > 3 {
-                            ProfilePic(name: recentPeople[3].groupName)
-                                
-                               
-                            .animation(
-                                Animation.easeInOut(duration: 2)
-                                    .delay(0.4)
-                                   
-                                  
-                            )
-                            .transition(.move(edge: .top))
-                        } else {
-                            Spacer()
-                               
-                        }
-                    }
-                    }
-                   
-                    HStack {
-                        Text("Groups")
-                            .font(Font.custom("Montserrat-SemiBold", size: 20.0))
-                        Spacer()
-                    } .padding()
+            ZStack(alignment: .top) {
+                Color("Background").edgesIgnoringSafeArea(.all)
+                    .onAppear() {
+                        if !user.isEmpty {
+                        if !user[0].studyHours.isEmpty {
                         
-                    ScrollView(.horizontal, showsIndicators: false) {
-                            HStack {
-                                Spacer(minLength: 20)
-                                GroupsView(imgName: "2868759", cta: "Join", name: "Debate")
-                                GroupsView(imgName: "3566801", cta: "Join", name: "Spanish")
-                                GroupsView(imgName: "Group", cta: "Join", name: "History")
-                                Spacer(minLength: 110)
+                        sum = user[0].studyHours.reduce(0, +)
+                            
+                            
+                        }
+                    }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            withAnimation(.easeInOut(duration: 1.0)) {
+                                animation.toggle()
+                            }
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            withAnimation(.easeInOut(duration: 1.0)) {
+                                if userData.uses == 2 || userData.uses == 3 || userData.uses == 10 {
+                                    if !userData.hasDev {
+                        animate = true
+                                    }
+                        }
                             }
                         }
-                        Spacer(minLength: 62)
-                        
-                        SelfRankView(hours: 3.0)
-                        
-                        //CTA(imgName: "Group", cta: "Add Group")
-                           
-                         
-                            
-                        Spacer(minLength: 140)
-               
-                
-                    .transition(.move(edge: .bottom))
-                    .zIndex(1)
-                    .edgesIgnoringSafeArea(.all)
-                    
+                        }
                     }
-    }.blur(radius: showingTimer ? 20 : 0)
-                if showingTimer {
-                    TimerView(showingView: $showingTimer)
-                        .padding(.bottom, 110)
-                }
+                if animation {
+                VStack {
+                    Spacer()
+                        .frame(minHeight: 60, idealHeight: 60, maxHeight: 60)
+                        .fixedSize()
+                    
+                    ScrollView(.vertical, showsIndicators: false) {
+                        if animate {
+                        DevChatBanner()
+                            .padding(.top)
+                            .transition(.move(edge: .top))
+                        }
+                        
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack {
+                                ForEach(recentPeople, id:\.self){ groups in
+                                    ProfilePic(name: groups.groupName, size: 70)
+                                        .onTapGesture() {
+                                            group = groups
+                                            chat.toggle()
+                                        }
+                                }
+                                
+                            } .padding(.top, 42)
+                        }
+                        Divider()
+                        
+                        if recommendGroups.isEmpty {
+                            
+                        } else {
+                        HStack {
+                            Text("Recommended")
+                                .font(.custom("Montserrat Bold", size: 24)).foregroundColor(Color("Primary"))
+                            Spacer()
+                        }.padding()
+                        .padding(.top, 40)
+                        }
+                        ScrollView(.horizontal, showsIndicators: false) {
+                                HStack {
+                                    ForEach(Array(recommendGroups.enumerated()), id: \.element) { i, group in
+                    
+                                        GroupsView(imgName: imgs[i], cta: "Join", name: group.groupName, group: $group, chat: $chat)
+                                            .onAppear() {
+                                                self.group = group
+                                            }
+                                        .padding()
+                                   
+                                    }
+                                    Spacer(minLength: 110)
+                                }
+                            }
+                   
+
+                           
+                        if user.isEmpty {
+                            
+                        } else {
+                            SelfRankView(hours: sum)
+                                .padding()
+                        }
+                            CTA(imgName: "mentor", cta: "Find a Mentor")
+                               
+                             
+                         //   CTA(imgName: "study", cta: "Compete")
+                           //     .padding()
+                        if user.isEmpty {
+                            
+                        } else {
+                        LineView(data: user[0].studyHours, title: "Hours Studied", legend: "", style: Styles.barChartStyleNeonBlueLight)
+                                .padding()
+                        }
+                            Spacer(minLength: 500)
+                   
+                    
+                        .transition(.move(edge: .bottom))
+                        .zIndex(1)
+                        .edgesIgnoringSafeArea(.all)
+                        
+                    }.disabled(showingTimer ? true : false)
         }
-    }
+              
+                     Header(showTimer: $showingTimer)
+                }
+            }.blur(radius: showingTimer ? 20 : 0)
+            
+            if showingTimer {
+                VStack {
+                    TimerView(showingView: $showingTimer)
+                        .padding(.top, 110)
+                        .transition(.move(edge: .bottom))
+                        .onAppear {
+                            self.viewRouter.showTabBar = false
+                        }
+                        .onDisappear {
+                            self.viewRouter.showTabBar = true
+                    }
+                }
+            }
+            if chat {
+                Color(.systemBackground)
+                ChatView(group: group, chat: $chat)
+                    .environmentObject(userData)
+                    .onAppear() {
+                        viewRouter.showTabBar = false
+                    }
+                    .onDisappear() {
+                        viewRouter.showTabBar = true
+                    }
+
+            }
+        
+        }
+    
 
 
 }
-}
 
+}
 

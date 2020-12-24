@@ -79,12 +79,15 @@ struct LeaderboardView: View {
                             self.user = userData
                             showLoadingAnimation = false
                             //self.leadersHasLoaded = true
+                            
+                            user[0].all = user[0].studyHours.reduce(0, +)
+                           
                         }
                     }
                 
                 HStack {
                     ForEach(user){user in
-                        SelfRankView(hours: 2.75)
+                        SelfRankView(hours: user.all)
                             .padding(.top, 20)
                             .onAppear {
                                 withAnimation {
@@ -106,7 +109,7 @@ struct LeaderboardView: View {
                         VStack(spacing: 30) {
                             ForEach(people){user in
                                 
-                                LeaderboardRow(name: user.name, hours: user.studyHours)
+                                LeaderboardRow(name: user.name, hours: user.all)
                                     .onAppear() {
                                         print(user.name)
                                     }

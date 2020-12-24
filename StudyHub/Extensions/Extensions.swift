@@ -10,33 +10,7 @@ import SwiftUI
 
 //NOTE: - Styling for buttons
 
-struct BlueStyle: ButtonStyle {
- 
-    func makeBody(configuration: Self.Configuration) -> some View {
-        configuration.label
-            .frame(minWidth: 0, maxWidth: .infinity)
-            .padding()
-            .foregroundColor(.white)
-            .background(configuration.isPressed ? Color.buttonPressedBlue:Color.buttonBlue)
-            .cornerRadius(10)
-            .shadow(radius: 5)
-            .scaleEffect(configuration.isPressed ? 0.9:1.0)
-    }
-}
 
-struct WhiteStyle: ButtonStyle {
- 
-    func makeBody(configuration: Self.Configuration) -> some View {
-        configuration.label
-            .frame(minWidth: 0, maxWidth: .infinity)
-            .padding()
-            .foregroundColor(Color.buttonBlue)
-            .background(configuration.isPressed ? Color.buttonPressedBlue:Color.white)
-            .cornerRadius(10)
-            .shadow(radius: 5)
-            .scaleEffect(configuration.isPressed ? 0.9:1.0)
-    }
-}
 
 //NOTE: - Custom Text Field
 
@@ -69,3 +43,62 @@ extension Color {
         return Color(#colorLiteral(red: 0, green: 0.5843137255, blue: 1, alpha: 1))
     }
 }
+extension Double {
+    func removeZerosFromEnd() -> String {
+        let formatter = NumberFormatter()
+        let number = NSNumber(value: self)
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 16 //maximum digits in Double after dot (maximum precision)
+        return String(formatter.string(from: number) ?? "")
+    }
+}
+extension Array where Element:Equatable {
+    func removeDuplicates() -> [Element] {
+        var result = [Element]()
+
+        for value in self {
+            if result.contains(value) == false {
+                result.append(value)
+            }
+        }
+
+        return result
+    }
+}
+extension Date {
+    func get(_ components: Calendar.Component..., calendar: Calendar = Calendar.current) -> DateComponents {
+        return calendar.dateComponents(Set(components), from: self)
+    }
+
+    func get(_ component: Calendar.Component, calendar: Calendar = Calendar.current) -> Int {
+        return calendar.component(component, from: self)
+    }
+}
+protocol Accumulatable {
+    static func +(lhs: Self, rhs: Self) -> Self
+}
+extension Int : Accumulatable {}
+
+struct AccumulateSequence<T: Sequence>: Sequence, IteratorProtocol
+where T.Element: Accumulatable {
+    var iterator: T.Iterator
+    var accumulatedValue: T.Element?
+
+    init(_ sequence: T) {
+        self.iterator = sequence.makeIterator()
+    }
+
+    mutating func next() -> T.Element? {
+        if let val = iterator.next() {
+            if accumulatedValue == nil {
+                accumulatedValue = val
+            }
+            else { defer { accumulatedValue = accumulatedValue! + val } }
+            return accumulatedValue
+
+        }
+        return nil
+    }
+}
+
+

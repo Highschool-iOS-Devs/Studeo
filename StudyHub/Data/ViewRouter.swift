@@ -11,20 +11,19 @@ import Foundation
 
 class ViewRouter:ObservableObject{
     enum Views{
-           case chats
-           case home
-           case books
-           case groups
-           case settings
-            case introView
+        case home
+        case settings
+        case introView
         //Below are temp views for testing Firebase
         case login
         case registration
         case chatList
         case leaderboard
         case profile
-        
-       }
+        case custom
+        case devChat
+        case mentor
+    }
     @Published var currentView = Views.registration
     @Published var showChatView = false {
         willSet{
@@ -40,4 +39,4 @@ class ViewRouter:ObservableObject{
 
 
 
-   
+

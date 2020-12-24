@@ -1,8 +1,4 @@
-*.DS_Store
-*.xcodeproj/*
-!*.xcodeproj/project.pbxproj
-!*.xcodeproj/xcshareddata/
-!*.xcworkspace/contents.xcworkspacedata
-**/xcshareddata/WorkspaceSettings.xcsettings
-xcuserdata/
-*.xcuserstate
+Pods/
+.DS_Store
+*xcuserdata/
+*xcshareddata/
