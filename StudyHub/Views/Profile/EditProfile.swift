@@ -29,95 +29,99 @@ struct EditProfile: View {
     var imagePlaceholder = Image(systemName: "person.circle.fill")
 
     var body: some View {
-        ZStack {
-        ForEach(user){ user in
-     VStack {
-                ZStack(alignment:.center) {
-                    if profileImage == nil{
-                        ProfileRingView(size: 350)
-                            .opacity(0.5)
-                    }
-                    else{
-                        Image(uiImage: profileImage!)
-                            .renderingMode(.original)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 350, height: 350)
-                            .clipShape(Circle())
-                            .overlay(
-                                    Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 5)
-                            )
-                            .opacity(0.5)
-
-    
-                    }
-                    Text("Tap to choose")
-                        .font(.custom("Montserrat-Bold", size: 30))
-                        .foregroundColor(Color("Primary"))
-            }
-                .padding(.top, 20)
-        .onTapGesture {
-            showImagePicker = true
-         }
-        .sheet(isPresented: self.$showImagePicker){
-            ImagePicker(isShown: self.$showImagePicker, image: self.$image, userID: $userData.userID)
-                .environmentObject(userData)
-                .onDisappear() {
-                    profileImage = image ?? profileImage
-                }
-         }
-        .padding(.horizontal, 42)
-
-        VStack{
-            TextField(user.name, text: $name)
+        GeometryReader { geo in
+            ZStack {
                 
-                 .font(.custom("Montserrat-Semibold", size: 22))
-                 .foregroundColor(Color(.black))
-                 .multilineTextAlignment(.leading)
+                Color("Background")
+                    .edgesIgnoringSafeArea(.all)
+                
+                ForEach(user){ user in
+                     VStack {
+                        ZStack(alignment:.center) {
+                            if profileImage == nil{
+                                ProfileRingView(size: geo.size.width-90)
+                                    .opacity(0.5)
+                            }
+                            else{
+                                Image(uiImage: profileImage!)
+                                    .renderingMode(.original)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: geo.size.width-90, height: geo.size.width-90)
+                                    .clipShape(Circle())
+                                    .overlay(
+                                            Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 5)
+                                    )
+                                    .opacity(0.5)
 
-             HStack {
-               
-                ProfileStats(allNum: user.all, all: true)
-                ProfileStats(monthNum: user.month, month: true)
-                ProfileStats(dayNum: user.day, day: true)
-               
-              
-               
-             } .padding(.vertical, 22)
-         
-            TextField(user.description, text: $description)
-                 .frame(minWidth: 100, alignment: .leading)
-                 .font(.custom("Montserrat-Semibold", size: 18))
-                 .foregroundColor(Color(.black))
-                 .multilineTextAlignment(.center)
-               
-        }
-        .padding()
-       .padding(.bottom, 22)
-       .padding(.horizontal, 22)
-      
-        Button(action: {
-            sendData()
-            resizeImage()
-            uploadImage()
-            //downloadImages()
-    
-        }) {
-            Text("Save")
-                .font(Font.custom("Montserrat-SemiBold", size: 14.0))
-        }
-        .buttonStyle(BlueStyle())
-        .padding()
-        .padding(.horizontal, 22)
-        Spacer()
-        
-     }
+            
+                            }
+                            Text("Tap to choose")
+                                .font(.custom("Montserrat-Bold", size: 30))
+                                .foregroundColor(Color("Primary"))
+                            }
+                            .padding(.top, 20)
+                            .onTapGesture {
+                                showImagePicker = true
+                             }
+                            .sheet(isPresented: self.$showImagePicker){
+                                ImagePicker(isShown: self.$showImagePicker, image: self.$image, userID: $userData.userID)
+                                    .environmentObject(userData)
+                                    .onDisappear() {
+                                        profileImage = image ?? profileImage
+                                    }
+                             }
+                            .padding(.horizontal, 42)
+
+                    VStack(alignment: .center){
+                        
+                        TextField(user.name, text: $name)
+                         .font(.custom("Montserrat-Semibold", size: 22))
+                         .foregroundColor(Color("Text"))
+                         .multilineTextAlignment(.center)
+
+                         HStack {
+                           
+                            ProfileStats(allNum: user.all, all: true)
+                            ProfileStats(monthNum: user.month, month: true)
+                            ProfileStats(dayNum: user.day, day: true)
+                           
+                          
+                           
+                         } .padding(.vertical, 22)
+                     
+                        TextField(user.description, text: $description)
+                             .frame(minWidth: 100, alignment: .leading)
+                             .font(.custom("Montserrat-Semibold", size: 18))
+                             .foregroundColor(Color("Text"))
+                             .multilineTextAlignment(.center)
+                       
+                    }
+                    .padding()
+                    .padding(.bottom, 22)
+                    .padding(.horizontal, 22)
+                  
+                    Button(action: {
+                        sendData()
+                        resizeImage()
+                        uploadImage()
+                        //downloadImages()
+                
+                    }) {
+                        Text("Save")
+                            .font(Font.custom("Montserrat-SemiBold", size: 14.0))
+                    }
+                    .buttonStyle(BlueStyle())
+                    .padding()
+                    .padding(.horizontal, 22)
+                    Spacer()
+                        
+                }
+             
+            }
+            .padding(.horizontal)
      
-     }
-     .padding(.horizontal)
-
-      
-        
+        }
     }
 }
 //    func downloadImages(){

@@ -47,9 +47,10 @@ struct LoginView: View {
                     Text("Logging you in...")
                         .font(.custom("Montserrat-SemiBold", size: 25))
                         .offset(y: -40)
+                        .foregroundColor(Color("Text"))
                 }
                 .frame(width: 300, height: 400)
-                .background(Color.white)
+                .background(Color("Background"))
                 .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
                 .shadow(color: Color.black.opacity(0.3), radius: 15, x: 10, y: 10)
                 .animation(.easeInOut)

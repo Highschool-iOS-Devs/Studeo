@@ -53,6 +53,7 @@ struct RegistrationView: View {
                     Text("Creating an account...")
                         .font(.custom("Montserrat-SemiBold", size: 25))
                         .offset(y: -40)
+                        .foregroundColor(Color("Text"))
                 }
                 .frame(width: 300, height: 400)
                 .background(Color("Background"))
