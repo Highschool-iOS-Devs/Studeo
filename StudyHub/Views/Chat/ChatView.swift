@@ -156,7 +156,7 @@ struct ChatView: View {
                     }
                     Spacer()
                 } .padding()
-                VoiceChat(agoraKit: AgoraRtcEngineKit(), token: token, name: group.groupID)
+                VoiceChat(agoraKit: AgoraRtcEngineKit(), token: token, name: group.groupID, vc: $ARChat)
             }
         }
         .onAppear{

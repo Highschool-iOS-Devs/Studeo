@@ -13,12 +13,13 @@ struct VoiceChat: View {
     @State var token = ""
     @State var name = ""
     @State var isMuted = false
+    @Binding var vc: Bool
     var body: some View {
         ZStack {
         Color("Background").edgesIgnoringSafeArea(.all)
             .onDisappear() {
-                agoraKit.leaveChannel(nil)
-                    UIApplication.shared.isIdleTimerDisabled = false
+               // agoraKit.leaveChannel(nil)
+                UIApplication.shared.isIdleTimerDisabled = false
             }
             .onAppear() {
                 initializeAgoraEngine()
@@ -43,6 +44,20 @@ struct VoiceChat: View {
             }
                 }
             }
+            VStack {
+                HStack {
+                    
+                    Button(action: {
+                        agoraKit.leaveChannel(nil)
+                        vc = false
+                    }) {
+                        Image(systemName: "xmark")
+                            .foregroundColor(Color("Primary"))
+                    }
+                    Spacer()
+                } .padding()
+                Spacer()
+            }
     }
     }
     func initializeAgoraEngine() {
@@ -53,6 +68,7 @@ struct VoiceChat: View {
         // Join a channel with a token.
         UIApplication.shared.isIdleTimerDisabled = true
         agoraKit.setDefaultAudioRouteToSpeakerphone(true)
+        agoraKit.setAudioProfile(.speechStandard, scenario: .chatRoomGaming)
         agoraKit.joinChannel(byToken: token, channelId: name, info: nil, uid: 0) { (channel, uid, elapsed) -> Void in}
                
             }
