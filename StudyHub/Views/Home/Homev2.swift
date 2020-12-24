@@ -33,7 +33,7 @@ struct Homev2: View {
     @State var currentOffset = 0
     @Binding var recentPeople: [Groups]
     @State var chat = false
-    @State var group = Groups(id: UUID().uuidString, groupID: "", groupName: "", members: [String](), interests: [UserInterestTypes?]())
+    @State var group = Groups(id: UUID().uuidString, groupID: "", groupName: "", members: [String](), membersCount: 0, interests: [UserInterestTypes?]())
     @Binding var recommendGroups: [Groups]
     @Binding var user: [User]
     @State var imgs = ["2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing"]

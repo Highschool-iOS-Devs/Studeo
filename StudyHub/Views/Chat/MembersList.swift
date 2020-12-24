@@ -40,6 +40,7 @@ struct MembersList: View {
                                           groupID: UUID().uuidString,
                                           groupName: String(describing: userData.name + " and " + member.name),
                                           members: groupMemberIDs,
+                                          membersCount: groupMemberIDs.count,
                                           interests: group.interests)
                        
                             self.joinGroup(newGroup: newGroup)

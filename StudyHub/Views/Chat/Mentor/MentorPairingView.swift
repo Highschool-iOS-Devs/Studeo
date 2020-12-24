@@ -87,6 +87,7 @@ struct MentorPairingView: View {
                                           groupID: UUID().uuidString,
                                           groupName: "\(self.selectedInterests[0]) Group",
                                           members: groupMemberIDs,
+                                          membersCount: groupMemberIDs.count,
                                           interests: self.selectedInterests)
                         if let group = newGroup{
                             self.joinGroup(newGroup: group)

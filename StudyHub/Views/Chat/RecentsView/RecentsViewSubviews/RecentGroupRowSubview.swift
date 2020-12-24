@@ -112,9 +112,3 @@ struct RecentGroupRowSubview: View {
    
     }
 }
-
-struct RecentChatRowSubview_Previews: PreviewProvider {
-    static var previews: some View {
-        RecentGroupRowSubview(group: Groups(id: "", groupID: "", groupName: "SAT Group", members: [""], interests: [nil]), profilePicture: Image("demoprofile"))
-    }
-}

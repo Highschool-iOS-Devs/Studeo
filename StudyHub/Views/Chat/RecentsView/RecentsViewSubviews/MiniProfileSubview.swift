@@ -17,7 +17,7 @@ import class Kingfisher.ImageCache
 
 struct MiniProfileSubview: View {
     @State var profileImages:[URL] = []
-    var gridItemLayout = [GridItem(.flexible()), GridItem(.flexible()),GridItem(.flexible())]
+    var gridItemLayout = [GridItem(.flexible()), GridItem(.flexible())]
     var group:Groups
     var body: some View {
         LazyVGrid(columns: gridItemLayout){
@@ -36,7 +36,6 @@ struct MiniProfileSubview: View {
                     .clipShape(Circle())
                     .frame(minWidth:10, minHeight:10)
                     .overlay(Circle().stroke(Color("Background"), lineWidth: 1))
-                    //.offset(x: -CGFloat(index*5))
                     .animation(.easeInOut)
                     .transition(.opacity)
 
