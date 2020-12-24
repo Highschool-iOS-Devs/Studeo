@@ -118,7 +118,7 @@ struct ContentView: View {
                             .environmentObject(userData)
                             .environmentObject(viewRouter)
                     case .home:
-                        if !userData.isOnboardingCompleted {
+                        if userData.uses == 1 {
                             Home()
                                 .onAppear() {
                                     viewRouter.showTabBar = true
