@@ -15,16 +15,30 @@ struct Home: View {
     @State private var search: String = ""
     @State private var showingTimer = false
     @State var myGroups = [Groups]()
-    
+    @State var animate = false
     var body: some View {
         ZStack {
             VStack {
                 Header(showTimer: $showingTimer)
                     .ignoresSafeArea()
-               
+                    .onAppear() {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            withAnimation(.easeInOut(duration: 1.0)) {
+                                if userData.uses == 1 || userData.uses == 2 || userData.uses == 10 {
+                                    if !userData.hasDev {
+                        animate = true
+                                    }
+                        }
+                            }
+                        }
+                    }
                 ScrollView(showsIndicators: false) {
+                    if animate {
                     DevChatBanner()
-                        .padding(.top)
+                        
+                        .transition(.move(edge: .top))
+                    }
+                       
                     //SearchBar()
                     
                     Spacer()
@@ -33,7 +47,7 @@ struct Home: View {
                         Text("Start here!")
                             .frame(minWidth: 100, alignment: .leading)
                             .font(.custom("Montserrat-Semibold", size: 18))
-                            .foregroundColor(Color(.black))
+                            .foregroundColor(Color("Primary"))
                             .multilineTextAlignment(.leading)
                         
                         Spacer()

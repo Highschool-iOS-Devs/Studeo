@@ -40,6 +40,7 @@ struct ContentView: View {
                     self.checkAuth()
                     userData.uses += 1
                     userData.uses = 2
+                   
             }
            
                 if hasCheckedAuth {
@@ -123,7 +124,7 @@ struct ContentView: View {
                                     viewRouter.showTabBar = true
                                 }
                         } else {
-                            Homev2(recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user)
+                            Home()// Homev2(recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user)
                                 .onAppear() {
                                     viewRouter.showTabBar = true
                                 }
