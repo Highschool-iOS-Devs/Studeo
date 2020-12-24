@@ -10,6 +10,7 @@ import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Alamofire
+import AgoraRtcKit
 //!!!You do not use OnAppear method with this view, this view
 //is created at the same time as AddChat View!!!
 struct ChatView: View {
@@ -24,9 +25,10 @@ struct ChatView: View {
     //@State var image:Image
     @Binding var chat: Bool
     @State var ARChat = false
-    @State var test = false
+    @State var test = true
     @State var membersList = false
     @State var person = User(id: UUID(), firebaseID: "", name: "", email: "", profileImageURL: URL(string: ""), interests: [UserInterestTypes](), groups: [String](), recentGroups: [String](), recentPeople: [String](), studyHours: [Double](), studyDate: [String](), all: 0.0, month: 0.0, day: 0.0, description: "", isAvailable: false)
+    @State var token = ""
     var body: some View {
         ZStack {
             Color.white.edgesIgnoringSafeArea(.all)
@@ -58,7 +60,19 @@ struct ChatView: View {
                     Spacer()
                     if test {
                     Button(action: {
-                        ARChat = true
+                        let request = AF.request("https://studyhub1.herokuapp.com/access_token?channel=\(group.groupID)&uid=0")
+
+                                                                  request.responseJSON { (response) in
+                                                          print(response)
+                                                                      guard let tokenDict = response.value as! [String : Any]? else { return }
+                                                                  let token = tokenDict["token"] as! String
+                                                  
+                                                                    self.token = token
+                                                                   
+                                                                    if token != "" {
+                                                                    ARChat.toggle()
+                                                                    }
+                                                                  }
                         
                     }) {
                         Image(systemName: "phone")
@@ -142,7 +156,7 @@ struct ChatView: View {
                     }
                     Spacer()
                 } .padding()
-                ARVideoChatView()
+                VoiceChat(agoraKit: AgoraRtcEngineKit(), token: token, name: group.groupID)
             }
         }
         .onAppear{
