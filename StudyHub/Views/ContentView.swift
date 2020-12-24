@@ -124,7 +124,7 @@ struct ContentView: View {
                                     viewRouter.showTabBar = true
                                 }
                         } else {
-                            Home()// Homev2(recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user)
+                             Homev2(recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user)
                                 .onAppear() {
                                     viewRouter.showTabBar = true
                                 }
