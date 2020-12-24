@@ -34,7 +34,7 @@ struct ContentView: View {
     @State var devGroup: Groups
     var body: some View {
         ZStack { 
-            Color.white
+            Color("Background")
                 .edgesIgnoringSafeArea(.all)
                 .onAppear{
                     self.checkAuth()
@@ -43,7 +43,7 @@ struct ContentView: View {
             }
            
                 if hasCheckedAuth {
-                    Color.white
+                    Color("Background")
                         .edgesIgnoringSafeArea(.all)
                         .onAppear{
                             self.loadDMsData(){ userData in
