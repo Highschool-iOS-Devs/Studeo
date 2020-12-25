@@ -50,17 +50,20 @@ struct MiniProfileSubview: View {
         }
     }
     func getProfileImage(){
-        for member in group.members{
-            let metadata = StorageMetadata()
-            metadata.contentType = "image/jpeg"
-            let storage = Storage.storage().reference().child("User_Profile/\(member)")
-            storage.downloadURL{url, error in
-                if let error = error{
-                    print("Error downloading image, \(error)")
+        if profileImages == []{
+            for member in group.members{
+                let metadata = StorageMetadata()
+                metadata.contentType = "image/jpeg"
+                let storage = Storage.storage().reference().child("User_Profile/\(member)")
+                storage.downloadURL{url, error in
+                    if let error = error{
+                        print("Error downloading image, \(error)")
+                    }
+                    profileImages.append(url ?? URL(string: "https://firebasestorage.googleapis.com/v0/b/study-hub-7540b.appspot.com/o/User_Profile%2F632803C1-F7B2-44C0-86A6-C589F17DEE97?alt=media&token=18198a24-b65e-4209-8c77-1f78ac6e6925")!)
                 }
-                profileImages.append(url ?? URL(string: "https://firebasestorage.googleapis.com/v0/b/study-hub-7540b.appspot.com/o/User_Profile%2F632803C1-F7B2-44C0-86A6-C589F17DEE97?alt=media&token=18198a24-b65e-4209-8c77-1f78ac6e6925")!)
             }
         }
+    
        
     }
 }

@@ -24,75 +24,87 @@ struct RecentsView2: View {
     @State var showTimer = false
     
     var body: some View {
-        ZStack{
-            ZStack(alignment: .top) {
-                Color("Primary").edgesIgnoringSafeArea(.all)
-                VStack {
-                    ScrollView{
-                        RecentChatTextRow(add: $add)
-                            .environmentObject(userData)
-                            .padding(.top, 62)
-                        Spacer()
-                        if allGroups == []{
-                            Text("You are not in any study group yet,\n\nUse the add button to pair. 🙌").font(.custom("Montserrat Bold", size: 24)).foregroundColor(Color(#colorLiteral(red: 0.27, green: 0.89, blue: 0.98, alpha: 1)))
-                            .multilineTextAlignment(.center)
-                                .frame(width: 250)
-                                .frame(height:425)
-                        }
-                        else{
-                            VStack(spacing: 20) {
-                                ForEach(recentGroups){group in
-                                    RecentGroupRowSubview(group: group, profilePicture: Image("demoprofile"))
-                                        .padding(.horizontal, 20)
-                                        .environmentObject(UserData.shared)
-                                }
-                                Spacer()
-                            }
-                            .padding(.vertical)
-                           
-                            
-                        }
-                        Spacer()
-                        VStack{
-                            AllGroupTextRow()
+        NavigationView{
+            ZStack{
+                ZStack(alignment: .top) {
+                    Color("Primary").edgesIgnoringSafeArea(.all)
+                    VStack {
+                        ScrollView{
+                            RecentChatTextRow(add: $add)
                                 .environmentObject(userData)
-                            LazyVGrid(columns: gridItemLayout, spacing: 40){
-                                ForEach(allGroups){group in
-                                    RecentChatGroupSubview(group: group)
-                                        .environmentObject(UserData.shared)
-                                }
+                                .padding(.top, 62)
+                            Spacer()
+                            if allGroups == []{
+                                Text("You are not in any study group yet,\n\nUse the add button to pair. 🙌").font(.custom("Montserrat Bold", size: 24)).foregroundColor(Color(#colorLiteral(red: 0.27, green: 0.89, blue: 0.98, alpha: 1)))
+                                .multilineTextAlignment(.center)
+                                    .frame(width: 250)
+                                    .frame(height:425)
                             }
+                            else{
+                                VStack(spacing: 20) {
+                                    ForEach(recentGroups){group in
+                                        NavigationLink(
+                                            destination:ChatView(group: group)
+                                                        .environmentObject(userData)
+                                            ){
+                                            
+                                            RecentGroupRowSubview(group: group, profilePicture: Image("demoprofile"))
+                                                .padding(.horizontal, 20)
+                                                .environmentObject(UserData.shared)
+                                            
+                                        }
+                                        
+                                     
+                                    }
+                                    Spacer()
+                                }
+                                .padding(.vertical)
+                               
+                                
+                            }
+                            Spacer()
+                            VStack{
+                                AllGroupTextRow()
+                                    .environmentObject(userData)
+                                LazyVGrid(columns: gridItemLayout, spacing: 40){
+                                    ForEach(allGroups){group in
+                                        RecentChatGroupSubview(group: group)
+                                            .environmentObject(UserData.shared)
+                                    }
+                                }
 
+                            }
+                            Spacer(minLength: 110)
                         }
-                        Spacer(minLength: 110)
+                      
+                    
                     }
-                  
-                
+                    .frame(width: screenSize.width, height: screenSize.height)
+                    .background(Color("Background"))
+                    .cornerRadius(20)
+                    .offset(y: 15)
+
+                    
+                    Header(showTimer: $showTimer)
+                       
+
+
+            }
+                if add {
+                    PairingView(settings: $settings, add: $add, myGroups: $allGroups)
+
                 }
-                .frame(width: screenSize.width, height: screenSize.height-150)
-                .background(Color("Background"))
-                .cornerRadius(20)
-                .offset(y: 15)
-
-                
-                Header(showTimer: $showTimer)
-                   
-
-
-        }
-            if add {
-                PairingView(settings: $settings, add: $add, myGroups: $allGroups)
-
+     
             }
- 
-        }
-        .onAppear {
-                    getAllGroups(){self.allGroups=$0}
-                    self.getRecentGroups{self.recentGroups=$0}
-                    self.recentPeople = getRecentPeople()
-                    //downloadImages()
-                
-            }
+            .onAppear {
+                        getAllGroups(){self.allGroups=$0}
+                        self.getRecentGroups{self.recentGroups=$0}
+                        self.recentPeople = getRecentPeople()
+                        //downloadImages()
+                    
+                }
+        }.accentColor(Color("Primary"))
+    
         
     }
 

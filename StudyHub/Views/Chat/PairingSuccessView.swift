@@ -26,7 +26,7 @@ struct PairingSuccess: View {
             } .buttonStyle(BlueStyle())
             .padding()
             if chat {
-                ChatView(group: group, chat: $chat)
+                ChatView(group: group)
             }
         }
     }

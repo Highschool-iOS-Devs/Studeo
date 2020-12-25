@@ -78,7 +78,7 @@ struct Homev2: View {
                     
                     ScrollView(.vertical, showsIndicators: false) {
                         if animate {
-                        DevChatBanner()
+                            DevChatBanner()
                             .padding(.top)
                             .transition(.move(edge: .top))
                         }
@@ -168,18 +168,7 @@ struct Homev2: View {
                     }
                 }
             }
-            if chat {
-                Color(.systemBackground)
-                ChatView(group: group, chat: $chat)
-                    .environmentObject(userData)
-                    .onAppear() {
-                        viewRouter.showTabBar = false
-                    }
-                    .onDisappear() {
-                        viewRouter.showTabBar = true
-                    }
-
-            }
+       
         
         }
     

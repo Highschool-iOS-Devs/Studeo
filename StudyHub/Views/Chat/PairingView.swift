@@ -93,8 +93,8 @@ struct PairingView: View {
                 self.add = false
             }){
                 if let group = newGroup{
-                    ChatView(group: group, chat: $chat)
-                        .environmentObject(userData)
+//                    ChatView(group: group, chat: $chat)
+//                        .environmentObject(userData)
                 }
                
             }

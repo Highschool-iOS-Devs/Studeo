@@ -21,7 +21,6 @@ class ViewRouter:ObservableObject{
         case leaderboard
         case profile
         case custom
-        case devChat
         case mentor
     }
     @Published var currentView = Views.registration

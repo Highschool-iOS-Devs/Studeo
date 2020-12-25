@@ -43,10 +43,7 @@ struct RecentChatGroupSubview: View {
         .onTapGesture{
             tapped = true
         }
-        .sheet(isPresented: self.$tapped){
-            ChatView(group: group, chat: self.$tapped)
-                .environmentObject(UserData.shared)
-        }
+      
     }
 }
 

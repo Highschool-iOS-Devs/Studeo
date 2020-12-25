@@ -31,7 +31,6 @@ struct ContentView: View {
     @State var i = 0
     @State var i2 = -1
     @State var chat = true
-    @State var devGroup: Groups
     var body: some View {
         ZStack { 
             Color("Background")
@@ -84,25 +83,6 @@ struct ContentView: View {
                     switch viewRouter.currentView {
                     case .mentor:
                         MentorPairingView(settings: $settings, add: $add, myGroups: $myGroups)
-                    case .devChat:
-                        if chat {
-                            ChatView(group: devGroup, chat: $chat)
-                                
-                                .onAppear() {
-                                    viewRouter.showTabBar = false
-                                    joinGroup(newGroup: devGroup)
-                                    userData.hasDev = true
-                                }
-                            
-                        } else {
-                            Homev2(recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user)
-                                .onAppear() {
-                                    viewRouter.showTabBar = true
-                                    viewRouter.currentView = .home
-                                }
-                            .environmentObject(userData)
-                            .environmentObject(viewRouter)
-                        }
                     case .registration:
                         RegistrationView()
                             .environmentObject(viewRouter)
@@ -439,51 +419,7 @@ struct ContentView: View {
         
          
     }
-    func joinGroup(newGroup: Groups) {
-        let db = Firestore.firestore()
-        let docRef = db.collection("groups")
-        do{
-            try docRef.document(newGroup.groupID).setData(from: newGroup)
-            
-        }
-        catch{
-            print("Error writing to database, \(error)")
-        }
-        
-        devGroup.members.append("n3SQZeq1oMhJzHNd1WlMSEClLHp2")
-        devGroup.members.append(userData.userID)
-        for member in devGroup.members {
-            print(member)
-        let ref2 = db.collection("users").document(member)
-        ref2.getDocument{document, error in
-            
-            if let document = document, document.exists {
-                
-         
-                let groupListCast = document.data()?["groups"] as? [String]
-                
-                if var currentGroups = groupListCast{
-                    
-                    guard !(groupListCast?.contains(newGroup.groupID))! else{return}
-                    currentGroups.append(newGroup.groupID)
-                    ref2.updateData(
-                        [
-                            "groups":currentGroups
-                        ]
-                    )
-                } else {
-                    ref2.updateData(
-                        [
-                            "groups":[newGroup.groupID]
-                        ]
-                    )
-                }
-            } else {
-                print("Error getting user data, \(error)")
-            }
-        }
-    }
-    }
+
 }
 
 
