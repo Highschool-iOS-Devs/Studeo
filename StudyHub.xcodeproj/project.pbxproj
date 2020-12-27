@@ -715,6 +715,7 @@
 				E10C05CD259013B70020FD7C /* MembersList.swift in Sources */,
 				E12E5FCC258492E200FB216C /* VideoPlayer.swift in Sources */,
 				E10C05CD259013B70020FD7C /* MemberListSubview.swift in Sources */,
+				E10C05CD259013B70020FD7C /* MembersList.swift in Sources */,
 				624FAF02256EF540000E0203 /* TitleSubview.swift in Sources */,
 				E1646BF925912076003B2FB4 /* DevChatBanner.swift in Sources */,
 				62F24C0B25141AF400777610 /* LottieUIView.swift in Sources */,
