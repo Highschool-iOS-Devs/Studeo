@@ -13,7 +13,7 @@ struct TimerView: View {
     @StateObject private var timer = TimerManager()
     
     @Binding var showingView: Bool
-    
+   
     var notificationID: String = "timerEnded"
     
     
@@ -29,10 +29,10 @@ struct TimerView: View {
         formatter.allowedUnits = [.hour, .minute, .second]
         return formatter.string(from: seconds) ?? "N/N"
     }
-    
+    @State var category = "Math"
     var body: some View {
         VStack(spacing: 0) {
-
+            
             HStack {
                 Spacer()
                 Button(action: {
@@ -47,8 +47,10 @@ struct TimerView: View {
                 }
             }
             .padding()
-
-            
+            TimerSelectView(category: $category)
+                .onChange(of: category, perform: { value in
+                    timer.category = category
+                })
             HStack {
                 Text("Set Timer")
                     .font(Font.custom("Montserrat-SemiBold", size: 34.0))

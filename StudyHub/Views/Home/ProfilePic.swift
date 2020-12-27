@@ -27,19 +27,7 @@ struct ProfilePic: View {
              Text(name)
             }
             } else {
-                Color(.black)
-                    .clipShape(Circle())
-                    .overlay(
-                                Circle()
-                                    .stroke(LinearGradient(gradient: Gradient(colors: [Color("Secondary"), Color("Primary")]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 3)
-                            )
-                VideoView()
-                    .frame(width:size,height:size)
-                    .clipShape(Circle())
-                    .overlay(
-                                Circle()
-                                    .stroke(LinearGradient(gradient: Gradient(colors: [Color("Secondary"), Color("Primary")]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 3)
-                            )
+              
             }
         } .padding()
             

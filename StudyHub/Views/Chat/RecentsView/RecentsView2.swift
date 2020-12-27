@@ -42,7 +42,7 @@ struct RecentsView2: View {
                             }
                             else{
                                 VStack(spacing: 20) {
-                                    ForEach(recentGroups){group in
+                                    ForEach(recentGroups){ group in
                                         NavigationLink(
                                             destination:ChatView(group: group)
                                                         .environmentObject(userData)
