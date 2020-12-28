@@ -40,6 +40,7 @@ struct Homev2: View {
     @State var sum = 0.0
     @State var animate = false
     @State var animation = false
+    @Binding var timerLog: [TimerLog]
     var body: some View {
 
         ZStack {
@@ -160,7 +161,7 @@ struct Homev2: View {
             
             if showingTimer {
                 VStack {
-                    TimerView(showingView: $showingTimer)
+                    TimerView(showingView: $showingTimer, timerLog: $timerLog)
                         .padding(.top, 110)
                         .transition(.move(edge: .bottom))
                         .onAppear {

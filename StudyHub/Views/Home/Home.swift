@@ -16,6 +16,7 @@ struct Home: View {
     @State private var showingTimer = false
     @State var myGroups = [Groups]()
     @State var animate = false
+    @Binding var timerLog: [TimerLog]
     var body: some View {
         ZStack {
             VStack {
@@ -69,7 +70,7 @@ struct Home: View {
             .blur(radius: showingTimer ? 20 : 0)
         
         if showingTimer {
-            TimerView(showingView: $showingTimer)
+            TimerView(showingView: $showingTimer, timerLog: $timerLog)
                 .onAppear {
                     self.viewRouter.showTabBar = false
                 }
@@ -84,8 +85,4 @@ struct Home: View {
     }
 }
 
-struct Home_Previews: PreviewProvider {
-    static var previews: some View {
-        Home()
-    }
-}
+

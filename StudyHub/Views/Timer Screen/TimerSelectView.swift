@@ -32,6 +32,6 @@ struct TimerSelectView: View {
             
         }
         }
-        } .padding()
+        } 
 }
 }

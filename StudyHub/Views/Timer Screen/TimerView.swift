@@ -30,10 +30,18 @@ struct TimerView: View {
         return formatter.string(from: seconds) ?? "N/N"
     }
     @State var category = "Math"
+    @State var stats = false
+    
+    @Binding var timerLog: [TimerLog]
     var body: some View {
         VStack(spacing: 0) {
             
             HStack {
+                Button(action: {
+                    stats.toggle()
+                }) {
+                    Image(systemName: "chart.bar")
+                }
                 Spacer()
                 Button(action: {
                     withAnimation {
@@ -47,10 +55,14 @@ struct TimerView: View {
                 }
             }
             .padding()
+           
             TimerSelectView(category: $category)
                 .onChange(of: category, perform: { value in
                     timer.category = category
                 })
+                
+                .padding(.vertical)
+            
             HStack {
                 Text("Set Timer")
                     .font(Font.custom("Montserrat-SemiBold", size: 34.0))
@@ -162,9 +174,12 @@ struct TimerView: View {
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification), perform: { _ in
             self.timer.loadData()
         })
+        .sheet(isPresented: $stats) {
+            TimerStatsView(timerLog: $timerLog)
+                }
     }//body
     
-    
+   
     func addNotification() {
         let center = UNUserNotificationCenter.current()
         
@@ -218,12 +233,4 @@ struct TimerView: View {
 
 
 
-struct TimerView_Previews: PreviewProvider {
-    static var previews: some View {
-        ZStack {
-            Color(.red).edgesIgnoringSafeArea(.all)
-            TimerView(showingView: .constant(true))
-        } 
-    }
-}
 

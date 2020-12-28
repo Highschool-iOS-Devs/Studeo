@@ -31,6 +31,7 @@ struct ContentView: View {
     @State var i = 0
     @State var i2 = -1
     @State var chat = true
+    @State var timerLog = [TimerLog]()
     var body: some View {
         ZStack { 
             Color("Background")
@@ -54,7 +55,14 @@ struct ContentView: View {
 
                                
                             }
-   
+                            self.loadUserTimerLog(){ userData in
+                                //Get completion handler data results from loadData function and set it as the recentPeople local variable
+                                self.timerLog = userData 
+                                
+        
+
+                               
+                            }
                             self.loadUserData(){ userData in
                                 //Get completion handler data results from loadData function and set it as the recentPeople local variable
                                 self.user = userData
@@ -99,12 +107,12 @@ struct ContentView: View {
                             .environmentObject(viewRouter)
                     case .home:
                         if userData.uses == 1 {
-                            Home()
+                            Home(timerLog: $timerLog)
                                 .onAppear() {
                                     viewRouter.showTabBar = true
                                 }
                         } else {
-                             Homev2(recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user)
+                            Homev2(recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user, timerLog: $timerLog)
                                 .onAppear() {
                                     viewRouter.showTabBar = true
                                 }
@@ -282,6 +290,38 @@ struct ContentView: View {
         }
         
         
+    }
+    
+    func loadUserTimerLog(performAction: @escaping ([TimerLog]) -> Void) {
+        let db = Firestore.firestore()
+        let docRef = db.collection("timerLog").whereField("userID", isEqualTo: userData.userID)
+        var userList:[TimerLog] = []
+        //Get every single document under collection users
+    
+     docRef.getDocuments { (document, error) in
+        if !document!.isEmpty {
+        for document in document!.documents {
+                let result = Result {
+                 try document.data(as: TimerLog.self)
+                }
+                switch result {
+                    case .success(let user):
+                        if let user = user {
+                            userList.append(user)
+                 
+                        } else {
+                            
+                            print("Document does not exist")
+                        }
+                    case .failure(let error):
+                        print("Error decoding user: \(error)")
+                    }
+     
+            
+              performAction(userList)
+        }
+        }
+     }
     }
     func loadGroupsData(performAction: @escaping ([Groups]?) -> Void) {
         let db = Firestore.firestore()
