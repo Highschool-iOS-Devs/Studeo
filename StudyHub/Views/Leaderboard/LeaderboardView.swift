@@ -109,52 +109,12 @@ struct LeaderboardView: View {
                         VStack(spacing: 30) {
                             ForEach(people){user in
                                 
-                                LeaderboardRow(name: user.name, hours: user.all)
+                                LeaderboardRow(name: user.name, hours: user.studyHours)
                                     .onAppear() {
                                         print(user.name)
                                     }
                             }
                             
-                            
-                        }
-                        .padding(.top, 22)
-                        .padding(.bottom, 110)
-                    }
-                    
-                    
-                } else if leaderboardTab.currentDateTab == .month {
-                    
-                    Spacer()
-                    if self.leadersMonthHasLoaded {
-                        LeadersStack(leaders: self.leadersMonth)
-                    }
-                    ScrollView {
-                        VStack(spacing: 30) {
-                            ForEach(peopleMonth){ user in
-                                LeaderboardRow(name: user.name, hours: user.month)
-                                    .onAppear() {
-                                        print(user.name)
-                                    }
-                            }
-                            
-                        }
-                        .padding(.top, 22)
-                        .padding(.bottom, 110)
-                    }
-                } else if leaderboardTab.currentDateTab == .today {
-                    
-                    Spacer()
-                    if self.leadersDayHasLoaded {
-                        LeadersStack(leaders: self.leadersDay)
-                    }
-                    ScrollView {
-                        VStack(spacing: 30) {
-                            ForEach(peopleDay){user in
-                                LeaderboardRow(name: user.name, hours: user.day)
-                                    .onAppear() {
-                                        print(user.name)
-                                    }
-                            }
                             
                         }
                         .padding(.top, 22)
@@ -162,6 +122,46 @@ struct LeaderboardView: View {
                     }
                     
                 }
+//                } else if leaderboardTab.currentDateTab == .month {
+//
+//                    Spacer()
+//                    if self.leadersMonthHasLoaded {
+//                        LeadersStack(leaders: self.leadersMonth)
+//                    }
+//                    ScrollView {
+//                        VStack(spacing: 30) {
+//                            ForEach(peopleMonth){ user in
+//                                LeaderboardRow(name: user.name, hours: user.month)
+//                                    .onAppear() {
+//                                        print(user.name)
+//                                    }
+//                            }
+//
+//                        }
+//                        .padding(.top, 22)
+//                        .padding(.bottom, 110)
+//                    }
+//                } else if leaderboardTab.currentDateTab == .today {
+//
+//                    Spacer()
+//                    if self.leadersDayHasLoaded {
+//                        LeadersStack(leaders: self.leadersDay)
+//                    }
+//                    ScrollView {
+//                        VStack(spacing: 30) {
+//                            ForEach(peopleDay){user in
+//                                LeaderboardRow(name: user.name, hours: user.day)
+//                                    .onAppear() {
+//                                        print(user.name)
+//                                    }
+//                            }
+//
+//                        }
+//                        .padding(.top, 22)
+//                        .padding(.bottom, 110)
+//                    }
+//
+//                }
 //                Spacer(minLength: 120)
             }
             .font(.custom("Montserrat-SemiBold", size: 16))

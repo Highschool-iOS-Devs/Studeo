@@ -129,6 +129,9 @@ struct Homev2: View {
                         } else {
                             SelfRankView(hours: sum)
                                 .padding()
+                                .onTapGesture {
+                                    viewRouter.updateCurrentView(view: .leaderboard)
+                                }
                         }
                             CTA(imgName: "mentor", cta: "Find a Mentor")
                                
