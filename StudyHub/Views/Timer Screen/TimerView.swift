@@ -75,9 +75,9 @@ struct TimerView: View {
                         .stroke(Color("clockStroke"), lineWidth: 2))
             }
             .onAppear() {
-              //  self.timer.add(600)
+               // self.timer.add(600)
                 if !timer.isRunning  {
-                    //self.timer.add(600)
+                //    self.timer.add(600)
                 }
             }
             ZStack {

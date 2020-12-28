@@ -58,8 +58,13 @@ struct TimerStatsView: View {
             if calculate {
             ScrollView {
             VStack {
+                
+                if !langauge.isEmpty {
+                LineChartView(data: langauge, title: "Foreign Language", legend: "Seconds", dropShadow: false)
+                    .padding()
+                }
                 if !math.isEmpty {
-                LineChartView(data: math, title: "Math", legend: "Seconds", form: CGSize(width: geo.size.width/1.1, height: geo.size.width/1.1), dropShadow: false)
+                LineChartView(data: math, title: "Math", legend: "Seconds", dropShadow: false)
                     .padding()
                 }
                 if !social.isEmpty {
@@ -67,9 +72,10 @@ struct TimerStatsView: View {
                     .padding()
                 }
                 if !science.isEmpty {
-                LineChartView(data: science, title: "Science", legend: "Seconds", form: CGSize(width: geo.size.width/1.1, height: geo.size.width/1.5), dropShadow: false)
+                LineChartView(data: science, title: "Science", legend: "Seconds", dropShadow: false)
                     .padding()
                 }
+               
                 if !english.isEmpty {
                 LineChartView(data: english, title: "English", legend: "Seconds", form: CGSize(width: geo.size.width/1.1, height: geo.size.width/1.5), dropShadow: false)
                     .padding()
