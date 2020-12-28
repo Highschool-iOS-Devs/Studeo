@@ -37,6 +37,7 @@ struct Groups: Identifiable, Codable, Hashable{
     var recentMessageTime:Date?
 }
 
+
 struct MessageData: Codable, Identifiable, Hashable {
     @DocumentID var id: String?
     var messageText:String

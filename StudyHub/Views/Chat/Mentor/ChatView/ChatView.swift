@@ -28,6 +28,7 @@ struct ChatView: View {
     @State var membersList = false
     @State var person = User(id: UUID(), firebaseID: "", name: "", email: "", profileImageURL: URL(string: ""), interests: [UserInterestTypes](), groups: [String](), recentGroups: [String](), recentPeople: [String](), studyHours: [Double](), studyDate: [String](), all: 0.0, month: 0.0, day: 0.0, description: "", isAvailable: false)
     @State var token = ""
+    @State var showFull = false
     var body: some View {
         ZStack {
             Color("Background").edgesIgnoringSafeArea(.all)
@@ -50,6 +51,8 @@ struct ChatView: View {
                         })
                     }
                 }
+                .disabled(membersList ? true : false)
+               
                 Spacer()
                 
                 Divider()
@@ -88,6 +91,8 @@ struct ChatView: View {
                 
                 
             }
+            .blur(radius: membersList ? 8 : 0)
+            .animation(.easeInOut)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
@@ -154,8 +159,12 @@ struct ChatView: View {
                     } .padding()
                     VoiceChat(agoraKit: AgoraRtcEngineKit(), token: token, name: group.groupID, vc: $ARChat)
                 }
+
+            BottomCardSubview(displayView: AnyView(MemberListSubview(members: $members, memberList: $membersList, showFull: $showFull, group: $group, person: $person, messages: $messages)), showFull: $showFull, showCard: $membersList)
+            
             }
             .onAppear{
+                
                 self.loadData()
                 self.addRecentRecord()
                 self.viewRouter.showTabBar = false
@@ -169,10 +178,7 @@ struct ChatView: View {
             .onDisappear{
                 self.viewRouter.showTabBar = true
             }
-        .sheet(isPresented: $membersList){
-            MembersList(members: $members, memberList: $membersList, group: $group, person: $person, messages: $messages)
-
-        }
+     
             
             
             
@@ -315,7 +321,6 @@ struct ChatView: View {
                         }
                     }
                 }
-                print(messageArray)
                 self.messages = messageArray
                 
             }

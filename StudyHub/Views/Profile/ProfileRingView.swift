@@ -15,11 +15,12 @@ import struct Kingfisher.DownsamplingImageProcessor
 
 struct ProfileRingView: View {
     var imagePlaceholder = Image(systemName: "person.circle.fill")
+    var imageURL:URL?
     var size:CGFloat
     @EnvironmentObject var userData: UserData
     
     var body: some View {
-        KFImage(URL(string: userData.profilePictureURL), options: [.transition(.fade(0.5)), .processor(DownsamplingImageProcessor(size: CGSize(width: size*3, height: size*3))), .cacheOriginalImage])
+        KFImage(imageURL ?? URL(string: userData.profilePictureURL), options: [.transition(.fade(0.5)), .processor(DownsamplingImageProcessor(size: CGSize(width: size*3, height: size*3))), .cacheOriginalImage])
             .onSuccess { r in
                  // r: RetrieveImageResult
                  print("success: \(r)")

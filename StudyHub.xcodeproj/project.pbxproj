@@ -48,7 +48,6 @@
 		6205911D24FDBD1D001565BF /* ErrorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6205911C24FDBD1D001565BF /* ErrorModel.swift */; };
 		62109C89259055B700483ADB /* MiniProfileSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62109C88259055B700483ADB /* MiniProfileSubview.swift */; };
 		622430A125747BDE0031CF78 /* RecentChatGroupSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622430A025747BDE0031CF78 /* RecentChatGroupSubview.swift */; };
-		622AABB525955EA3004A984A /* MemberProfileSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622AABB425955EA3004A984A /* MemberProfileSubview.swift */; };
 		624FAEF6256EF08D000E0203 /* InputFieldSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624FAEF5256EF08D000E0203 /* InputFieldSubview.swift */; };
 		624FAEF9256EF137000E0203 /* ButtonsSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624FAEF8256EF137000E0203 /* ButtonsSubview.swift */; };
 		624FAEFC256EF2EA000E0203 /* VectorImageRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624FAEFB256EF2EA000E0203 /* VectorImageRepresentable.swift */; };
@@ -57,6 +56,8 @@
 		624FAF06256EF8BE000E0203 /* LoginButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624FAF05256EF8BE000E0203 /* LoginButtonStyles.swift */; };
 		624FAF2B256F0A00000E0203 /* RegistrationInputSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624FAF2A256F0A00000E0203 /* RegistrationInputSubview.swift */; };
 		624FAFDE25720ACC000E0203 /* RecentGroupRowSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624FAFDD25720ACC000E0203 /* RecentGroupRowSubview.swift */; };
+		6258E4DD2595AC900072DA87 /* OtherUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6258E4DC2595AC900072DA87 /* OtherUserProfileView.swift */; };
+		6258E4E1259942AC0072DA87 /* BottomCardSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6258E4E0259942AC0072DA87 /* BottomCardSubview.swift */; };
 		626E7815258D3EEB008633AB /* ProfileRingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626E7814258D3EEB008633AB /* ProfileRingView.swift */; };
 		626E785C258D4371008633AB /* KingfisherSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 626E785B258D4371008633AB /* KingfisherSwiftUI */; };
 		626E785E258D4371008633AB /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 626E785D258D4371008633AB /* Kingfisher */; };
@@ -76,6 +77,8 @@
 		BE167C452514333A00402C14 /* SettingsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE167C442514333A00402C14 /* SettingsData.swift */; };
 		BE3E16182517F96900E0A845 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E16172517F96900E0A845 /* TimerManager.swift */; };
 		E10C058625900A100020FD7C /* Pods_StudyHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47F4119D880B6AFBE91DBA85 /* Pods_StudyHub.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		E10C05CD259013B70020FD7C /* MemberListSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10C05CC259013B70020FD7C /* MemberListSubview.swift */; };
+		E1112BEF2584B4CE00A7C2E2 /* 30111-confetti-animation.json in Sources */ = {isa = PBXBuildFile; fileRef = E1D04B4D2584B07000D74B14 /* 30111-confetti-animation.json */; };
 		E10C05CD259013B70020FD7C /* MembersList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10C05CC259013B70020FD7C /* MembersList.swift */; };
 		E11157A32593CF31005E9AEA /* VoiceChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11157A22593CF31005E9AEA /* VoiceChat.swift */; };
 		E124C1B924FED758008EBD84 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 620590C324FDBB21001565BF /* GoogleService-Info.plist */; };
@@ -149,7 +152,6 @@
 		6205911C24FDBD1D001565BF /* ErrorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorModel.swift; sourceTree = "<group>"; };
 		62109C88259055B700483ADB /* MiniProfileSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniProfileSubview.swift; sourceTree = "<group>"; };
 		622430A025747BDE0031CF78 /* RecentChatGroupSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentChatGroupSubview.swift; sourceTree = "<group>"; };
-		622AABB425955EA3004A984A /* MemberProfileSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberProfileSubview.swift; sourceTree = "<group>"; };
 		624FAEF5256EF08D000E0203 /* InputFieldSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputFieldSubview.swift; sourceTree = "<group>"; };
 		624FAEF8256EF137000E0203 /* ButtonsSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsSubview.swift; sourceTree = "<group>"; };
 		624FAEFB256EF2EA000E0203 /* VectorImageRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorImageRepresentable.swift; sourceTree = "<group>"; };
@@ -158,6 +160,8 @@
 		624FAF05256EF8BE000E0203 /* LoginButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButtonStyles.swift; sourceTree = "<group>"; };
 		624FAF2A256F0A00000E0203 /* RegistrationInputSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationInputSubview.swift; sourceTree = "<group>"; };
 		624FAFDD25720ACC000E0203 /* RecentGroupRowSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentGroupRowSubview.swift; sourceTree = "<group>"; };
+		6258E4DC2595AC900072DA87 /* OtherUserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserProfileView.swift; sourceTree = "<group>"; };
+		6258E4E0259942AC0072DA87 /* BottomCardSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomCardSubview.swift; sourceTree = "<group>"; };
 		626E7814258D3EEB008633AB /* ProfileRingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileRingView.swift; sourceTree = "<group>"; };
 		626EEC8B25897BC200E7A7A5 /* RecentChatTextRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentChatTextRow.swift; sourceTree = "<group>"; };
 		626EEC8E25897BD200E7A7A5 /* AllGroupTextRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupTextRow.swift; sourceTree = "<group>"; };
@@ -175,7 +179,7 @@
 		BE3E16172517F96900E0A845 /* TimerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
 		C7A62219EB10FE2A621A6C84 /* Pods-StudyHub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudyHub.debug.xcconfig"; path = "Target Support Files/Pods-StudyHub/Pods-StudyHub.debug.xcconfig"; sourceTree = "<group>"; };
 		E10C0584259009020020FD7C /* StudyHub.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StudyHub.entitlements; sourceTree = "<group>"; };
-		E10C05CC259013B70020FD7C /* MembersList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembersList.swift; sourceTree = "<group>"; };
+		E10C05CC259013B70020FD7C /* MemberListSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberListSubview.swift; sourceTree = "<group>"; };
 		E11157A22593CF31005E9AEA /* VoiceChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceChat.swift; sourceTree = "<group>"; };
 		E12E5FC82584924900FB216C /* test.MP4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.MP4; sourceTree = "<group>"; };
 		E13032A8258CCFD500135CAC /* ProfileRingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRingView.swift; sourceTree = "<group>"; };
@@ -427,8 +431,9 @@
 		622AABB325955E91004A984A /* ChatViewSubviews */ = {
 			isa = PBXGroup;
 			children = (
-				E10C05CC259013B70020FD7C /* MembersList.swift */,
-				622AABB425955EA3004A984A /* MemberProfileSubview.swift */,
+				E10C05CC259013B70020FD7C /* MemberListSubview.swift */,
+				6258E4DC2595AC900072DA87 /* OtherUserProfileView.swift */,
+				6258E4E0259942AC0072DA87 /* BottomCardSubview.swift */,
 			);
 			path = ChatViewSubviews;
 			sourceTree = "<group>";
@@ -708,12 +713,13 @@
 				62F3D9B22557C156008B2356 /* ErrorMessage.swift in Sources */,
 				6205911D24FDBD1D001565BF /* ErrorModel.swift in Sources */,
 				E10C05CD259013B70020FD7C /* MembersList.swift in Sources */,
+				E12E5FCC258492E200FB216C /* VideoPlayer.swift in Sources */,
+				E10C05CD259013B70020FD7C /* MemberListSubview.swift in Sources */,
 				624FAF02256EF540000E0203 /* TitleSubview.swift in Sources */,
 				E1646BF925912076003B2FB4 /* DevChatBanner.swift in Sources */,
 				62F24C0B25141AF400777610 /* LottieUIView.swift in Sources */,
 				624FAEF6256EF08D000E0203 /* InputFieldSubview.swift in Sources */,
 				62E98613257D96C9003B5113 /* RecentPeopleRowSubview.swift in Sources */,
-				622AABB525955EA3004A984A /* MemberProfileSubview.swift in Sources */,
 				6205911724FDBB21001565BF /* ContentView.swift in Sources */,
 				6205910A24FDBB21001565BF /* SettingView.swift in Sources */,
 				624FAFDE25720ACC000E0203 /* RecentGroupRowSubview.swift in Sources */,
@@ -721,6 +727,7 @@
 				622430A125747BDE0031CF78 /* RecentChatGroupSubview.swift in Sources */,
 				626E7815258D3EEB008633AB /* ProfileRingView.swift in Sources */,
 				626EECB2258988D700E7A7A5 /* RecentsView2.swift in Sources */,
+				6258E4E1259942AC0072DA87 /* BottomCardSubview.swift in Sources */,
 				62109C89259055B700483ADB /* MiniProfileSubview.swift in Sources */,
 				6205910724FDBB21001565BF /* ViewRouter.swift in Sources */,
 				BE167C452514333A00402C14 /* SettingsData.swift in Sources */,
@@ -744,6 +751,8 @@
 				624FAF2B256F0A00000E0203 /* RegistrationInputSubview.swift in Sources */,
 				6205911824FDBB21001565BF /* RegistrationView.swift in Sources */,
 				6205910E24FDBB21001565BF /* ChatCell.swift in Sources */,
+				6258E4DD2595AC900072DA87 /* OtherUserProfileView.swift in Sources */,
+				E12E5FC125847EA300FB216C /* OpponetAnimation.swift in Sources */,
 				624FAEFF256EF32D000E0203 /* FloatingBlobSubview.swift in Sources */,
 				624FAF06256EF8BE000E0203 /* LoginButtonStyles.swift in Sources */,
 				6205910B24FDBB21001565BF /* CTA.swift in Sources */,

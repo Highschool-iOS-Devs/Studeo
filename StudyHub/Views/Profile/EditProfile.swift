@@ -124,21 +124,7 @@ struct EditProfile: View {
         }
     }
 }
-//    func downloadImages(){
-//         let metadata = StorageMetadata()
-//         metadata.contentType = "image/jpeg"
-//
-//         let storage = Storage.storage()
-//         let pathReference = storage.reference(forURL: "gs://study-hub-7540b.appspot.com/User_Profile/\(userData.userID)")
-//        pathReference.downloadURL { url, error in
-//            if let error = error {
-//              print("Error downloading image, \(error)")
-//            } else {
-//                userData.profilePictureURL = url
-//            }
-//          }
-//              
-//     }
+
     func resizeImage(){
         if var image = profileImage{
             while image.getSizeIn(.megabyte)! >= Double(2){

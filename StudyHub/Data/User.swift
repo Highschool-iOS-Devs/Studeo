@@ -31,6 +31,7 @@ struct User: Identifiable, Codable, Hashable {
     var description: String
     var isAvailable: Bool?
     
+    var dms:[String]?
     var isMentor: Bool?
 }
 
