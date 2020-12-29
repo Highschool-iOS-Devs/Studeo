@@ -8,7 +8,7 @@
 
 
 import SwiftUI
-import SwiftUICharts
+
 struct Homev2: View {
     var columns = [
         GridItem(.fixed(250)),

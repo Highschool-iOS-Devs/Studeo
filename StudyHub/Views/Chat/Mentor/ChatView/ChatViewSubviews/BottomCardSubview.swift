@@ -38,7 +38,15 @@ struct BottomCardSubview: View {
         .gesture(
             DragGesture()
                 .onChanged { value in
-                    self.bottomState = value.translation
+                    print(bottomState.height)
+                    if self.showFull{
+                        if value.translation.height > 0{
+                            self.bottomState = value.translation
+                        }
+                    }
+                    else{
+                        self.bottomState = value.translation
+                    }
 
                     if self.bottomState.height < -300 {
                         self.bottomState.height = -300
@@ -52,6 +60,7 @@ struct BottomCardSubview: View {
                 if self.bottomState.height > 50 {
                     self.showCard = false
                     showFull = false
+                    self.bottomState = .zero
                 }
                 else{
                     self.bottomState = .zero
@@ -59,6 +68,7 @@ struct BottomCardSubview: View {
                 }
             }
         )
+
         .animation(.timingCurve(0.2, 0.8, 0.2, 1, duration:0.8))
   
     }

@@ -56,49 +56,54 @@ struct MemberListSubview: View {
                     Spacer()
                 }
                 if members.count <= 4{
-                    HStack(alignment: .center, spacing: 20){
+                    HStack(alignment: .center){
                         ForEach(members) { member in
+                            if member.id.uuidString != self.userData.userID{
                                 VStack {
                                    ProfileRingView(imagePlaceholder: Image("person"), size: 75)
                                 Text(member.name)
                                     .minimumScaleFactor(0.001)
                                     .font(.custom("Montserrat-Semibold", size: 15))
                                     .foregroundColor(Color("Text"))
-                                    .padding()
+                                    .padding(.top, 10)
                                     .lineLimit(1)
-                                    .frame(width:100)
 
                                 }
+                                .frame(maxWidth:.infinity)
+                                .padding(.top, 20)
                                 .onTapGesture {
                                     self.member = member
                                     showFull = true
                                 }
+                            }
 
                            
                         }
                     }
                 }
                 else{
-                    LazyVGrid(columns: columns, spacing: 20){
+                    LazyVGrid(columns: columns){
                         ForEach(members) { member in
+                            if member.id.uuidString != self.userData.userID{
                                 VStack {
-                                   ProfileRingView(imagePlaceholder: Image("person"), size: 75)
+                                    ProfileRingView(imageURL:member.profileImageURL ?? nil, size: 75)
                                 Text(member.name)
                                     .minimumScaleFactor(0.001)
                                     .font(.custom("Montserrat-Semibold", size: 15))
                                     .foregroundColor(Color("Text"))
-                                    .padding()
+                                    .padding(.top, 10)
                                     .lineLimit(1)
-                                    .frame(width:100)
-
-
 
                                 }
+                                .frame(maxWidth:.infinity)
+                                .padding(.top, 20)
                                 .onTapGesture {
                                     self.member = member
                                     showFull = true
                                 }
 
+                            }
+                                
                            
                         }
                     }
@@ -135,14 +140,33 @@ struct MemberListSubview: View {
             }
         
         }
+        .onAppear{
+            for index in 0..<members.count{
+                downloadImages(for: members[index].id.uuidString){
+                    members[index].profileImageURL = $0
+                }
+                
+            }
+        }
 
    
+    }
+    func downloadImages(for userID:String, completion: @escaping (URL) -> Void){
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+        
+        let storage = Storage.storage()
+        let pathReference = storage.reference(forURL: "gs://study-hub-7540b.appspot.com/User_Profile/\(userID)")
+        pathReference.downloadURL { url, error in
+            if let error = error {
+                print("Error downloading image, \(error)")
+            } else {
+                completion(url!)
+            }
+        }
+        
     }
 
 }
 
 
-//                        NavigationLink(destination: OtherUserProfileView(user: member, showMemberList: $memberList), tag: members.firstIndex(of: member)!, selection:$action){
-//                                EmptyView()
-//                            }.navigationBarHidden(true)
-                        

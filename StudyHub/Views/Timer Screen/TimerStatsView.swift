@@ -7,7 +7,8 @@
 //
 
 import SwiftUI
-import SwiftUICharts
+//import SwiftUICharts
+
 struct TimerStatsView: View {
     @Binding var timerLog: [TimerLog]
     @State var math = [Double]()

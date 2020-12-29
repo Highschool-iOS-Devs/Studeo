@@ -82,6 +82,7 @@ struct RegistrationView: View {
                 FloatingBlobSubview()
             }
         )
+        
     }
     func parseData(){
             self.showLoadingAnimation = true

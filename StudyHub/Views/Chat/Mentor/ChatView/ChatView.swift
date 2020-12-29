@@ -6,6 +6,7 @@
 //  Copyright © 2020 Dakshin Devanand. All rights reserved.
 
 import SwiftUI
+import Combine
 import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
@@ -29,6 +30,7 @@ struct ChatView: View {
     @State var person = User(id: UUID(), firebaseID: "", name: "", email: "", profileImageURL: URL(string: ""), interests: [UserInterestTypes](), groups: [String](), recentGroups: [String](), recentPeople: [String](), studyHours: [Double](), studyDate: [String](), all: 0.0, month: 0.0, day: 0.0, description: "", isAvailable: false)
     @State var token = ""
     @State var showFull = false
+    @State var keyboardHeight:CGFloat = CGFloat.zero
     var body: some View {
         ZStack {
             Color("Background").edgesIgnoringSafeArea(.all)
@@ -45,6 +47,7 @@ struct ChatView: View {
                         }
                         .padding(.top,2)
                         .onChange(of: messages, perform: { value in
+                            
                             withAnimation() {
                                 scrollView.scrollTo(messages.last, anchor: .bottom)
                             }
@@ -86,7 +89,13 @@ struct ChatView: View {
                         }
                     
                     
-                } .padding()
+                }
+                .onReceive(Publishers.keyboardHeight){height in
+                    keyboardHeight=height
+                }
+                .padding(.horizontal)
+                .padding(.top)
+                .padding(.bottom, 10)
                 .frame(maxWidth: .infinity)
                 
                 
