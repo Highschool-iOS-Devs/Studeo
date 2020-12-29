@@ -9,13 +9,21 @@
 import SwiftUI
 import FirebaseFirestore
 import Network
+import UserNotifications
 import class Kingfisher.KingfisherManager
 let screenSize = UIScreen.main.bounds.size
 
 struct SettingView: View {
     @EnvironmentObject var userData: UserData
     @EnvironmentObject var viewRouter: ViewRouter
-    @State var userIsAvailable = true
+    @State private var userSettings = SettingsData(settings: [])
+    @State private var userIsAvailable = true
+    
+    
+    @State private var chatNotifications = true
+    @State private var newGroupNotifications = true
+    @State private var country = "US"
+    
     var body: some View {
             NavigationView {
                 ZStack {
@@ -42,14 +50,15 @@ struct SettingView: View {
                                     .padding(.horizontal, 22)
                                 VStack(spacing: 30) {
                                     availabilityRowView(settingText: "Available for new pairings", userAvailable: $userIsAvailable)
-                                    settingRowView(settingText: "Notifications", settingState: "On", newView: AnyView(NotificationsView()))
+                                    settingRowView(settingText: "Notifications", settingState: ((!chatNotifications && !newGroupNotifications) ? "Off" : "On"), newView: AnyView(NotificationsView(chatNotifications: $chatNotifications, groupNotifications: $newGroupNotifications)))
                                     settingRowView(settingText: "Personal info", settingState: "", newView: AnyView(PersonalInfoView()))
                                     settingRowView(settingText: "Country", settingState: "United States", newView: AnyView(Text("Placeholder")))
                                     settingRowView(settingText: "Language", settingState: "English", newView: AnyView(Text("Placeholder")))
                                     settingRowView(settingText: "Sign out", settingState: "", newView: AnyView(Text("Placeholder")), disableNavigation: true)
                                         .onTapGesture(){
-                                            FirebaseManager.signOut()
+                                            signOut()
                                             resetUserDefaults()
+                                            removeAllPendingNotifications()
                                             KingfisherManager.shared.cache.clearCache()
                                             viewRouter.updateCurrentView(view:.login)
                                         }
@@ -74,10 +83,23 @@ struct SettingView: View {
             }
             .onAppear {
                 self.loadAvailabilityData()
+                self.loadSettingsData { (data) in
+                    if let settingsData = data {
+                        self.userSettings = settingsData
+                    } else {
+                        self.userSettings = SettingsData.defaultSettings
+                    }
+                    updateUIWithData(self.userSettings)
+                }
             }
             .onDisappear{
                 print("Settings disappeared, save data now.")
-                self.saveAvailabilityData()
+                self.saveAvailability() { error in
+                    if let error = error {
+                        //do something
+                    }
+                }
+                self.saveData()
                 monitor.cancel()
             }
         
@@ -94,12 +116,31 @@ struct SettingView: View {
         }
     }
     
-    func saveAvailabilityData() {
+    func signOut() {
+        self.userIsAvailable = false
+        saveAvailability { error in
+            if error == nil {
+                FirebaseManager.signOut()
+            }
+        }
+    }
+    
+    func removeAllPendingNotifications() {
+        let center = UNUserNotificationCenter.current()
+        center.removeAllPendingNotificationRequests()
+    }
+    
+    func saveAvailability(completion: @escaping (Error?) -> Void) {
         let db = Firestore.firestore()
         let ref = db.collection("users").document(userData.userID)
+        
         ref.updateData(["isAvailable" : userIsAvailable]) { error in
-            guard let error = error else { return }
-//            print("Error updating data: \(error)")
+            guard let error = error else {
+                completion(nil)
+                return
+            }
+            print("Error updating data: \(error)")
+            completion(error)
         }
     }
     
@@ -116,6 +157,77 @@ struct SettingView: View {
             self.userIsAvailable = data ?? false
         }
     }
+    
+    func loadSettingsData(completion: @escaping (SettingsData?) -> Void) {
+        let db = Firestore.firestore()
+        let ref = db.collection("settings").document(userData.userID)
+        ref.getDocument { (document, error) in
+            if let document = document {
+            let result = Result {
+                try document.data(as: SettingsData.self)
+            }
+                switch result {
+                case .success(let settings):
+                    print("Success decoding settings")
+                    completion(settings)
+                case .failure(let error):
+                    print(error)
+                    completion(nil)
+                }
+            } else {
+                completion(nil)
+            }
+        }
+        
+    }
+    
+    func updateSettings() {
+        var newSettings = [SettingSubData]()
+        for settings in self.userSettings.settings {
+            switch settings.name {
+            case "Country":
+                newSettings.append(SettingSubData(name: settings.name, field: self.country))
+            case "Chat notifications":
+                newSettings.append(SettingSubData(name: settings.name, state: self.chatNotifications))
+            case "New group notifications":
+                newSettings.append(SettingSubData(name: settings.name, state: self.newGroupNotifications))
+            case "Personal info":
+                newSettings.append(SettingSubData(name: settings.name, state: true))
+            default:
+                print("Unexpected setting with name: \(settings.name)")
+            }
+        }
+        self.userSettings.settings = newSettings
+    }
+    
+    func saveData() {
+        updateSettings()
+        let db = Firestore.firestore()
+        let ref = db.collection("settings").document(userData.userID)
+        do {
+            try ref.setData(from: self.userSettings)
+            self.userData.chatNotificationsOn = chatNotifications
+            self.userData.joinedGroupNotificationsOn = newGroupNotifications
+        } catch let error {
+            print("Error writing settings to firestore: \(error)")
+        }
+    }
+    
+    func updateUIWithData(_ data: SettingsData) {
+        for settings in data.settings {
+            switch settings.name {
+            case "Country":
+                self.country = settings.field!
+            case "Chat notifications":
+                self.chatNotifications = settings.state!
+            case "New group notifications":
+                self.newGroupNotifications = settings.state!
+            default:
+                print("Unexpected setting with name: \(settings.name)")
+            }
+        }
+    }
+    
 }
     
     

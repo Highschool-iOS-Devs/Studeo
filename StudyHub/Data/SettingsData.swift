@@ -11,6 +11,8 @@ import SwiftUI
 struct SettingsData: Identifiable, Codable {
     var id = UUID()
     var settings:[SettingSubData]
+    
+    static let defaultSettings = SettingsData(settings: [SettingSubData(name: "Personal info", state: true), SettingSubData(name: "Country", field: "US"), SettingSubData(name: "Chat notifications", state: true), SettingSubData(name: "Group notifications", state: true)])
 
 }
 struct SettingSubData:Codable{
