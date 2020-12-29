@@ -74,6 +74,7 @@
 		62F24C03251419F400777610 /* planeLoading.json in Resources */ = {isa = PBXBuildFile; fileRef = 62F24C02251419F400777610 /* planeLoading.json */; };
 		62F24C0B25141AF400777610 /* LottieUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F24C0A25141AF400777610 /* LottieUIView.swift */; };
 		62F3D9B22557C156008B2356 /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F3D9B12557C156008B2356 /* ErrorMessage.swift */; };
+		62FAED0D259BC2580015B094 /* PasswordResetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FAED0C259BC2580015B094 /* PasswordResetView.swift */; };
 		BE167C452514333A00402C14 /* SettingsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE167C442514333A00402C14 /* SettingsData.swift */; };
 		BE3E16182517F96900E0A845 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E16172517F96900E0A845 /* TimerManager.swift */; };
 		E10C058625900A100020FD7C /* Pods_StudyHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47F4119D880B6AFBE91DBA85 /* Pods_StudyHub.framework */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -190,6 +191,7 @@
 		62F24C02251419F400777610 /* planeLoading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = planeLoading.json; sourceTree = "<group>"; };
 		62F24C0A25141AF400777610 /* LottieUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieUIView.swift; sourceTree = "<group>"; };
 		62F3D9B12557C156008B2356 /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
+		62FAED0C259BC2580015B094 /* PasswordResetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetView.swift; sourceTree = "<group>"; };
 		BE167C442514333A00402C14 /* SettingsData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsData.swift; sourceTree = "<group>"; };
 		BE3E16172517F96900E0A845 /* TimerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
 		C7A62219EB10FE2A621A6C84 /* Pods-StudyHub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudyHub.debug.xcconfig"; path = "Target Support Files/Pods-StudyHub/Pods-StudyHub.debug.xcconfig"; sourceTree = "<group>"; };
@@ -447,6 +449,7 @@
 				628A12752518683B001C4B13 /* IntroView.swift */,
 				628A127C25186938001C4B13 /* IntroPage.swift */,
 				628A127F25186940001C4B13 /* IntroCustomize.swift */,
+				62FAED0C259BC2580015B094 /* PasswordResetView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -797,6 +800,7 @@
 				E10C05CD259013B70020FD7C /* MemberListSubview.swift in Sources */,
 				E10C05CD259013B70020FD7C /* MemberListSubview.swift in Sources */,
 				624FAF02256EF540000E0203 /* TitleSubview.swift in Sources */,
+				62FAED0D259BC2580015B094 /* PasswordResetView.swift in Sources */,
 				E1646BF925912076003B2FB4 /* DevChatBanner.swift in Sources */,
 				62F24C0B25141AF400777610 /* LottieUIView.swift in Sources */,
 				E12C5FAA259A518500D3314E /* PieChartRow.swift in Sources */,

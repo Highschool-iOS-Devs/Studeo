@@ -299,8 +299,8 @@ struct ContentView: View {
         //Get every single document under collection users
     
      docRef.getDocuments { (document, error) in
-        if !document!.isEmpty {
-        for document in document!.documents {
+        if let document = document, !document.isEmpty {
+        for document in document.documents {
                 let result = Result {
                  try document.data(as: TimerLog.self)
                 }
