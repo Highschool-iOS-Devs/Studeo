@@ -330,6 +330,7 @@ struct ContentView: View {
         if user.isEmpty {
             
         } else {
+            if !(user[0].interests?.isEmpty ?? true) {
             if user[0].interests!.count < 0 {
             } else {
         //Get every single document under collection users
@@ -378,6 +379,7 @@ struct ContentView: View {
             }
               performAction(groupList)
         }
+            }
         }
         }
     }
