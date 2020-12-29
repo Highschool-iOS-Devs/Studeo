@@ -40,11 +40,12 @@ struct ChatView: View {
                 ScrollView(.vertical, showsIndicators: false) {
                     ScrollViewReader { scrollView in
                         LazyVStack {
-                            ForEach(self.messages) { message in
+                            ForEach(self.messages, id:\.self) { message in
                                 MessageCellView(message)
                                     .id(message.id)
                             }
                         }
+                        .drawingGroup()
                         .padding(.top,2)
                         .onChange(of: messages, perform: { value in
                             
@@ -55,7 +56,7 @@ struct ChatView: View {
                     }
                 }
                 .disabled(membersList ? true : false)
-               
+                
                 Spacer()
                 
                 Divider()
@@ -172,6 +173,7 @@ struct ChatView: View {
             BottomCardSubview(displayView: AnyView(MemberListSubview(members: $members, memberList: $membersList, showFull: $showFull, group: $group, person: $person, messages: $messages)), showFull: $showFull, showCard: $membersList)
             
             }
+
             .onAppear{
                 
                 self.loadData()
@@ -305,7 +307,7 @@ struct ChatView: View {
         func loadData(){
             let db = Firestore.firestore()
             
-            let docRef = db.collection("message/\(group.groupID)/messages").order(by: "sentTime").limit(to: 50)
+            let docRef = db.collection("message/\(group.groupID)/messages").order(by: "sentTime")
             docRef.addSnapshotListener{ (querySnapshot, error) in
                 var messageArray:[MessageData] = []
                 
