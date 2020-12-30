@@ -38,6 +38,7 @@ struct ContentView: View {
                 .edgesIgnoringSafeArea(.all)
                 .onAppear{
                     self.checkAuth()
+                    self.firstLaunchAction()
                     userData.uses += 1
                     userData.uses = 2
                    
@@ -330,57 +331,55 @@ struct ContentView: View {
         if user.isEmpty {
             
         } else {
-            if !(user[0].interests?.isEmpty ?? true) {
-            if user[0].interests!.count < 0 {
-            } else {
-        //Get every single document under collection users
-        
+            guard let interests = user[0].interests else { return }
+            if interests.count > 0 {
+                //Get every single document under collection users
+                
                 let queryParameter = docRef.whereField("interests", arrayContains: "\(user[0].interests!.first!)")
                 queryParameter.getDocuments { (querySnapshot, error) in
-            if let querySnapshot = querySnapshot,!querySnapshot.isEmpty{
-            for document in querySnapshot.documents{
-                let result = Result {
-                    try document.data(as: Groups.self)
-                }
-                switch result {
-                    case .success(let group):
-                        if var group = group {
-                           
-                           
-                            
-                           
-                            
-                         
-    //                        if user.isAvailable == true {
-                                if myGroups.contains(group) {
+                    if let querySnapshot = querySnapshot,!querySnapshot.isEmpty{
+                        for document in querySnapshot.documents{
+                            let result = Result {
+                                try document.data(as: Groups.self)
+                            }
+                            switch result {
+                            case .success(let group):
+                                if var group = group {
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    //                        if user.isAvailable == true {
+                                    if myGroups.contains(group) {
+                                        
+                                    } else {
+                                        if group.members.count < 4 {
+                                            groupList.append(group)
+                                        }
+                                    }
+                                    //                        }
+                                    
+                                    
                                     
                                 } else {
-                                if group.members.count < 4 {
-                                groupList.append(group)
+                                    
+                                    print("Document does not exist")
                                 }
-                                }
-    //                        }
+                            case .failure(let error):
+                                print("Error decoding user: \(error)")
+                            }
                             
                             
-                            
-                        } else {
-                            
-                            print("Document does not exist")
                         }
-                    case .failure(let error):
-                        print("Error decoding user: \(error)")
                     }
-                
-              
+                    else{
+                        performAction(nil)
+                    }
+                    performAction(groupList)
+                }
             }
-            }
-            else{
-                performAction(nil)
-            }
-              performAction(groupList)
-        }
-            }
-        }
         }
     }
     
@@ -446,14 +445,14 @@ struct ContentView: View {
                     }
                     else{
                         self.viewRouter.showTabBar = false
-                        self.viewRouter.currentView = .introView
+                        self.viewRouter.currentView = .custom
                     }
                     self.hasCheckedAuth = true
 
                 
                 }
                 else {
-                    self.viewRouter.currentView = .registration
+                    self.viewRouter.currentView = .introView
                     self.hasCheckedAuth = true
                 }
                
@@ -461,6 +460,15 @@ struct ContentView: View {
         
          
     }
+    
+    func firstLaunchAction() {
+        let firstLaunch = userData.firstRun
+        if firstLaunch {
+            FirebaseManager.signOut()
+            userData.firstRun = false
+        }
+    }
+    
 
 }
 

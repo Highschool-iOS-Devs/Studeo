@@ -117,6 +117,11 @@ struct IntroCustomize: View {
         let db = Firestore.firestore()
         let docRef = db.collection("users").document(userData.userID)
         try docRef.setData(from: ["interests": interestSelected], merge: true)
+        docRef.updateData(["finishedOnboarding": true]) { error in
+            if let error = error {
+                print("Error updating data: \(error)")
+            }
+        }
         if isNotOnboarding {
         self.viewRouter.updateCurrentView(view: .home)
         }
@@ -183,6 +188,10 @@ struct InterestSelectRow: View {
             hapticEngine(style: .light)
         }
         .animation(.easeInOut)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(Text(interestName.rawValue))
+        .accessibilityAddTraits(.isButton)
+        .accessibilityAddTraits(selected ? .isSelected : AccessibilityTraits())
     }
 }
 

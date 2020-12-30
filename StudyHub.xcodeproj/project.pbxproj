@@ -77,6 +77,7 @@
 		62FAED0D259BC2580015B094 /* PasswordResetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FAED0C259BC2580015B094 /* PasswordResetView.swift */; };
 		BE167C452514333A00402C14 /* SettingsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE167C442514333A00402C14 /* SettingsData.swift */; };
 		BE3E16182517F96900E0A845 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E16172517F96900E0A845 /* TimerManager.swift */; };
+		BE5F3760259C3B9400542AA0 /* SupportDocs in Frameworks */ = {isa = PBXBuildFile; productRef = BE5F375F259C3B9400542AA0 /* SupportDocs */; };
 		E10C058625900A100020FD7C /* Pods_StudyHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47F4119D880B6AFBE91DBA85 /* Pods_StudyHub.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		E10C05CD259013B70020FD7C /* MemberListSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10C05CC259013B70020FD7C /* MemberListSubview.swift */; };
 		E11157A32593CF31005E9AEA /* VoiceChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11157A22593CF31005E9AEA /* VoiceChat.swift */; };
@@ -248,6 +249,7 @@
 			files = (
 				626E785C258D4371008633AB /* KingfisherSwiftUI in Frameworks */,
 				E1F2F8B9257009A800D8B87E /* Alamofire in Frameworks */,
+				BE5F3760259C3B9400542AA0 /* SupportDocs in Frameworks */,
 				626E785E258D4371008633AB /* Kingfisher in Frameworks */,
 				E1FD834D24F54E670024D2A3 /* IQKeyboardManagerSwift in Frameworks */,
 				E10C058625900A100020FD7C /* Pods_StudyHub.framework in Frameworks */,
@@ -676,6 +678,7 @@
 				626E785B258D4371008633AB /* KingfisherSwiftUI */,
 				626E785D258D4371008633AB /* Kingfisher */,
 				626E7862258D488B008633AB /* PageView */,
+				BE5F375F259C3B9400542AA0 /* SupportDocs */,
 			);
 			productName = StudyHub;
 			productReference = E339449224F1B71600F11BA9 /* StudyHub.app */;
@@ -710,6 +713,7 @@
 				E1F2F8B7257009A800D8B87E /* XCRemoteSwiftPackageReference "Alamofire" */,
 				626E785A258D4371008633AB /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				626E7861258D488B008633AB /* XCRemoteSwiftPackageReference "SwiftUI-PageView" */,
+				BE5F375E259C3B9400542AA0 /* XCRemoteSwiftPackageReference "SupportDocs" */,
 			);
 			productRefGroup = E339449324F1B71600F11BA9 /* Products */;
 			projectDirPath = "";
@@ -1110,6 +1114,14 @@
 				minimumVersion = 1.1.1;
 			};
 		};
+		BE5F375E259C3B9400542AA0 /* XCRemoteSwiftPackageReference "SupportDocs" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/aheze/SupportDocs";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
 		E1F2F8B7257009A800D8B87E /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -1143,6 +1155,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 626E7861258D488B008633AB /* XCRemoteSwiftPackageReference "SwiftUI-PageView" */;
 			productName = PageView;
+		};
+		BE5F375F259C3B9400542AA0 /* SupportDocs */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BE5F375E259C3B9400542AA0 /* XCRemoteSwiftPackageReference "SupportDocs" */;
+			productName = SupportDocs;
 		};
 		E1F2F8B8257009A800D8B87E /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;

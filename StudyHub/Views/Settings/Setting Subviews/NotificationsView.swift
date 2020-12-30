@@ -14,6 +14,8 @@ let monitor = NWPathMonitor()
 fileprivate var networkConected = false
 struct NotificationsView: View {
     @EnvironmentObject var userData: UserData
+    @Binding var chatNotifications: Bool
+    @Binding var groupNotifications: Bool
     @State var displayError = false
     @State var errorObject = ErrorModel(errorMessage: "Settings can not be updated at this time", errorState: false)
     var body: some View {
@@ -39,8 +41,8 @@ struct NotificationsView: View {
                 .padding(.horizontal)
                 
                 VStack {
-                    NotificationRow(text: "Enable Chat Notifications", subText: "Get notified when a new message is sent", settingsVar: $userData.chatNotificationsOn, displayError: $displayError)
-                    NotificationRow(text: "Enable New Group Notifications", subText: "Get notified when we find you a new group", settingsVar: $userData.joinedGroupNotificationsOn, displayError: $displayError)
+                    NotificationRow(text: "Enable Chat Notifications", subText: "Get notified when a new message is sent", settingsVar: $chatNotifications, displayError: $displayError)
+                    NotificationRow(text: "Enable New Group Notifications", subText: "Get notified when we find you a new group", settingsVar: $groupNotifications, displayError: $displayError)
                 }
                 .padding(.vertical)
                 .background(Color("Background"))
@@ -94,10 +96,11 @@ struct NotificationRow: View {
             .onChange(of: settingsVar){ value in
                 if networkConected == false{
                     displayError = true
+                } else {
+                    let task = DispatchWorkItem{settingsVar.toggle()}
+                    DispatchQueue.main.asyncAfter(deadline: .now()+0.1,execute: task)
+                    task.cancel()
                 }
-                let task = DispatchWorkItem{settingsVar.toggle()}
-                DispatchQueue.main.asyncAfter(deadline: .now()+0.1,execute: task)
-                task.cancel()
             }
         }
         .padding(.horizontal, 15)
@@ -107,8 +110,8 @@ struct NotificationRow: View {
     }
 }
 }
-struct NotificationsView_Previews: PreviewProvider {
-    static var previews: some View {
-        NotificationsView()
-    }
-}
+//struct NotificationsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NotificationsView()
+//    }
+//}

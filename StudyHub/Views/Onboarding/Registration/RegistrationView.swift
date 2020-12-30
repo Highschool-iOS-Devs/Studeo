@@ -110,9 +110,9 @@ struct RegistrationView: View {
                 return
             }
             let db = Firestore.firestore()
-            let newUserSettings = SettingsData(settings: [SettingSubData(name: "Notifications", state: true), SettingSubData(name: "Personal info", state: true), SettingSubData(name: "Country", field: "US")])
+            let newUserSettings = SettingsData.defaultSettings
 
-            let newUser = User(id: UUID(), firebaseID: authResult!.user.uid, name: self.username, email: self.email, studyHours: [0], studyDate: ["9-16-2020"], all: 0, month: 0, day: 0, description: "Tap here to create your bio", isAvailable: true)
+            let newUser = User(id: UUID(), firebaseID: authResult!.user.uid, name: self.username, email: self.email, studyHours: [0], studyDate: ["9-16-2020"], all: 0, month: 0, day: 0, description: "Tap here to create your bio", isAvailable: true, finishedOnboarding: false)
                     userData.userID = newUser.id.uuidString
             do{
                 try db.collection("settings").document(newUser.id.uuidString).setData(from: newUserSettings)

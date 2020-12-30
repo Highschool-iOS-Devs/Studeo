@@ -164,8 +164,7 @@ struct TimerView: View {
         }
         .onDisappear {
             self.timer.saveToUD()
-            self.timer.endTimer()
-            self.timer.invalidateTimer()
+            self.timer.stopTimer()
         }
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification), perform: { _ in
             self.timer.saveToUD()

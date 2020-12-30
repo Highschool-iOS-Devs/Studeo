@@ -29,7 +29,8 @@ struct User: Identifiable, Codable, Hashable {
     var month: Double
     var day: Double
     var description: String
-    var isAvailable: Bool?
+    var isAvailable: Bool
+    var finishedOnboarding: Bool?
     
     var dms:[String]?
     var isMentor: Bool?
