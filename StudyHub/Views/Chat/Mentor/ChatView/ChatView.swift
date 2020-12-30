@@ -46,7 +46,7 @@ struct ChatView: View {
                             }
                         }
                         .drawingGroup()
-                        .padding(.top,2)
+                        .padding(.top,5)
                         .onChange(of: messages, perform: { value in
                             
                             withAnimation() {
@@ -110,7 +110,7 @@ struct ChatView: View {
                         Text(group.groupName)
                             .font(.custom("Montserrat-Bold", size: 18))
                             .padding()
-                            .foregroundColor(.black)
+                            .foregroundColor(Color("Text"))
                         
                     }
                 }
