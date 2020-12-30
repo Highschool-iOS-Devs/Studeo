@@ -10,6 +10,7 @@ import SwiftUI
 import FirebaseFirestore
 import Network
 import UserNotifications
+import SupportDocs
 import class Kingfisher.KingfisherManager
 let screenSize = UIScreen.main.bounds.size
 
@@ -23,6 +24,9 @@ struct SettingView: View {
     @State private var chatNotifications = true
     @State private var newGroupNotifications = true
     @State private var country = "US"
+    
+    @State private var showHelp = false
+    let dataSource = URL(string: "https://raw.githubusercontent.com/Highschool-iOS-Devs/Studeo-Help/DataSource/_data/supportdocs_datasource.json")!
     
     var body: some View {
             NavigationView {
@@ -62,7 +66,10 @@ struct SettingView: View {
                                             KingfisherManager.shared.cache.clearCache()
                                             viewRouter.updateCurrentView(view:.login)
                                         }
-                                    settingRowView(settingText: "Help", settingState: "", newView: AnyView(Text("Placeholder")))
+                                    settingRowView(settingText: "Help", settingState: "", newView: AnyView(Text("")), disableNavigation: true)
+                                        .onTapGesture {
+                                            self.showHelp = true
+                                        }
                                 }
                                 Spacer()
                             }
@@ -80,6 +87,9 @@ struct SettingView: View {
                 .edgesIgnoringSafeArea(.all)
                 .navigationBarTitle("")
                 .navigationBarHidden(true)
+                .sheet(isPresented: $showHelp) {
+                    SupportDocsView(dataSourceURL: dataSource)
+                }
             }
             .onAppear {
                 self.loadAvailabilityData()
@@ -279,10 +289,12 @@ struct SettingView: View {
                             .foregroundColor(Color("Text"))
                             .opacity(0.4)
                             
+                        if !disableNavigation {
                         Image(systemName: "chevron.right")
                             .foregroundColor(Color("barCenter"))
                             .font(Font.system(size: 13).weight(.semibold))
                             .padding()
+                        }
                     }.disabled(disableNavigation)
                     
                 }
