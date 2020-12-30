@@ -14,6 +14,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     @State var room = "Test"
     @State var video = false
     @State var tapped = false
+    @State var i = 0
+    @State var user = User(id: UUID(), firebaseID: "", name: "", email: "", profileImageURL: URL(string: ""), interests: [UserInterestTypes](), groups: [String](), recentGroups: [String](), recentPeople: [String](), studyHours: [Double](), studyDate: [String](), all: 0.0, month: 0.0, day: 0.0, description: "", isAvailable: false, dms: [String](), isMentor: false)
     var window: UIWindow?
 
 
@@ -23,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         
         // Create the SwiftUI view that provides the window contents.
-        let contentView = ContentView()//VideoChatView(room: $room, video: $video, tapped: $tapped)
+        let contentView = QuizView(i: $i, user: $user)//VideoChatView(room: $room, video: $video, tapped: $tapped)
             .environmentObject(ViewRouter.shared)
             .environmentObject(UserData.shared)
         
