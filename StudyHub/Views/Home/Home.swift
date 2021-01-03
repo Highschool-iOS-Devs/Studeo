@@ -25,10 +25,11 @@ struct Home: View {
                     .onAppear() {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             withAnimation(.easeInOut(duration: 1.0)) {
-                                if userData.uses == 1 || userData.uses == 2 || userData.uses == 10 {
+                               
+                             //   if userData.uses == 1 || userData.uses == 2 || userData.uses == 10 {
                                     if !userData.hasDev {
                         animate = true
-                                    }
+                               //     }
                         }
                             }
                         }
@@ -37,7 +38,7 @@ struct Home: View {
                     if animate {
                     DevChatBanner()
                         
-                        .transition(.move(edge: .top))
+                       
                     }
                        
                     //SearchBar()

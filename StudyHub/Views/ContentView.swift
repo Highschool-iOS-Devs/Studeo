@@ -105,7 +105,7 @@ struct ContentView: View {
                         LoginView()
                        
                     case .chatList:
-                        RecentsView2()
+                        RecentsView2(myMentors: $myMentors)
                             .environmentObject(userData)
                             .environmentObject(viewRouter)
                     case .profile:

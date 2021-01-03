@@ -47,6 +47,7 @@ struct Homev2: View {
             ZStack(alignment: .top) {
                 Color("Background").edgesIgnoringSafeArea(.all)
                     .onAppear() {
+                       
                         if !user.isEmpty {
                         if !user[0].studyHours.isEmpty {
                         
@@ -62,11 +63,11 @@ struct Homev2: View {
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             withAnimation(.easeInOut(duration: 1.0)) {
-                                if userData.uses == 2 || userData.uses == 3 || userData.uses == 10 {
+                               // if userData.uses == 2 || userData.uses == 3 || userData.uses == 10 {
                                     if !userData.hasDev {
                         animate = true
                                     }
-                        }
+                       // }
                             }
                         }
                         }
@@ -80,8 +81,9 @@ struct Homev2: View {
                     ScrollView(.vertical, showsIndicators: false) {
                         if animate {
                             DevChatBanner()
-                            .padding(.top)
-                            .transition(.move(edge: .top))
+                                
+                            
+                            
                         }
                         
                         ScrollView(.horizontal, showsIndicators: false) {

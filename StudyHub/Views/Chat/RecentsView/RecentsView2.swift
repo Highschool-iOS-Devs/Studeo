@@ -22,7 +22,7 @@ struct RecentsView2: View {
     @State var add: Bool = false
     @State var settings: Bool = false
     @State var showTimer = false
-    
+    @Binding var myMentors:[Groups]
     var body: some View {
         NavigationView{
             ZStack{
@@ -74,6 +74,18 @@ struct RecentsView2: View {
                                 }
 
                             }
+                            HStack{
+                                
+                                    Text("Mentors").font(.custom("Montserrat Bold", size: 24)).foregroundColor(Color("Primary"))
+                                Spacer()
+                                
+                            } .padding()
+                            LazyVGrid(columns: gridItemLayout, spacing: 40) {
+                                ForEach(myMentors){group in
+                                    RecentChatGroupSubview(group: group)
+                                        .environmentObject(UserData.shared)
+                                }
+                            }
                             Spacer(minLength: 200)
                         }
                       
@@ -104,7 +116,7 @@ struct RecentsView2: View {
                     
                 }
         }.accentColor(Color("Primary"))
-    
+        
         
     }
 

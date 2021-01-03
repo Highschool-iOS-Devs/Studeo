@@ -54,7 +54,9 @@ struct DevChatBanner: View {
                    
                 }
             }
-        }
+        } .frame(height: 220)
+        .animation(.easeInOut(duration: 1.0))
+        .transition(.move(edge: .top))
     
     }
     func joinGroup(newGroup: Groups) {
