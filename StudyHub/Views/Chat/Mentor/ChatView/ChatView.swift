@@ -68,7 +68,7 @@ struct ChatView: View {
                             presentationMode.wrappedValue.dismiss()
                             
                         }
-                    MessageButtons(imageName: "mic.fill")
+                  //  MessageButtons(imageName: "mic.fill")
                     Spacer()
                     TextField("Enter message", text: self.$messageField)
                         .font(.custom("Montserrat", size: 15))
