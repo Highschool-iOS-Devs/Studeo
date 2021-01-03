@@ -76,11 +76,11 @@ struct LeaderboardRow: View {
     var body: some View {
         HStack{
             VStack {
-                Image(systemName: showGreenArrow ? "arrowtriangle.up.fill" : "arrowtriangle.down.fill")
-                    .font(.system(size: 13))
-                    .foregroundColor(showGreenArrow ? Color(.green) : Color(.red))
-                Text("4")
-                    .foregroundColor(Color("Text"))
+                //Image(systemName: showGreenArrow ? "arrowtriangle.up.fill" : "arrowtriangle.down.fill")
+                //    .font(.system(size: 13))
+                //    .foregroundColor(showGreenArrow ? Color(.green) : Color(.red))
+              //  Text("4")
+                //    .foregroundColor(Color("Text"))
             }
             ProfilePicture(pictureSize: 45, image: Image("demoprofile"))
              
@@ -123,7 +123,7 @@ struct dateSelectionView: View {
         HStack(spacing: 25){
             VStack {
                 Text("Today")
-                    .foregroundColor(Color("Text").opacity(self.currentDateTab == .today ? 1 : 0.25))
+                    .foregroundColor(Color(.white).opacity(self.currentDateTab == .today ? 1 : 0.25))
                     .onTapGesture {
                         self.currentDateTab = .today
                 }
@@ -135,7 +135,7 @@ struct dateSelectionView: View {
             
             VStack {
                 Text("Month")
-                    .foregroundColor(Color("Text").opacity(self.currentDateTab == .month ? 1 : 0.25))
+                    .foregroundColor(Color(.white).opacity(self.currentDateTab == .month ? 1 : 0.25))
                     .onTapGesture {
                         self.currentDateTab = .month
                 }
@@ -146,7 +146,7 @@ struct dateSelectionView: View {
             
             VStack {
                 Text("All Time")
-                    .foregroundColor(Color("Text").opacity(self.currentDateTab == .allTime ? 1 : 0.25))
+                    .foregroundColor(Color(.white).opacity(self.currentDateTab == .allTime ? 1 : 0.25))
                     .onTapGesture {
                         self.currentDateTab = .allTime
                     }

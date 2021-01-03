@@ -37,7 +37,7 @@ struct Home: View {
                 ScrollView(showsIndicators: false) {
                     if animate {
                     DevChatBanner()
-                        
+                        .transition(.move(edge: .top))
                        
                     }
                        

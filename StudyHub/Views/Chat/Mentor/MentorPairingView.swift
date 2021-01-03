@@ -86,7 +86,7 @@ struct MentorPairingView: View {
                         groupMemberIDs += [userData.userID]
                         newGroup = Groups(id: UUID().uuidString,
                                           groupID: UUID().uuidString,
-                                          groupName: "\(self.selectedInterests[0]) Group",
+                                          groupName: "\(self.selectedInterests[0]) Mentorship Group",
                                           members: groupMemberIDs,
                                           membersCount: groupMemberIDs.count,
                                           interests: self.selectedInterests)
