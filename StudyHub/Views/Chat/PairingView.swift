@@ -10,7 +10,7 @@ import SwiftUI
 import Firebase
 
 struct PairingView: View {
-    @State var matchedPerson = User(id: UUID(), firebaseID: "", name: "", email: "", interests: [], groups: [], studyHours: [0], studyDate: [""], all: 0, month: 0, day: 0, description: "", isAvailable: true)
+    @State var matchedPerson = User(id: UUID(), firebaseID: "", name: "", email: "", interests: [], groups: [], isMentor: false, studyHours: [0], studyDate: [""], all: 0, month: 0, day: 0, description: "", isAvailable: true)
     @EnvironmentObject var userData:UserData
     @State var paired: Bool = false
     @Binding var settings: Bool
@@ -93,8 +93,9 @@ struct PairingView: View {
                 self.add = false
             }){
                 if let group = newGroup{
-//                    ChatView(group: group, chat: $chat)
+                    //ChatView(group: group)
 //                        .environmentObject(userData)
+                    PairingSuccess(paired: $paired, chat: $chat, group: group)
                 }
                
             }

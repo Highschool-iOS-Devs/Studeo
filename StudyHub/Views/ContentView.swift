@@ -17,6 +17,7 @@ struct ContentView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var showSheet = false
     @State var myGroups = [Groups]()
+    @State var myMentors = [Groups]()
     @State var hasIntroed = false
     @State var isIntroducing = false
     @State var settings = false
@@ -73,6 +74,9 @@ struct ContentView: View {
                                 }
                                 self.loadMyGroupsData(){ userData in
                                     myGroups = userData ?? []
+                                    self.loadMyMentorsData(){ userData in
+                                        myMentors = userData ?? []
+                                        
                                 self.loadGroupsData(){ userData in
                                     //Get completion handler data results from loadData function and set it as the recentPeople local variable
                                     recommendGroups = userData ?? []
@@ -86,14 +90,14 @@ struct ContentView: View {
                                 }
                             }
 
-                          
+                            }
                            
                     }
                     VStack {
                 if hasLoaded {
                     switch viewRouter.currentView {
                     case .mentor:
-                        MentorPairingView(settings: $settings, add: $add, myGroups: $myGroups)
+                        MentorPairingView(settings: $settings, add: $add, myGroups: $myGroups, myMentors: $myMentors)
                     case .registration:
                         RegistrationView()
                             .environmentObject(viewRouter)
@@ -200,6 +204,54 @@ struct ContentView: View {
             
               performAction(userList)
         }
+    }
+    func loadMyMentorsData(performAction: @escaping ([Groups]?) -> Void) {
+        let db = Firestore.firestore()
+        let docRef = db.collection("mentorships")
+        var groupList:[Groups] = []
+        //Get every single document under collection users
+        let queryParameter = docRef.whereField("members", arrayContains: userData.userID)
+        queryParameter.getDocuments{ (querySnapshot, error) in
+            if let querySnapshot = querySnapshot,!querySnapshot.isEmpty{
+            for document in querySnapshot.documents{
+                let result = Result {
+                    try document.data(as: Groups.self)
+                }
+                switch result {
+                    case .success(let group):
+                        if var group = group {
+                            i = 0
+                            var array = group.groupName.components(separatedBy: " and ")
+                            for a in array {
+                                if a == userData.name {
+                                    print(i)
+                                    if i < array.count {
+                                    array.remove(at: i)
+                                }
+                                }
+                                i += 1
+                            }
+                            group.groupName = array.joined()
+                            groupList.append(group)
+                            
+                        } else {
+                            
+                            print("Document does not exist")
+                        }
+                    case .failure(let error):
+                        print("Error decoding user: \(error)")
+                    }
+                
+              
+            }
+            }
+            else{
+                performAction(nil)
+            }
+              performAction(groupList)
+        }
+        
+        
     }
     func loadMyGroupsData(performAction: @escaping ([Groups]?) -> Void) {
         let db = Firestore.firestore()

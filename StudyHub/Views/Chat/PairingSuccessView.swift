@@ -25,10 +25,11 @@ struct PairingSuccess: View {
                     .font(Font.custom("Montserrat-SemiBold", size: 14.0))
             } .buttonStyle(BlueStyle())
             .padding()
+            
+        }
             if chat {
                 ChatView(group: group)
             }
-        }
     }
 }
 }

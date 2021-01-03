@@ -7,15 +7,21 @@
 //
 
 import SwiftUI
+import Firebase
+import FirebaseFirestore
+import FirebaseFirestoreSwift
+import FirebaseAuth
+import FirebaseCore
 
 struct IntroMentor: View {
-    
+    @EnvironmentObject var userData: UserData
     @State var mentorSelected:[UserInterestTypes] = []
     
     @State var isNotOnboarding: Bool = false
     @Binding var settings: Bool
     @Binding var add: Bool
     
+    @EnvironmentObject var viewRouter:ViewRouter
     var body: some View {
         
         ZStack {
@@ -65,12 +71,41 @@ struct IntroMentor: View {
                     }
                 }
                 Spacer()
+                Button(action: {
+                    if mentorSelected != [] {
+                        do{
+                            try saveData()
+                           // userData.isOnboardingCompleted = true
+                          //  self.viewRouter.currentView = .home
+                        }
+                        catch{
+                            print("Failed saving user interest data, \(error)")
+                        }
+                        
+                    }
+                    
+                }) {
+                    Text("Next")
+                        .font(.custom("Montserrat-SemiBold", size: 18))
+                }
+                .buttonStyle(BlueStyle())
+                .padding(.bottom, 110)
+                .padding(.horizontal, 35)
                 
             }
             
         }
         .animation(.easeInOut)
         
+    }
+    func saveData() throws -> Void{
+        let db = Firestore.firestore()
+        let docRef = db.collection("users").document(userData.userID)
+        try docRef.setData(from: ["mentorshipInterests": mentorSelected], merge: true)
+        try docRef.setData(from: ["isMentor": true], merge: true)
+        if isNotOnboarding {
+        self.viewRouter.updateCurrentView(view: .home)
+        }
     }
     
 }
@@ -112,7 +147,7 @@ struct MentorSelectionRow: View {
                 .clipShape(RoundedRectangle(cornerRadius: 30))
                 .padding(.horizontal, 10)
                 .onTapGesture(){
-                    if selected{
+                    if selected {
                         mentorSelected = mentorSelected.filter {$0 != interestName}
                     }
                     else{

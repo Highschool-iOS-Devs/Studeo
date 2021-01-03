@@ -10,6 +10,8 @@ import SwiftUI
 
 
 struct User: Identifiable, Codable, Hashable {
+   
+    
     
     var id: UUID
     var firebaseID: String
@@ -20,6 +22,11 @@ struct User: Identifiable, Codable, Hashable {
     
     var interests: [UserInterestTypes]?
     var groups: [String]?
+    
+    var isMentor: Bool
+    var mentorships: [String]?
+    var mentorshipInterests: [UserInterestTypes]?
+    
     var recentGroups: [String]?
     var recentPeople: [String]?
     
@@ -33,7 +40,7 @@ struct User: Identifiable, Codable, Hashable {
     var finishedOnboarding: Bool?
     
     var dms:[String]?
-    var isMentor: Bool?
+  
 }
 
 struct BasicUser: Identifiable, Codable {

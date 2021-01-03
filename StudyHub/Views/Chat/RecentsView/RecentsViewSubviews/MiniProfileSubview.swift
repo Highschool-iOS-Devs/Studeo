@@ -43,7 +43,7 @@ struct MiniProfileSubview: View {
         } .animation(.easeInOut)
         .transition(.opacity)
         
-        .frame(width:70, height: 40)
+        .frame(width:25, height: 25)
         .padding()
         .onAppear{
             getProfileImage()
