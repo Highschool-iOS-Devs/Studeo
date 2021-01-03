@@ -10,7 +10,6 @@ import SwiftUI
 
 struct RecentChatGroupSubview: View {
     @State var group:Groups
-    @State var tapped:Bool = false
 
     var body: some View {
    
@@ -40,9 +39,6 @@ struct RecentChatGroupSubview: View {
         .background(Color(#colorLiteral(red: 0.27450981736183167, green: 0.886274516582489, blue: 0.9803921580314636, alpha: 1)))
         .clipShape(RoundedRectangle(cornerRadius: 20))
         .shadow(color: Color(#colorLiteral(red: 0.27450981736183167, green: 0.886274516582489, blue: 0.9803921580314636, alpha: 0.30000001192092896)), radius:7, x:4, y:4)
-        .onTapGesture{
-            tapped = true
-        }
       
     }
 }

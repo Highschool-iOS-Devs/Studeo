@@ -12,6 +12,7 @@ import Firebase
 struct PairingView: View {
     @State var matchedPerson = User(id: UUID(), firebaseID: "", name: "", email: "", interests: [], groups: [], isMentor: false, studyHours: [0], studyDate: [""], all: 0, month: 0, day: 0, description: "", isAvailable: true)
     @EnvironmentObject var userData:UserData
+    @Environment(\.presentationMode) var presentationMode
     @State var paired: Bool = false
     @Binding var settings: Bool
     @Binding var add: Bool 
@@ -24,6 +25,7 @@ struct PairingView: View {
     @State var num = 0
     @State var error = false
     @State var chat = false
+    var groupModel:ChatViewModel
     var body: some View {
         ZStack {
             Color(.systemBackground)
@@ -62,6 +64,7 @@ struct PairingView: View {
                 }
                 Button(action: {
                     checkIfExistingGroup{
+                        ///If already exist of  a group of correct interest, and it's not full, checkIfExstingGroup() will join user to that group. Otherwise, it will return false
                         if $0 == false{
                             pairUser{newGroup in
                                 self.newGroup = newGroup
@@ -114,6 +117,9 @@ struct PairingView: View {
                         
                     }) {
                         Image(systemName: "xmark")
+                            .onTapGesture {
+                                presentationMode.wrappedValue.dismiss()
+                            }
                             .font(.largeTitle)
                         
                         
@@ -194,6 +200,10 @@ struct PairingView: View {
             "members" : FieldValue.arrayUnion([userData.userID]),
             "membersCount" : FieldValue.increment(Int64(1))
         ])
+        let ref2 = db.collection("users").document(userData.userID)
+        ref2.updateData([
+            "groups":[groupID]
+        ])
     }
     
     func loadData(){
@@ -225,8 +235,17 @@ struct PairingView: View {
             
         }
     func checkIfExistingGroup(completion: @escaping (Bool) -> Void){
+        var interests = selectedInterests
+        let allUserGroups = groupModel.allGroups
+        for group in allUserGroups{
+            
+            if interests.contains(group.interests[0]!){
+                let interestIndex = interests.firstIndex(of: group.interests[0]!)!
+                interests.remove(at: interestIndex)
+            }
+        }
+        let rawValueInterests = interests.map{$0.rawValue}
         let db = Firestore.firestore()
-        let rawValueInterests = selectedInterests.map{$0.rawValue}
         let queryRef = db.collection("groups").whereField("interests", arrayContainsAny: rawValueInterests).whereField("membersCount", isLessThanOrEqualTo: 5).order(by: "membersCount", descending: false)
         queryRef.getDocuments{snapshot, error in
             guard error == nil else {
@@ -260,7 +279,16 @@ struct PairingView: View {
     func pairUser(completion: @escaping (Groups) -> Void){
         let db = Firestore.firestore()
         
-        let rawValueInterests = selectedInterests.map{$0.rawValue}
+        var interests = selectedInterests
+        let allUserGroups = groupModel.allGroups
+        for group in allUserGroups{
+            
+            if interests.contains(group.interests[0]!){
+                let interestIndex = interests.firstIndex(of: group.interests[0]!)!
+                interests.remove(at: interestIndex)
+            }
+        }
+        let rawValueInterests = interests.map{$0.rawValue}
         let queryRef = db.collection("users").whereField("interests", arrayContainsAny: rawValueInterests).whereField("id", isNotEqualTo: userData.userID)
         queryRef.getDocuments{ snapshot, error in
             guard error == nil else {
@@ -276,17 +304,17 @@ struct PairingView: View {
                 case .success(let user):
                     if let user = user {
                         var pairedBefore = false
-                        for interest in user.interests ?? [] {
-                            pairedBefore = checkPreviousPairing(from: myGroups, withUser: user.id.uuidString, for: interest)
-                            if pairedBefore == true {
-                                break
-                            }
-                        }
-                        if !pairedBefore {
+                        //for interest in user.interests ?? [] {
+//                            pairedBefore = checkPreviousPairing(from: myGroups, withUser: user.id.uuidString, for: interest)
+//                            if pairedBefore == true {
+//                                break
+//                            }
+                        //}
+                       // if !pairedBefore {
 //                        if user.isAvailable == true {
                         matchedUsers.append(user)
 //                        }
-                        }
+                        //}
                     }
                 case .failure(let error):
                     print("Error decoding pairing data, \(error)")
@@ -294,19 +322,21 @@ struct PairingView: View {
                 }
                 guard matchedUsers.count != 0 else {self.error = true; return}
                 var matchedPeople:[User] = []
-                for _ in 0..<4{
+
+                for _ in 0..<5{
                     let randomUser = matchedUsers[Int.random(in: 0..<matchedUsers.count)]
                     matchedPeople.append(randomUser)
                     
                 }
                     var groupMemberIDs = matchedPeople.map{$0.id.uuidString}
                     groupMemberIDs += [userData.userID]
+                    let groupInterest = self.selectedInterests[Int.random(in:0..<selectedInterests.count)]
                     let group = Groups(id: UUID().uuidString,
                                       groupID: UUID().uuidString,
-                                      groupName: "\(self.selectedInterests[0]) Group",
+                                      groupName: "\(groupInterest) Group",
                                       members: groupMemberIDs,
                                       membersCount: groupMemberIDs.count,
-                                      interests: self.selectedInterests)
+                                      interests: [groupInterest])
                 completion(group)
         
             }
