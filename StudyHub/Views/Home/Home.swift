@@ -38,6 +38,7 @@ struct Home: View {
                     if animate {
                     DevChatBanner()
                         .transition(.move(edge: .top))
+
                        
                     }
                        

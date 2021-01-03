@@ -82,6 +82,7 @@ struct Homev2: View {
                         if animate {
                             DevChatBanner()
                                 .transition(.move(edge: .top))
+
                             
                             
                         }
