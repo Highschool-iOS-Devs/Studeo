@@ -86,7 +86,7 @@ struct PairingView: View {
                         .font(Font.custom("Montserrat-SemiBold", size: 14.0))
                 } .buttonStyle(BlueStyle())
                 .padding()
-                Spacer(minLength: 150)
+                Spacer(minLength: 200)
             }
             
             .sheet(isPresented: self.$paired, onDismiss: {

@@ -33,6 +33,7 @@ struct ContentView: View {
     @State var chat = true
     @State var timerLog = [TimerLog]()
     var body: some View {
+        GeometryReader { geo in
         ZStack { 
             Color("Background")
                 .edgesIgnoringSafeArea(.all)
@@ -88,6 +89,7 @@ struct ContentView: View {
                           
                            
                     }
+                    VStack {
                 if hasLoaded {
                     switch viewRouter.currentView {
                     case .mentor:
@@ -113,6 +115,7 @@ struct ContentView: View {
                                     viewRouter.showTabBar = true
                                 }
                         } else {
+                           // Home(timerLog: $timerLog)
                             Homev2(recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user, timerLog: $timerLog)
                                 .onAppear() {
                                     viewRouter.showTabBar = true
@@ -144,21 +147,23 @@ struct ContentView: View {
                         }
 
                     }
-            
-            
+                       
+                        if viewRouter.showTabBar {
+                          
+                                Spacer()
+                                tabBarView()
+                                    .transition(AnyTransition.move(edge: .bottom))
+                                        .animation(Animation.easeInOut)
+                                    .frame(height: geo.size.height/20)
+                            }
+                        }
+                    }
                     
          
             // == true || viewRouter.currentView != .registration || viewRouter.currentView != .login 
-            if viewRouter.showTabBar {
-                VStack{
-                    Spacer()
-                    tabBarView()
-                        
-                }.transition(AnyTransition.move(edge: .bottom))
-                    .animation(Animation.easeInOut)
-            }
+           
                 
-                }
+                } .frame(height: geo.size.height)
         }
         .environmentObject(userData)
         .environmentObject(viewRouter)

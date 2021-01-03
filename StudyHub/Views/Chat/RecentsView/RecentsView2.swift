@@ -74,7 +74,7 @@ struct RecentsView2: View {
                                 }
 
                             }
-                            Spacer(minLength: 110)
+                            Spacer(minLength: 200)
                         }
                       
                     

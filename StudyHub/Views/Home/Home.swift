@@ -62,7 +62,7 @@ struct Home: View {
                        
                     // CTA(imgName: "study", cta: "Compete")
                         
-                    Spacer(minLength: 140)
+                    Spacer(minLength: 200)
                     
                 }
                

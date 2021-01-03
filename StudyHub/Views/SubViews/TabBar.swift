@@ -17,6 +17,7 @@ struct tabItemView: View {
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
+        
         VStack {
             Image(systemName: SFImage)
                 .font(.system(size: 20))
@@ -29,7 +30,7 @@ struct tabItemView: View {
             
         }
         
-        .padding(.top, 15)
+       
         
     }
 }
