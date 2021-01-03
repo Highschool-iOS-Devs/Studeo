@@ -24,6 +24,7 @@ struct RecentsView2: View {
     @State var showTimer = false
     @Binding var myMentors:[Groups]
     @Binding var timerLog: [TimerLog]
+
     var body: some View {
         NavigationView{
             ZStack{
