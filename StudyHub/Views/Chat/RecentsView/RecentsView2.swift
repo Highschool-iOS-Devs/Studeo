@@ -23,6 +23,7 @@ struct RecentsView2: View {
     @State var settings: Bool = false
     @State var showTimer = false
     @Binding var myMentors:[Groups]
+    @Binding var timerLog: [TimerLog]
     var body: some View {
         NavigationView{
             ZStack{
@@ -32,7 +33,7 @@ struct RecentsView2: View {
                         ScrollView{
                             RecentChatTextRow(add: $add)
                                 .environmentObject(userData)
-                                .padding(.top, 62)
+                                .padding(.top)
                             Spacer()
                             if allGroups == []{
                                 Text("You are not in any study group yet,\n\nUse the add button to pair. 🙌").font(.custom("Montserrat Bold", size: 24)).foregroundColor(Color(#colorLiteral(red: 0.27, green: 0.89, blue: 0.98, alpha: 1)))
@@ -97,17 +98,32 @@ struct RecentsView2: View {
                     .offset(y: 15)
 
                     
-                    Header(showTimer: $showTimer)
+                    
                        
 
+                    if add {
+                        PairingView(settings: $settings, add: $add, myGroups: $allGroups)
 
+                    }
+                    if showTimer {
+                        VStack {
+                            TimerView(showingView: $showTimer, timerLog: $timerLog)
+                                .padding(.top, 110)
+                                .transition(.move(edge: .bottom))
+                                .onAppear {
+                                    self.viewRouter.showTabBar = false
+                                }
+                                .onDisappear {
+                                    self.viewRouter.showTabBar = true
+                            }
+                        }
+                    }
             }
-                if add {
-                    PairingView(settings: $settings, add: $add, myGroups: $allGroups)
-
-                }
-     
-            }
+              
+              
+            } .blur(radius: showTimer ? 20 : 0)
+              
+            
             .onAppear {
                         getAllGroups(){self.allGroups=$0}
                         self.getRecentGroups{self.recentGroups=$0}

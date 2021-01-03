@@ -105,7 +105,7 @@ struct ContentView: View {
                         LoginView()
                        
                     case .chatList:
-                        RecentsView2(myMentors: $myMentors)
+                        RecentsView2(myMentors: $myMentors, timerLog: $timerLog)
                             .environmentObject(userData)
                             .environmentObject(viewRouter)
                     case .profile:
@@ -157,7 +157,7 @@ struct ContentView: View {
                                 Spacer()
                                 tabBarView()
                                     .transition(AnyTransition.move(edge: .bottom))
-                                        .animation(Animation.easeInOut)
+                                    .animation(Animation.easeInOut(duration: 0.5))
                                     .frame(height: geo.size.height/20)
                             }
                         }
