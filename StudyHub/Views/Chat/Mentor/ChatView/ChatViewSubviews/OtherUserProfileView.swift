@@ -56,7 +56,7 @@ struct OtherUserProfileView: View {
                          .foregroundColor(Color("Text"))
                          .multilineTextAlignment(.center)
                         .padding(.bottom, 22)
-                    if !alreadyHaveDM{
+                    //if !alreadyHaveDM{
                         Button(action: {
                             let groupMemberIDs = [user.id.uuidString, userData.userID]
                             let newGroup = Groups(id: UUID().uuidString,
@@ -78,7 +78,8 @@ struct OtherUserProfileView: View {
                         }
                         .frame(height:50)
                         .buttonStyle(BlueStyle())
-                    }
+                        .padding(.bottom)
+                   // }
           
                    Spacer()
                  }
