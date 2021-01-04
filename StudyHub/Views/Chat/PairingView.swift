@@ -245,6 +245,8 @@ struct PairingView: View {
             }
         }
         let rawValueInterests = interests.map{$0.rawValue}
+        guard rawValueInterests != [] else { error=true;return}
+
         let db = Firestore.firestore()
         let queryRef = db.collection("groups").whereField("interests", arrayContainsAny: rawValueInterests).whereField("membersCount", isLessThanOrEqualTo: 5).order(by: "membersCount", descending: false)
         queryRef.getDocuments{snapshot, error in
@@ -289,6 +291,7 @@ struct PairingView: View {
             }
         }
         let rawValueInterests = interests.map{$0.rawValue}
+        guard rawValueInterests != [] else { error=true; return}
         let queryRef = db.collection("users").whereField("interests", arrayContainsAny: rawValueInterests).whereField("id", isNotEqualTo: userData.userID)
         queryRef.getDocuments{ snapshot, error in
             guard error == nil else {
@@ -320,17 +323,23 @@ struct PairingView: View {
                     print("Error decoding pairing data, \(error)")
 
                 }
+            }
                 guard matchedUsers.count != 0 else {self.error = true; return}
                 var matchedPeople:[User] = []
-
-                for _ in 0..<5{
-                    let randomUser = matchedUsers[Int.random(in: 0..<matchedUsers.count)]
-                    matchedPeople.append(randomUser)
-                    
+                if matchedUsers.count > 5{
+                    for _ in 0..<4{
+                        let randomUser = matchedUsers[Int.random(in: 0..<matchedUsers.count)]
+                        matchedPeople.append(randomUser)
+                        
+                    }
                 }
+                else{
+                    matchedPeople=matchedUsers
+                }
+                
                     var groupMemberIDs = matchedPeople.map{$0.id.uuidString}
                     groupMemberIDs += [userData.userID]
-                    let groupInterest = self.selectedInterests[Int.random(in:0..<selectedInterests.count)]
+                    let groupInterest = interests[Int.random(in:0..<interests.count)]
                     let group = Groups(id: UUID().uuidString,
                                       groupID: UUID().uuidString,
                                       groupName: "\(groupInterest) Group",
@@ -339,7 +348,7 @@ struct PairingView: View {
                                       interests: [groupInterest])
                 completion(group)
         
-            }
+            
         }
     }
     

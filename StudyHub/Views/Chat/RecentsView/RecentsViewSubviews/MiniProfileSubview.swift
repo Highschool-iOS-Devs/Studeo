@@ -25,7 +25,7 @@ struct MiniProfileSubview: View {
                 KFImage(profileImages[index], options: [.transition(.fade(0.5)), .processor(DownsamplingImageProcessor(size: CGSize(width: 60, height: 60))), .cacheOriginalImage])
                     .onSuccess { r in
                          // r: RetrieveImageResult
-                         print("success: \(r)")
+                         //print("success: \(r)")
                      }
                      .onFailure { e in
                          // e: KingfisherError
