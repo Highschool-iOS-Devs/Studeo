@@ -15,16 +15,33 @@ struct Home: View {
     @State private var search: String = ""
     @State private var showingTimer = false
     @State var myGroups = [Groups]()
-    
+    @State var animate = false
+    @Binding var timerLog: [TimerLog]
     var body: some View {
         ZStack {
             VStack {
                 Header(showTimer: $showingTimer)
                     .ignoresSafeArea()
-               
+                    .onAppear() {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            withAnimation(.easeInOut(duration: 1.0)) {
+                               
+                             //   if userData.uses == 1 || userData.uses == 2 || userData.uses == 10 {
+                                    if !userData.hasDev {
+                        animate = true
+                               //     }
+                        }
+                            }
+                        }
+                    }
                 ScrollView(showsIndicators: false) {
+                    if animate {
                     DevChatBanner()
-                        .padding(.top)
+                        .transition(.move(edge: .top))
+
+                       
+                    }
+                       
                     //SearchBar()
                     
                     Spacer()
@@ -33,7 +50,7 @@ struct Home: View {
                         Text("Start here!")
                             .frame(minWidth: 100, alignment: .leading)
                             .font(.custom("Montserrat-Semibold", size: 18))
-                            .foregroundColor(Color(.black))
+                            .foregroundColor(Color("Primary"))
                             .multilineTextAlignment(.leading)
                         
                         Spacer()
@@ -47,7 +64,7 @@ struct Home: View {
                        
                     // CTA(imgName: "study", cta: "Compete")
                         
-                    Spacer(minLength: 140)
+                    Spacer(minLength: 200)
                     
                 }
                
@@ -55,7 +72,7 @@ struct Home: View {
             .blur(radius: showingTimer ? 20 : 0)
         
         if showingTimer {
-            TimerView(showingView: $showingTimer)
+            TimerView(showingView: $showingTimer, timerLog: $timerLog)
                 .onAppear {
                     self.viewRouter.showTabBar = false
                 }
@@ -70,8 +87,4 @@ struct Home: View {
     }
 }
 
-struct Home_Previews: PreviewProvider {
-    static var previews: some View {
-        Home()
-    }
-}
+

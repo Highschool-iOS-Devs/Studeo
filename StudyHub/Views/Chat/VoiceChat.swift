@@ -8,12 +8,17 @@
 
 import SwiftUI
 import AgoraRtcKit
+import Firebase
+import FirebaseFirestoreSwift
 struct VoiceChat: View {
+    @EnvironmentObject var userData: UserData
     @State var agoraKit: AgoraRtcEngineKit
     @State var token = ""
     @State var name = ""
     @State var isMuted = false
     @Binding var vc: Bool
+    @State var group: Groups?
+    @State var usersInVC = [User]()
     var body: some View {
         ZStack {
         Color("Background").edgesIgnoringSafeArea(.all)
@@ -22,6 +27,11 @@ struct VoiceChat: View {
                 UIApplication.shared.isIdleTimerDisabled = false
             }
             .onAppear() {
+                self.loadUsersInVC(){ userData in
+                    self.loadUsersData(){ userData in
+                        usersInVC = userData
+                    }
+                }
                 initializeAgoraEngine()
                 joinChannel()
             }
@@ -58,6 +68,64 @@ struct VoiceChat: View {
                 } .padding()
                 Spacer()
             }
+    }
+    }
+    func loadUsersInVC(performAction: @escaping ([Groups]) -> Void) {
+        let db = Firestore.firestore()
+        let docRef = db.collection("groups").document(group!.groupID)
+        var userList:[Groups] = []
+        //Get every single document under collection users
+    
+     docRef.addSnapshotListener { (document, error) in
+         
+                let result = Result {
+                 try document?.data(as: Groups.self)
+                }
+                switch result {
+                    case .success(let user):
+                        if let user = user {
+                            userList.append(user)
+                 
+                        } else {
+                            
+                            print("Document does not exist")
+                        }
+                    case .failure(let error):
+                        print("Error decoding user: \(error)")
+                    }
+     
+            
+              performAction(userList)
+        }
+    }
+    func loadUsersData(performAction: @escaping ([User]) -> Void) {
+        let db = Firestore.firestore()
+        for userInVC in group!.userInVC {
+            let docRef = db.collection("users").document(userInVC!)
+        var userList:[User] = []
+        //Get every single document under collection users
+    
+     docRef.getDocument{ (document, error) in
+         
+                let result = Result {
+                 try document?.data(as: User.self)
+                }
+                switch result {
+                    case .success(let user):
+                        if let user = user {
+                            userList.append(user)
+                 
+                        } else {
+                            
+                            print("Document does not exist")
+                        }
+                    case .failure(let error):
+                        print("Error decoding user: \(error)")
+                    }
+     
+            
+              performAction(userList)
+        }
     }
     }
     func initializeAgoraEngine() {

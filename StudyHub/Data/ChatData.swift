@@ -31,10 +31,13 @@ struct Groups: Identifiable, Codable, Hashable{
     var groupID:String
     var groupName:String
     var members:[String]
+    var membersCount:Int
     var interests:[UserInterestTypes?]
     var recentMessage:String?
     var recentMessageTime:Date?
+    var userInVC: [String?]
 }
+
 
 struct MessageData: Codable, Identifiable, Hashable {
     @DocumentID var id: String?

@@ -8,7 +8,7 @@
 
 import SwiftUI
 import Firebase
-
+import FirebaseFirestoreSwift
 class TimerManager: ObservableObject {
     
     var userData: UserData = UserData.shared
@@ -41,7 +41,8 @@ class TimerManager: ObservableObject {
     @Published var today = [Double]()
     @Published var month = [Double]()
     @State var i = 0
-    
+    @State var timerLog = TimerLog(id: UUID(), userID: "", category: "Math", time: 0.0, date: 0.0)
+    @Published var category = "Math"
     private func startTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { _ in
             withAnimation(.linear(duration: 1.0)) {
@@ -85,6 +86,7 @@ class TimerManager: ObservableObject {
             self.totalTimePassed += self.timePassed
         
             saveToFB()
+           
         }
         resetTimer()
         saveToUD()
@@ -225,7 +227,19 @@ class TimerManager: ObservableObject {
                 print("Success updating data")
             }
         }
-
+       
+       let timerLog = TimerLog(userID: userData.userID, category: category, time: timePassed, date: Double(NSDate().timeIntervalSince1970))
+        do {
+            try db.collection("timerLog").document(UUID().uuidString).setData(from: timerLog) { err in
+            if let err = err {
+                print("Error updating document: \(err)")
+            } else {
+                print("Document successfully updated")
+            }
+        }
+        } catch {
+            
+        }
     }
     
     private func getStudyHoursFromFB() {

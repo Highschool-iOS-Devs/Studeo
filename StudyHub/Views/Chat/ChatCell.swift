@@ -27,12 +27,14 @@ struct ChatCellSelf: View {
                     .fixedSize(horizontal: false, vertical: true)
                     
                     .padding(12)
-                    .background(Color(.systemBlue))
-                    .cornerRadius(10)
+                    .background(Color("Primary"))
+                    .clipShape(RoundedCorner(radius: 10, corners: .topLeft))
+                    .clipShape(RoundedCorner(radius: 10, corners: .topRight))
+                    .clipShape(RoundedCorner(radius: 10, corners: .bottomLeft))
                 
                 
             } .padding(.trailing, 12)
-        }
+        } .transition(.opacity)
         
         
         
@@ -55,15 +57,17 @@ struct ChatCell: View {
                     .lineLimit(.none)
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(12)
-                    .background(Color.black.opacity(0.3))
-                    .cornerRadius(10)
+                    .background(Color("Secondary"))
+                    .clipShape(RoundedCorner(radius: 10, corners: .topLeft))
+                    .clipShape(RoundedCorner(radius: 10, corners: .topRight))
+                    .clipShape(RoundedCorner(radius: 10, corners: .bottomRight))
                 
                 Spacer()
             } .padding(.horizontal, 12)
                 
         }
         
-        }
+        } .transition(.opacity)
         
     }
 }
@@ -72,5 +76,20 @@ struct ChatCells_Preview: PreviewProvider {
     static var previews: some View {
         //ChatCellsSelf(message: "Hello how are you doing?")
         ChatCell(message: "Hi!")
+    }
+}
+extension View {
+    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
+        clipShape( RoundedCorner(radius: radius, corners: corners) )
+    }
+}
+struct RoundedCorner: Shape {
+
+    var radius: CGFloat = .infinity
+    var corners: UIRectCorner = .allCorners
+
+    func path(in rect: CGRect) -> Path {
+        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        return Path(path.cgPath)
     }
 }

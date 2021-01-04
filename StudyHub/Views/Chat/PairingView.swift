@@ -10,9 +10,9 @@ import SwiftUI
 import Firebase
 
 struct PairingView: View {
-    @State var matchedPerson = User(id: UUID(), firebaseID: "", name: "", email: "", interests: [], groups: [], studyHours: [0], studyDate: [""], all: 0, month: 0, day: 0, description: "", isAvailable: true)
-    @State var people = [User]()
+    @State var matchedPerson = User(id: UUID(), firebaseID: "", name: "", email: "", interests: [], groups: [], isMentor: false, studyHours: [0], studyDate: [""], all: 0, month: 0, day: 0, description: "", isAvailable: true)
     @EnvironmentObject var userData:UserData
+    @Environment(\.presentationMode) var presentationMode
     @State var paired: Bool = false
     @Binding var settings: Bool
     @Binding var add: Bool 
@@ -25,6 +25,7 @@ struct PairingView: View {
     @State var num = 0
     @State var error = false
     @State var chat = false
+    var groupModel:ChatViewModel
     var body: some View {
         ZStack {
             Color(.systemBackground)
@@ -42,16 +43,7 @@ struct PairingView: View {
                 }
                 Spacer()
             } .padding()
-            .onAppear{
-                self.loadData { userData in
-                    //Get completion handler data results from loadData function and set it as the recentPeople local variable
-                    if let userData = userData{
-                        
-                        self.people = userData
-                    }
-                    //                    print(self.people)
-                }
-            }
+          
             
             VStack {
                 VStack {
@@ -71,52 +63,42 @@ struct PairingView: View {
                     Spacer()
                 }
                 Button(action: {
-                    guard people.count != 0 else {self.error = true; return}
-                    var matchedPeople:[User] = []
-                    for _ in 0..<people.count{
-                        if matchedPeople.count < 4{
-                            let randomUser = people[Int.random(in: 0..<people.count)]
-                            matchedPeople.append(randomUser)
-                        }
-                    }
-                        var groupMemberIDs = matchedPeople.map{$0.id.uuidString}
-                        groupMemberIDs += [userData.userID]
-                        newGroup = Groups(id: UUID().uuidString,
-                                          groupID: UUID().uuidString,
-                                          groupName: "\(self.selectedInterests[0]) Group",
-                                          members: groupMemberIDs,
-                                          interests: self.selectedInterests)
-                        if let group = newGroup{
-                            self.joinGroup(newGroup: group)
-                            paired = true
+                    checkIfExistingGroup{
+                        ///If already exist of  a group of correct interest, and it's not full, checkIfExstingGroup() will join user to that group. Otherwise, it will return false
+                        if $0 == false{
+                            pairUser{newGroup in
+                                self.newGroup = newGroup
+                                if let group = self.newGroup{
+                                        self.addUserGroupRecord(newGroup: group)
+                                        paired = true
+                                    }
+                                    else{
+                                        print("Pairing failed.")
+                                    }
+                            }
                         }
                         else{
-                            print("Pairing failed.")
+                            print("Group of corresponding interest already exist, joined user to that group.")
                         }
-                        //                        people.removeAll()
-                        //                        self.loadData(){ userData in
-                        //                            //Get completion handler data results from loadData function and set it as the recentPeople local variable
-                        //                            self.people = userData
-                        //
-                        //                        }
                         
-                        
-             
-                    
+                    }
+ 
+            
                 }) {
                     Text("Pair")
                         .font(Font.custom("Montserrat-SemiBold", size: 14.0))
                 } .buttonStyle(BlueStyle())
                 .padding()
-                Spacer(minLength: 150)
+                Spacer(minLength: 200)
             }
             
             .sheet(isPresented: self.$paired, onDismiss: {
                 self.add = false
             }){
                 if let group = newGroup{
-                    ChatView(group: group, chat: $chat)
-                        .environmentObject(userData)
+                    //ChatView(group: group)
+//                        .environmentObject(userData)
+                    PairingSuccess(paired: $paired, chat: $chat, group: group)
                 }
                
             }
@@ -135,6 +117,9 @@ struct PairingView: View {
                         
                     }) {
                         Image(systemName: "xmark")
+                            .onTapGesture {
+                                presentationMode.wrappedValue.dismiss()
+                            }
                             .font(.largeTitle)
                         
                         
@@ -159,9 +144,12 @@ struct PairingView: View {
             }
             
         }
+        .onAppear{
+            loadData()
+        }
     }
     
-    func joinGroup(newGroup:Groups) {
+    func addUserGroupRecord(newGroup:Groups) {
         let db = Firestore.firestore()
         let docRef = db.collection("groups")
         do{
@@ -174,7 +162,6 @@ struct PairingView: View {
         
        
         for member in newGroup.members {
-            print(member)
         let ref2 = db.collection("users").document(member)
         ref2.getDocument{document, error in
             
@@ -205,32 +192,107 @@ struct PairingView: View {
         }
     }
     }
-    func loadData(performAction: @escaping ([User]?) -> Void){
     
-
-    let db = Firestore.firestore()
-    let ref = db.collection("users").document(self.userData.userID)
-    var currentUserInterests:[String] = []
+    func joinExistingGroup(groupID:String){
+        let db = Firestore.firestore()
+        let ref = db.collection("groups").document(groupID)
+        ref.updateData([
+            "members" : FieldValue.arrayUnion([userData.userID]),
+            "membersCount" : FieldValue.increment(Int64(1))
+        ])
+        let ref2 = db.collection("users").document(userData.userID)
+        ref2.updateData([
+            "groups":[groupID]
+        ])
+    }
     
-    ref.getDocument{document, error in
-        let result = Result{
-            try document?.data(as: User.self)
-        }
-        switch result{
-        case .success(let user):
-            if let user = user{
-                for interest in user.interests ?? []{
-                    currentUserInterests.append(interest.rawValue)
-                    selectedInterests.append(interest)
+    func loadData(){
+        let db = Firestore.firestore()
+        let ref = db.collection("users").document(self.userData.userID)
+        var currentUserInterests:[String] = []
+        
+        ref.getDocument{document, error in
+            let result = Result{
+                try document?.data(as: User.self)
+            }
+            switch result{
+            case .success(let user):
+                if let user = user{
+                    for interest in user.interests ?? []{
+                        currentUserInterests.append(interest.rawValue)
+                        selectedInterests.append(interest)
+                    }
                 }
+                else{
+                    print("Document does not exist.")
+                }
+            case .failure(let error):
+                print("Error decoding user data, \(error)")
+            }
+
+                }
+          
+            
+        }
+    func checkIfExistingGroup(completion: @escaping (Bool) -> Void){
+        var interests = selectedInterests
+        let allUserGroups = groupModel.allGroups
+        for group in allUserGroups{
+            
+            if interests.contains(group.interests[0]!){
+                let interestIndex = interests.firstIndex(of: group.interests[0]!)!
+                interests.remove(at: interestIndex)
+            }
+        }
+        let rawValueInterests = interests.map{$0.rawValue}
+        guard rawValueInterests != [] else { error=true;return}
+
+        let db = Firestore.firestore()
+        let queryRef = db.collection("groups").whereField("interests", arrayContainsAny: rawValueInterests).whereField("membersCount", isLessThanOrEqualTo: 5).order(by: "membersCount", descending: false)
+        queryRef.getDocuments{snapshot, error in
+            guard error == nil else {
+                print("Error query matching interests, \(error!)")
+                return
+            }
+            if snapshot!.documents.count > 0{
+                completion(true)
+                let document = snapshot!.documents[0]
+                let result = Result{
+                    try document.data(as: Groups.self)
+                }
+                switch result {
+                case .success(let group):
+                    if let group = group {
+                        joinExistingGroup(groupID: group.groupID)
+                    }
+                case .failure(let error):
+                    print("Error decoding pairing data, \(error)")
+
+                }
+                
             }
             else{
-                print("Document does not exist.")
+                completion(false)
             }
-        case .failure(let error):
-            print("Error decoding user data, \(error)")
         }
-        let queryRef = db.collection("users").whereField("interests", arrayContainsAny: currentUserInterests).whereField("id", isNotEqualTo: userData.userID)
+    
+
+    }
+    func pairUser(completion: @escaping (Groups) -> Void){
+        let db = Firestore.firestore()
+        
+        var interests = selectedInterests
+        let allUserGroups = groupModel.allGroups
+        for group in allUserGroups{
+            
+            if interests.contains(group.interests[0]!){
+                let interestIndex = interests.firstIndex(of: group.interests[0]!)!
+                interests.remove(at: interestIndex)
+            }
+        }
+        let rawValueInterests = interests.map{$0.rawValue}
+        guard rawValueInterests != [] else { error=true; return}
+        let queryRef = db.collection("users").whereField("interests", arrayContainsAny: rawValueInterests).whereField("id", isNotEqualTo: userData.userID)
         queryRef.getDocuments{ snapshot, error in
             guard error == nil else {
                 print("Error query matching interests, \(error!)")
@@ -245,35 +307,60 @@ struct PairingView: View {
                 case .success(let user):
                     if let user = user {
                         var pairedBefore = false
-                        for interest in user.interests ?? [] {
-                            pairedBefore = checkPreviousPairing(from: myGroups, withUser: user.id.uuidString, for: interest)
-                            if pairedBefore == true {
-                                break
-                            }
-                        }
-                        if !pairedBefore {
+                        //for interest in user.interests ?? [] {
+//                            pairedBefore = checkPreviousPairing(from: myGroups, withUser: user.id.uuidString, for: interest)
+//                            if pairedBefore == true {
+//                                break
+//                            }
+                        //}
+                       // if !pairedBefore {
 //                        if user.isAvailable == true {
                         matchedUsers.append(user)
 //                        }
-                        }
+                        //}
                     }
                 case .failure(let error):
                     print("Error decoding pairing data, \(error)")
 
                 }
             }
-            performAction(matchedUsers)
+                guard matchedUsers.count != 0 else {self.error = true; return}
+                var matchedPeople:[User] = []
+                if matchedUsers.count > 5{
+                    for _ in 0..<4{
+                        let randomUser = matchedUsers[Int.random(in: 0..<matchedUsers.count)]
+                        matchedPeople.append(randomUser)
+                        
+                    }
+                }
+                else{
+                    matchedPeople=matchedUsers
+                }
+                
+                    var groupMemberIDs = matchedPeople.map{$0.id.uuidString}
+                    groupMemberIDs += [userData.userID]
+                    let groupInterest = interests[Int.random(in:0..<interests.count)]
+                    let group = Groups(id: UUID().uuidString,
+                                      groupID: UUID().uuidString,
+                                      groupName: "\(groupInterest) Group",
+                                      members: groupMemberIDs,
+                                      membersCount: groupMemberIDs.count,
+                                      interests: [groupInterest], userInVC: [String]())
+                completion(group)
+        
             
         }
-        
     }
     
     
     
-}
+
     
     func checkPreviousPairing(from myGroups: [Groups], withUser pairedUser: String, for interest: UserInterestTypes) -> Bool {
-        var pairedInterests: [UserInterestTypes: [String]] = [.ACT: [], .APCalculus : [], .SAT: [], .Algebra2: []]
+        var pairedInterests = [UserInterestTypes: [String]]()
+        UserInterestTypes.allCases.forEach{interest in
+            pairedInterests[interest] = []
+        }
         for group in myGroups {
             for interest in group.interests {
                 guard let interest = interest else { return false }
@@ -289,4 +376,5 @@ struct PairingView: View {
         guard let currentInterestPairings = pairedInterests[interest] else { return false }
         return currentInterestPairings.contains(pairedUser)
     }
+    
 }

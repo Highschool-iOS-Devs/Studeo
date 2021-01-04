@@ -17,6 +17,7 @@ struct ContentView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var showSheet = false
     @State var myGroups = [Groups]()
+    @State var myMentors = [Groups]()
     @State var hasIntroed = false
     @State var isIntroducing = false
     @State var settings = false
@@ -31,19 +32,22 @@ struct ContentView: View {
     @State var i = 0
     @State var i2 = -1
     @State var chat = true
-    @State var devGroup: Groups
+    @State var timerLog = [TimerLog]()
     var body: some View {
+        GeometryReader { geo in
         ZStack { 
-            Color.white
+            Color("Background")
                 .edgesIgnoringSafeArea(.all)
                 .onAppear{
                     self.checkAuth()
+                    self.firstLaunchAction()
                     userData.uses += 1
                     userData.uses = 2
+                   
             }
            
                 if hasCheckedAuth {
-                    Color.white
+                    Color("Background")
                         .edgesIgnoringSafeArea(.all)
                         .onAppear{
                             self.loadDMsData(){ userData in
@@ -54,7 +58,14 @@ struct ContentView: View {
 
                                
                             }
-   
+                            self.loadUserTimerLog(){ userData in
+                                //Get completion handler data results from loadData function and set it as the recentPeople local variable
+                                self.timerLog = userData 
+                                
+        
+
+                               
+                            }
                             self.loadUserData(){ userData in
                                 //Get completion handler data results from loadData function and set it as the recentPeople local variable
                                 self.user = userData
@@ -63,6 +74,9 @@ struct ContentView: View {
                                 }
                                 self.loadMyGroupsData(){ userData in
                                     myGroups = userData ?? []
+                                    self.loadMyMentorsData(){ userData in
+                                        myMentors = userData ?? []
+                                        
                                 self.loadGroupsData(){ userData in
                                     //Get completion handler data results from loadData function and set it as the recentPeople local variable
                                     recommendGroups = userData ?? []
@@ -76,32 +90,14 @@ struct ContentView: View {
                                 }
                             }
 
-                          
+                            }
                            
                     }
+                    VStack {
                 if hasLoaded {
                     switch viewRouter.currentView {
                     case .mentor:
-                        MentorPairingView(settings: $settings, add: $add, myGroups: $myGroups)
-                    case .devChat:
-                        if chat {
-                            ChatView(group: devGroup, chat: $chat)
-                                
-                                .onAppear() {
-                                    viewRouter.showTabBar = false
-                                    joinGroup(newGroup: devGroup)
-                                    userData.hasDev = true
-                                }
-                            
-                        } else {
-                            Homev2(recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user)
-                                .onAppear() {
-                                    viewRouter.showTabBar = true
-                                    viewRouter.currentView = .home
-                                }
-                            .environmentObject(userData)
-                            .environmentObject(viewRouter)
-                        }
+                        MentorPairingView(settings: $settings, add: $add, myGroups: $myGroups, myMentors: $myMentors)
                     case .registration:
                         RegistrationView()
                             .environmentObject(viewRouter)
@@ -109,7 +105,7 @@ struct ContentView: View {
                         LoginView()
                        
                     case .chatList:
-                        RecentsView2()
+                        RecentsView2(myMentors: $myMentors, timerLog: $timerLog)
                             .environmentObject(userData)
                             .environmentObject(viewRouter)
                     case .profile:
@@ -117,13 +113,14 @@ struct ContentView: View {
                             .environmentObject(userData)
                             .environmentObject(viewRouter)
                     case .home:
-                        if !userData.isOnboardingCompleted {
-                            Home()
+                        if userData.uses == 1 {
+                            Home(timerLog: $timerLog)
                                 .onAppear() {
                                     viewRouter.showTabBar = true
                                 }
                         } else {
-                            Homev2(recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user)
+                           // Home(timerLog: $timerLog)
+                            Homev2(recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user, timerLog: $timerLog)
                                 .onAppear() {
                                     viewRouter.showTabBar = true
                                 }
@@ -154,21 +151,23 @@ struct ContentView: View {
                         }
 
                     }
-            
-            
+                       
+                        if viewRouter.showTabBar {
+                          
+                                Spacer()
+                                tabBarView()
+                                    .transition(AnyTransition.move(edge: .bottom))
+                                    .animation(Animation.easeInOut(duration: 0.5))
+                                    .frame(height: geo.size.height/20)
+                            }
+                        }
+                    }
                     
          
             // == true || viewRouter.currentView != .registration || viewRouter.currentView != .login 
-            if viewRouter.showTabBar {
-                VStack{
-                    Spacer()
-                    tabBarView()
-                        
-                }.transition(AnyTransition.move(edge: .bottom))
-                    .animation(Animation.easeInOut)
-            }
+           
                 
-                }
+                } .frame(height: geo.size.height)
         }
         .environmentObject(userData)
         .environmentObject(viewRouter)
@@ -205,6 +204,54 @@ struct ContentView: View {
             
               performAction(userList)
         }
+    }
+    func loadMyMentorsData(performAction: @escaping ([Groups]?) -> Void) {
+        let db = Firestore.firestore()
+        let docRef = db.collection("mentorships")
+        var groupList:[Groups] = []
+        //Get every single document under collection users
+        let queryParameter = docRef.whereField("members", arrayContains: userData.userID)
+        queryParameter.getDocuments{ (querySnapshot, error) in
+            if let querySnapshot = querySnapshot,!querySnapshot.isEmpty{
+            for document in querySnapshot.documents{
+                let result = Result {
+                    try document.data(as: Groups.self)
+                }
+                switch result {
+                    case .success(let group):
+                        if var group = group {
+                            i = 0
+                            var array = group.groupName.components(separatedBy: " and ")
+                            for a in array {
+                                if a == userData.name {
+                                    print(i)
+                                    if i < array.count {
+                                    array.remove(at: i)
+                                }
+                                }
+                                i += 1
+                            }
+                            group.groupName = array.joined()
+                            groupList.append(group)
+                            
+                        } else {
+                            
+                            print("Document does not exist")
+                        }
+                    case .failure(let error):
+                        print("Error decoding user: \(error)")
+                    }
+                
+              
+            }
+            }
+            else{
+                performAction(nil)
+            }
+              performAction(groupList)
+        }
+        
+        
     }
     func loadMyGroupsData(performAction: @escaping ([Groups]?) -> Void) {
         let db = Firestore.firestore()
@@ -302,45 +349,24 @@ struct ContentView: View {
         
         
     }
-    func loadGroupsData(performAction: @escaping ([Groups]?) -> Void) {
+    
+    func loadUserTimerLog(performAction: @escaping ([TimerLog]) -> Void) {
         let db = Firestore.firestore()
-        let docRef = db.collection("groups")
-        var groupList:[Groups] = []
-        if user.isEmpty {
-            
-        } else {
-            if user[0].interests!.count < 0 {
-            } else {
+        let docRef = db.collection("timerLog").whereField("userID", isEqualTo: userData.userID)
+        var userList:[TimerLog] = []
         //Get every single document under collection users
-        
-                let queryParameter = docRef.whereField("interests", arrayContains: "\(user[0].interests!.first!)")
-                queryParameter.getDocuments { (querySnapshot, error) in
-            if let querySnapshot = querySnapshot,!querySnapshot.isEmpty{
-            for document in querySnapshot.documents{
+    
+     docRef.getDocuments { (document, error) in
+        if let document = document, !document.isEmpty {
+        for document in document.documents {
                 let result = Result {
-                    try document.data(as: Groups.self)
+                 try document.data(as: TimerLog.self)
                 }
                 switch result {
-                    case .success(let group):
-                        if var group = group {
-                           
-                           
-                            
-                           
-                            
-                         
-    //                        if user.isAvailable == true {
-                                if myGroups.contains(group) {
-                                    
-                                } else {
-                                if group.members.count < 4 {
-                                groupList.append(group)
-                                }
-                                }
-    //                        }
-                            
-                            
-                            
+                    case .success(let user):
+                        if let user = user {
+                            userList.append(user)
+                 
                         } else {
                             
                             print("Document does not exist")
@@ -348,16 +374,69 @@ struct ContentView: View {
                     case .failure(let error):
                         print("Error decoding user: \(error)")
                     }
+     
+            
+              performAction(userList)
+        }
+        }
+     }
+    }
+    func loadGroupsData(performAction: @escaping ([Groups]?) -> Void) {
+        let db = Firestore.firestore()
+        let docRef = db.collection("groups")
+        var groupList:[Groups] = []
+        if user.isEmpty {
+            
+        } else {
+            guard let interests = user[0].interests else { return }
+            if interests.count > 0 {
+                //Get every single document under collection users
                 
-              
+                let queryParameter = docRef.whereField("interests", arrayContains: "\(user[0].interests!.first!)")
+                queryParameter.getDocuments { (querySnapshot, error) in
+                    if let querySnapshot = querySnapshot,!querySnapshot.isEmpty{
+                        for document in querySnapshot.documents{
+                            let result = Result {
+                                try document.data(as: Groups.self)
+                            }
+                            switch result {
+                            case .success(let group):
+                                if var group = group {
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    //                        if user.isAvailable == true {
+                                    if myGroups.contains(group) {
+                                        
+                                    } else {
+                                        if group.members.count < 4 {
+                                            groupList.append(group)
+                                        }
+                                    }
+                                    //                        }
+                                    
+                                    
+                                    
+                                } else {
+                                    
+                                    print("Document does not exist")
+                                }
+                            case .failure(let error):
+                                print("Error decoding user: \(error)")
+                            }
+                            
+                            
+                        }
+                    }
+                    else{
+                        performAction(nil)
+                    }
+                    performAction(groupList)
+                }
             }
-            }
-            else{
-                performAction(nil)
-            }
-              performAction(groupList)
-        }
-        }
         }
     }
     
@@ -423,14 +502,14 @@ struct ContentView: View {
                     }
                     else{
                         self.viewRouter.showTabBar = false
-                        self.viewRouter.currentView = .introView
+                        self.viewRouter.currentView = .custom
                     }
                     self.hasCheckedAuth = true
 
                 
                 }
                 else {
-                    self.viewRouter.currentView = .registration
+                    self.viewRouter.currentView = .introView
                     self.hasCheckedAuth = true
                 }
                
@@ -438,51 +517,16 @@ struct ContentView: View {
         
          
     }
-    func joinGroup(newGroup: Groups) {
-        let db = Firestore.firestore()
-        let docRef = db.collection("groups")
-        do{
-            try docRef.document(newGroup.groupID).setData(from: newGroup)
-            
-        }
-        catch{
-            print("Error writing to database, \(error)")
-        }
-        
-        devGroup.members.append("n3SQZeq1oMhJzHNd1WlMSEClLHp2")
-        devGroup.members.append(userData.userID)
-        for member in devGroup.members {
-            print(member)
-        let ref2 = db.collection("users").document(member)
-        ref2.getDocument{document, error in
-            
-            if let document = document, document.exists {
-                
-         
-                let groupListCast = document.data()?["groups"] as? [String]
-                
-                if var currentGroups = groupListCast{
-                    
-                    guard !(groupListCast?.contains(newGroup.groupID))! else{return}
-                    currentGroups.append(newGroup.groupID)
-                    ref2.updateData(
-                        [
-                            "groups":currentGroups
-                        ]
-                    )
-                } else {
-                    ref2.updateData(
-                        [
-                            "groups":[newGroup.groupID]
-                        ]
-                    )
-                }
-            } else {
-                print("Error getting user data, \(error)")
-            }
+    
+    func firstLaunchAction() {
+        let firstLaunch = userData.firstRun
+        if firstLaunch {
+            FirebaseManager.signOut()
+            userData.firstRun = false
         }
     }
-    }
+    
+
 }
 
 

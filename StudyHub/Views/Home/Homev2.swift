@@ -8,7 +8,7 @@
 
 
 import SwiftUI
-import SwiftUICharts
+
 struct Homev2: View {
     var columns = [
         GridItem(.fixed(250)),
@@ -33,19 +33,21 @@ struct Homev2: View {
     @State var currentOffset = 0
     @Binding var recentPeople: [Groups]
     @State var chat = false
-    @State var group = Groups(id: UUID().uuidString, groupID: "", groupName: "", members: [String](), interests: [UserInterestTypes?]())
+    @State var group = Groups(id: UUID().uuidString, groupID: "", groupName: "", members: [String](), membersCount: 0, interests: [UserInterestTypes?](), userInVC: [String]())
     @Binding var recommendGroups: [Groups]
     @Binding var user: [User]
     @State var imgs = ["2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing"]
     @State var sum = 0.0
     @State var animate = false
     @State var animation = false
+    @Binding var timerLog: [TimerLog]
     var body: some View {
 
         ZStack {
             ZStack(alignment: .top) {
                 Color("Background").edgesIgnoringSafeArea(.all)
                     .onAppear() {
+                       
                         if !user.isEmpty {
                         if !user[0].studyHours.isEmpty {
                         
@@ -61,11 +63,11 @@ struct Homev2: View {
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             withAnimation(.easeInOut(duration: 1.0)) {
-                                if userData.uses == 2 || userData.uses == 3 || userData.uses == 10 {
+                               // if userData.uses == 2 || userData.uses == 3 || userData.uses == 10 {
                                     if !userData.hasDev {
                         animate = true
                                     }
-                        }
+                       // }
                             }
                         }
                         }
@@ -78,9 +80,11 @@ struct Homev2: View {
                     
                     ScrollView(.vertical, showsIndicators: false) {
                         if animate {
-                        DevChatBanner()
-                            .padding(.top)
-                            .transition(.move(edge: .top))
+                            DevChatBanner()
+                                .transition(.move(edge: .top))
+
+                            
+                            
                         }
                         
                         ScrollView(.horizontal, showsIndicators: false) {
@@ -129,6 +133,9 @@ struct Homev2: View {
                         } else {
                             SelfRankView(hours: sum)
                                 .padding()
+                                .onTapGesture {
+                                    viewRouter.updateCurrentView(view: .leaderboard)
+                                }
                         }
                             CTA(imgName: "mentor", cta: "Find a Mentor")
                                
@@ -157,7 +164,7 @@ struct Homev2: View {
             
             if showingTimer {
                 VStack {
-                    TimerView(showingView: $showingTimer)
+                    TimerView(showingView: $showingTimer, timerLog: $timerLog)
                         .padding(.top, 110)
                         .transition(.move(edge: .bottom))
                         .onAppear {
@@ -168,18 +175,7 @@ struct Homev2: View {
                     }
                 }
             }
-            if chat {
-                Color(.systemBackground)
-                ChatView(group: group, chat: $chat)
-                    .environmentObject(userData)
-                    .onAppear() {
-                        viewRouter.showTabBar = false
-                    }
-                    .onDisappear() {
-                        viewRouter.showTabBar = true
-                    }
-
-            }
+       
         
         }
     

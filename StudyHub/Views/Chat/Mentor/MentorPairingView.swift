@@ -10,7 +10,7 @@ import SwiftUI
 import Firebase
 
 struct MentorPairingView: View {
-    @State var matchedPerson = User(id: UUID(), firebaseID: "", name: "", email: "", interests: [], groups: [], studyHours: [0], studyDate: [""], all: 0, month: 0, day: 0, description: "", isAvailable: true)
+    @State var matchedPerson = User(id: UUID(), firebaseID: "", name: "", email: "", interests: [], groups: [], isMentor: false, studyHours: [0], studyDate: [""], all: 0, month: 0, day: 0, description: "", isAvailable: true, finishedOnboarding: true)
     @State var people = [User]()
     @EnvironmentObject var userData:UserData
     @State var paired: Bool = false
@@ -18,6 +18,7 @@ struct MentorPairingView: View {
     @Binding var add: Bool
     @State var selectedInterests:[UserInterestTypes] = []
     @Binding var myGroups:[Groups]
+    @Binding var myMentors:[Groups]
     @State var colorPick = Color.white
     @State var groupName = ""
     @State var newGroup:Groups?
@@ -85,9 +86,10 @@ struct MentorPairingView: View {
                         groupMemberIDs += [userData.userID]
                         newGroup = Groups(id: UUID().uuidString,
                                           groupID: UUID().uuidString,
-                                          groupName: "\(self.selectedInterests[0]) Group",
+                                          groupName: "\(self.selectedInterests[0]) Mentorship Group",
                                           members: groupMemberIDs,
-                                          interests: self.selectedInterests)
+                                          membersCount: groupMemberIDs.count,
+                                          interests: self.selectedInterests, userInVC: [String]())
                         if let group = newGroup{
                             self.joinGroup(newGroup: group)
                             paired = true
@@ -110,7 +112,7 @@ struct MentorPairingView: View {
                         .font(Font.custom("Montserrat-SemiBold", size: 14.0))
                 } .buttonStyle(BlueStyle())
                 .padding()
-                Spacer(minLength: 150)
+                Spacer(minLength: 200)
             }
             
             .sheet(isPresented: self.$paired, onDismiss: {
@@ -223,7 +225,7 @@ struct MentorPairingView: View {
         }
         switch result{
         case .success(let user):
-            if let user = user{
+            if let user = user {
                 for interest in user.interests ?? []{
                     currentUserInterests.append(interest.rawValue)
                     selectedInterests.append(interest)
@@ -250,8 +252,8 @@ struct MentorPairingView: View {
                 case .success(let user):
                     if let user = user {
                         var pairedBefore = false
-                        for interest in user.interests ?? [] {
-                            pairedBefore = checkPreviousPairing(from: myGroups, withUser: user.id.uuidString, for: interest)
+                        for interest in user.mentorshipInterests ?? [] {
+                            pairedBefore = checkPreviousPairing(from: myMentors, withUser: user.id.uuidString, for: interest)
                             if pairedBefore == true {
                                 break
                             }
@@ -279,7 +281,7 @@ struct MentorPairingView: View {
     
     func checkPreviousPairing(from myGroups: [Groups], withUser pairedUser: String, for interest: UserInterestTypes) -> Bool {
         var pairedInterests: [UserInterestTypes: [String]] = [.ACT: [], .APCalculus : [], .SAT: [], .Algebra2: []]
-        for group in myGroups {
+        for group in myMentors {
             for interest in group.interests {
                 guard let interest = interest else { return false }
                 var membersWithSameInterest: [String] = []

@@ -11,15 +11,6 @@
         }
       },
       {
-        "package": "SwiftUICharts",
-        "repositoryURL": "https://github.com/AppPear/ChartView",
-        "state": {
-          "branch": null,
-          "revision": "4699847a9ac0c694666cea3acef133498952566e",
-          "version": "1.5.4"
-        }
-      },
-      {
         "package": "IQKeyboardManagerSwift",
         "repositoryURL": "https://github.com/hackiftekhar/IQKeyboardManager",
         "state": {
@@ -35,6 +26,15 @@
           "branch": null,
           "revision": "2a10bf41da75599a9f8e872dbd44fe0155a2e00c",
           "version": "5.15.8"
+        }
+      },
+      {
+        "package": "SupportDocs",
+        "repositoryURL": "https://github.com/aheze/SupportDocs",
+        "state": {
+          "branch": null,
+          "revision": "c58f17ad9cf79065a07235bc117ccfad938a446b",
+          "version": "1.1.0"
         }
       },
       {

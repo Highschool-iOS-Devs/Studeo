@@ -65,33 +65,54 @@ struct ProfilePicture: View {
 
 struct LeaderboardRow: View {
     var name:String
-     var hours:Double
+    var hours:[Double]
+    @State var showGreenArrow:Bool = false
+    init(name:String, hours:[Double]){
+        self.name = name
+        self.hours = hours
+        self.showGreenArrow = parseHours()
+    }
+    
     var body: some View {
         HStack{
-          
             VStack {
-                Image(systemName: "arrowtriangle.up.fill")
-                    .font(.system(size: 13))
-                    .foregroundColor(.green)
-                Text("4")
-                    .foregroundColor(.black)
+                //Image(systemName: showGreenArrow ? "arrowtriangle.up.fill" : "arrowtriangle.down.fill")
+                //    .font(.system(size: 13))
+                //    .foregroundColor(showGreenArrow ? Color(.green) : Color(.red))
+              //  Text("4")
+                //    .foregroundColor(Color("Text"))
             }
             ProfilePicture(pictureSize: 45, image: Image("demoprofile"))
              
             Text(name)
-             
-                .foregroundColor(.black)
-                
+                .foregroundColor(Color("Text"))
+
             Spacer()
-            Text(hours.removeZerosFromEnd())
+            Text("\(hours.last!.removeZerosFromEnd()) hour")
                 .font(.custom("Montserrat-SemiBold", size: 12))
-                .foregroundColor(Color.black.opacity(0.25))
+                .foregroundColor(Color("Text").opacity(0.25))
             Image(systemName: "stopwatch.fill")
-                .foregroundColor(Color.black.opacity(0.25))
+                .foregroundColor(Color("Text").opacity(0.25))
                 .offset(x: 0, y: -2)
             
                
         } .padding(.horizontal, 42)
+    }
+    
+    func parseHours() -> Bool{
+        let hourSlice = Array(hours.suffix(2))
+        if hourSlice.count > 2{
+            if hourSlice[1] > hourSlice[0]{
+                return true
+            }
+            else{
+                return false
+            }
+        }
+        else{
+            return false
+        }
+     
     }
 }
 
@@ -102,7 +123,7 @@ struct dateSelectionView: View {
         HStack(spacing: 25){
             VStack {
                 Text("Today")
-                    .foregroundColor(Color.white.opacity(self.currentDateTab == .today ? 1 : 0.25))
+                    .foregroundColor(Color(.white).opacity(self.currentDateTab == .today ? 1 : 0.25))
                     .onTapGesture {
                         self.currentDateTab = .today
                 }
@@ -114,7 +135,7 @@ struct dateSelectionView: View {
             
             VStack {
                 Text("Month")
-                    .foregroundColor(Color.white.opacity(self.currentDateTab == .month ? 1 : 0.25))
+                    .foregroundColor(Color(.white).opacity(self.currentDateTab == .month ? 1 : 0.25))
                     .onTapGesture {
                         self.currentDateTab = .month
                 }
@@ -125,7 +146,7 @@ struct dateSelectionView: View {
             
             VStack {
                 Text("All Time")
-                    .foregroundColor(Color.white.opacity(self.currentDateTab == .allTime ? 1 : 0.25))
+                    .foregroundColor(Color(.white).opacity(self.currentDateTab == .allTime ? 1 : 0.25))
                     .onTapGesture {
                         self.currentDateTab = .allTime
                     }
@@ -141,19 +162,19 @@ struct dateSelectionView: View {
 
 struct LeaderRankView: View {
      var name:String
-    var hours:Double
+    var hours:[Double]
     var body: some View {
         VStack{
             ProfilePicture(pictureSize: 70, image: Image("demoprofile"))
             Text(name)
-                .foregroundColor(.black)
+                .foregroundColor(Color("Text"))
                 .font(.custom("Montserrat-SemiBold", size: 12))
             HStack {
-               Text(hours.removeZerosFromEnd())
+                Text(hours.last!.removeZerosFromEnd())
                     .font(.custom("Montserrat-SemiBold", size: 12))
-                    .foregroundColor(Color.black.opacity(0.25))
+                    .foregroundColor(Color("Text").opacity(0.25))
                 Image(systemName: "stopwatch.fill")
-                    .foregroundColor(Color.black.opacity(0.25))
+                    .foregroundColor(Color("Text").opacity(0.25))
                     .offset(x: 0, y: -2)
                 
             }
@@ -167,16 +188,16 @@ struct LeadersStack: View {
     var body: some View {
         HStack(spacing: 30) {
             if leaders.count > 1 {
-                LeaderRankView(name: leaders[1].name, hours: leaders[1].all)
+                LeaderRankView(name: leaders[1].name, hours: leaders[1].studyHours)
                     .offset(x: 0, y: 10)
             }
             if leaders.isEmpty {
             } else {
-            LeaderRankView(name: leaders[0].name, hours: leaders[0].all)
+            LeaderRankView(name: leaders[0].name, hours: leaders[0].studyHours)
             }
             
             if leaders.count > 2 {
-                LeaderRankView(name: leaders[2].name, hours: leaders[2].all)
+                LeaderRankView(name: leaders[2].name, hours: leaders[2].studyHours)
                     .offset(x: 0, y: 10)
             }
         }

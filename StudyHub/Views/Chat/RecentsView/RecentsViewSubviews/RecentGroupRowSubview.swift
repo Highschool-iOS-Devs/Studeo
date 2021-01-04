@@ -60,13 +60,7 @@ struct RecentGroupRowSubview: View {
         .shadow(color: Color(#colorLiteral(red: 0.4166666865, green: 0.7666666508, blue: 1, alpha: 0.3000000119)), radius:7, x:0, y:7)
         .shadow(color: Color(#colorLiteral(red: 0.4166666865348816, green: 0.7666666507720947, blue: 1, alpha: 0.30000001192092896)), radius:7, x:3, y:0)
         .shadow(color: Color(#colorLiteral(red: 0.4166666865348816, green: 0.7666666507720947, blue: 1, alpha: 0.30000001192092896)), radius:7, x:-3, y:0)
-        .onTapGesture{
-            tapped = true
-        }
-        .sheet(isPresented: self.$tapped){
-            ChatView(group: group, chat: $chat)
-                .environmentObject(userData)
-        }
+     
         .onAppear{
             getTimeAndMessageRecord()
         }
@@ -110,11 +104,5 @@ struct RecentGroupRowSubview: View {
         return formattedDate
 
    
-    }
-}
-
-struct RecentChatRowSubview_Previews: PreviewProvider {
-    static var previews: some View {
-        RecentGroupRowSubview(group: Groups(id: "", groupID: "", groupName: "SAT Group", members: [""], interests: [nil]), profilePicture: Image("demoprofile"))
     }
 }

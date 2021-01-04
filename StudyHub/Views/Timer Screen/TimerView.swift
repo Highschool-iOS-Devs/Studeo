@@ -13,7 +13,7 @@ struct TimerView: View {
     @StateObject private var timer = TimerManager()
     
     @Binding var showingView: Bool
-    
+   
     var notificationID: String = "timerEnded"
     
     
@@ -29,11 +29,19 @@ struct TimerView: View {
         formatter.allowedUnits = [.hour, .minute, .second]
         return formatter.string(from: seconds) ?? "N/N"
     }
+    @State var category = "Math"
+    @State var stats = false
     
+    @Binding var timerLog: [TimerLog]
     var body: some View {
         VStack(spacing: 0) {
-
+            
             HStack {
+                Button(action: {
+                    stats.toggle()
+                }) {
+                    Image(systemName: "chart.bar")
+                }
                 Spacer()
                 Button(action: {
                     withAnimation {
@@ -47,7 +55,13 @@ struct TimerView: View {
                 }
             }
             .padding()
-
+           
+            TimerSelectView(category: $category)
+                .onChange(of: category, perform: { value in
+                    timer.category = category
+                })
+                
+                .padding(.vertical)
             
             HStack {
                 Text("Set Timer")
@@ -61,9 +75,9 @@ struct TimerView: View {
                         .stroke(Color("clockStroke"), lineWidth: 2))
             }
             .onAppear() {
-              //  self.timer.add(600)
+               // self.timer.add(600)
                 if !timer.isRunning  {
-                    //self.timer.add(600)
+                //    self.timer.add(600)
                 }
             }
             ZStack {
@@ -150,8 +164,7 @@ struct TimerView: View {
         }
         .onDisappear {
             self.timer.saveToUD()
-            self.timer.endTimer()
-            self.timer.invalidateTimer()
+            self.timer.stopTimer()
         }
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification), perform: { _ in
             self.timer.saveToUD()
@@ -160,9 +173,12 @@ struct TimerView: View {
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification), perform: { _ in
             self.timer.loadData()
         })
+        .sheet(isPresented: $stats) {
+            TimerStatsView(timerLog: $timerLog)
+                }
     }//body
     
-    
+   
     func addNotification() {
         let center = UNUserNotificationCenter.current()
         
@@ -216,12 +232,4 @@ struct TimerView: View {
 
 
 
-struct TimerView_Previews: PreviewProvider {
-    static var previews: some View {
-        ZStack {
-            Color(.red).edgesIgnoringSafeArea(.all)
-            TimerView(showingView: .constant(true))
-        } 
-    }
-}
 

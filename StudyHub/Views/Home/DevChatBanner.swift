@@ -7,40 +7,107 @@
 //
 
 import SwiftUI
+import FirebaseAuth
+import FirebaseFirestore
+import FirebaseStorage
 
 struct DevChatBanner: View {
     @EnvironmentObject var viewRouter:ViewRouter
+    @EnvironmentObject var userData:UserData
+    ///DevGroup
+    @State var devGroup = Groups(id: "", groupID: UUID().uuidString, groupName: "Andreas", members: [String](), membersCount: 0, interests: [UserInterestTypes?](), recentMessage: "", recentMessageTime: Date(), userInVC: [String]())
     var body: some View {
-        ZStack {
-            Color("Primary")
-                .ignoresSafeArea()
-                .frame(height: 200)
-            HStack {
-                VStack {
-                Text("Have a question or feedback?")
-                    .font(.custom("Montserrat-Bold", size: 18))
-                    .foregroundColor(.white)
-                    .padding()
-                    Button(action: {
-                        viewRouter.currentView = .devChat
-                    }) {
-                        Text("Talk directly to a developer of this app")
-                            .font(.custom("Montserrat-Semibold", size: 12))
-                            .foregroundColor(Color("Primary"))
+        NavigationView{
+            ZStack {
+                Color("Primary")
+                    .ignoresSafeArea()
+                    .frame(height: 200)
+                HStack {
+                    VStack {
+                    Text("Have a question or feedback?")
+                        .font(.custom("Montserrat-Bold", size: 18))
+                        .foregroundColor(.white)
+                        .padding()
+                        ///NavigationLink that takes user directly to the talk with developer chat, without going through viewRouter
+                        NavigationLink(destination: ChatView(group: devGroup)
+                                                        .onAppear() {
+                                                            viewRouter.showTabBar = false
+                                                            joinGroup(newGroup: devGroup)
+                                                            userData.hasDev = true
+                                                        }
+                        ){
+                            Button(action: {
+                            }) {
+                                Text("Talk directly to a developer of this app")
+                                    .font(.custom("Montserrat-Semibold", size: 12))
+                                    .foregroundColor(Color("Primary"))
+                                    .padding()
+                                    .background(RoundedRectangle(cornerRadius: 25).foregroundColor(.white))
+                            }
                             .padding()
-                            .background(RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/).foregroundColor(.white))
-                    }
-                    .padding()
+                        }
+                        .navigationTitle("")
+                        .navigationBarHidden(true)
+                      
+                        
+                        }
+                   
+                }  .animation(.easeInOut(duration: 1.0))
+            }
+        } .frame(height: 220)
+        .animation(.easeInOut(duration: 1.0))
+        .transition(.move(edge: .top))
+    
+    }
+    func joinGroup(newGroup: Groups) {
+        let db = Firestore.firestore()
+        let docRef = db.collection("groups")
+        do{
+            try docRef.document(newGroup.groupID).setData(from: newGroup)
+            
+        }
+        catch{
+            print("Error writing to database, \(error)")
+        }
+        
+        devGroup.members.append("n3SQZeq1oMhJzHNd1WlMSEClLHp2")
+        devGroup.members.append(userData.userID)
+        for member in devGroup.members {
+            print(member)
+        let ref2 = db.collection("users").document(member)
+        ref2.getDocument{document, error in
+            
+            if let document = document, document.exists {
+                
+         
+                let groupListCast = document.data()?["groups"] as? [String]
+                
+                if var currentGroups = groupListCast{
                     
-                    }
-               
+                    guard !(groupListCast?.contains(newGroup.groupID))! else{return}
+                    currentGroups.append(newGroup.groupID)
+                    ref2.updateData(
+                        [
+                            "groups":currentGroups
+                        ]
+                    )
+                } else {
+                    ref2.updateData(
+                        [
+                            "groups":[newGroup.groupID]
+                        ]
+                    )
+                }
+            } else {
+                print("Error getting user data, \(error)")
             }
         }
     }
-}
-
-struct DevChatBanner_Previews: PreviewProvider {
-    static var previews: some View {
-        DevChatBanner()
     }
 }
+
+//struct DevChatBanner_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DevChatBanner()
+//    }
+//}

@@ -11,7 +11,7 @@ import SwiftUI
 struct InputFieldSubview: View {
     @Binding var password: String
     @Binding var email: String
-    
+    @State var isPresented = false
     var body: some View {
         VStack(spacing: 5) {
             HStack {
@@ -69,14 +69,21 @@ struct InputFieldSubview: View {
                 Spacer()
                 VStack{
                     Spacer()
-                    Text("Forgot password?")
-                        .foregroundColor(Color("Text").opacity(0.8))
-                                .font(.custom("Montserrat-semibold", size: 14))
-                        .padding(.trailing, 45)
-                        .offset(y:35)
+                        Text("Forgot password?")
+                            .foregroundColor(Color("Text").opacity(0.8))
+                                    .font(.custom("Montserrat-semibold", size: 14))
+                            .padding(.trailing, 45)
+                            .offset(y:35)
+                            .onTapGesture {
+                                isPresented.toggle()
+                            }
+                 
+                
                 }
             }
         )
+        .fullScreenCover(isPresented: $isPresented, content: PasswordResetView.init)
+
     
 
     }
