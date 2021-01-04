@@ -15,7 +15,7 @@ struct User: Identifiable, Codable, Hashable {
     
     var id: UUID
     var firebaseID: String
-    
+    var fcmToken: String?
     var name: String
     var email: String
     var profileImageURL: URL? 

@@ -87,8 +87,10 @@ struct ChatView: View {
                                 let newMessage = MessageData(messageText: self.messageField, sentBy: self.userData.userID, sentTime: Date())
                                 for member in members {
                                 let sender = PushNotificationSender()
-                                    sender.sendPushNotification(to: member.firebaseID, title: userData.name, body: self.messageField, user: userData.userID)
+                                    if member.fcmToken != nil {
+                                    sender.sendPushNotification(to: member.fcmToken!, title: userData.name, body: self.messageField, user: userData.userID)
                             }
+                                }
                                 self.messageField = ""
                                 self.saveMessage(outgoingMessage: newMessage)
                                 

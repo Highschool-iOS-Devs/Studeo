@@ -28,14 +28,17 @@ struct VoiceChat: View {
                 UIApplication.shared.isIdleTimerDisabled = false
             }
             .onAppear() {
-
+                //causing error
+             
+                
+                //above is causing error
                 self.loadUsersInVC() { userData in
 
                     if let userinVC = userData.first!.userInVC{
                         for user in userinVC{
                             self.loadUsersData(vcuserID:user) { userData in
                                 usersInVC.append(userData)
-
+                              
                             }
                         }
                     }
