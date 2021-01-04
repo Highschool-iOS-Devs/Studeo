@@ -35,6 +35,7 @@ struct Groups: Identifiable, Codable, Hashable{
     var interests:[UserInterestTypes?]
     var recentMessage:String?
     var recentMessageTime:Date?
+    var userInVC: [String?]
 }
 
 
