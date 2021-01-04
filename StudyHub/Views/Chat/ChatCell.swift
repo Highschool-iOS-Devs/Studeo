@@ -34,7 +34,7 @@ struct ChatCellSelf: View {
                 
                 
             } .padding(.trailing, 12)
-        }
+        } .transition(.opacity)
         
         
         
@@ -67,7 +67,7 @@ struct ChatCell: View {
                 
         }
         
-        }
+        } .transition(.opacity)
         
     }
 }

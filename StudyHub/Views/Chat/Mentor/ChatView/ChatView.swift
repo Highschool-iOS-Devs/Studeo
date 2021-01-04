@@ -43,8 +43,10 @@ struct ChatView: View {
                             ForEach(self.messages, id:\.self) { message in
                                 MessageCellView(message)
                                     .id(message.id)
+                                    
                             }
-                        }
+                        } .transition(.opacity)
+                        .animation(.easeInOut(duration: 0.7))
                         .drawingGroup()
                         .padding(.top,5)
                         .onChange(of: messages, perform: { value in
@@ -178,6 +180,7 @@ struct ChatView: View {
                 
                 self.loadData()
                 self.addRecentRecord()
+                
                 self.viewRouter.showTabBar = false
                 self.loadMembers(){ userData in
                     //Get completion handler data results from loadData function and set it as the recentPeople local variable
@@ -192,11 +195,11 @@ struct ChatView: View {
      
             
             
+    
             
             
             
-            
-        }
+    }
        
         func saveMessage(outgoingMessage:MessageData){
             let db = Firestore.firestore()

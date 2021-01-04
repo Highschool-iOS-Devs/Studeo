@@ -28,8 +28,9 @@ struct RecentsView2: View {
     var body: some View {
         NavigationView{
             ZStack{
+                Color("Primary").edgesIgnoringSafeArea(.all)
                 ZStack(alignment: .top) {
-                    Color("Primary").edgesIgnoringSafeArea(.all)
+                    
                     VStack {
                         ScrollView{
                             RecentChatTextRow(add: $add)
@@ -87,9 +88,16 @@ struct RecentsView2: View {
                                 
                             } .padding()
                             LazyVGrid(columns: gridItemLayout, spacing: 40) {
-                                ForEach(myMentors){group in
+                                ForEach(myMentors){ group in
+                                    NavigationLink(
+                                        destination:ChatView(group: group)
+                                                    .environmentObject(userData)
+                                           
+                                        ){
                                     RecentChatGroupSubview(group: group)
                                         .environmentObject(UserData.shared)
+                                        
+                                }
                                 }
                             }
                             Spacer(minLength: 200)
@@ -125,6 +133,7 @@ struct RecentsView2: View {
         }
         .blur(radius: showTimer ? 20 : 0)
         .accentColor(Color("Primary"))
+        .animation(.none)
         .onAppear{
             groupModel.userData = userData
             groupModel.getAllGroups(){groupModel.allGroups=$0}

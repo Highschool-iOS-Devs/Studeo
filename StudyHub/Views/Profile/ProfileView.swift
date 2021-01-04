@@ -89,7 +89,7 @@ import UIKit
              }
         }
      }
-  
+
     func sendData() {
        
                 let db = Firestore.firestore()
