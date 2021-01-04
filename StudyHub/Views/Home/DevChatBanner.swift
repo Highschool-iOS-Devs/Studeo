@@ -15,7 +15,7 @@ struct DevChatBanner: View {
     @EnvironmentObject var viewRouter:ViewRouter
     @EnvironmentObject var userData:UserData
     ///DevGroup
-    @State var devGroup = Groups(id: "", groupID: UUID().uuidString, groupName: "Andreas", members: [String](), membersCount: 0, interests: [UserInterestTypes?](), recentMessage: "", recentMessageTime: Date())
+    @State var devGroup = Groups(id: "", groupID: UUID().uuidString, groupName: "Andreas", members: [String](), membersCount: 0, interests: [UserInterestTypes?](), recentMessage: "", recentMessageTime: Date(), userInVC: [String]())
     var body: some View {
         NavigationView{
             ZStack {

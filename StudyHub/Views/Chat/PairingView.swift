@@ -345,7 +345,7 @@ struct PairingView: View {
                                       groupName: "\(groupInterest) Group",
                                       members: groupMemberIDs,
                                       membersCount: groupMemberIDs.count,
-                                      interests: [groupInterest])
+                                      interests: [groupInterest], userInVC: [String]())
                 completion(group)
         
             

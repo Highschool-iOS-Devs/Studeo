@@ -64,7 +64,7 @@ struct OtherUserProfileView: View {
                                               groupName: String(describing: userData.name + " and " + user.name),
                                               members: groupMemberIDs,
                                               membersCount: groupMemberIDs.count,
-                                              interests: [nil])
+                                              interests: [nil], userInVC: [String]())
 
                                 self.joinGroup(newGroup: newGroup)
                             presentationMode.wrappedValue.dismiss()

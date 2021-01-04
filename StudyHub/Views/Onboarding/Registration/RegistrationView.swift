@@ -115,6 +115,9 @@ struct RegistrationView: View {
             let newUser = User(id: UUID(), firebaseID: authResult!.user.uid, name: self.username, email: self.email, isMentor: false, studyHours: [0], studyDate: ["9-16-2020"], all: 0, month: 0, day: 0, description: "Edit your bio", isAvailable: true, finishedOnboarding: false)
 
                     userData.userID = newUser.id.uuidString
+            
+            let pushManager = PushNotificationManager(userID: newUser.id.uuidString)
+                    pushManager.registerForPushNotifications()
             do{
                 try db.collection("settings").document(newUser.id.uuidString).setData(from: newUserSettings)
                 do{

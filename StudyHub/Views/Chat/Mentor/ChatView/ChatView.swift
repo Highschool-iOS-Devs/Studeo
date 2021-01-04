@@ -84,9 +84,14 @@ struct ChatView: View {
                         .foregroundColor(Color.gray.opacity(1))
                         .onTapGesture{
                             if self.messageField != ""{
-                                let newMessage =                     MessageData(messageText: self.messageField, sentBy: self.userData.userID, sentTime: Date())
+                                let newMessage = MessageData(messageText: self.messageField, sentBy: self.userData.userID, sentTime: Date())
+                                for member in members {
+                                let sender = PushNotificationSender()
+                                    sender.sendPushNotification(to: member.firebaseID, title: userData.name, body: self.messageField, user: userData.userID)
+                            }
                                 self.messageField = ""
                                 self.saveMessage(outgoingMessage: newMessage)
+                                
                             }
                             
                         }
