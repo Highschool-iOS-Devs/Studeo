@@ -165,7 +165,6 @@ struct Homev2: View {
             if showingTimer {
                 VStack {
                     TimerView(showingView: $showingTimer, timerLog: $timerLog)
-                        .padding(.top, 110)
                         .transition(.move(edge: .bottom))
                         .onAppear {
                             self.viewRouter.showTabBar = false

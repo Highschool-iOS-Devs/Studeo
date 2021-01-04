@@ -50,7 +50,7 @@ struct TimerView: View {
                     }
                 }) {
                     Image(systemName: "xmark")
-                        .foregroundColor(Color.black.opacity(0.7))
+                        .foregroundColor(Color("Text"))
                         .font(.body)
                 }
             }
