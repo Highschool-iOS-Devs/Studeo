@@ -12,7 +12,7 @@ struct SettingsData: Identifiable, Codable {
     var id = UUID()
     var settings:[SettingSubData]
     
-    static let defaultSettings = SettingsData(settings: [SettingSubData(name: "Personal info", state: true), SettingSubData(name: "Country", field: "US"), SettingSubData(name: "Chat notifications", state: true), SettingSubData(name: "New group notifications", state: true)])
+    static let defaultSettings = SettingsData(settings: [SettingSubData(name: "Personal info", state: true), SettingSubData(name: "Country", field: "US"), SettingSubData(name: "Chat notifications", state: true), SettingSubData(name: "New group notifications", state: true), SettingSubData(name: "Language", field: "EN")])
 
 }
 struct SettingSubData:Codable{

@@ -61,7 +61,6 @@
 		626E7815258D3EEB008633AB /* ProfileRingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626E7814258D3EEB008633AB /* ProfileRingView.swift */; };
 		626E785C258D4371008633AB /* KingfisherSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 626E785B258D4371008633AB /* KingfisherSwiftUI */; };
 		626E785E258D4371008633AB /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 626E785D258D4371008633AB /* Kingfisher */; };
-		626E7863258D488B008633AB /* PageView in Frameworks */ = {isa = PBXBuildFile; productRef = 626E7862258D488B008633AB /* PageView */; };
 		626EEC8C25897BC200E7A7A5 /* RecentChatTextRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626EEC8B25897BC200E7A7A5 /* RecentChatTextRow.swift */; };
 		626EEC8F25897BD200E7A7A5 /* AllGroupTextRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626EEC8E25897BD200E7A7A5 /* AllGroupTextRow.swift */; };
 		626EECB2258988D700E7A7A5 /* RecentsView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626EECB1258988D700E7A7A5 /* RecentsView2.swift */; };
@@ -76,6 +75,8 @@
 		62F24C0B25141AF400777610 /* LottieUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F24C0A25141AF400777610 /* LottieUIView.swift */; };
 		62F3D9B22557C156008B2356 /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F3D9B12557C156008B2356 /* ErrorMessage.swift */; };
 		62FAED0D259BC2580015B094 /* PasswordResetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FAED0C259BC2580015B094 /* PasswordResetView.swift */; };
+		AE19201E25A3160300ABB098 /* CountrySelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE19201D25A3160300ABB098 /* CountrySelectionView.swift */; };
+		AE19202125A3160C00ABB098 /* LanguageSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE19202025A3160C00ABB098 /* LanguageSelectionView.swift */; };
 		BE167C452514333A00402C14 /* SettingsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE167C442514333A00402C14 /* SettingsData.swift */; };
 		BE3E16182517F96900E0A845 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E16172517F96900E0A845 /* TimerManager.swift */; };
 		BE5C7F2F259D05DB00824346 /* IntroMentor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5C7F2E259D05DB00824346 /* IntroMentor.swift */; };
@@ -204,6 +205,8 @@
 		62F24C0A25141AF400777610 /* LottieUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieUIView.swift; sourceTree = "<group>"; };
 		62F3D9B12557C156008B2356 /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
 		62FAED0C259BC2580015B094 /* PasswordResetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetView.swift; sourceTree = "<group>"; };
+		AE19201D25A3160300ABB098 /* CountrySelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountrySelectionView.swift; sourceTree = "<group>"; };
+		AE19202025A3160C00ABB098 /* LanguageSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageSelectionView.swift; sourceTree = "<group>"; };
 		BE167C442514333A00402C14 /* SettingsData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsData.swift; sourceTree = "<group>"; };
 		BE3E16172517F96900E0A845 /* TimerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
 		BE5C7F2E259D05DB00824346 /* IntroMentor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroMentor.swift; sourceTree = "<group>"; };
@@ -275,7 +278,6 @@
 				626E785E258D4371008633AB /* Kingfisher in Frameworks */,
 				E1FD834D24F54E670024D2A3 /* IQKeyboardManagerSwift in Frameworks */,
 				E10C058625900A100020FD7C /* Pods_StudyHub.framework in Frameworks */,
-				626E7863258D488B008633AB /* PageView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -689,6 +691,8 @@
 		E3CA982F25167CF400602EB6 /* Setting Subviews */ = {
 			isa = PBXGroup;
 			children = (
+				AE19201D25A3160300ABB098 /* CountrySelectionView.swift */,
+				AE19202025A3160C00ABB098 /* LanguageSelectionView.swift */,
 				E3CA983125167D4800602EB6 /* NotificationsView.swift */,
 				E3CA983725180CAD00602EB6 /* PersonalInfoView.swift */,
 			);
@@ -718,7 +722,6 @@
 				E1F2F8B8257009A800D8B87E /* Alamofire */,
 				626E785B258D4371008633AB /* KingfisherSwiftUI */,
 				626E785D258D4371008633AB /* Kingfisher */,
-				626E7862258D488B008633AB /* PageView */,
 				BE5F375F259C3B9400542AA0 /* SupportDocs */,
 			);
 			productName = StudyHub;
@@ -753,7 +756,6 @@
 				E1FD834B24F54E670024D2A3 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				E1F2F8B7257009A800D8B87E /* XCRemoteSwiftPackageReference "Alamofire" */,
 				626E785A258D4371008633AB /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				626E7861258D488B008633AB /* XCRemoteSwiftPackageReference "SwiftUI-PageView" */,
 				BE5F375E259C3B9400542AA0 /* XCRemoteSwiftPackageReference "SupportDocs" */,
 			);
 			productRefGroup = E339449324F1B71600F11BA9 /* Products */;
@@ -862,6 +864,7 @@
 				626EECB2258988D700E7A7A5 /* RecentsView2.swift in Sources */,
 				6258E4E1259942AC0072DA87 /* BottomCardSubview.swift in Sources */,
 				E163D37925A2CC1500102895 /* VCGridView.swift in Sources */,
+				AE19202125A3160C00ABB098 /* LanguageSelectionView.swift in Sources */,
 				E12C5FB5259A518500D3314E /* Line.swift in Sources */,
 				E12C5FA7259A518500D3314E /* LabelView.swift in Sources */,
 				62109C89259055B700483ADB /* MiniProfileSubview.swift in Sources */,
@@ -888,6 +891,7 @@
 				E12C5FAB259A518500D3314E /* PieChartHelpers.swift in Sources */,
 				E155D69E251AA66F008281AE /* ProfileView.swift in Sources */,
 				E12C5FA8259A518500D3314E /* BarChartCell.swift in Sources */,
+				AE19201E25A3160300ABB098 /* CountrySelectionView.swift in Sources */,
 				6205910F24FDBB21001565BF /* AddChat.swift in Sources */,
 				62C3ED21250597A300CEA882 /* CreateGroupView.swift in Sources */,
 				6205910124FDBB21001565BF /* FirebaseManager.swift in Sources */,
@@ -1162,14 +1166,6 @@
 				minimumVersion = 5.15.8;
 			};
 		};
-		626E7861258D488B008633AB /* XCRemoteSwiftPackageReference "SwiftUI-PageView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Connapptivity/SwiftUI-PageView.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.1;
-			};
-		};
 		BE5F375E259C3B9400542AA0 /* XCRemoteSwiftPackageReference "SupportDocs" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/aheze/SupportDocs";
@@ -1206,11 +1202,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 626E785A258D4371008633AB /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
-		};
-		626E7862258D488B008633AB /* PageView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 626E7861258D488B008633AB /* XCRemoteSwiftPackageReference "SwiftUI-PageView" */;
-			productName = PageView;
 		};
 		BE5F375F259C3B9400542AA0 /* SupportDocs */ = {
 			isa = XCSwiftPackageProductDependency;

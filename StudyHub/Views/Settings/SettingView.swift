@@ -23,7 +23,8 @@ struct SettingView: View {
     
     @State private var chatNotifications = true
     @State private var newGroupNotifications = true
-    @State private var country = "US"
+    @State private var country = ""
+    @State private var language = ""
     
     @State private var showHelp = false
     let dataSource = URL(string: "https://raw.githubusercontent.com/Highschool-iOS-Devs/Studeo-Help/DataSource/_data/supportdocs_datasource.json")!
@@ -56,8 +57,8 @@ struct SettingView: View {
                                     availabilityRowView(settingText: "Available for new pairings", userAvailable: $userIsAvailable)
                                     settingRowView(settingText: "Notifications", settingState: ((!chatNotifications && !newGroupNotifications) ? "Off" : "On"), newView: AnyView(NotificationsView(chatNotifications: $chatNotifications, groupNotifications: $newGroupNotifications)))
                                     settingRowView(settingText: "Personal info", settingState: "", newView: AnyView(PersonalInfoView()))
-                                    settingRowView(settingText: "Country", settingState: "United States", newView: AnyView(Text("Placeholder")))
-                                    settingRowView(settingText: "Language", settingState: "English", newView: AnyView(Text("Placeholder")))
+                                    settingRowView(settingText: "Country", settingState: country, newView: AnyView(CountrySelectionView(selectedCountry: $country)))
+                                    settingRowView(settingText: "Language", settingState: language, newView: AnyView(LanguageSelectionView(selectedLanguage: $language)))
                                     settingRowView(settingText: "Sign out", settingState: "", newView: AnyView(Text("Placeholder")), disableNavigation: true)
                                         .onTapGesture(){
                                             signOut()
@@ -191,7 +192,7 @@ struct SettingView: View {
         
     }
     
-    func updateSettings() {
+    func updateNewSettings() {
         var newSettings = [SettingSubData]()
         for settings in self.userSettings.settings {
             switch settings.name {
@@ -203,6 +204,8 @@ struct SettingView: View {
                 newSettings.append(SettingSubData(name: settings.name, state: self.newGroupNotifications))
             case "Personal info":
                 newSettings.append(SettingSubData(name: settings.name, state: true))
+            case "Language":
+                newSettings.append(SettingSubData(name: settings.name, field: self.language))
             default:
                 print("Unexpected setting with name: \(settings.name)")
             }
@@ -211,7 +214,7 @@ struct SettingView: View {
     }
     
     func saveData() {
-        updateSettings()
+        updateNewSettings()
         let db = Firestore.firestore()
         let ref = db.collection("settings").document(userData.userID)
         do {
@@ -232,6 +235,8 @@ struct SettingView: View {
                 self.chatNotifications = settings.state!
             case "New group notifications":
                 self.newGroupNotifications = settings.state!
+            case "Language":
+                self.language = settings.field!
             default:
                 print("Unexpected setting with name: \(settings.name)")
             }
@@ -318,10 +323,9 @@ struct SettingView: View {
                     Spacer()
                     
                     Toggle("Availability for pairing", isOn: $userAvailable)
-                        .opacity(0.6)
                         .labelsHidden()
                         .padding()
-                } 
+                }
             
             
            
