@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>663183286477-qk2rdn5j36tdgk9gnrio0eieq7nmjhem.apps.googleusercontent.com</string>
+	<string>663183286477-a0o5oi6457v4n8p5iehrubsc0f895ukl.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.663183286477-qk2rdn5j36tdgk9gnrio0eieq7nmjhem</string>
+	<string>com.googleusercontent.apps.663183286477-a0o5oi6457v4n8p5iehrubsc0f895ukl</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCV7DkkQUx3_n6ytUlOIIo42C2SwmjIidE</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.StudyHub</string>
+	<string>com.StudyHub.Studeo</string>
 	<key>PROJECT_ID</key>
 	<string>study-hub-7540b</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,7 +29,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:663183286477:ios:daa7dead750e4cd02bc984</string>
+	<string>1:663183286477:ios:9e77277995c5b5602bc984</string>
 	<key>DATABASE_URL</key>
 	<string>https://study-hub-7540b.firebaseio.com</string>
 </dict>

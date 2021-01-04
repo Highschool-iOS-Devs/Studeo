@@ -83,7 +83,6 @@
 		E10C058625900A100020FD7C /* Pods_StudyHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47F4119D880B6AFBE91DBA85 /* Pods_StudyHub.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		E10C05CD259013B70020FD7C /* MemberListSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10C05CC259013B70020FD7C /* MemberListSubview.swift */; };
 		E11157A32593CF31005E9AEA /* VoiceChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11157A22593CF31005E9AEA /* VoiceChat.swift */; };
-		E124C1B924FED758008EBD84 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 620590C324FDBB21001565BF /* GoogleService-Info.plist */; };
 		E12C5F8C259A26FE00D3314E /* TimerStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12C5F8B259A26FE00D3314E /* TimerStatsView.swift */; };
 		E12C5FA5259A518500D3314E /* BarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12C5F92259A518500D3314E /* BarChartView.swift */; };
 		E12C5FA6259A518500D3314E /* BarChartRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12C5F93259A518500D3314E /* BarChartRow.swift */; };
@@ -117,6 +116,7 @@
 		E163D32F25A28F5200102895 /* AddQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = E163D32E25A28F5200102895 /* AddQuiz.swift */; };
 		E163D33325A28F6500102895 /* QuizAddRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E163D33225A28F6500102895 /* QuizAddRow.swift */; };
 		E163D33625A2914700102895 /* QuizInputFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E163D33525A2914700102895 /* QuizInputFieldView.swift */; };
+		E163D33C25A2A01500102895 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E163D33B25A2A01500102895 /* GoogleService-Info.plist */; };
 		E1646BF925912076003B2FB4 /* DevChatBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1646BF825912076003B2FB4 /* DevChatBanner.swift */; };
 		E170EF562540BF9000BEE97C /* GroupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E170EF552540BF9000BEE97C /* GroupsView.swift */; };
 		E1760ABC25925A3600AA8BCF /* MentorPairingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1760ABB25925A3600AA8BCF /* MentorPairingView.swift */; };
@@ -146,7 +146,6 @@
 		620590C024FDBB21001565BF /* Montserrat-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Black.ttf"; sourceTree = "<group>"; };
 		620590C124FDBB21001565BF /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		620590C224FDBB21001565BF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		620590C324FDBB21001565BF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		620590C524FDBB21001565BF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		620590C724FDBB21001565BF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		620590C924FDBB21001565BF /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -245,6 +244,7 @@
 		E163D32E25A28F5200102895 /* AddQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddQuiz.swift; sourceTree = "<group>"; };
 		E163D33225A28F6500102895 /* QuizAddRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizAddRow.swift; sourceTree = "<group>"; };
 		E163D33525A2914700102895 /* QuizInputFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizInputFieldView.swift; sourceTree = "<group>"; };
+		E163D33B25A2A01500102895 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E1646BF825912076003B2FB4 /* DevChatBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevChatBanner.swift; sourceTree = "<group>"; };
 		E170EF552540BF9000BEE97C /* GroupsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupsView.swift; sourceTree = "<group>"; };
 		E1760ABB25925A3600AA8BCF /* MentorPairingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentorPairingView.swift; sourceTree = "<group>"; };
@@ -310,9 +310,9 @@
 		620590B724FDBB21001565BF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E163D33B25A2A01500102895 /* GoogleService-Info.plist */,
 				E1760AC325925A9C00AA8BCF /* 34595-confetti-for-ios-and-android.json */,
 				62F24C01251419E900777610 /* Lottie */,
-				620590C324FDBB21001565BF /* GoogleService-Info.plist */,
 				620590B824FDBB21001565BF /* Fonts */,
 			);
 			path = Resources;
@@ -767,7 +767,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E124C1B924FED758008EBD84 /* GoogleService-Info.plist in Resources */,
 				E12E5FC92584924900FB216C /* test.MP4 in Resources */,
 				620590F224FDBB21001565BF /* Montserrat-Light.ttf in Resources */,
 				620590FA24FDBB21001565BF /* Assets.xcassets in Resources */,
@@ -782,6 +781,7 @@
 				620590F424FDBB21001565BF /* Montserrat-Thin.ttf in Resources */,
 				620590F524FDBB21001565BF /* Montserrat-Bold.ttf in Resources */,
 				620590F324FDBB21001565BF /* Montserrat-ExtraLight.ttf in Resources */,
+				E163D33C25A2A01500102895 /* GoogleService-Info.plist in Resources */,
 				E1760AC425925A9C00AA8BCF /* 34595-confetti-for-ios-and-android.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1088,7 +1088,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dakshin.StudyHub2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.StudyHub.Studeo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
@@ -1114,7 +1114,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dakshin.StudyHub2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.StudyHub.Studeo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;

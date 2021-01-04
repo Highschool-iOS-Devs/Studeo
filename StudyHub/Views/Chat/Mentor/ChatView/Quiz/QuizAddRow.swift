@@ -9,28 +9,24 @@
 import SwiftUI
 
 struct QuizAddRow: View {
-    @State var question = ""
+   
     @State var answer1 = ""
     @State var answer2 = ""
     @State var answer3 = ""
+    @State var question: Question
+    @Binding var quiz: Quiz
     var body: some View {
         VStack {
            
-                QuizInputFieldView(text: $question, isQuestion: true)
+            QuizInputFieldView(text: $question.question, isQuestion: true, quiz: $quiz, question: $question)
                 
             
             Spacer()
-            
-                QuizInputFieldView(text: $answer1)
-                QuizInputFieldView( text: $answer2)
-                QuizInputFieldView( text: $answer3)
+            ForEach(self.question.answers.indices) { i in
+                QuizInputFieldView(text: $question.answers[i], quiz: $quiz, question: $question)
+                
+            }
             
         } .padding()
-    }
-}
-
-struct QuizAddRow_Previews: PreviewProvider {
-    static var previews: some View {
-        QuizAddRow()
     }
 }
