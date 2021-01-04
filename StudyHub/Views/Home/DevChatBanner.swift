@@ -21,7 +21,7 @@ struct DevChatBanner: View {
             ZStack {
                 Color("Primary")
                     .ignoresSafeArea()
-                    .frame(height: 200)
+                    .animation(.easeInOut(duration: 1.0))
                 HStack {
                     VStack {
                     Text("Have a question or feedback?")
@@ -52,11 +52,11 @@ struct DevChatBanner: View {
                         
                         }
                    
-                }  .animation(.easeInOut(duration: 1.0))
+                }  .animation(.linear(duration: 1.0))
             }
         } .frame(height: 220)
-        .animation(.easeInOut(duration: 1.0))
-        .transition(.move(edge: .top))
+        
+       
     
     }
     func joinGroup(newGroup: Groups) {
