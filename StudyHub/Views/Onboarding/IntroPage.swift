@@ -20,7 +20,7 @@ struct IntroPage: View {
                 HStack {
                     Text(titleText)
                         .font(.custom("Montserrat-Bold", size: 25))
-                        
+                        .foregroundColor(.black)
                         .padding(.vertical, 20)
                     
                 }
@@ -29,6 +29,7 @@ struct IntroPage: View {
                     .font(.custom("Montserrat-light", size: 15))
                     .padding(.bottom, 30)
                     .padding(.horizontal, 20)
+                    .foregroundColor(.black)
                 
                 Image(decorative: image)
                     .resizable()

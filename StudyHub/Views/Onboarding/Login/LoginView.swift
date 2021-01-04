@@ -128,6 +128,8 @@ struct LoginView: View {
                         if let user=user{
                             self.userData.userID = user.id.uuidString
                             self.userData.name = user.name
+                            let pushManager = PushNotificationManager(userID: user.id.uuidString)
+                                    pushManager.registerForPushNotifications()
                             if let url = user.profileImageURL{
                                 self.userData.profilePictureURL = url.absoluteString
 
