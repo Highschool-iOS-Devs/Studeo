@@ -42,7 +42,7 @@ struct Homev2: View {
     @State var animation = false
     @Binding var timerLog: [TimerLog]
     var body: some View {
-
+        GeometryReader { geo in
         ZStack {
             ZStack(alignment: .top) {
                 Color("Background").edgesIgnoringSafeArea(.all)
@@ -80,12 +80,14 @@ struct Homev2: View {
                     
                     ScrollView(.vertical, showsIndicators: false) {
                         if animate {
+                           
                             DevChatBanner()
+                                .frame(width: geo.size.width)
                                 .transition(.move(edge: .top))
-
+                            }
                             
                             
-                        }
+                        
                         
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
@@ -184,3 +186,4 @@ struct Homev2: View {
 
 }
 
+}

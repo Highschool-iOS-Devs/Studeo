@@ -27,6 +27,7 @@ struct GroupsView: View {
             .scaledToFit()
             .frame(width: screenSize.width/1.5, height: screenSize.width/1.5)
             .clipShape(RoundedRectangle(cornerRadius: 25.0))
+            .padding(.top, 22)
             VStack {
             HStack {
             Text(name)

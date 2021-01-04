@@ -11,6 +11,7 @@ struct SelfRankView: View {
     
     var hours:Double
     var body: some View {
+        
         HStack(alignment: .center) {
             ProfileRingView(size: 60)
             
@@ -45,9 +46,10 @@ struct SelfRankView: View {
         } .padding()
         .font(.custom("Montserrat-SemiBold", size: 15))
         .frame(width: 300, height: 100)
-        .background(Color.white)
+        .background(Color("Card"))
+       // .opacity(0.6)
         .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
-        .shadow(radius: 5)
+        .shadow(color: Color("shadow") ,radius: 5)
     }
 }
 
@@ -164,6 +166,7 @@ struct LeaderRankView: View {
      var name:String
     var hours:[Double]
     var body: some View {
+        
         VStack{
             ProfilePicture(pictureSize: 70, image: Image("demoprofile"))
             Text(name)

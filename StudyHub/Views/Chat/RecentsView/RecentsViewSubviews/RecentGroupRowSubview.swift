@@ -24,7 +24,7 @@ struct RecentGroupRowSubview: View {
         //Chat row background
         ZStack {
             RoundedRectangle(cornerRadius: 20)
-                .fill(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                .fill(Color("Card"))
    
             HStack {
                 MiniProfileSubview(group:group)
