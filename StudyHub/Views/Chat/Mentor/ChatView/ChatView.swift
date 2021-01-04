@@ -182,6 +182,7 @@ struct ChatView: View {
                 self.addRecentRecord()
                 
                 self.viewRouter.showTabBar = false
+
                 self.loadMembers(){ userData in
                     //Get completion handler data results from loadData function and set it as the recentPeople local variable
                     self.members = userData ?? []
@@ -283,10 +284,10 @@ struct ChatView: View {
                             try document.data(as: User.self)
                         }
                         switch result {
-                        case .success(let group):
-                            if var group = group {
+                        case .success(let user):
+                            if var user = user {
                                 
-                                groupList.append(group)
+                                groupList.append(user)
                                 
                             } else {
                                 
