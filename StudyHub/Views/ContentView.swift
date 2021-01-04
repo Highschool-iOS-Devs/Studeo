@@ -33,6 +33,8 @@ struct ContentView: View {
     @State var i2 = -1
     @State var chat = true
     @State var timerLog = [TimerLog]()
+    @State var quizzes = [Quiz(id: UUID().uuidString, name: "", tags: [String](), questions: [Question]())]
+    @State var quiz = Quiz(id: UUID().uuidString, name: "", tags: [String](), questions: [Question]())
     var body: some View {
         GeometryReader { geo in
         ZStack { 
@@ -65,6 +67,11 @@ struct ContentView: View {
         
 
                                
+                            }
+                            self.loadQuizzes(){ userData in
+                                //Get completion handler data results from loadData function and set it as the recentPeople local variable
+                              //  self.quizzes = userData ?? []
+                                
                             }
                             self.loadUserData(){ userData in
                                 //Get completion handler data results from loadData function and set it as the recentPeople local variable
@@ -148,21 +155,26 @@ struct ContentView: View {
                                 viewRouter.showTabBar = false
                             }
                             
-                        }
+                    case .quizList:
+                        QuizzesList(quizzes: quizzes)
+                    }
 
                     }
                        
-                        if viewRouter.showTabBar {
-                          
-                                Spacer()
-                                tabBarView()
-                                    .transition(AnyTransition.move(edge: .bottom))
-                                    .animation(Animation.easeInOut(duration: 0.5))
-                                    .frame(height: geo.size.height/20)
-                            }
+                        
                         }
-                    }
                     
+                    }
+            if viewRouter.showTabBar {
+                VStack {
+                    Spacer()
+                    tabBarView()
+                        .transition(AnyTransition.move(edge: .bottom))
+                        .animation(Animation.easeInOut(duration: 0.5))
+                        .frame(height: geo.size.height/20)
+                } .transition(AnyTransition.move(edge: .bottom))
+                .animation(Animation.easeInOut(duration: 0.5))
+            }
          
             // == true || viewRouter.currentView != .registration || viewRouter.currentView != .login 
            
@@ -204,6 +216,44 @@ struct ContentView: View {
             
               performAction(userList)
         }
+    }
+    func loadQuizzes(performAction: @escaping ([Quiz]?) -> Void) {
+        let db = Firestore.firestore()
+        let docRef = db.collection("quizzes/questions/\(quiz.id)")
+        var groupList:[Quiz] = []
+        //Get every single document under collection users
+        let queryParameter = docRef.whereField("members", arrayContains: userData.userID)
+        docRef.getDocuments{ (querySnapshot, error) in
+            if let querySnapshot = querySnapshot,!querySnapshot.isEmpty{
+            for document in querySnapshot.documents{
+                let result = Result {
+                    try document.data(as: Quiz.self)
+                }
+                switch result {
+                    case .success(let group):
+                        if var group = group {
+                          
+                          
+                            groupList.append(group)
+                            
+                        } else {
+                            
+                            print("Document does not exist")
+                        }
+                    case .failure(let error):
+                        print("Error decoding user: \(error)")
+                    }
+                
+              
+            }
+            }
+            else{
+                performAction(nil)
+            }
+              performAction(groupList)
+        }
+        
+        
     }
     func loadMyMentorsData(performAction: @escaping ([Groups]?) -> Void) {
         let db = Firestore.firestore()

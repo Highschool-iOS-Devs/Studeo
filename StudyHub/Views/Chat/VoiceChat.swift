@@ -12,6 +12,7 @@ import Firebase
 import FirebaseFirestoreSwift
 struct VoiceChat: View {
     @EnvironmentObject var userData: UserData
+    @EnvironmentObject var viewRouter:ViewRouter
     @State var agoraKit: AgoraRtcEngineKit
     @State var token = ""
     @State var name = ""
@@ -19,6 +20,7 @@ struct VoiceChat: View {
     @Binding var vc: Bool
     @State var group: Groups?
     @State var usersInVC = [User]()
+    @State var usersInVCString = [String]()
     @State var i = 0
     var body: some View {
         ZStack {
@@ -30,15 +32,19 @@ struct VoiceChat: View {
             .onAppear() {
                 //causing error
              
-                
+             
                 //above is causing error
                 self.loadUsersInVC() { userData in
-
+                    usersInVCString =  userData[0].userInVC ?? []
+                    usersInVCString.append(self.userData.userID)
                     if let userinVC = userData.first!.userInVC{
-                        for user in userinVC{
-                            self.loadUsersData(vcuserID:user) { userData in
+                        for user in usersInVCString {
+                            self.loadUsersData(vcuserID: user) { userData in
                                 usersInVC.append(userData)
-                              
+                                
+                                let usersRef = Firestore.firestore().collection("groups").document(group!.groupID)
+                                //causing error
+                              //  usersRef.setData(["userInVC": usersInVCString], merge: true)
                             }
                         }
                     }
@@ -51,36 +57,45 @@ struct VoiceChat: View {
 
             }
 
-
+            HStack {
+                VCGridView(users: $usersInVC, isMuted: $isMuted, agoraKit: $agoraKit)
+            
             VStack {
                 HStack {
-
-                    Button(action: {
-                        agoraKit.leaveChannel(nil)
-                        vc = false
-                    }) {
-                        Image(systemName: "xmark")
-                            .foregroundColor(Color("Primary"))
-                    }
                     Spacer()
-                } .padding()
-                Spacer()
-                Button(action: {
-                    isMuted.toggle()
+                    Button(action: {
+                        viewRouter.currentView = .quizList
 
-                        agoraKit.muteLocalAudioStream(isMuted)
-
-                }) {
-                    ZStack {
-                        Circle()
-                            .frame(width: 125, height: 125)
-                        .foregroundColor(Color("Primary"))
-                        Image(systemName: isMuted ? "mic.slash" : "mic")
-                        .foregroundColor(.white)
-            }
+                    }) {
+                        ZStack {
+                           Circle()
+                            .frame(width: 75, height: 75, alignment: .center)
+                            .foregroundColor(Color("Primary"))
+                            Image(systemName: "doc.fill")
+                                .foregroundColor(Color(.white))
                 }
+                    }
+                    Button(action: {
+                        isMuted.toggle()
+
+                            agoraKit.muteLocalAudioStream(isMuted)
+
+                    }) {
+                        ZStack {
+                            Circle()
+                                .frame(width: 75, height: 75)
+                            .foregroundColor(Color("Primary"))
+                            Image(systemName: isMuted ? "mic.slash" : "mic")
+                            .foregroundColor(.white)
+                }
+                    }
+                   
+                } .padding()
+           
+                Spacer()
+                
             }
-            VCGridView(users: $usersInVC, isMuted: $isMuted, agoraKit: $agoraKit)
+            }
     }
         .onDisappear() {
             let db = Firestore.firestore()
@@ -118,7 +133,7 @@ struct VoiceChat: View {
         var groupList:[Groups] = []
         //Get every single document under collection users
     
-     docRef.getDocument { (document, error) in
+     docRef.addSnapshotListener() { (document, error) in
          
                 let result = Result {
                  try document?.data(as: Groups.self)
@@ -145,7 +160,7 @@ struct VoiceChat: View {
             let docRef = db.collection("users").document(vcuserID)
         //Get every single document under collection users
     
-         docRef.getDocument(){ (document, error) in
+         docRef.addSnapshotListener(){ (document, error) in
              
                     let result = Result {
                      try document?.data(as: User.self)

@@ -34,6 +34,9 @@ struct ChatView: View {
     var body: some View {
         ZStack {
             Color("Background").edgesIgnoringSafeArea(.all)
+                .onAppear() {
+                    //viewRouter.showTabBar = false
+                }
             VStack {
                 //Testing UI with some messages
                 

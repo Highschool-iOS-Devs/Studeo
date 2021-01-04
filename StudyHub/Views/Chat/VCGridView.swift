@@ -25,9 +25,10 @@ struct VCGridView: View {
     @Binding var agoraKit: AgoraRtcEngineKit
    
     var body: some View {
-        LazyVGrid(columns: gridItemLayout){
+        VStack {
+            Spacer()
             ForEach(users, id: \.self){ user in
-                KFImage(user.profileImageURL, options: [.transition(.fade(0.5)), .processor(DownsamplingImageProcessor(size: CGSize(width: 500, height: 500))), .cacheOriginalImage])
+                KFImage(user.profileImageURL, options: [.transition(.fade(0.5)), .processor(DownsamplingImageProcessor(size: CGSize(width: 50, height: 50))), .cacheOriginalImage])
                     .onSuccess { r in
                          // r: RetrieveImageResult
                          //print("success: \(r)")
@@ -40,7 +41,7 @@ struct VCGridView: View {
                     .id(UUID())
                     .aspectRatio(contentMode: .fill)
                     .clipShape(Circle())
-                    .frame(minWidth:100, minHeight:100)
+                    .frame(maxWidth:75, maxHeight:75)
                     .overlay(Circle().stroke(Color("Background"), lineWidth: 1))
                     .animation(.easeInOut)
                     .transition(.opacity)

@@ -7,8 +7,10 @@
 
 import SwiftUI
 
-struct Quiz: Identifiable {
+struct Quiz: Identifiable, Hashable, Codable {
     var id: String
+    var name: String
+    var tags: [String]
     var questions: [Question]
     
 }

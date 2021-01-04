@@ -10,7 +10,7 @@ import SwiftUI
 import Firebase
 import FirebaseFirestoreSwift
 struct AddQuiz: View {
-    @State var quiz = Quiz(id: UUID().uuidString, questions: [Question]())
+    @State var quiz =  Quiz(id: UUID().uuidString, name: "", tags: [String](), questions: [Question]())
     var body: some View {
         List {
        
