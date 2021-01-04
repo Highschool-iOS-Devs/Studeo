@@ -28,47 +28,30 @@ struct VoiceChat: View {
                 UIApplication.shared.isIdleTimerDisabled = false
             }
             .onAppear() {
-                
-                let db = Firestore.firestore()
-               
-                let ref2 = db.collection("groups").document(group!.groupID)
-                ref2.getDocument{document, error in
-                    
-                    if let document = document, document.exists {
-                        
-                 
-                        let groupListCast = document.data()?["userInVC"] as? [String]
-                        
-                        if var currentGroups = groupListCast {
-                            
-                            currentGroups.append(userData.userID)
-                            ref2.updateData(
-                                [
-                                    "userInVC": currentGroups.removeDuplicates()
-                                ]
-                            )
-            }
-                    }
-                }
+
                 self.loadUsersInVC() { userData in
-                    
-                    group = userData.first!
-                    self.loadUsersData() { userData in
-                        usersInVC.removeAll()
-                        usersInVC = userData
-                        
+
+                    if let userinVC = userData.first!.userInVC{
+                        for user in userinVC{
+                            self.loadUsersData(vcuserID:user) { userData in
+                                usersInVC.append(userData)
+
+                            }
+                        }
                     }
+                 
+                  
                 }
                 initializeAgoraEngine()
                 joinChannel()
-                
-             
+
+
             }
-        
-           
+
+
             VStack {
                 HStack {
-                    
+
                     Button(action: {
                         agoraKit.leaveChannel(nil)
                         vc = false
@@ -81,9 +64,9 @@ struct VoiceChat: View {
                 Spacer()
                 Button(action: {
                     isMuted.toggle()
-                    
+
                         agoraKit.muteLocalAudioStream(isMuted)
-                    
+
                 }) {
                     ZStack {
                         Circle()
@@ -94,19 +77,19 @@ struct VoiceChat: View {
             }
                 }
             }
-            VCGridView(users: usersInVC, isMuted: $isMuted, agoraKit: $agoraKit)
+            VCGridView(users: $usersInVC, isMuted: $isMuted, agoraKit: $agoraKit)
     }
         .onDisappear() {
             let db = Firestore.firestore()
-           
+
             let ref2 = db.collection("groups").document(group!.groupID)
             ref2.getDocument{document, error in
-                
+
                 if let document = document, document.exists {
-                    
-             
+
+
                     let groupListCast = document.data()?["userInVC"] as? [String]
-                    
+
                     if var currentGroups = groupListCast {
                         for id in currentGroups {
                             if id == userData.userID {
@@ -129,7 +112,7 @@ struct VoiceChat: View {
     func loadUsersInVC(performAction: @escaping ([Groups]) -> Void) {
         let db = Firestore.firestore()
         let docRef = db.collection("groups").document(group!.groupID)
-        var userList:[Groups] = []
+        var groupList:[Groups] = []
         //Get every single document under collection users
     
      docRef.getDocument { (document, error) in
@@ -138,9 +121,9 @@ struct VoiceChat: View {
                  try document?.data(as: Groups.self)
                 }
                 switch result {
-                    case .success(let user):
-                        if let user = user {
-                            userList.append(user)
+                    case .success(let group):
+                        if let group = group {
+                            groupList.append(group)
                  
                         } else {
                             
@@ -151,38 +134,34 @@ struct VoiceChat: View {
                     }
      
             
-              performAction(userList)
+              performAction(groupList)
         }
     }
-    func loadUsersData(performAction: @escaping ([User]) -> Void) {
+    func loadUsersData(vcuserID:String, performAction: @escaping (User) -> Void) {
         let db = Firestore.firestore()
-        for userInVC in group!.userInVC {
-            let docRef = db.collection("users").document(userInVC!)
-        var userList:[User] = []
+            let docRef = db.collection("users").document(vcuserID)
         //Get every single document under collection users
     
-     docRef.getDocument(){ (document, error) in
-         
-                let result = Result {
-                 try document?.data(as: User.self)
-                }
-                switch result {
-                    case .success(let user):
-                        if let user = user {
-                            userList.append(user)
-                 
-                        } else {
-                            
-                            print("Document does not exist")
-                        }
-                    case .failure(let error):
-                        print("Error decoding user: \(error)")
+         docRef.getDocument(){ (document, error) in
+             
+                    let result = Result {
+                     try document?.data(as: User.self)
                     }
-     
-            
-              performAction(userList)
-        }
-    }
+                    switch result {
+                        case .success(let user):
+                            if let user = user {
+                                performAction(user)
+
+                            } else {
+                                
+                                print("Document does not exist")
+                            }
+                        case .failure(let error):
+                            print("Error decoding user: \(error)")
+                        }
+            }
+
+        
     }
     func initializeAgoraEngine() {
        // Initialize the AgoraRtcEngineKit object.

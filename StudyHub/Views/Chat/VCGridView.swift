@@ -20,14 +20,14 @@ import AgoraRtcKit
 struct VCGridView: View {
     @State var profileImages:[URL] = []
     var gridItemLayout = [GridItem(.flexible()), GridItem(.flexible())]
-   @State  var users: [User]
+    @Binding var users: [User]
     @Binding var isMuted: Bool
     @Binding var agoraKit: AgoraRtcEngineKit
    
     var body: some View {
         LazyVGrid(columns: gridItemLayout){
             ForEach(users, id: \.self){ user in
-                KFImage(user.profileImageURL, options: [.transition(.fade(0.5)), .processor(DownsamplingImageProcessor(size: CGSize(width: 100, height: 100))), .cacheOriginalImage])
+                KFImage(user.profileImageURL, options: [.transition(.fade(0.5)), .processor(DownsamplingImageProcessor(size: CGSize(width: 500, height: 500))), .cacheOriginalImage])
                     .onSuccess { r in
                          // r: RetrieveImageResult
                          //print("success: \(r)")
@@ -56,6 +56,10 @@ struct VCGridView: View {
         .onAppear{
             getProfileImage()
         }
+        .onChange(of: users, perform: { value in
+            getProfileImage()
+        })
+        
     }
     func getProfileImage(){
         if profileImages == []{
