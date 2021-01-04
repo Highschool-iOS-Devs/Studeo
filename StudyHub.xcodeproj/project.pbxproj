@@ -117,6 +117,7 @@
 		E163D33325A28F6500102895 /* QuizAddRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E163D33225A28F6500102895 /* QuizAddRow.swift */; };
 		E163D33625A2914700102895 /* QuizInputFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E163D33525A2914700102895 /* QuizInputFieldView.swift */; };
 		E163D33C25A2A01500102895 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E163D33B25A2A01500102895 /* GoogleService-Info.plist */; };
+		E163D37925A2CC1500102895 /* VCGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E163D37825A2CC1400102895 /* VCGridView.swift */; };
 		E1646BF925912076003B2FB4 /* DevChatBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1646BF825912076003B2FB4 /* DevChatBanner.swift */; };
 		E170EF562540BF9000BEE97C /* GroupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E170EF552540BF9000BEE97C /* GroupsView.swift */; };
 		E1760ABC25925A3600AA8BCF /* MentorPairingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1760ABB25925A3600AA8BCF /* MentorPairingView.swift */; };
@@ -245,6 +246,7 @@
 		E163D33225A28F6500102895 /* QuizAddRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizAddRow.swift; sourceTree = "<group>"; };
 		E163D33525A2914700102895 /* QuizInputFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizInputFieldView.swift; sourceTree = "<group>"; };
 		E163D33B25A2A01500102895 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E163D37825A2CC1400102895 /* VCGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCGridView.swift; sourceTree = "<group>"; };
 		E1646BF825912076003B2FB4 /* DevChatBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevChatBanner.swift; sourceTree = "<group>"; };
 		E170EF552540BF9000BEE97C /* GroupsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupsView.swift; sourceTree = "<group>"; };
 		E1760ABB25925A3600AA8BCF /* MentorPairingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentorPairingView.swift; sourceTree = "<group>"; };
@@ -439,6 +441,7 @@
 				620590E024FDBB21001565BF /* ChatCell.swift */,
 				62C3ED20250597A300CEA882 /* CreateGroupView.swift */,
 				E11157A22593CF31005E9AEA /* VoiceChat.swift */,
+				E163D37825A2CC1400102895 /* VCGridView.swift */,
 				6293A8B425A268B500E9B8DE /* ChatViewModel.swift */,
 			);
 			path = Chat;
@@ -858,6 +861,7 @@
 				626E7815258D3EEB008633AB /* ProfileRingView.swift in Sources */,
 				626EECB2258988D700E7A7A5 /* RecentsView2.swift in Sources */,
 				6258E4E1259942AC0072DA87 /* BottomCardSubview.swift in Sources */,
+				E163D37925A2CC1500102895 /* VCGridView.swift in Sources */,
 				E12C5FB5259A518500D3314E /* Line.swift in Sources */,
 				E12C5FA7259A518500D3314E /* LabelView.swift in Sources */,
 				62109C89259055B700483ADB /* MiniProfileSubview.swift in Sources */,

@@ -19,6 +19,7 @@ struct VoiceChat: View {
     @Binding var vc: Bool
     @State var group: Groups?
     @State var usersInVC = [User]()
+    @State var i = 0
     var body: some View {
         ZStack {
         Color("Background").edgesIgnoringSafeArea(.all)
@@ -27,33 +28,44 @@ struct VoiceChat: View {
                 UIApplication.shared.isIdleTimerDisabled = false
             }
             .onAppear() {
-                self.loadUsersInVC(){ userData in
-                    self.loadUsersData(){ userData in
+                
+                let db = Firestore.firestore()
+               
+                let ref2 = db.collection("groups").document(group!.groupID)
+                ref2.getDocument{document, error in
+                    
+                    if let document = document, document.exists {
+                        
+                 
+                        let groupListCast = document.data()?["userInVC"] as? [String]
+                        
+                        if var currentGroups = groupListCast {
+                            
+                            currentGroups.append(userData.userID)
+                            ref2.updateData(
+                                [
+                                    "userInVC": currentGroups.removeDuplicates()
+                                ]
+                            )
+            }
+                    }
+                }
+                self.loadUsersInVC() { userData in
+                    
+                    group = userData.first!
+                    self.loadUsersData() { userData in
+                        usersInVC.removeAll()
                         usersInVC = userData
+                        
                     }
                 }
                 initializeAgoraEngine()
                 joinChannel()
+                
+             
             }
         
-            VStack {
-                Spacer()
-               
-                Button(action: {
-                    isMuted.toggle()
-                    
-                        agoraKit.muteLocalAudioStream(isMuted)
-                    
-                }) {
-                    ZStack {
-                        Circle()
-                            .frame(width: 75)
-                        .foregroundColor(Color("Primary"))
-                        Image(systemName: isMuted ? "mic.slash" : "mic")
-                        .foregroundColor(.white)
-            }
-                }
-            }
+           
             VStack {
                 HStack {
                     
@@ -67,16 +79,60 @@ struct VoiceChat: View {
                     Spacer()
                 } .padding()
                 Spacer()
+                Button(action: {
+                    isMuted.toggle()
+                    
+                        agoraKit.muteLocalAudioStream(isMuted)
+                    
+                }) {
+                    ZStack {
+                        Circle()
+                            .frame(width: 125, height: 125)
+                        .foregroundColor(Color("Primary"))
+                        Image(systemName: isMuted ? "mic.slash" : "mic")
+                        .foregroundColor(.white)
             }
+                }
+            }
+            VCGridView(users: usersInVC, isMuted: $isMuted, agoraKit: $agoraKit)
     }
+        .onDisappear() {
+            let db = Firestore.firestore()
+           
+            let ref2 = db.collection("groups").document(group!.groupID)
+            ref2.getDocument{document, error in
+                
+                if let document = document, document.exists {
+                    
+             
+                    let groupListCast = document.data()?["userInVC"] as? [String]
+                    
+                    if var currentGroups = groupListCast {
+                        for id in currentGroups {
+                            if id == userData.userID {
+                        currentGroups.remove(at: i)
+                            }
+                            i += 1
+                        }
+                        ref2.updateData(
+                            [
+                                "userInVC": currentGroups
+                            ]
+                        )
+                        i = 0
+        }
+                }
+            }
+        }
     }
+    
     func loadUsersInVC(performAction: @escaping ([Groups]) -> Void) {
         let db = Firestore.firestore()
         let docRef = db.collection("groups").document(group!.groupID)
         var userList:[Groups] = []
         //Get every single document under collection users
     
-     docRef.addSnapshotListener { (document, error) in
+     docRef.getDocument { (document, error) in
          
                 let result = Result {
                  try document?.data(as: Groups.self)
@@ -105,7 +161,7 @@ struct VoiceChat: View {
         var userList:[User] = []
         //Get every single document under collection users
     
-     docRef.getDocument{ (document, error) in
+     docRef.getDocument(){ (document, error) in
          
                 let result = Result {
                  try document?.data(as: User.self)
