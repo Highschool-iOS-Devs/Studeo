@@ -48,7 +48,7 @@ struct ChatView: View {
                                     .id(message.id)
                                     
                             }
-                        } .transition(.opacity)
+                        } //.transition(.move(edge: .top))
                         .animation(.easeInOut(duration: 0.7))
                         .drawingGroup()
                         .padding(.top,5)

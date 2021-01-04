@@ -57,7 +57,7 @@ public struct LineView: View {
                 ZStack{
                     GeometryReader{ reader in
                         Rectangle()
-                            .foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.backgroundColor : self.style.backgroundColor)
+                            .foregroundColor(Color("Background"))
                         if(self.showLegend){
                             Legend(data: self.data,
                                    frame: .constant(reader.frame(in: .local)), hideHorizontalLines: self.$hideHorizontalLines)
