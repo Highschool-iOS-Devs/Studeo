@@ -55,6 +55,8 @@ struct SettingView: View {
                                     .padding(.horizontal, 22)
                                 VStack(spacing: 30) {
                                     availabilityRowView(settingText: "Available for new pairings", userAvailable: $userIsAvailable)
+                                    appearanceRowView()
+                                        .environmentObject(userData)
                                     settingRowView(settingText: "Notifications", settingState: ((!chatNotifications && !newGroupNotifications) ? "Off" : "On"), newView: AnyView(NotificationsView(chatNotifications: $chatNotifications, groupNotifications: $newGroupNotifications)))
                                     settingRowView(settingText: "Personal info", settingState: "", newView: AnyView(PersonalInfoView()))
                                     settingRowView(settingText: "Country", settingState: country, newView: AnyView(CountrySelectionView(selectedCountry: $country)))
@@ -332,5 +334,27 @@ struct SettingView: View {
             
         }
     }
+
+struct appearanceRowView: View {
+    @EnvironmentObject var userData: UserData
+    var body: some View {
+            HStack{
+                Text("Dark Mode")
+                    .font(.custom("Montserrat-SemiBold", size: 12))
+                    .foregroundColor(Color("Text"))
+                    .opacity(0.9)
+                    .padding()
+                Spacer()
+                
+                Toggle("Dark Mode", isOn: $userData.darkModeOn)
+                    .labelsHidden()
+                    .padding()
+            }
+        
+        
+       
+        
+    }
+}
 
 

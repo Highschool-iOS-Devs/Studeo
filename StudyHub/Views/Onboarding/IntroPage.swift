@@ -15,12 +15,13 @@ struct IntroPage: View {
     @EnvironmentObject var viewRouter: ViewRouter
     var body: some View {
         ZStack {
-            Color.white.edgesIgnoringSafeArea(.all)
+            Color("Background")
+                .edgesIgnoringSafeArea(.all)
             VStack {
                 HStack {
                     Text(titleText)
                         .font(.custom("Montserrat-Bold", size: 25))
-                        .foregroundColor(.black)
+                        .foregroundColor(Color("Text"))
                         .padding(.vertical, 20)
                     
                 }
@@ -29,7 +30,7 @@ struct IntroPage: View {
                     .font(.custom("Montserrat-light", size: 15))
                     .padding(.bottom, 30)
                     .padding(.horizontal, 20)
-                    .foregroundColor(.black)
+                    .foregroundColor(Color("Text"))
                 
                 Image(decorative: image)
                     .resizable()

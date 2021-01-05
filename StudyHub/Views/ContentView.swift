@@ -179,7 +179,9 @@ struct ContentView: View {
             // == true || viewRouter.currentView != .registration || viewRouter.currentView != .login 
            
                 
-                } .frame(height: geo.size.height)
+        }
+        .frame(height: geo.size.height)
+        .preferredColorScheme((userData.darkModeOn==true) ? .dark : .light)
         }
         .environmentObject(userData)
         .environmentObject(viewRouter)
