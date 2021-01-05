@@ -50,7 +50,7 @@ struct Homev2: View {
             ZStack(alignment: .top) {
                 Color("Background").edgesIgnoringSafeArea(.all)
                     .onAppear() {
-                        userData.hasDev = false
+                       // userData.hasDev = false
                         recommendGroups.removeAll()
                         if !user.isEmpty {
                         if !user[0].studyHours.isEmpty {
