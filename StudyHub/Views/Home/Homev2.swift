@@ -87,7 +87,7 @@ struct Homev2: View {
                             }
                             
                             
-                        
+                        if !recentPeople.isEmpty {
                         
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
@@ -102,7 +102,7 @@ struct Homev2: View {
                             } .padding(.top, 42)
                         }
                         Divider()
-                        
+                        }
                         if recommendGroups.isEmpty {
                             
                         } else {
@@ -138,6 +138,9 @@ struct Homev2: View {
                                 .onTapGesture {
                                     viewRouter.updateCurrentView(view: .leaderboard)
                                 }
+                        }
+                        if recentPeople.isEmpty {
+                        CTA(imgName: "friends", cta: "Add Friends")
                         }
                             CTA(imgName: "mentor", cta: "Find a Mentor")
                                

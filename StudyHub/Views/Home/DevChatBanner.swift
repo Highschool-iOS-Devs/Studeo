@@ -21,7 +21,7 @@ struct DevChatBanner: View {
             ZStack {
                 Color("Primary")
                     .ignoresSafeArea()
-                    .animation(.easeInOut(duration: 1.0))
+                    .animation(.easeInOut(duration: 2.0))
                 HStack {
                     VStack {
                     Text("Have a question or feedback?")
@@ -52,7 +52,7 @@ struct DevChatBanner: View {
                         
                         }
                    
-                }  .animation(.linear(duration: 1.0))
+                }  .animation(.linear(duration: 2.0))
             }
         } .frame(height: 220)
         

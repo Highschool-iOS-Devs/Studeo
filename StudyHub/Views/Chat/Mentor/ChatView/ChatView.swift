@@ -21,6 +21,7 @@ struct ChatView: View {
     //@State var nameAndProfiles:[NameAndProfileModel] = []
     @State var messageField = ""
     @State var messages = [MessageData]()
+    @State var memeberSent = [MessageData]()
     @State var members = [User]()
     @State var group: Groups
     //@State var image:Image
@@ -44,9 +45,21 @@ struct ChatView: View {
                     ScrollViewReader { scrollView in
                         LazyVStack {
                             ForEach(self.messages, id:\.self) { message in
+                                VStack {
                                 MessageCellView(message)
                                     .id(message.id)
-                                    
+                                    HStack {
+                                        if message.sentBySelf ?? false {
+                                            Spacer()
+                                        }
+                                    Text(message.sentByName)
+                                        .font(.custom("Montserrat Light", size: 10))
+                                        
+                                        if !message.sentBySelf! {
+                                            Spacer()
+                                        }
+                                    } .padding(.horizontal)
+                                }
                             }
                         } //.transition(.move(edge: .top))
                         .animation(.easeInOut(duration: 0.7))
@@ -87,7 +100,7 @@ struct ChatView: View {
                         .foregroundColor(Color.gray.opacity(1))
                         .onTapGesture{
                             if self.messageField != ""{
-                                let newMessage = MessageData(messageText: self.messageField, sentBy: self.userData.userID, sentTime: Date())
+                                let newMessage = MessageData(messageText: self.messageField, sentBy: self.userData.userID, sentByName: self.userData.name, sentTime: Date())
                                 for member in members {
                                 let sender = PushNotificationSender()
                                     if member.fcmToken != nil {

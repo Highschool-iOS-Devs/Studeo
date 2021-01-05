@@ -121,18 +121,15 @@ struct ContentView: View {
                             .environmentObject(viewRouter)
                     case .home:
                         if userData.uses == 1 {
-                            Home(timerLog: $timerLog)
-                                .transition(.opacity)
-                                .animation(.easeInOut)
+                            Homev2(recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user, timerLog: $timerLog)
+                               
                                 .onAppear() {
                                     viewRouter.showTabBar = true
                                 }
                         } else {
-                           // Home(timerLog: $timerLog)
+                            //Home(timerLog: $timerLog)
                             Homev2(recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user, timerLog: $timerLog)
-                                .transition(.opacity)
-                                .animation(.easeInOut)
-                                .onAppear() {
+                                                                .onAppear() {
                                     viewRouter.showTabBar = true
                                 }
                             .environmentObject(userData)

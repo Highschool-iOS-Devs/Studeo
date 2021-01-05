@@ -43,6 +43,7 @@ struct MessageData: Codable, Identifiable, Hashable {
     @DocumentID var id: String?
     var messageText:String
     var sentBy:String
+    var sentByName:String
     var sentTime:Date
     var sentBySelf:Bool?
  
