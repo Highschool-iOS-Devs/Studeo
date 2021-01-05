@@ -55,8 +55,8 @@ struct SettingView: View {
                                     .padding(.horizontal, 22)
                                 VStack(spacing: 30) {
                                     availabilityRowView(settingText: "Available for new pairings", userAvailable: $userIsAvailable)
-                                    appearanceRowView()
-                                        .environmentObject(userData)
+                                   // appearanceRowView()
+                                    //    .environmentObject(userData)
                                     settingRowView(settingText: "Notifications", settingState: ((!chatNotifications && !newGroupNotifications) ? "Off" : "On"), newView: AnyView(NotificationsView(chatNotifications: $chatNotifications, groupNotifications: $newGroupNotifications)))
                                     settingRowView(settingText: "Personal info", settingState: "", newView: AnyView(PersonalInfoView()))
                                     settingRowView(settingText: "Country", settingState: country, newView: AnyView(CountrySelectionView(selectedCountry: $country)))

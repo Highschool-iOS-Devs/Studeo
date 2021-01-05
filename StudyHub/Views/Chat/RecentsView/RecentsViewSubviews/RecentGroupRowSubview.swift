@@ -42,12 +42,12 @@ struct RecentGroupRowSubview: View {
                 
                 VStack {
                     ZStack {
-                        Circle()
-                        .fill(Color(#colorLiteral(red: 0.9666666388511658, green: 0.257515013217926, blue: 0.2497221827507019, alpha: 1)))
-                        .frame(width: 16, height: 16)
+                       // Circle()
+                        //.fill(Color(#colorLiteral(red: 0.9666666388511658, green: 0.257515013217926, blue: 0.2497221827507019, alpha: 1)))
+                      //  .frame(width: 16, height: 16)
                
-                        Text("8").font(.custom("Montserrat SemiBold", size: 9)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center)
-                        .textCase(.uppercase)
+                      //  Text("8").font(.custom("Montserrat SemiBold", size: 9)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center)
+                      //  .textCase(.uppercase)
                     }
                     Text(sentTime).font(.custom("Montserrat Regular", size: 12)).foregroundColor(Color(#colorLiteral(red: 0.18, green: 0.57, blue: 0.82, alpha: 1))).multilineTextAlignment(.center)
 

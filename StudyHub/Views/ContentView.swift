@@ -193,7 +193,7 @@ struct ContentView: View {
                 
         }
         .frame(height: geo.size.height)
-        .preferredColorScheme((userData.darkModeOn==true) ? .dark : .light)
+     //   .preferredColorScheme((userData.darkModeOn==true) ? .dark : .light)
         }
         .environmentObject(userData)
         .environmentObject(viewRouter)
