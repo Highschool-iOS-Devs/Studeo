@@ -41,13 +41,14 @@ struct Homev2: View {
     @State var animate = false
     @State var animation = false
     @Binding var timerLog: [TimerLog]
+    @State var disable = true
     var body: some View {
         GeometryReader { geo in
         ZStack {
             ZStack(alignment: .top) {
                 Color("Background").edgesIgnoringSafeArea(.all)
                     .onAppear() {
-                       
+                        recommendGroups.removeAll()
                         if !user.isEmpty {
                         if !user[0].studyHours.isEmpty {
                         
@@ -106,13 +107,15 @@ struct Homev2: View {
                         if recommendGroups.isEmpty {
                             
                         } else {
+                            if !disable {
                         HStack {
                             Text("Recommended")
                                 .font(.custom("Montserrat Bold", size: 24)).foregroundColor(Color("Primary"))
                             Spacer()
                         }.padding()
                         .padding(.top, 40)
-                        }
+                        
+                       
                         ScrollView(.horizontal, showsIndicators: false) {
                                 HStack {
                                     ForEach(Array(recommendGroups.enumerated()), id: \.element) { i, group in
@@ -127,7 +130,8 @@ struct Homev2: View {
                                     Spacer(minLength: 110)
                                 }
                             }
-                   
+                        }
+                        }
 
                            
                         if user.isEmpty {
@@ -140,7 +144,7 @@ struct Homev2: View {
                                 }
                         }
                         if recentPeople.isEmpty {
-                        CTA(imgName: "friends", cta: "Add Friends")
+                        CTA(imgName: "friends", cta: "Find Study Partners")
                         }
                             CTA(imgName: "mentor", cta: "Find a Mentor")
                                
