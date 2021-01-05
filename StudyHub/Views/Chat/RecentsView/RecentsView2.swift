@@ -37,7 +37,8 @@ struct RecentsView2: View {
                                 .environmentObject(userData)
                                 .padding(.top)
                             Spacer()
-                            if groupModel.allGroups == []{
+                            if groupModel.allGroups == [] {
+                                
                                 Text("You are not in any study group yet,\n\nUse the add button to pair. 🙌").font(.custom("Montserrat Bold", size: 24)).foregroundColor(Color(#colorLiteral(red: 0.27, green: 0.89, blue: 0.98, alpha: 1)))
                                 .multilineTextAlignment(.center)
                                     .frame(width: 250)
@@ -45,6 +46,7 @@ struct RecentsView2: View {
                             }
                             else{
                                 VStack(spacing: 20) {
+                                    if !groupModel.recentGroups.isEmpty {
                                     ForEach(groupModel.recentGroups){ group in
                                         NavigationLink(
                                             destination:ChatView(group: group)
@@ -57,7 +59,7 @@ struct RecentsView2: View {
                                             
                                         }
                                         
-                                     
+                                    }
                                     }
                                     Spacer()
                                 }
@@ -66,6 +68,7 @@ struct RecentsView2: View {
                                 
                             }
                             Spacer()
+                            if !groupModel.allGroups.isEmpty {
                             VStack{
                                 AllGroupTextRow()
                                     .environmentObject(userData)
@@ -79,14 +82,16 @@ struct RecentsView2: View {
                                     
                                     }
                                 }
-
                             }
+                            }
+                            if !myMentors.isEmpty {
                             HStack{
                                 
                                     Text("Mentors").font(.custom("Montserrat Bold", size: 24)).foregroundColor(Color("Primary"))
                                 Spacer()
                                 
                             } .padding()
+                          
                             LazyVGrid(columns: gridItemLayout, spacing: 40) {
                                 ForEach(myMentors){ group in
                                     NavigationLink(
@@ -99,6 +104,7 @@ struct RecentsView2: View {
                                         
                                 }
                                 }
+                            }
                             }
                             Spacer(minLength: 200)
                         }

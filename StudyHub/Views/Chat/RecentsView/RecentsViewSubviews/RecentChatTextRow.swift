@@ -16,8 +16,8 @@ struct RecentChatTextRow: View {
                 Text("Recent Chats").font(.custom("Montserrat Bold", size: 24)).foregroundColor(Color("Primary"))
             }
             Spacer()
-            Text("View all").font(.custom("Montserrat Regular", size: 15)).foregroundColor(Color("Primary"))
-                .padding(.trailing, 5)
+           // Text("View all").font(.custom("Montserrat Regular", size: 15)).foregroundColor(Color("Primary"))
+             //   .padding(.trailing, 5)
             
             Circle()
                 .fill(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
