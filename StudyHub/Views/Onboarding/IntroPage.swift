@@ -13,30 +13,74 @@ struct IntroPage: View {
     var bodyText:String
     var image:String
     @EnvironmentObject var viewRouter: ViewRouter
+    @State var animate1 = false
+    @State var animate2 = false
+    @State var animate3 = false
+    @State var animate4 = false
+    @State var animate5 = false
+    @State var animate6 = false
     var body: some View {
         ZStack {
             Color.white.edgesIgnoringSafeArea(.all)
+                .onAppear() {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        animate1 = true
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                        animate2 = true
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        animate3 = true
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                        animate4 = true
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                        animate5 = true
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
+                        animate6 = true
+                    }
+                }
             VStack {
                 HStack {
+                    if animate1 {
                     Text(titleText)
                         .font(.custom("Montserrat-Bold", size: 25))
                         .foregroundColor(.black)
                         .padding(.vertical, 20)
-                    
+                        .transition(.opacity)
+                        .animation(.easeInOut(duration: 1.5))
+                     
                 }
+                }
+                if animate2 {
+                Spacer()
+                }
+                if animate3 {
                 Text(bodyText)
                     .multilineTextAlignment(.center)
                     .font(.custom("Montserrat-light", size: 15))
                     .padding(.bottom, 30)
                     .padding(.horizontal, 20)
                     .foregroundColor(.black)
-                
+                    .transition(.opacity)
+                    .animation(.easeInOut(duration: 1.5))
+                }
+                if animate4 {
+                Spacer()
+                }
+                if animate5 {
                 Image(decorative: image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: screenSize.width-40, height:screenSize.height/2.3)
-                
+                    .transition(.opacity)
+                    .animation(.easeInOut(duration: 1.5))
+                    if animate6 {
                 Spacer()
+                    }
+                }
                // Text("Skip for now")
                   //  .font(.custom("Montserrat-Regular", size: 17))
                    // .foregroundColor(Color.black.opacity(0.5))
