@@ -200,7 +200,7 @@ struct ContentView: View {
         var userList:[User] = []
         //Get every single document under collection users
     
-     docRef.getDocument{ (document, error) in
+     docRef.addSnapshotListener{ (document, error) in
          
                 let result = Result {
                  try document?.data(as: User.self)
@@ -228,7 +228,7 @@ struct ContentView: View {
         var groupList:[Quiz] = []
         //Get every single document under collection users
         let queryParameter = docRef.whereField("members", arrayContains: userData.userID)
-        docRef.getDocuments{ (querySnapshot, error) in
+        docRef.addSnapshotListener{ (querySnapshot, error) in
             if let querySnapshot = querySnapshot,!querySnapshot.isEmpty{
             for document in querySnapshot.documents{
                 let result = Result {
@@ -266,7 +266,7 @@ struct ContentView: View {
         var groupList:[Groups] = []
         //Get every single document under collection users
         let queryParameter = docRef.whereField("members", arrayContains: userData.userID)
-        queryParameter.getDocuments{ (querySnapshot, error) in
+        queryParameter.addSnapshotListener(){ (querySnapshot, error) in
             if let querySnapshot = querySnapshot,!querySnapshot.isEmpty{
             for document in querySnapshot.documents{
                 let result = Result {
@@ -314,7 +314,7 @@ struct ContentView: View {
         var groupList:[Groups] = []
         //Get every single document under collection users
         let queryParameter = docRef.whereField("members", arrayContains: userData.userID)
-        queryParameter.getDocuments{ (querySnapshot, error) in
+        queryParameter.addSnapshotListener{ (querySnapshot, error) in
             if let querySnapshot = querySnapshot,!querySnapshot.isEmpty{
             for document in querySnapshot.documents{
                 let result = Result {
@@ -362,7 +362,7 @@ struct ContentView: View {
         var groupList:[Groups] = []
         //Get every single document under collection users
         let queryParameter = docRef.whereField("members", arrayContains: userData.userID)
-        queryParameter.getDocuments{ (querySnapshot, error) in
+        queryParameter.addSnapshotListener{ (querySnapshot, error) in
             if let querySnapshot = querySnapshot,!querySnapshot.isEmpty{
             for document in querySnapshot.documents{
                 let result = Result {
@@ -411,7 +411,7 @@ struct ContentView: View {
         var userList:[TimerLog] = []
         //Get every single document under collection users
     
-     docRef.getDocuments { (document, error) in
+     docRef.addSnapshotListener { (document, error) in
         if let document = document, !document.isEmpty {
         for document in document.documents {
                 let result = Result {
@@ -448,7 +448,7 @@ struct ContentView: View {
                 //Get every single document under collection users
                 
                 let queryParameter = docRef.whereField("interests", arrayContains: "\(user[0].interests!.first!)")
-                queryParameter.getDocuments { (querySnapshot, error) in
+                queryParameter.addSnapshotListener { (querySnapshot, error) in
                     if let querySnapshot = querySnapshot,!querySnapshot.isEmpty{
                         for document in querySnapshot.documents{
                             let result = Result {
