@@ -40,7 +40,7 @@ struct CTA: View {
                         .padding(.leading, 30)
                     Button(action: {
                         self.userData.tappedCTA = true
-                        if self.cta == "Add Friends" {
+                        if self.cta == "Find Study Partners" {
                             self.tabRouter.currentView = .chatList
                             
                             
