@@ -15,13 +15,17 @@ struct DevChatBanner: View {
     @EnvironmentObject var viewRouter:ViewRouter
     @EnvironmentObject var userData:UserData
     ///DevGroup
-    @State var devGroup = Groups(id: "", groupID: UUID().uuidString, groupName: "Andreas", members: [String](), membersCount: 0, interests: [UserInterestTypes?](), recentMessage: "", recentMessageTime: Date(), userInVC: [String]())
+    @Binding var devGroup: Groups
+    @Binding var show: Bool
     var body: some View {
         NavigationView{
             ZStack {
                 Color("Primary")
                     .ignoresSafeArea()
                     .animation(.easeInOut(duration: 2.0))
+                    .onAppear() {
+                        
+                    }
                 HStack {
                     VStack {
                     Text("Have a question or feedback?")
@@ -29,23 +33,22 @@ struct DevChatBanner: View {
                         .foregroundColor(.white)
                         .padding()
                         ///NavigationLink that takes user directly to the talk with developer chat, without going through viewRouter
-                        NavigationLink(destination: ChatView(group: devGroup)
-                                                        .onAppear() {
-                                                            viewRouter.showTabBar = false
-                                                            joinGroup(newGroup: devGroup)
-                                                            userData.hasDev = true
-                                                        }
-                        ){
-                            Button(action: {
-                            }) {
+                        Button(action: {
+                            joinGroup(newGroup: devGroup)
+                            show = true
+                        }) {
+                            
+                        
+                           
                                 Text("Talk directly to a developer of this app")
                                     .font(.custom("Montserrat-Semibold", size: 12))
                                     .foregroundColor(Color("Primary"))
                                     .padding()
                                     .background(RoundedRectangle(cornerRadius: 25).foregroundColor(.white))
-                            }
+                            
                             .padding()
-                        }
+                        } 
+                        .frame(height: 60)
                         .navigationTitle("")
                         .navigationBarHidden(true)
                       
@@ -70,7 +73,7 @@ struct DevChatBanner: View {
             print("Error writing to database, \(error)")
         }
         
-        devGroup.members.append("n3SQZeq1oMhJzHNd1WlMSEClLHp2")
+        devGroup.members.append("FD0BAF27-101A-4BE7-8983-B70F5E74E3FD")
         devGroup.members.append(userData.userID)
         for member in devGroup.members {
             print(member)

@@ -32,6 +32,7 @@ struct ChatView: View {
     @State var token = ""
     @State var showFull = false
     @State var keyboardHeight:CGFloat = CGFloat.zero
+    @Binding var show: Bool
     var body: some View {
         ZStack {
             Color("Background").edgesIgnoringSafeArea(.all)
@@ -82,7 +83,7 @@ struct ChatView: View {
                     
                     MessageButtons(imageName: "xmark")
                         .onTapGesture {
-                            
+                            show = false
                             presentationMode.wrappedValue.dismiss()
                             
                         }

@@ -31,10 +31,11 @@ struct ContentView: View {
     @State var interests = [String]()
     @State var i = 0
     @State var i2 = -1
-    @State var chat = true
+    @State var show = true
     @State var timerLog = [TimerLog]()
     @State var quizzes = [Quiz(id: UUID().uuidString, name: "", tags: [String](), questions: [Question]())]
     @State var quiz = Quiz(id: UUID().uuidString, name: "", tags: [String](), questions: [Question]())
+    @State var devGroup = Groups(id: "", groupID: UUID().uuidString, groupName: "Andreas", members: [String](), membersCount: 0, interests: [UserInterestTypes?](), recentMessage: "", recentMessageTime: Date(), userInVC: [String]())
     var body: some View {
         GeometryReader { geo in
         ZStack { 
@@ -101,12 +102,20 @@ struct ContentView: View {
                            
                     }
                     VStack {
-                if hasLoaded {
-                    switch viewRouter.currentView {
-                    case .mentor:
-                        MentorPairingView(settings: $settings, add: $add, myGroups: $myGroups, myMentors: $myMentors)
-                    case .registration:
-                        RegistrationView()
+                        if hasLoaded {
+                            switch viewRouter.currentView {
+                            case .devChat:
+                                ChatView(group: devGroup, show: $show)
+                                    .onAppear() {
+                                        viewRouter.showTabBar = false
+                                        
+                                        
+                                        userData.hasDev = true
+                                    }
+                            case .mentor:
+                                MentorPairingView(settings: $settings, add: $add, myGroups: $myGroups, myMentors: $myMentors)
+                            case .registration:
+                                RegistrationView()
                             .environmentObject(viewRouter)
                     case .login:
                         LoginView()
@@ -121,14 +130,14 @@ struct ContentView: View {
                             .environmentObject(viewRouter)
                     case .home:
                         if userData.uses == 1 {
-                            Homev2(recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user, timerLog: $timerLog)
+                            Homev2(recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user, timerLog: $timerLog, devGroup: $devGroup)
                                
                                 .onAppear() {
                                     viewRouter.showTabBar = true
                                 }
                         } else {
                             //Home(timerLog: $timerLog)
-                            Homev2(recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user, timerLog: $timerLog)
+                            Homev2(recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user, timerLog: $timerLog, devGroup: $devGroup)
                                                                 .onAppear() {
                                     viewRouter.showTabBar = true
                                 }

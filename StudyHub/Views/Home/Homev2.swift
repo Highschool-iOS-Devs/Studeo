@@ -42,12 +42,15 @@ struct Homev2: View {
     @State var animation = false
     @Binding var timerLog: [TimerLog]
     @State var disable = true
+    @Binding var devGroup: Groups
+    @State var show = false
     var body: some View {
         GeometryReader { geo in
         ZStack {
             ZStack(alignment: .top) {
                 Color("Background").edgesIgnoringSafeArea(.all)
                     .onAppear() {
+                        userData.hasDev = false
                         recommendGroups.removeAll()
                         if !user.isEmpty {
                         if !user[0].studyHours.isEmpty {
@@ -82,7 +85,7 @@ struct Homev2: View {
                     ScrollView(.vertical, showsIndicators: false) {
                         if animate {
                            
-                            DevChatBanner()
+                            DevChatBanner(devGroup: $devGroup, show: $show)
                                 .frame(width: geo.size.width)
                                 .transition(.move(edge: .top))
                             }
@@ -187,10 +190,12 @@ struct Homev2: View {
         
         }
     
-
+            if show {
+                ChatView(group: devGroup, show: $show)
+            }
 
 }
-
+       
 }
 
 }

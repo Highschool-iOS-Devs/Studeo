@@ -24,7 +24,7 @@ struct RecentsView2: View {
     @State var showTimer = false
     @Binding var myMentors:[Groups]
     @Binding var timerLog: [TimerLog]
-
+@State var show = false
     var body: some View {
         NavigationView{
             ZStack{
@@ -49,7 +49,7 @@ struct RecentsView2: View {
                                     if !groupModel.recentGroups.isEmpty {
                                     ForEach(groupModel.recentGroups){ group in
                                         NavigationLink(
-                                            destination:ChatView(group: group)
+                                            destination:ChatView(group: group, show: $show)
                                                         .environmentObject(userData)
                                             ){
                                             
@@ -74,7 +74,7 @@ struct RecentsView2: View {
                                     .environmentObject(userData)
                                 LazyVGrid(columns: gridItemLayout, spacing: 40){
                                     ForEach(groupModel.allGroups){group in
-                                        NavigationLink(destination: ChatView(group: group)
+                                        NavigationLink(destination: ChatView(group: group, show: $show)
                                                         .environmentObject(userData)){
                                             RecentChatGroupSubview(group: group)
                                                 .environmentObject(UserData.shared)
@@ -95,7 +95,7 @@ struct RecentsView2: View {
                             LazyVGrid(columns: gridItemLayout, spacing: 40) {
                                 ForEach(myMentors){ group in
                                     NavigationLink(
-                                        destination:ChatView(group: group)
+                                        destination:ChatView(group: group, show: $show)
                                                     .environmentObject(userData)
                                            
                                         ){
