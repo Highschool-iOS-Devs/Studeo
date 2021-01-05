@@ -95,7 +95,7 @@ struct LoginView: View {
                         self.viewRouter.updateCurrentView(view: .home)
                         self.viewRouter.showTabBar = true
                     } else {
-                        self.viewRouter.updateCurrentView(view: .custom)
+                        self.viewRouter.updateCurrentView(view: .mentorCustom)
                     }
                 }
             }

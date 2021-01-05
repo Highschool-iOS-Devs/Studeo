@@ -30,16 +30,16 @@ struct IntroPage: View {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                         animate2 = true
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
                         animate3 = true
                     }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
                         animate4 = true
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
                         animate5 = true
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
                         animate6 = true
                     }
                 }

@@ -76,7 +76,7 @@ struct IntroMentor: View {
                         do{
                             try saveData()
                            // userData.isOnboardingCompleted = true
-                          //  self.viewRouter.currentView = .home
+                            self.viewRouter.currentView = .custom
                         }
                         catch{
                             print("Failed saving user interest data, \(error)")

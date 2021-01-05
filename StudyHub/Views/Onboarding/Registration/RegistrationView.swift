@@ -95,7 +95,7 @@ struct RegistrationView: View {
                 self.userData.userID = authResult!.id.uuidString
                 self.userData.name = authResult!.name
                 uploadImage()
-                self.viewRouter.updateCurrentView(view: .custom)
+                self.viewRouter.updateCurrentView(view: .mentorCustom)
                // self.viewRouter.showTabBar = true
         }
 

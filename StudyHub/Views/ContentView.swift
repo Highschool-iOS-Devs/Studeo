@@ -124,10 +124,16 @@ struct ContentView: View {
                         RecentsView2(myMentors: $myMentors, timerLog: $timerLog)
                             .environmentObject(userData)
                             .environmentObject(viewRouter)
+                            .onAppear() {
+                                viewRouter.showTabBar = true
+                            }
                     case .profile:
                         ProfileView(user: $user)
                             .environmentObject(userData)
                             .environmentObject(viewRouter)
+                            .onAppear() {
+                                viewRouter.showTabBar = true
+                            }
                     case .home:
                         if userData.uses == 1 {
                             Homev2(recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user, timerLog: $timerLog, devGroup: $devGroup)
@@ -151,14 +157,28 @@ struct ContentView: View {
                             .onDisappear() {
                                 viewRouter.showTabBar = true
                             }
+                            case .mentorCustom:
+                                IntroMentor(settings: $settings, add: $add)
+                                    .onAppear() {
+                                        viewRouter.showTabBar = false
+                                    }
+                                    .onDisappear() {
+                                        viewRouter.showTabBar = true
+                                    }
                     case .settings:
                         SettingView()
                             .environmentObject(viewRouter)
                             .environmentObject(userData)
+                            .onAppear() {
+                                viewRouter.showTabBar = true
+                            }
                     case .leaderboard:
                         LeaderboardView()
                             .environmentObject(userData)
                             .environmentObject(viewRouter)
+                            .onAppear() {
+                                viewRouter.showTabBar = true
+                            }
                     case .introView:
                         IntroView()
                             .transition(.opacity)
