@@ -21,7 +21,8 @@ struct IntroPage: View {
     @State var animate6 = false
     var body: some View {
         ZStack {
-            Color.white.edgesIgnoringSafeArea(.all)
+            Color("Background")
+                .edgesIgnoringSafeArea(.all)
                 .onAppear() {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         animate1 = true
@@ -63,7 +64,7 @@ struct IntroPage: View {
                     .font(.custom("Montserrat-light", size: 15))
                     .padding(.bottom, 30)
                     .padding(.horizontal, 20)
-                    .foregroundColor(.black)
+                    .foregroundColor(Color("Text"))
                     .transition(.opacity)
                     .animation(.easeInOut(duration: 1.5))
                 }
