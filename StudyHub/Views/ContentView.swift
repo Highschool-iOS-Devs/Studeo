@@ -122,12 +122,16 @@ struct ContentView: View {
                     case .home:
                         if userData.uses == 1 {
                             Home(timerLog: $timerLog)
+                                .transition(.opacity)
+                                .animation(.easeInOut)
                                 .onAppear() {
                                     viewRouter.showTabBar = true
                                 }
                         } else {
                            // Home(timerLog: $timerLog)
                             Homev2(recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user, timerLog: $timerLog)
+                                .transition(.opacity)
+                                .animation(.easeInOut)
                                 .onAppear() {
                                     viewRouter.showTabBar = true
                                 }
@@ -151,6 +155,8 @@ struct ContentView: View {
                             .environmentObject(viewRouter)
                     case .introView:
                         IntroView()
+                            .transition(.opacity)
+                            .animation(.easeInOut)
                             .onAppear() {
                                 viewRouter.showTabBar = false
                             }
@@ -549,8 +555,9 @@ struct ContentView: View {
             Auth.auth().addStateDidChangeListener { (auth, user) in
                 if user != nil{
                     if userData.isOnboardingCompleted {
-
+                        withAnimation(.easeOut(duration: 1.0)) {
                         self.viewRouter.currentView = .home
+                        }
                     }
                     else{
                         self.viewRouter.showTabBar = false
@@ -561,10 +568,11 @@ struct ContentView: View {
                 
                 }
                 else {
+                    withAnimation(.easeInOut(duration: 1.5)) {
                     self.viewRouter.currentView = .introView
                     self.hasCheckedAuth = true
                 }
-               
+                }
             }
         
          

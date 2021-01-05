@@ -22,17 +22,21 @@ struct IntroView: View {
         ZStack {
            
             TabView {
-                IntroPage(titleText: "Welcome", bodyText: "Welcome to Study Hub, a place where you can get help and motivation. Build the future you dreamed of, one study session at a time.", image: "studying_drawing")
-                IntroPage(titleText: "Study", bodyText: "Gain motivation by tracking your progress with a study timer and compete with others on a leaderboard.", image: "mentor_drawing" )
+                IntroPage(titleText: "Welcome", bodyText: "Welcome to Studeo, a place to study with others and gain motivation. Build the future you've dreamed of, one study session at a time.", image: "studying_drawing")
+                    
+                
+                IntroPage(titleText: "Study", bodyText: "Gain motivation by tracking your progress with a study timer and compete with others.", image: "mentor_drawing" )
                 IntroPage(titleText: "Motivate", bodyText: "Join a community deticated to motivating each other to study.", image: "timer_drawing")
                 RegistrationView()
                     .environmentObject(ViewRouter.shared)
                     .environmentObject(UserData.shared)
+                    .ignoresSafeArea()
                 
             }.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-          
-        
-        
+            
+            .transition(.opacity)
+            .animation(.easeInOut(duration: 1.5))
+            .ignoresSafeArea()
 
        
         }

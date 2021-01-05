@@ -40,7 +40,7 @@ struct RegistrationView: View {
                     }, secondaryButtonAction: {self.viewRouter.updateCurrentView(view: .login)}, displayMode: .registration)
                     .padding(.top, 30)
                     .padding(.bottom, 30)
-                }
+            } .padding(.bottom, 62)
                 .blur(radius: showLoadingAnimation ? 20 : 0)
                 .onAppear{
                     viewRouter.showTabBar = false
