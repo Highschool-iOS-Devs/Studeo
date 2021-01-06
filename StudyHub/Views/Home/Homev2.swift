@@ -45,7 +45,7 @@ struct Homev2: View {
     @State var disable = true
     @Binding var devGroup: Groups
     @State var show = false
-    @State var users = [User]()
+    @State var users = [String]()
     var body: some View {
         GeometryReader { geo in
         ZStack {
@@ -62,8 +62,12 @@ struct Homev2: View {
                             
                         }
                     }
-                        self.loadUserData(){ userData in
-                            users = userData
+                        for group in recentPeople {
+                            for user in group.members {
+                                if user != userData.userID {
+                                    users.append(user)
+                                }
+                            }
                         }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                             withAnimation(.easeInOut(duration: 1.0)) {
@@ -101,8 +105,9 @@ struct Homev2: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
                                 ForEach(recentPeople.indices, id:\.self){ i in
+                                   
                                     //ProfilePic(name: groups.groupName, size: 70)
-                                    ProfileRingView(imageURL: users[i].profileImageURL, size: geo.size.width/6)
+                                    ProfilePic(name: "", size: 75, id: users[i])
                                         .padding()
                                         .onTapGesture() {
                                             group = recentPeople[i]
@@ -216,38 +221,7 @@ struct Homev2: View {
 }
        
 }
-    func loadUserData(performAction: @escaping ([User]) -> Void) {
-        for dm in recentPeople {
-            for user in dm.members {
-                if user != userData.userID {
-        let db = Firestore.firestore()
-            let docRef = db.collection("users").document(user)
-        var userList:[User] = []
-        //Get every single document under collection users
+  
     
-     docRef.getDocument(){ (document, error) in
-         
-                let result = Result {
-                 try document?.data(as: User.self)
-                }
-                switch result {
-                    case .success(let user):
-                        if let user = user {
-                            userList.append(user)
-                 
-                        } else {
-                            
-                            print("Document does not exist")
-                        }
-                    case .failure(let error):
-                        print("Error decoding user: \(error)")
-                    }
-     
-            
-              performAction(userList)
-        }
-                }
-    }
-    }
 }
-}
+
