@@ -107,7 +107,7 @@ struct Homev2: View {
                                 ForEach(recentPeople.indices, id:\.self){ i in
                                    
                                     //ProfilePic(name: groups.groupName, size: 70)
-                                    ProfilePic(name: "", id: users[i])
+                                    ProfilePic(name: recentPeople[i].groupName, id: users[i])
                                         .padding()
                                         .onTapGesture() {
                                             group = recentPeople[i]
@@ -154,7 +154,7 @@ struct Homev2: View {
                         if user.isEmpty {
                             
                         } else {
-                            SelfRankView(hours: sum)
+                            SelfRankView(hours: sum, id: user[0].id.uuidString)
                                 .padding()
                                 .onTapGesture {
                                     viewRouter.updateCurrentView(view: .leaderboard)

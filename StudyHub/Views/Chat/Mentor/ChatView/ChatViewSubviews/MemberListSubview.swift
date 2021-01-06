@@ -60,7 +60,8 @@ struct MemberListSubview: View {
                         ForEach(members) { member in
                             if member.id.uuidString != self.userData.userID{
                                 VStack {
-                                   ProfileRingView(imagePlaceholder: Image("person"), size: 75)
+                                    ProfilePic(name: "", id: member.id.uuidString)
+                                    
                                 Text(member.name)
                                     .minimumScaleFactor(0.001)
                                     .font(.custom("Montserrat-Semibold", size: 15))
@@ -86,7 +87,7 @@ struct MemberListSubview: View {
                         ForEach(members) { member in
                             if member.id.uuidString != self.userData.userID{
                                 VStack {
-                                    ProfileRingView(imageURL:member.profileImageURL ?? nil, size: 75)
+                                    ProfilePic(name: "", id: member.id.uuidString)
                                 Text(member.name)
                                     .minimumScaleFactor(0.001)
                                     .font(.custom("Montserrat-Semibold", size: 15))

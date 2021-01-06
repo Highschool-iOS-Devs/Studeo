@@ -23,7 +23,9 @@ struct ProfilePic: View {
             if !isTimer {
             VStack {
             Image(uiImage: image)
+                
                 .resizable()
+                .frame(width: 75, height: 75)
                 //.frame(width:size,height:size)
                 .clipShape(Circle())
                 .overlay(
@@ -31,7 +33,7 @@ struct ProfilePic: View {
                                 .stroke(LinearGradient(gradient: Gradient(colors: [Color("Secondary"), Color("Primary")]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 3)
                         )
              Text(name)
-            }  .frame(width: 75, height: 75)
+            }
             } else {
               
             }
