@@ -73,7 +73,7 @@ struct RecentsView2: View {
                                 AllGroupTextRow()
                                     .environmentObject(userData)
                                 LazyVGrid(columns: gridItemLayout, spacing: 40){
-                                    ForEach(groupModel.allGroups){group in
+                                    ForEach(groupModel.allGroups, id: \.groupID){group in
                                         NavigationLink(destination: ChatView(group: group, show: $show)
                                                         .environmentObject(userData)){
                                             RecentChatGroupSubview(group: group)
