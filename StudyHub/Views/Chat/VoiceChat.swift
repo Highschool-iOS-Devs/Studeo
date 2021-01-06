@@ -68,7 +68,7 @@ struct VoiceChat: View {
                 VStack {
                     Spacer()
                     ForEach(usersInVC, id: \.id.uuidString){ user in
-                        ProfilePic(name: "", size: 100, id: user.id.uuidString)
+                        ProfilePic(name: "", id: user.id.uuidString)
                            
                             .animation(.easeInOut)
                             .transition(.opacity)

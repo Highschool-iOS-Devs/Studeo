@@ -10,7 +10,7 @@ import SwiftUI
 import FirebaseStorage
 struct ProfilePic: View {
     var name: String
-    var size: CGFloat
+   // var size: CGFloat
     @State var isTimer = false
     var id = ""
     @State var image = UIImage()
@@ -24,14 +24,14 @@ struct ProfilePic: View {
             VStack {
             Image(uiImage: image)
                 .resizable()
-                .frame(width:size,height:size)
+                //.frame(width:size,height:size)
                 .clipShape(Circle())
                 .overlay(
                             Circle()
                                 .stroke(LinearGradient(gradient: Gradient(colors: [Color("Secondary"), Color("Primary")]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 3)
                         )
              Text(name)
-            }
+            }  .frame(width: 75, height: 75)
             } else {
               
             }

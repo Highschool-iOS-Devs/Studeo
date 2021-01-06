@@ -33,7 +33,7 @@ struct VCGridView: View {
         VStack {
             Spacer()
             ForEach(users, id: \.id.uuidString){ user in
-                ProfilePic(name: "", size: 10, id: user.id.uuidString)
+                ProfilePic(name: "", id: user.id.uuidString)
                     .id(user.firebaseID)
                     .aspectRatio(contentMode: .fill)
                     .clipShape(Circle())

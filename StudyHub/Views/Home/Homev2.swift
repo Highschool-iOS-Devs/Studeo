@@ -107,7 +107,7 @@ struct Homev2: View {
                                 ForEach(recentPeople.indices, id:\.self){ i in
                                    
                                     //ProfilePic(name: groups.groupName, size: 70)
-                                    ProfilePic(name: "", size: 75, id: users[i])
+                                    ProfilePic(name: "", id: users[i])
                                         .padding()
                                         .onTapGesture() {
                                             group = recentPeople[i]

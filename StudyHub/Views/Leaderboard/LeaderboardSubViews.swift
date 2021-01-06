@@ -10,11 +10,12 @@ import SwiftUI
 struct SelfRankView: View {
     
     var hours:Double
+    @State var id = ""
     var body: some View {
         
         HStack(alignment: .center) {
-            ProfileRingView(size: 60)
-            
+            ProfilePic(name: "", id: id)
+                .frame(width: 75, height: 75)
             Spacer()
             VStack {
                 Image(systemName: "stopwatch.fill")
@@ -56,23 +57,24 @@ struct SelfRankView: View {
 struct ProfilePicture: View {
     var pictureSize:Int
     @State var image:Image
+    @State var id = ""
     var body: some View {
-        image
-            .resizable()
-            .clipShape(Circle())
-            .aspectRatio(contentMode: .fill)
-            .frame(width: CGFloat(pictureSize), height: CGFloat(pictureSize))
+        ProfilePic(name: "", id: id)
+            .frame(width: 75, height: 75)
+            
     }
 }
 
 struct LeaderboardRow: View {
     var name:String
     var hours:[Double]
+     var id = ""
     @State var showGreenArrow:Bool = false
-    init(name:String, hours:[Double]){
+    init(name:String, hours:[Double], id: String){
         self.name = name
         self.hours = hours
         self.showGreenArrow = parseHours()
+        self.id = id
     }
     
     var body: some View {
@@ -84,8 +86,9 @@ struct LeaderboardRow: View {
               //  Text("4")
                 //    .foregroundColor(Color("Text"))
             }
-            ProfilePicture(pictureSize: 45, image: Image("demoprofile"))
-             
+            ProfilePic(name: "", id: id)
+                .frame(width: 75, height: 75)
+            
             Text(name)
                 .foregroundColor(Color("Text"))
 
@@ -165,10 +168,12 @@ struct dateSelectionView: View {
 struct LeaderRankView: View {
      var name:String
     var hours:[Double]
+    @State var id = ""
     var body: some View {
         
         VStack{
-            ProfilePicture(pictureSize: 70, image: Image("demoprofile"))
+            ProfilePic(name: "", id: id)
+                .frame(width: 75, height: 75)
             Text(name)
                 .foregroundColor(Color("Text"))
                 .font(.custom("Montserrat-SemiBold", size: 12))
@@ -188,19 +193,20 @@ struct LeaderRankView: View {
 
 struct LeadersStack: View {
     var leaders: [User]
+    
     var body: some View {
         HStack(spacing: 30) {
             if leaders.count > 1 {
-                LeaderRankView(name: leaders[1].name, hours: leaders[1].studyHours)
+                LeaderRankView(name: leaders[1].name, hours: leaders[1].studyHours, id: leaders[1].id.uuidString)
                     .offset(x: 0, y: 10)
             }
             if leaders.isEmpty {
             } else {
-            LeaderRankView(name: leaders[0].name, hours: leaders[0].studyHours)
+                LeaderRankView(name: leaders[0].name, hours: leaders[0].studyHours, id: leaders[2].id.uuidString)
             }
             
             if leaders.count > 2 {
-                LeaderRankView(name: leaders[2].name, hours: leaders[2].studyHours)
+                LeaderRankView(name: leaders[2].name, hours: leaders[2].studyHours, id: leaders[2].id.uuidString)
                     .offset(x: 0, y: 10)
             }
         }
