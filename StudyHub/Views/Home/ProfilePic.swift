@@ -26,8 +26,7 @@ struct ProfilePic: View {
                 VStack {
                     Image(uiImage: image)
                         .resizable()
-                        .transition(.opacity)
-                        .animation(.easeInOut)
+                    
                         
                         .frame(width: 75, height: 75)
                         //.frame(width:size,height:size)

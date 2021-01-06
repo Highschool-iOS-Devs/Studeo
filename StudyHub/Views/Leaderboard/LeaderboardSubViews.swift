@@ -123,10 +123,12 @@ struct LeaderboardRow: View {
 
 struct dateSelectionView: View {
     @Binding var currentDateTab:LeaderBoardTabRouter.tabViews
-    
+    @State  var testing = false
     var body: some View {
         HStack(spacing: 25){
+            if testing {
             VStack {
+                
                 Text("Today")
                     .foregroundColor(Color(.white).opacity(self.currentDateTab == .today ? 1 : 0.25))
                     .onTapGesture {
@@ -137,7 +139,7 @@ struct dateSelectionView: View {
                     .frame(width: 50, height: 7)
                     
             }
-            
+          
             VStack {
                 Text("Month")
                     .foregroundColor(Color(.white).opacity(self.currentDateTab == .month ? 1 : 0.25))
@@ -148,7 +150,7 @@ struct dateSelectionView: View {
                     .fill(currentDateTab == .month ? Color("primaryYellow") : Color.white.opacity(0))
                     .frame(width: 50, height: 7)
             }
-            
+            }
             VStack {
                 Text("All Time")
                     .foregroundColor(Color(.white).opacity(self.currentDateTab == .allTime ? 1 : 0.25))

@@ -116,7 +116,7 @@ struct Homev2: View {
                                         }
                                 }
                                 
-                            } .padding(.top, 42)
+                            } .padding(.top, 22)
                         }
                         Divider()
                         }
