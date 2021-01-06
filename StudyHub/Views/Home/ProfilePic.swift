@@ -14,32 +14,38 @@ struct ProfilePic: View {
     @State var isTimer = false
     var id = ""
     @State var image = UIImage()
+    @State var animate = false
     var body: some View {
         ZStack {
             Color.clear
                 .onAppear() {
                     getProfileImage()
                 }
+            if animate {
             if !isTimer {
-            VStack {
-            Image(uiImage: image)
-                
-                .resizable()
-                .frame(width: 75, height: 75)
-                //.frame(width:size,height:size)
-                .clipShape(Circle())
-                .overlay(
+                VStack {
+                    Image(uiImage: image)
+                        .resizable()
+                        .transition(.opacity)
+                        .animation(.easeInOut)
+                        
+                        .frame(width: 75, height: 75)
+                        //.frame(width:size,height:size)
+                        .clipShape(Circle())
+                        
+                        .overlay(
                             Circle()
                                 .stroke(LinearGradient(gradient: Gradient(colors: [Color("Secondary"), Color("Primary")]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 3)
                         )
-             Text(name)
-            }
+                    Text(name)
+                }
             } else {
-              
+                
             }
-        } .padding()
-            
-    }
+            }
+            } .padding()
+        }
+    
     func getProfileImage() {
       
 
@@ -54,7 +60,10 @@ struct ProfilePic: View {
            print(error)
           } else {
             // Data for "images/island.jpg" is returned
+            withAnimation(.easeInOut) {
             image = UIImage(data: data!)!
+                animate = true
+            }
           }
         }
     }
