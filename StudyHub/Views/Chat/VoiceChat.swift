@@ -22,6 +22,7 @@ struct VoiceChat: View {
     @State var usersInVC = [User]()
     @State var usersInVCString = [String]()
     @State var i = 0
+    @State var ready = false
     var body: some View {
         ZStack {
         Color("Background").edgesIgnoringSafeArea(.all)
@@ -35,31 +36,49 @@ struct VoiceChat: View {
              
                 //above is causing error
                 self.loadUsersInVC() { userData in
+                   
                     usersInVCString =  userData[0].userInVC ?? []
+                    
                     usersInVCString.append(self.userData.userID)
-                    if let userinVC = userData.first!.userInVC{
+                    usersInVCString =  usersInVCString.removeDuplicates()
+                    usersInVC =  usersInVC.removeDuplicates()
+                    if let userinVC = userData.first!.userInVC {
                         for user in usersInVCString {
                             self.loadUsersData(vcuserID: user) { userData in
-                                usersInVC.append(userData)
+                               
                                 
                                 let usersRef = Firestore.firestore().collection("groups").document(group!.groupID)
                                 //causing error
                                 usersRef.setData(["userInVC": usersInVCString], merge: true)
+                                
+                                usersInVC.append(userData)
                             }
                         }
                     }
                  
-                  
+                    
                 }
                 initializeAgoraEngine()
                 joinChannel()
-
+                ready = true
 
             }
-
+            if ready {
             HStack {
-                VCGridView(users: $usersInVC, isMuted: $isMuted, agoraKit: $agoraKit)
+                VStack {
+                    Spacer()
+                    ForEach(usersInVC, id: \.id.uuidString){ user in
+                        ProfilePic(name: "", size: 100, id: user.id.uuidString)
+                           
+                            .animation(.easeInOut)
+                            .transition(.opacity)
+                            
+                    }
+                   
+                  
+                }
             
+                
             VStack {
                 HStack {
                     Spacer()
@@ -97,6 +116,8 @@ struct VoiceChat: View {
             }
             }
     }
+        }
+        
         .onDisappear() {
             let db = Firestore.firestore()
 
@@ -132,7 +153,7 @@ struct VoiceChat: View {
         let docRef = db.collection("groups").document(group!.groupID)
         var groupList:[Groups] = []
         //Get every single document under collection users
-    
+        usersInVCString.removeAll()
      docRef.addSnapshotListener() { (document, error) in
          
                 let result = Result {
@@ -159,7 +180,7 @@ struct VoiceChat: View {
         let db = Firestore.firestore()
             let docRef = db.collection("users").document(vcuserID)
         //Get every single document under collection users
-    
+        usersInVC.removeAll()
          docRef.addSnapshotListener(){ (document, error) in
              
                     let result = Result {

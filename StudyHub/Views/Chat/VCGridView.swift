@@ -25,20 +25,16 @@ struct VCGridView: View {
     @Binding var agoraKit: AgoraRtcEngineKit
    
     var body: some View {
+        ZStack {
+            Color.clear
+                .onAppear() {
+                    users = users.removeDuplicates()
+                }
         VStack {
             Spacer()
-            ForEach(users, id: \.self){ user in
-                KFImage(user.profileImageURL, options: [.transition(.fade(0.5)), .processor(DownsamplingImageProcessor(size: CGSize(width: 50, height: 50))), .cacheOriginalImage])
-                    .onSuccess { r in
-                         // r: RetrieveImageResult
-                         //print("success: \(r)")
-                     }
-                     .onFailure { e in
-                         // e: KingfisherError
-                         print("failure: \(e)")
-                     }
-                    .resizable()
-                    .id(UUID())
+            ForEach(users, id: \.id.uuidString){ user in
+                ProfilePic(name: "", size: 10, id: user.id.uuidString)
+                    .id(user.firebaseID)
                     .aspectRatio(contentMode: .fill)
                     .clipShape(Circle())
                     .frame(maxWidth:75, maxHeight:75)
@@ -55,12 +51,13 @@ struct VCGridView: View {
        
         .padding()
         .onAppear{
-            getProfileImage()
+           // getProfileImage()
         }
         .onChange(of: users, perform: { value in
-            getProfileImage()
+           // getProfileImage()
         })
         
+    }
     }
     func getProfileImage(){
         if profileImages == []{
