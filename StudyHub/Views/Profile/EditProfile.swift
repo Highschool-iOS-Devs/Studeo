@@ -121,8 +121,8 @@ struct EditProfile: View {
             }
             .padding(.horizontal)
      
+        } .frame(width: geo.size.width)
         }
-    }
 }
 
     func resizeImage(){

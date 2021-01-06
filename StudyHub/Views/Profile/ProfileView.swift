@@ -64,9 +64,9 @@ import UIKit
                     
                      HStack {
                        
-                        ProfileStats(allNum: 0, all: true)
-                        ProfileStats(monthNum: 0, month: true)
-                        ProfileStats(dayNum: 0, day: true)
+                      //  ProfileStats(allNum: 0, all: true)
+                       // ProfileStats(monthNum: 0, month: true)
+                        //ProfileStats(dayNum: 0, day: true)
                        
                      }
                      .padding(.bottom, 15)
