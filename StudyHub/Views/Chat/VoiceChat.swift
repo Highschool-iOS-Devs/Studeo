@@ -44,7 +44,7 @@ struct VoiceChat: View {
                                 
                                 let usersRef = Firestore.firestore().collection("groups").document(group!.groupID)
                                 //causing error
-                              //  usersRef.setData(["userInVC": usersInVCString], merge: true)
+                                usersRef.setData(["userInVC": usersInVCString], merge: true)
                             }
                         }
                     }

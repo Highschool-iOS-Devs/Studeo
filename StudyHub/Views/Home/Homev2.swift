@@ -219,12 +219,13 @@ struct Homev2: View {
     func loadUserData(performAction: @escaping ([User]) -> Void) {
         for dm in recentPeople {
             for user in dm.members {
+                if user != userData.userID {
         let db = Firestore.firestore()
             let docRef = db.collection("users").document(user)
         var userList:[User] = []
         //Get every single document under collection users
     
-     docRef.addSnapshotListener{ (document, error) in
+     docRef.getDocument(){ (document, error) in
          
                 let result = Result {
                  try document?.data(as: User.self)
@@ -245,6 +246,7 @@ struct Homev2: View {
             
               performAction(userList)
         }
+                }
     }
     }
 }
