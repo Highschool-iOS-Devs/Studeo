@@ -39,8 +39,8 @@ struct Homev2: View {
     @Binding var user: [User]
     @State var imgs = ["2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing"]
     @State var sum = 0.0
-    @State var animate = false
-    @State var animation = false
+    @State var animate = true
+    @State var animation = true
     @Binding var timerLog: [TimerLog]
     @State var disable = true
     @Binding var devGroup: Groups
@@ -71,7 +71,7 @@ struct Homev2: View {
                         }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                             withAnimation(.easeInOut(duration: 1.0)) {
-                                animation.toggle()
+                              //  animation.toggle()
                             }
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -95,8 +95,8 @@ struct Homev2: View {
                         if animate {
                            
                             DevChatBanner(devGroup: $devGroup, show: $show)
-                                .frame(width: geo.size.width)
-                                .transition(.move(edge: .top))
+                                .frame(width: geo.size.width, height: geo.size.height/3)
+                                .transition(.identity)
                             }
                             
                             

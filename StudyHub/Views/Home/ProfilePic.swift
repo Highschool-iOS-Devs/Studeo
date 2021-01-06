@@ -35,7 +35,10 @@ struct ProfilePic: View {
                         
                         .overlay(
                             Circle()
+                                
                                 .stroke(LinearGradient(gradient: Gradient(colors: [Color("Secondary"), Color("Primary")]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 3)
+                                .frame(width: 75, height: 75)
+                            
                         )
                     Text(name)
                 }

@@ -55,7 +55,7 @@ struct DevChatBanner: View {
                         
                         }
                    
-                }  .animation(.linear(duration: 2.0))
+                } // .animation(.linear(duration: 2.0))
             }
         } .frame(height: 220)
         
