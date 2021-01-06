@@ -32,7 +32,7 @@ struct Homev2: View {
     @State var scrollOffset = 0
     @State var currentOffset = 0
     @Binding var recentPeople: [Groups]
-    @State var chat = false
+    @State var dmChat = false
     @State var group = Groups(id: UUID().uuidString, groupID: "", groupName: "", members: [String](), membersCount: 0, interests: [UserInterestTypes?](), userInVC: [String]())
     @Binding var recommendGroups: [Groups]
     @Binding var user: [User]
@@ -99,7 +99,8 @@ struct Homev2: View {
                                     ProfilePic(name: groups.groupName, size: 70)
                                         .onTapGesture() {
                                             group = groups
-                                            chat.toggle()
+                                            dmChat = true
+                                            show.toggle()
                                         }
                                 }
                                 
@@ -123,7 +124,7 @@ struct Homev2: View {
                                 HStack {
                                     ForEach(Array(recommendGroups.enumerated()), id: \.element) { i, group in
                     
-                                        GroupsView(imgName: imgs[i], cta: "Join", name: group.groupName, group: $group, chat: $chat)
+                                        GroupsView(imgName: imgs[i], cta: "Join", name: group.groupName, group: $group)
                                             .onAppear() {
                                                 self.group = group
                                             }
@@ -189,10 +190,20 @@ struct Homev2: View {
        
         
         }
-    
-            if show {
+        .sheet(isPresented: $show, content: {
+            if dmChat {
+                ChatView(group: group, show: $show)
+                    .onDisappear {
+                        dmChat = false
+                    }
+            } else {
                 ChatView(group: devGroup, show: $show)
             }
+        })
+    
+//            if show {
+//                ChatView(group: devGroup, show: $show)
+//            }
 
 }
        

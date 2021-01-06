@@ -18,7 +18,6 @@ struct GroupsView: View {
     @EnvironmentObject var tabRouter:ViewRouter
     @Binding var group: Groups
     let screenSize = UIScreen.main.bounds
-    @Binding var chat: Bool
     var body: some View {
         ZStack {
         
@@ -45,7 +44,6 @@ struct GroupsView: View {
                         .padding(.leading, 30)
                     Button(action: {
                         self.userData.tappedCTA = true
-                        chat = true
                         joinGroup(newGroup: group)
                         
                     }) {
@@ -106,7 +104,6 @@ struct GroupsView: View {
                 print("Error getting user data, \(error!)")
             }
         }
-        chat = true
     }
 }
 
