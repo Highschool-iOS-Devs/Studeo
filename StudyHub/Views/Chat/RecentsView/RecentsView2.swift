@@ -28,14 +28,14 @@ struct RecentsView2: View {
     var body: some View {
         NavigationView{
             ZStack{
-                Color("Primary").edgesIgnoringSafeArea(.all)
+                Color("Background").edgesIgnoringSafeArea(.all)
                 ZStack(alignment: .top) {
                     
                     VStack {
                         ScrollView{
                             RecentChatTextRow(add: $add)
                                 .environmentObject(userData)
-                                .padding(.top)
+                                
                             Spacer()
                             if groupModel.allGroups == [] {
                                 

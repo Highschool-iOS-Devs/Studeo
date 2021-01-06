@@ -64,11 +64,12 @@ struct IntroMentor: View {
                     .font(.custom("Montserrat-light", size: 15))
                     .padding(.bottom, 30)
                     .padding(.horizontal, 20)
-                
+                ScrollView {
                 VStack(spacing: 10) {
                     ForEach(UserInterestTypes.allCases, id:\.self){name in
                         MentorSelectionRow(mentorSelected: $mentorSelected, interestName: name)
                     }
+                }
                 }
                 Spacer()
                 Button(action: {

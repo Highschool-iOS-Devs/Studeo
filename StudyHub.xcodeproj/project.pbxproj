@@ -83,7 +83,8 @@
 		BE5F3760259C3B9400542AA0 /* SupportDocs in Frameworks */ = {isa = PBXBuildFile; productRef = BE5F375F259C3B9400542AA0 /* SupportDocs */; };
 		E10C058625900A100020FD7C /* Pods_StudyHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47F4119D880B6AFBE91DBA85 /* Pods_StudyHub.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		E10C05CD259013B70020FD7C /* MemberListSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10C05CC259013B70020FD7C /* MemberListSubview.swift */; };
-		E110E57225A6206F001C54F8 /* GoogleService-Info-Debug.plist in Resources */ = {isa = PBXBuildFile; fileRef = E110E57125A6206F001C54F8 /* GoogleService-Info-Debug.plist */; };
+		E110E57225A6206F001C54F8 /* GoogleService-Info-Production.plist in Resources */ = {isa = PBXBuildFile; fileRef = E110E57125A6206F001C54F8 /* GoogleService-Info-Production.plist */; };
+		E110E59F25A679C1001C54F8 /* GoogleService-Info-Debug.plist in Resources */ = {isa = PBXBuildFile; fileRef = E110E59E25A679C1001C54F8 /* GoogleService-Info-Debug.plist */; };
 		E11157A32593CF31005E9AEA /* VoiceChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11157A22593CF31005E9AEA /* VoiceChat.swift */; };
 		E12C5F8C259A26FE00D3314E /* TimerStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12C5F8B259A26FE00D3314E /* TimerStatsView.swift */; };
 		E12C5FA5259A518500D3314E /* BarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12C5F92259A518500D3314E /* BarChartView.swift */; };
@@ -215,7 +216,8 @@
 		C7A62219EB10FE2A621A6C84 /* Pods-StudyHub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudyHub.debug.xcconfig"; path = "Target Support Files/Pods-StudyHub/Pods-StudyHub.debug.xcconfig"; sourceTree = "<group>"; };
 		E10C0584259009020020FD7C /* StudyHub.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StudyHub.entitlements; sourceTree = "<group>"; };
 		E10C05CC259013B70020FD7C /* MemberListSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberListSubview.swift; sourceTree = "<group>"; };
-		E110E57125A6206F001C54F8 /* GoogleService-Info-Debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Debug.plist"; sourceTree = "<group>"; };
+		E110E57125A6206F001C54F8 /* GoogleService-Info-Production.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Production.plist"; sourceTree = "<group>"; };
+		E110E59E25A679C1001C54F8 /* GoogleService-Info-Debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Debug.plist"; sourceTree = "<group>"; };
 		E11157A22593CF31005E9AEA /* VoiceChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceChat.swift; sourceTree = "<group>"; };
 		E12C5F8B259A26FE00D3314E /* TimerStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerStatsView.swift; sourceTree = "<group>"; };
 		E12C5F92259A518500D3314E /* BarChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarChartView.swift; sourceTree = "<group>"; };
@@ -301,7 +303,8 @@
 			children = (
 				E10C0584259009020020FD7C /* StudyHub.entitlements */,
 				620590EF24FDBB21001565BF /* Info.plist */,
-				E110E57125A6206F001C54F8 /* GoogleService-Info-Debug.plist */,
+				E110E57125A6206F001C54F8 /* GoogleService-Info-Production.plist */,
+				E110E59E25A679C1001C54F8 /* GoogleService-Info-Debug.plist */,
 				620590C224FDBB21001565BF /* Assets.xcassets */,
 				620590B724FDBB21001565BF /* Resources */,
 				620590C424FDBB21001565BF /* Preview Content */,
@@ -789,11 +792,12 @@
 				620590F924FDBB21001565BF /* Montserrat-Regular.ttf in Resources */,
 				620590F624FDBB21001565BF /* Montserrat-SemiBold.ttf in Resources */,
 				620590F124FDBB21001565BF /* Montserrat-Medium.ttf in Resources */,
+				E110E59F25A679C1001C54F8 /* GoogleService-Info-Debug.plist in Resources */,
 				620590F424FDBB21001565BF /* Montserrat-Thin.ttf in Resources */,
 				620590F524FDBB21001565BF /* Montserrat-Bold.ttf in Resources */,
 				620590F324FDBB21001565BF /* Montserrat-ExtraLight.ttf in Resources */,
 				E1760AC425925A9C00AA8BCF /* 34595-confetti-for-ios-and-android.json in Resources */,
-				E110E57225A6206F001C54F8 /* GoogleService-Info-Debug.plist in Resources */,
+				E110E57225A6206F001C54F8 /* GoogleService-Info-Production.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

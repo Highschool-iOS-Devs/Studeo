@@ -61,17 +61,19 @@ struct IntroCustomize: View {
                         .padding(.vertical, 20)
                     
                 }
-                Text("Select your classes and learning topics and we'll recommend groups where you can find help.")
+                Text("Select your classes and learning topics and we'll recommend groups where you can find studymates.")
                     .multilineTextAlignment(.center)
                     .font(.custom("Montserrat-light", size: 15))
                     .padding(.bottom, 30)
                     .padding(.horizontal, 20)
-                
+                ScrollView {
                 VStack(spacing: 10) {
                     ForEach(UserInterestTypes.allCases, id:\.self){name in
                         InterestSelectRow(interestSelected: $interestSelected, interestName: name)
                             
                     }
+                }
+                    Spacer(minLength: 200)
                 }
                 Spacer()
             
@@ -196,9 +198,15 @@ struct InterestSelectRow: View {
 }
 
 enum UserInterestTypes:String,CaseIterable, Codable{
-    case SAT = "SAT"
-    case ACT = "ACT"
-    case APCalculus = "AP Calculus"
+    case SAT = "Standardized Tests"
+    case Spanish = "Spanish"
     case Algebra2 = "Algebra 2"
+    case Algebra1 = "Algebra 1"
+    case Chemistry = "Chemistry"
+    case Physics = "Physics"
+    case Biology = "Biology"
+    case CS = "Computer Science"
+    case CollegeApps = "College Applications"
+    case Other = "Other"
     
 }

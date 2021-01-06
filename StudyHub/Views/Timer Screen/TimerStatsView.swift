@@ -19,10 +19,11 @@ struct TimerStatsView: View {
     @State var english = [Double]()
     @State var other = [Double]()
     @State var calculate = false
+    @Binding var stats: Bool
     var body: some View {
         GeometryReader { geo in
         ZStack {
-        Color.clear
+        Color("Background")
             .onAppear() {
                 for log in timerLog {
                     if log.category == "Math" {
@@ -59,7 +60,14 @@ struct TimerStatsView: View {
             if calculate {
             ScrollView {
             VStack {
-                
+                HStack {
+                    Button(action: {
+                        stats = false
+                    }) {
+                        Image(systemName: "xmark")
+                    }
+                    Spacer()
+                }
                 if !langauge.isEmpty {
                 LineChartView(data: langauge, title: "Foreign Language", legend: "Seconds", dropShadow: false)
                     .padding()
@@ -90,6 +98,6 @@ struct TimerStatsView: View {
             }
             
     }
-}
-}
+}.frame(maxWidth: 400)
+} 
 }
