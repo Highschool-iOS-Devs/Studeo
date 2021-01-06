@@ -58,6 +58,8 @@
 		624FAFDE25720ACC000E0203 /* RecentGroupRowSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624FAFDD25720ACC000E0203 /* RecentGroupRowSubview.swift */; };
 		6258E4DD2595AC900072DA87 /* OtherUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6258E4DC2595AC900072DA87 /* OtherUserProfileView.swift */; };
 		6258E4E1259942AC0072DA87 /* BottomCardSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6258E4E0259942AC0072DA87 /* BottomCardSubview.swift */; };
+		62654AAB25A553AC00F7172C /* GoogleService-Info-Debug.plist in Resources */ = {isa = PBXBuildFile; fileRef = 62654AA925A553AC00F7172C /* GoogleService-Info-Debug.plist */; };
+		62654AAC25A553AC00F7172C /* GoogleService-Info-Production.plist in Resources */ = {isa = PBXBuildFile; fileRef = 62654AAA25A553AC00F7172C /* GoogleService-Info-Production.plist */; };
 		626E7815258D3EEB008633AB /* ProfileRingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626E7814258D3EEB008633AB /* ProfileRingView.swift */; };
 		626E785C258D4371008633AB /* KingfisherSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 626E785B258D4371008633AB /* KingfisherSwiftUI */; };
 		626E785E258D4371008633AB /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 626E785D258D4371008633AB /* Kingfisher */; };
@@ -117,7 +119,6 @@
 		E163D32F25A28F5200102895 /* AddQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = E163D32E25A28F5200102895 /* AddQuiz.swift */; };
 		E163D33325A28F6500102895 /* QuizAddRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E163D33225A28F6500102895 /* QuizAddRow.swift */; };
 		E163D33625A2914700102895 /* QuizInputFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E163D33525A2914700102895 /* QuizInputFieldView.swift */; };
-		E163D33C25A2A01500102895 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E163D33B25A2A01500102895 /* GoogleService-Info.plist */; };
 		E163D37925A2CC1500102895 /* VCGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E163D37825A2CC1400102895 /* VCGridView.swift */; };
 		E1646BF925912076003B2FB4 /* DevChatBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1646BF825912076003B2FB4 /* DevChatBanner.swift */; };
 		E170EF562540BF9000BEE97C /* GroupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E170EF552540BF9000BEE97C /* GroupsView.swift */; };
@@ -192,6 +193,8 @@
 		624FAFDD25720ACC000E0203 /* RecentGroupRowSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentGroupRowSubview.swift; sourceTree = "<group>"; };
 		6258E4DC2595AC900072DA87 /* OtherUserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserProfileView.swift; sourceTree = "<group>"; };
 		6258E4E0259942AC0072DA87 /* BottomCardSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomCardSubview.swift; sourceTree = "<group>"; };
+		62654AA925A553AC00F7172C /* GoogleService-Info-Debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Debug.plist"; sourceTree = "<group>"; };
+		62654AAA25A553AC00F7172C /* GoogleService-Info-Production.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Production.plist"; sourceTree = "<group>"; };
 		626E7814258D3EEB008633AB /* ProfileRingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileRingView.swift; sourceTree = "<group>"; };
 		626EEC8B25897BC200E7A7A5 /* RecentChatTextRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentChatTextRow.swift; sourceTree = "<group>"; };
 		626EEC8E25897BD200E7A7A5 /* AllGroupTextRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupTextRow.swift; sourceTree = "<group>"; };
@@ -250,7 +253,6 @@
 		E163D32E25A28F5200102895 /* AddQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddQuiz.swift; sourceTree = "<group>"; };
 		E163D33225A28F6500102895 /* QuizAddRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizAddRow.swift; sourceTree = "<group>"; };
 		E163D33525A2914700102895 /* QuizInputFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizInputFieldView.swift; sourceTree = "<group>"; };
-		E163D33B25A2A01500102895 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E163D37825A2CC1400102895 /* VCGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCGridView.swift; sourceTree = "<group>"; };
 		E1646BF825912076003B2FB4 /* DevChatBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevChatBanner.swift; sourceTree = "<group>"; };
 		E170EF552540BF9000BEE97C /* GroupsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupsView.swift; sourceTree = "<group>"; };
@@ -299,6 +301,8 @@
 		620590B624FDBB21001565BF /* StudyHub */ = {
 			isa = PBXGroup;
 			children = (
+				62654AA925A553AC00F7172C /* GoogleService-Info-Debug.plist */,
+				62654AAA25A553AC00F7172C /* GoogleService-Info-Production.plist */,
 				E10C0584259009020020FD7C /* StudyHub.entitlements */,
 				620590EF24FDBB21001565BF /* Info.plist */,
 				620590C224FDBB21001565BF /* Assets.xcassets */,
@@ -318,7 +322,6 @@
 		620590B724FDBB21001565BF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				E163D33B25A2A01500102895 /* GoogleService-Info.plist */,
 				E1760AC325925A9C00AA8BCF /* 34595-confetti-for-ios-and-android.json */,
 				62F24C01251419E900777610 /* Lottie */,
 				620590B824FDBB21001565BF /* Fonts */,
@@ -781,7 +784,9 @@
 				E12E5FC92584924900FB216C /* test.MP4 in Resources */,
 				620590F224FDBB21001565BF /* Montserrat-Light.ttf in Resources */,
 				620590FA24FDBB21001565BF /* Assets.xcassets in Resources */,
+				62654AAB25A553AC00F7172C /* GoogleService-Info-Debug.plist in Resources */,
 				620590F724FDBB21001565BF /* Montserrat-ExtraBold.ttf in Resources */,
+				62654AAC25A553AC00F7172C /* GoogleService-Info-Production.plist in Resources */,
 				620590FD24FDBB21001565BF /* LaunchScreen.storyboard in Resources */,
 				62F24C03251419F400777610 /* planeLoading.json in Resources */,
 				620590FC24FDBB21001565BF /* Preview Assets.xcassets in Resources */,
@@ -792,7 +797,6 @@
 				620590F424FDBB21001565BF /* Montserrat-Thin.ttf in Resources */,
 				620590F524FDBB21001565BF /* Montserrat-Bold.ttf in Resources */,
 				620590F324FDBB21001565BF /* Montserrat-ExtraLight.ttf in Resources */,
-				E163D33C25A2A01500102895 /* GoogleService-Info.plist in Resources */,
 				E1760AC425925A9C00AA8BCF /* 34595-confetti-for-ios-and-android.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1097,14 +1101,16 @@
 				CURRENT_PROJECT_VERSION = 6;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyHub/Preview Content\"";
-				DEVELOPMENT_TEAM = MC27HKM86M;
+				DEVELOPMENT_TEAM = TNL6P3HKQQ;
 				ENABLE_PREVIEWS = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = StudyHub/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.StudyHub.Studeo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1125,15 +1131,17 @@
 				CURRENT_PROJECT_VERSION = 6;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyHub/Preview Content\"";
-				DEVELOPMENT_TEAM = MC27HKM86M;
+				DEVELOPMENT_TEAM = TNL6P3HKQQ;
 				ENABLE_PREVIEWS = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = StudyHub/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.StudyHub.Studeo;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DRELEASE";
+				PRODUCT_BUNDLE_IDENTIFIER = com.StudyHub.Studeo.Production;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTS_MACCATALYST = NO;

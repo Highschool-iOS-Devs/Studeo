@@ -19,13 +19,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        FirebaseApp.configure()
+        #if DEBUG
+            let filePath = Bundle.main.path(forResource: "GoogleService-Info-Debug", ofType: "plist")
+            guard let fileopts = FirebaseOptions(contentsOfFile: filePath!)
+              else { assert(false, "Couldn't load config file") }
+            FirebaseApp.configure(options: fileopts)
+        #else
+            let filePath = Bundle.main.path(forResource: "GoogleService-Info-Production", ofType: "plist")
+            guard let fileopts = FirebaseOptions(contentsOfFile: filePath!)
+            else { assert(false, "Couldn't load config file"); fatalError("Loading Firebase config plist file failed.")}
+            FirebaseApp.configure(options: fileopts)
+        #endif
         let defaults = UserDefaults.standard
         let userID = defaults.string(forKey: "userID")
         if !(userID?.isEmpty ?? true) {
         let pushManager = PushNotificationManager(userID: userID!)
                 pushManager.registerForPushNotifications()
-        
         }
         return true
     }
