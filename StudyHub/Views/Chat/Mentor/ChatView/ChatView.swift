@@ -144,7 +144,9 @@ struct ChatView: View {
                 ToolbarItem(placement:.navigation){
                     HStack{
                         if test {
+                          
                             Button(action: {
+                                showLoadingAnimation = true
                                 let request = AF.request("https://studyhub1.herokuapp.com/access_token?channel=\(group.groupID)&uid=0")
                                 
                                 request.responseJSON { (response) in
@@ -155,7 +157,7 @@ struct ChatView: View {
                                     self.token = token
                                     
                                     if token != "" {
-                                        ARChat.toggle()
+                                        ARChat = true
                                     }
                                 }
                                 
