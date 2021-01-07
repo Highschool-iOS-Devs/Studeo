@@ -30,7 +30,7 @@ struct IntroCustomize: View {
         ZStack {
             Color(.systemBackground).edgesIgnoringSafeArea(.all)
                 .onAppear() {
-                    
+                  
                 }
             VStack {
                 if !isNotOnboarding {
@@ -114,9 +114,11 @@ struct IntroCustomize: View {
         }
         .animation(.easeInOut)
         .onDisappear {
+            interestSelected = interestSelected.removeDuplicates()
             for interest in interestSelected {
                 interests.append(interest.rawValue)
                 do {
+                    
                try saveData()
                 } catch {
                     print("error")
@@ -220,6 +222,6 @@ enum UserInterestTypes:String,CaseIterable, Codable{
     case Biology = "Biology"
     case CS = "Computer Science"
     case CollegeApps = "College Applications"
-   
+    case Other = "Other"
     
 }
