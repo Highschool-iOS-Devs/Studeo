@@ -10,7 +10,7 @@ import SwiftUI
 import Firebase
 import FirebaseFirestoreSwift
 struct AddQuiz: View {
-    @State var quiz =  Quiz(id: UUID().uuidString, name: "", tags: [String](), questions: [Question]())
+    @State var quiz =  Quiz(id: UUID().uuidString, name: "", tags: [String](), questions: [Question](), groupID: "")
     var body: some View {
         List {
        
@@ -21,7 +21,7 @@ struct AddQuiz: View {
             VStack {
             Spacer()
             Button(action: {
-                quiz.questions.append(Question(id: UUID().uuidString, question: "", answers: ["Answer1", "Answer2", "Answer3"], answer: "", selected: ""))
+                quiz.questions.append(Question(id: UUID().uuidString, question: "", answers: ["Answer1", "Answer2", "Answer3"], answer: "", selected: "", quizID: quiz.id))
                 let db = Firestore.firestore()
                 for question in quiz.questions {
                     let docRef = db.collection("quizzes/questions/\(quiz.id)").document(question.id)
@@ -37,7 +37,9 @@ struct AddQuiz: View {
             } .buttonStyle(BlueStyle())
             .padding()
         }
-        }
+        } .onAppear() {
+           
+            }
     }
     
     }

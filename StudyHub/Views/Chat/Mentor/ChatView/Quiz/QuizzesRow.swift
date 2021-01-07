@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct QuizzesRow: View {
-    @State var quiz =  Quiz(id: UUID().uuidString, name: "", tags: [String](), questions: [Question]())
+    @State var quiz =  Quiz(id: UUID().uuidString, name: "", tags: [String](), questions: [Question](), groupID: "")
     var body: some View {
         HStack {
             Text(quiz.name)

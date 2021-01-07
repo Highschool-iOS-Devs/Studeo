@@ -33,8 +33,7 @@ struct ContentView: View {
     @State var i2 = -1
     @State var show = true
     @State var timerLog = [TimerLog]()
-    @State var quizzes = [Quiz(id: UUID().uuidString, name: "", tags: [String](), questions: [Question]())]
-    @State var quiz = Quiz(id: UUID().uuidString, name: "", tags: [String](), questions: [Question]())
+  
     @State var devGroup = Groups(id: "", groupID: UUID().uuidString, groupName: "Andreas", members: [String](), membersCount: 0, interests: [UserInterestTypes?](), recentMessage: "", recentMessageTime: Date(), userInVC: [String]())
     @State var interestSelected: [UserInterestTypes] = []
     var body: some View {
@@ -70,11 +69,7 @@ struct ContentView: View {
 
                                
                             }
-                            self.loadQuizzes(){ userData in
-                                //Get completion handler data results from loadData function and set it as the recentPeople local variable
-                              //  self.quizzes = userData ?? []
-                                
-                            }
+                           
                             self.loadUserData(){ userData in
                                 //Get completion handler data results from loadData function and set it as the recentPeople local variable
                                 self.user = userData
@@ -189,7 +184,7 @@ struct ContentView: View {
                             }
                             
                     case .quizList:
-                        QuizzesList(quizzes: quizzes)
+                        IntroView()
                     }
 
                     }
@@ -252,44 +247,7 @@ struct ContentView: View {
               performAction(userList)
         }
     }
-    func loadQuizzes(performAction: @escaping ([Quiz]?) -> Void) {
-        let db = Firestore.firestore()
-        let docRef = db.collection("quizzes/questions/\(quiz.id)")
-        var groupList:[Quiz] = []
-        //Get every single document under collection users
-        let queryParameter = docRef.whereField("members", arrayContains: userData.userID)
-        docRef.addSnapshotListener{ (querySnapshot, error) in
-            if let querySnapshot = querySnapshot,!querySnapshot.isEmpty{
-            for document in querySnapshot.documents{
-                let result = Result {
-                    try document.data(as: Quiz.self)
-                }
-                switch result {
-                    case .success(let group):
-                        if var group = group {
-                          
-                          
-                            groupList.append(group)
-                            
-                        } else {
-                            
-                            print("Document does not exist")
-                        }
-                    case .failure(let error):
-                        print("Error decoding user: \(error)")
-                    }
-                
-              
-            }
-            }
-            else{
-                performAction(nil)
-            }
-              performAction(groupList)
-        }
-        
-        
-    }
+   
     func loadMyMentorsData(performAction: @escaping ([Groups]?) -> Void) {
         let db = Firestore.firestore()
         let docRef = db.collection("mentorships")
