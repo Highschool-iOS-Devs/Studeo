@@ -23,6 +23,7 @@ struct VoiceChat: View {
     @State var usersInVCString = [String]()
     @State var i = 0
     @State var ready = false
+    @Binding var loadingAnimation: Bool
     var body: some View {
         ZStack {
         Color("Background").edgesIgnoringSafeArea(.all)
@@ -68,10 +69,10 @@ struct VoiceChat: View {
                 VStack {
                     Spacer()
                     ForEach(usersInVC, id: \.id.uuidString){ user in
-                        ProfilePic(name: "", id: user.id.uuidString)
+                      //  ProfilePic(name: "", id: user.id.uuidString)
                            
-                            .animation(.easeInOut)
-                            .transition(.opacity)
+                          //  .animation(.easeInOut)
+                           // .transition(.opacity)
                             
                     }
                    
@@ -212,7 +213,7 @@ struct VoiceChat: View {
         agoraKit.setDefaultAudioRouteToSpeakerphone(true)
         agoraKit.setAudioProfile(.speechStandard, scenario: .chatRoomGaming)
         agoraKit.joinChannel(byToken: token, channelId: name, info: nil, uid: 0) { (channel, uid, elapsed) -> Void in}
-               
+               loadingAnimation = false
             }
             
     }

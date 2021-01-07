@@ -115,6 +115,7 @@ struct IntroCustomize: View {
         .animation(.easeInOut)
         .onDisappear {
             interestSelected = interestSelected.removeDuplicates()
+            interests.removeAll()
             for interest in interestSelected {
                 interests.append(interest.rawValue)
                 do {

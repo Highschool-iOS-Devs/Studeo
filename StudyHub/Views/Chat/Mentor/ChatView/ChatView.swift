@@ -33,6 +33,7 @@ struct ChatView: View {
     @State var showFull = false
     @State var keyboardHeight:CGFloat = CGFloat.zero
     @Binding var show: Bool
+    @State var showLoadingAnimation = false
     var body: some View {
         ZStack {
             Color("Background").edgesIgnoringSafeArea(.all)
@@ -193,11 +194,27 @@ struct ChatView: View {
                         }
                         Spacer()
                     } .padding()
-                    VoiceChat(agoraKit: AgoraRtcEngineKit(), token: token, name: group.groupID, vc: $ARChat, group: group)
+                    VoiceChat(agoraKit: AgoraRtcEngineKit(), token: token, name: group.groupID, vc: $ARChat, group: group, loadingAnimation: $showLoadingAnimation)
                 }
 
             BottomCardSubview(displayView: AnyView(MemberListSubview(members: $members, memberList: $membersList, showFull: $showFull, group: $group, person: $person, messages: $messages)), showFull: $showFull, showCard: $membersList)
             
+            if showLoadingAnimation{
+                VStack{
+                    LottieUIView()
+                        .animation(.easeInOut)
+                    Text("Joining Voice Chat...")
+                        .font(.custom("Montserrat-SemiBold", size: 25))
+                        .offset(y: -40)
+                        .foregroundColor(Color("Text"))
+                }
+                .frame(width: 300, height: 400)
+                .background(Color("Background"))
+                .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                .shadow(color: Color.black.opacity(0.3), radius: 15, x: 10, y: 10)
+                .animation(.easeInOut)
+                
+            }
             }
 
             .onAppear{
