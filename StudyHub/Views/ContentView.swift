@@ -36,6 +36,7 @@ struct ContentView: View {
     @State var quizzes = [Quiz(id: UUID().uuidString, name: "", tags: [String](), questions: [Question]())]
     @State var quiz = Quiz(id: UUID().uuidString, name: "", tags: [String](), questions: [Question]())
     @State var devGroup = Groups(id: "", groupID: UUID().uuidString, groupName: "Andreas", members: [String](), membersCount: 0, interests: [UserInterestTypes?](), recentMessage: "", recentMessageTime: Date(), userInVC: [String]())
+    @State var interestSelected: [UserInterestTypes] = []
     var body: some View {
         GeometryReader { geo in
         ZStack { 
@@ -153,7 +154,7 @@ struct ContentView: View {
                        
                         }
                     case .custom:
-                        IntroCustomize(isNotOnboarding: true, interests: $interests, settings: $settings, add: $add)
+                        IntroCustomize(interestSelected: $interestSelected, isNotOnboarding: true, interests: $interests, settings: $settings, add: $add)
                             .onAppear {
                                 viewRouter.showTabBar = false
                             }

@@ -73,7 +73,7 @@ struct DevChatBanner: View {
             print("Error writing to database, \(error)")
         }
         
-        devGroup.members.append("FD0BAF27-101A-4BE7-8983-B70F5E74E3FD")
+        devGroup.members.append("6888DA56-1995-46ED-9B79-F1056D363D6F")
         devGroup.members.append(userData.userID)
         for member in devGroup.members {
             print(member)

@@ -1098,7 +1098,7 @@
 				CODE_SIGN_ENTITLEMENTS = StudyHub/StudyHub.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 9;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyHub/Preview Content\"";
 				DEVELOPMENT_TEAM = MC27HKM86M;
@@ -1128,7 +1128,7 @@
 				CODE_SIGN_ENTITLEMENTS = StudyHub/StudyHub.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 9;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyHub/Preview Content\"";
 				DEVELOPMENT_TEAM = MC27HKM86M;

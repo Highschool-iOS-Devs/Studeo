@@ -19,7 +19,7 @@ func hapticEngine(style: UIImpactFeedbackGenerator.FeedbackStyle){
 }
 
 struct IntroCustomize: View {
-    @State var interestSelected:[UserInterestTypes] = []
+    @Binding var interestSelected: [UserInterestTypes]
     @EnvironmentObject var userData: UserData
     @State var isNotOnboarding: Bool = false
     @Binding var interests: [String]
@@ -29,6 +29,9 @@ struct IntroCustomize: View {
     var body: some View {
         ZStack {
             Color(.systemBackground).edgesIgnoringSafeArea(.all)
+                .onAppear() {
+                    
+                }
             VStack {
                 if !isNotOnboarding {
         
@@ -113,11 +116,16 @@ struct IntroCustomize: View {
         .onDisappear {
             for interest in interestSelected {
                 interests.append(interest.rawValue)
-            }
+                do {
+               try saveData()
+                } catch {
+                    print("error")
+                }
         }
        
         
         
+    }
     }
     
     func saveData() throws -> Void{
@@ -212,6 +220,6 @@ enum UserInterestTypes:String,CaseIterable, Codable{
     case Biology = "Biology"
     case CS = "Computer Science"
     case CollegeApps = "College Applications"
-    case Other = "Other"
+   
     
 }

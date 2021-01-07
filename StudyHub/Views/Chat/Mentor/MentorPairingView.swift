@@ -154,7 +154,7 @@ struct MentorPairingView: View {
             
             if settings {
                 
-                IntroCustomize(isNotOnboarding: false, interests: $interests, settings: $settings, add: $add)
+                IntroCustomize(interestSelected: $selectedInterests, isNotOnboarding: false, interests: $interests, settings: $settings, add: $add)
                 
             }
             if error {
