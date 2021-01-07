@@ -34,6 +34,10 @@ struct ChatView: View {
     @State var keyboardHeight:CGFloat = CGFloat.zero
     @Binding var show: Bool
     @State var showLoadingAnimation = false
+    @State var showImagePicker = false
+    @State private var image : UIImage? = nil
+    @State var viewImage = false
+    @State var id = ""
     var body: some View {
         ZStack {
             Color("Background").edgesIgnoringSafeArea(.all)
@@ -48,8 +52,26 @@ struct ChatView: View {
                         LazyVStack {
                             ForEach(self.messages, id:\.self) { message in
                                 VStack {
+                                    HStack {
+                                        if message.sentBySelf ?? false {
+                                            Spacer()
+                                        }
+                                    
+                                    if message.assetID != "" {
+                                        assetMessage(assetID: message.assetID)
+                                            .frame(width: 150, height: 150)
+                                            .onTapGesture() {
+                                                id = message.assetID
+                                                viewImage = true
+                                            }
+                                    }
+                                    if !message.sentBySelf! {
+                                        Spacer()
+                                    }
+                                    }
                                 MessageCellView(message)
                                     .id(message.id)
+                                    
                                     HStack {
                                         if message.sentBySelf ?? false {
                                             Spacer()
@@ -80,6 +102,12 @@ struct ChatView: View {
                 Spacer()
                 
                 Divider()
+                if image != nil {
+                    Image(uiImage: image!)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 100, height: 100)
+                }
                 HStack {
                     
                     MessageButtons(imageName: "xmark")
@@ -88,7 +116,11 @@ struct ChatView: View {
                             presentationMode.wrappedValue.dismiss()
                             
                         }
-                  //  MessageButtons(imageName: "mic.fill")
+                    MessageButtons(imageName: "camera.fill")
+                        .onTapGesture {
+                           
+                            showImagePicker = true
+                        }
                     Spacer()
                     TextField("Enter message", text: self.$messageField)
                         .font(.custom("Montserrat", size: 15))
@@ -101,8 +133,27 @@ struct ChatView: View {
                     Image(systemName: "paperplane.fill")
                         .foregroundColor(Color.gray.opacity(1))
                         .onTapGesture{
+                            var id = ""
+                            if image != nil {
+                                id = UUID().uuidString
+                                let metadata = StorageMetadata()
+                                metadata.contentType = "image/jpeg"
+                             let storage = Storage.storage().reference().child("Message_Assets/\(id)")
+                             if let image = image {
+                             
+                                 storage.putData(image.jpegData(compressionQuality: 100)!, metadata: metadata) { meta, error in
+                                    if let error = error {
+                                        print(error)
+                                        return
+                                    }
+
+                                    
+
+                                }
+                             }
+                            }
                             if self.messageField != ""{
-                                let newMessage = MessageData(messageText: self.messageField, sentBy: self.userData.userID, sentByName: self.userData.name, sentTime: Date())
+                                let newMessage = MessageData(messageText: self.messageField, sentBy: self.userData.userID, sentByName: self.userData.name, sentTime: Date(), assetID: id != "" ? id : "")
                                 for member in members {
                                 let sender = PushNotificationSender()
                                     if member.fcmToken != nil {
@@ -113,11 +164,17 @@ struct ChatView: View {
                                 self.saveMessage(outgoingMessage: newMessage)
                                 
                             }
-                            
+                           
+                            image = nil
                         }
                     
                     
                 }
+                .sheet(isPresented: self.$showImagePicker){
+                    ImagePicker(isShown: self.$showImagePicker, image: self.$image, userID: $userData.userID)
+                        .environmentObject(userData)
+                       
+                 }
                 .onReceive(Publishers.keyboardHeight){height in
                     keyboardHeight=height
                 }
@@ -181,7 +238,9 @@ struct ChatView: View {
               
                 }
             }
-
+            if viewImage {
+                FullImageView(id: $id, viewImage: $viewImage)
+            }
                 if ARChat {
                     VStack {
                         HStack {
@@ -426,3 +485,41 @@ struct ChatView: View {
                 .clipShape(Circle())
         }
     }
+struct assetMessage: View {
+    var assetID: String
+    @State var image = UIImage()
+    var body: some View {
+
+        ZStack {
+            Color.clear
+                .onAppear() {
+                    getProfileImage()
+                }
+            Image(uiImage: image)
+                .resizable()
+                .scaledToFill()
+                
+        }
+    }
+    func getProfileImage() {
+      
+
+        // Create a storage reference from our storage service
+        
+            
+      
+        let storage = Storage.storage().reference().child("Message_Assets/\(assetID)")
+        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
+        storage.getData(maxSize: 1 * 1024 * 1024) { data, error in
+          if let error = error {
+           print(error)
+          } else {
+            // Data for "images/island.jpg" is returned
+            withAnimation(.easeInOut) {
+            image = UIImage(data: data!)!
+                
+            }
+          }
+        }
+    }
+}

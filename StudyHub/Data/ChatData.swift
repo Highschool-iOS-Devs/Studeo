@@ -46,5 +46,5 @@ struct MessageData: Codable, Identifiable, Hashable {
     var sentByName:String
     var sentTime:Date
     var sentBySelf:Bool?
- 
+    var assetID: String
 }
