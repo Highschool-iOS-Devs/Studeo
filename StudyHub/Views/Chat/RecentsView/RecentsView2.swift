@@ -134,6 +134,7 @@ struct RecentsView2: View {
             }
             .fullScreenCover(isPresented: $add){
                 PairingView(settings: $settings, add: $add, myGroups: $groupModel.allGroups, groupModel: groupModel)
+                    .environmentObject(userData)
             }
 
         }

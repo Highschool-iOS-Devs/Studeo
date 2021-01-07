@@ -154,6 +154,9 @@ struct ContentView: View {
                         }
                     case .custom:
                         IntroCustomize(isNotOnboarding: true, interests: $interests, settings: $settings, add: $add)
+                            .onAppear {
+                                viewRouter.showTabBar = false
+                            }
                             .onDisappear() {
                                 viewRouter.showTabBar = true
                             }
@@ -161,9 +164,6 @@ struct ContentView: View {
                                 IntroMentor(settings: $settings, add: $add)
                                     .onAppear() {
                                         viewRouter.showTabBar = false
-                                    }
-                                    .onDisappear() {
-                                        viewRouter.showTabBar = true
                                     }
                     case .settings:
                         SettingView()
@@ -203,7 +203,7 @@ struct ContentView: View {
                     tabBarView()
                         .transition(AnyTransition.move(edge: .bottom))
                         .animation(Animation.easeInOut(duration: 0.5))
-                        .frame(height: geo.size.height/20)
+                        .frame(height: geo.size.height/8)
                 } .transition(AnyTransition.move(edge: .bottom))
                 .animation(Animation.easeInOut(duration: 0.5))
             }

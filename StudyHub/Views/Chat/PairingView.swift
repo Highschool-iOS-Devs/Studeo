@@ -147,6 +147,9 @@ struct PairingView: View {
         .onAppear{
             loadData()
         }
+        .onDisappear {
+            saveData()
+        }
     }
     
     func addUserGroupRecord(newGroup:Groups) {
@@ -234,6 +237,23 @@ struct PairingView: View {
           
             
         }
+    
+    func saveData() {
+        let db = Firestore.firestore()
+        let docRef = db.collection("users").document(self.userData.userID)
+        do {
+            try docRef.setData(from: ["interests": interests], merge: true)
+            docRef.updateData(["finishedOnboarding": true]) { error in
+                if let error = error {
+                    print("Error updating data: \(error)")
+                }
+            }
+        } catch let error {
+            print(error)
+        }
+        
+    }
+    
     func checkIfExistingGroup(completion: @escaping (Bool) -> Void){
         var interests = selectedInterests
         let allUserGroups = groupModel.allGroups

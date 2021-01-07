@@ -90,7 +90,7 @@ struct IntroMentor: View {
                         .font(.custom("Montserrat-SemiBold", size: 18))
                 }
                 .buttonStyle(BlueStyle())
-                .padding(.bottom, 110)
+                .padding(.bottom, 20)
                 .padding(.horizontal, 35)
                 
             }
