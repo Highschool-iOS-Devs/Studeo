@@ -62,12 +62,11 @@ struct MemberListSubview: View {
                                 VStack {
                                     ProfilePic(name: "", id: member.id.uuidString)
                                         .frame(width: 75, height: 75)
-                                        .padding()
+                                        .padding(5)
                                 Text(member.name)
                                     .minimumScaleFactor(0.001)
                                     .font(.custom("Montserrat-Semibold", size: 15))
                                     .foregroundColor(Color("Text"))
-                                    .padding(.top, 10)
                                     .lineLimit(1)
 
                                 }
