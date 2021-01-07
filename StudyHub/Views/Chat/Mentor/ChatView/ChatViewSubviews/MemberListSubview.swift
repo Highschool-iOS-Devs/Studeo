@@ -56,12 +56,13 @@ struct MemberListSubview: View {
                     Spacer()
                 }
                 if members.count <= 4{
-                    HStack(alignment: .center){
+                    HStack(alignment: .center) {
                         ForEach(members) { member in
-                            if member.id.uuidString != self.userData.userID{
+                            if member.id.uuidString != self.userData.userID {
                                 VStack {
                                     ProfilePic(name: "", id: member.id.uuidString)
-                                    
+                                        .frame(width: 75, height: 75)
+                                        .padding()
                                 Text(member.name)
                                     .minimumScaleFactor(0.001)
                                     .font(.custom("Montserrat-Semibold", size: 15))
@@ -71,7 +72,7 @@ struct MemberListSubview: View {
 
                                 }
                                 .frame(maxWidth:.infinity)
-                                .padding(.top, 20)
+                                
                                 .onTapGesture {
                                     self.member = member
                                     showFull = true
@@ -81,6 +82,7 @@ struct MemberListSubview: View {
                            
                         }
                     }
+                    
                 }
                 else{
                     LazyVGrid(columns: columns){

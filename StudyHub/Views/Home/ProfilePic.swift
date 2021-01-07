@@ -26,9 +26,11 @@ struct ProfilePic: View {
                 VStack {
                     Image(uiImage: image)
                         .resizable()
+                        .scaledToFill()
+                        .frame(width: 75, height: 75)
                     
                         
-                        .frame(width: 75, height: 75)
+                        
                         //.frame(width:size,height:size)
                         .clipShape(Circle())
                         
