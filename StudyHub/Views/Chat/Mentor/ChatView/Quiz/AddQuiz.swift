@@ -13,9 +13,10 @@ struct AddQuiz: View {
     @State var quiz =  Quiz(id: UUID().uuidString, name: "", tags: [String](), questions: [Question](), groupID: "")
     var body: some View {
         List {
-       
-            ForEach(self.quiz.questions) { question in
-            QuizAddRow(question: question, quiz: $quiz)
+            QuizTitle(text: $quiz.name)
+                .padding()
+            ForEach(self.quiz.questions.indices, id: \.self) { i in
+                QuizAddRow(question: $quiz.questions[i], quiz: $quiz)
             
         }
             VStack {
@@ -49,7 +50,18 @@ struct AddQuiz: View {
             }
             
     }
-    
+        .onDisappear() {
+            let db = Firestore.firestore()
+            for question in quiz.questions {
+                let docRef = db.collection("quizzes/questions/\(quiz.id)").document(question.id)
+            do{
+                try docRef.setData(from: question)
+                
+            } catch {
+                print("Error writing to database, \(error)")
+            }
+            }
+        }
     }
 }
 struct AddQuiz_Previews: PreviewProvider {

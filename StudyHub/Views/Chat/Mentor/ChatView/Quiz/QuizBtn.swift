@@ -27,17 +27,17 @@ struct QuizBtn: View {
             if question.selected == question.answer {
               i += 1
                 let db = Firestore.firestore()
-                db.collection("quizzes").document("\(group.id)/\(userData.userID)").updateData ([
-                    "points":  points + 1,
+              //  db.collection("quizzes").document("\(group.id)/\(userData.userID)").updateData ([
+               //     "points":  points + 1,
                     
-                ]) { err in
-                    if let err = err {
-                        print("Error updating document: \(err)")
-                    } else {
-                        print("Document successfully updated")
+               // ]) { err in
+                //    if let err = err {
+                 //       print("Error updating document: \(err)")
+                 //   } else {
+                 //       print("Document successfully updated")
                     }
-                }
-            }
+               // }
+           // }
             
           
             

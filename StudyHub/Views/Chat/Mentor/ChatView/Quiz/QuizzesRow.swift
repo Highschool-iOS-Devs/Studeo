@@ -10,13 +10,16 @@ import SwiftUI
 
 struct QuizzesRow: View {
     @State var quiz =  Quiz(id: UUID().uuidString, name: "", tags: [String](), questions: [Question](), groupID: "")
+    @Binding var quizzing: Quiz
+    @Binding var viewQuiz: Bool
     var body: some View {
         HStack {
             Text(quiz.name)
                 .font(.custom("Montserrat Bold", size: 18))
             Spacer()
             Button(action: {
-                
+                quizzing = quiz
+                viewQuiz = true
             }) {
                 Text("Start")
             } .buttonStyle(BlueStyle())
@@ -31,8 +34,3 @@ struct QuizzesRow: View {
     }
 }
 
-struct QuizzesRow_Previews: PreviewProvider {
-    static var previews: some View {
-        QuizzesRow()
-    }
-}

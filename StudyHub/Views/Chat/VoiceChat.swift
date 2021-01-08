@@ -25,7 +25,7 @@ struct VoiceChat: View {
     @State var ready = false
     @Binding var loadingAnimation: Bool
     @State var quiz = false
-    @State var testing = false
+    @State var testing = true
     var body: some View {
         ZStack {
         Color("Background").edgesIgnoringSafeArea(.all)
