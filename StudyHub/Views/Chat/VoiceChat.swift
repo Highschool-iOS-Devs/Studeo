@@ -25,6 +25,7 @@ struct VoiceChat: View {
     @State var ready = false
     @Binding var loadingAnimation: Bool
     @State var quiz = false
+    @State var testing = false
     var body: some View {
         ZStack {
         Color("Background").edgesIgnoringSafeArea(.all)
@@ -84,6 +85,7 @@ struct VoiceChat: View {
             VStack {
                 HStack {
                     Spacer()
+                    if testing {
                     Button(action: {
                        // viewRouter.currentView = .quizList
 quiz = true
@@ -95,6 +97,7 @@ quiz = true
                             Image(systemName: "doc.fill")
                                 .foregroundColor(Color(.white))
                 }
+                    }
                     }
                     Button(action: {
                         isMuted.toggle()
