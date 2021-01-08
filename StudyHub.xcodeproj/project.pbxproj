@@ -105,6 +105,7 @@
 		E12C5FB3259A518500D3314E /* Path+QuadCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12C5FA2259A518500D3314E /* Path+QuadCurve.swift */; };
 		E12C5FB4259A518500D3314E /* MultiLineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12C5FA3259A518500D3314E /* MultiLineChartView.swift */; };
 		E12C5FB5259A518500D3314E /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12C5FA4259A518500D3314E /* Line.swift */; };
+		E12C83EF25A8F52300C2F827 /* ChatHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12C83EE25A8F52200C2F827 /* ChatHeader.swift */; };
 		E12E5FC92584924900FB216C /* test.MP4 in Resources */ = {isa = PBXBuildFile; fileRef = E12E5FC82584924900FB216C /* test.MP4 */; };
 		E133D66125A7D0B100730B7C /* FullImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E133D66025A7D0B100730B7C /* FullImageView.swift */; };
 		E155D69B251AA665008281AE /* ProfileStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155D69A251AA665008281AE /* ProfileStats.swift */; };
@@ -243,6 +244,7 @@
 		E12C5FA2259A518500D3314E /* Path+QuadCurve.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Path+QuadCurve.swift"; sourceTree = "<group>"; };
 		E12C5FA3259A518500D3314E /* MultiLineChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiLineChartView.swift; sourceTree = "<group>"; };
 		E12C5FA4259A518500D3314E /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
+		E12C83EE25A8F52200C2F827 /* ChatHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHeader.swift; sourceTree = "<group>"; };
 		E12E5FC82584924900FB216C /* test.MP4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.MP4; sourceTree = "<group>"; };
 		E13032A8258CCFD500135CAC /* ProfileRingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRingView.swift; sourceTree = "<group>"; };
 		E133D66025A7D0B100730B7C /* FullImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullImageView.swift; sourceTree = "<group>"; };
@@ -507,6 +509,7 @@
 				E163D31325A280D000102895 /* Quiz */,
 				622AABB325955E91004A984A /* ChatViewSubviews */,
 				620590E224FDBB21001565BF /* ChatView.swift */,
+				E12C83EE25A8F52200C2F827 /* ChatHeader.swift */,
 				E133D66025A7D0B100730B7C /* FullImageView.swift */,
 			);
 			name = ChatView;
@@ -884,6 +887,7 @@
 				6205910A24FDBB21001565BF /* SettingView.swift in Sources */,
 				624FAFDE25720ACC000E0203 /* RecentGroupRowSubview.swift in Sources */,
 				6205910824FDBB21001565BF /* ChatData.swift in Sources */,
+				E12C83EF25A8F52300C2F827 /* ChatHeader.swift in Sources */,
 				622430A125747BDE0031CF78 /* RecentChatGroupSubview.swift in Sources */,
 				626E7815258D3EEB008633AB /* ProfileRingView.swift in Sources */,
 				626EECB2258988D700E7A7A5 /* RecentsView2.swift in Sources */,
@@ -1118,7 +1122,7 @@
 				CODE_SIGN_ENTITLEMENTS = StudyHub/StudyHub.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 12;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyHub/Preview Content\"";
 				DEVELOPMENT_TEAM = MC27HKM86M;
@@ -1148,7 +1152,7 @@
 				CODE_SIGN_ENTITLEMENTS = StudyHub/StudyHub.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 12;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyHub/Preview Content\"";
 				DEVELOPMENT_TEAM = MC27HKM86M;

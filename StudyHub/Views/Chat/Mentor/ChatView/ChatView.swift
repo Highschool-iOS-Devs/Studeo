@@ -43,18 +43,20 @@ struct ChatView: View {
     @State var reactions = ["love", "thumbsup", "celebrate", "laugh"]
     @State private var lastMessageID = ""
     @State var reaction = "love"
+    @State var isDMs = false
     var body: some View {
         ZStack {
             Color("Background").edgesIgnoringSafeArea(.all)
-                .onAppear() {
-                    //viewRouter.showTabBar = false
-                }
+               
             VStack {
+               
+                    ChatHeader(group: group, isDMs: $isDMs)
+                
                 //Testing UI with some messages
                 
                 ScrollView(.vertical, showsIndicators: false) {
                     ScrollViewReader { scrollView in
-                        LazyVStack {
+                        VStack {
                             ForEach(self.messages) { message in
                                 VStack {
                                     HStack {

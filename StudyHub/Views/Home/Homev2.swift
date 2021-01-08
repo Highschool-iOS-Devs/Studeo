@@ -208,14 +208,14 @@ struct Homev2: View {
        
         
         }
-        .sheet(isPresented: $show, content: {
+        .fullScreenCover(isPresented: $show, content: {
             if dmChat {
-                ChatView(group: group, show: $show)
+                ChatView(group: group, show: $show, isDMs: true)
                     .onDisappear {
                         dmChat = false
                     }
             } else {
-                ChatView(group: devGroup, show: $show)
+                ChatView(group: devGroup, show: $show, isDMs: true)
             }
         })
     
