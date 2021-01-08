@@ -41,6 +41,7 @@ struct ChatView: View {
     @State var toggleReaction = false
     @State var message = MessageData(id: "", messageText: "", sentBy: "", sentByName: "", sentTime: Date(), sentBySelf: false, assetID: "", reactions: [String]())
     @State var reactions = ["love", "thumbsup", "celebrate", "laugh"]
+    @State private var lastMessageID = ""
     @State var reaction = "love"
     var body: some View {
         ZStack {
@@ -54,7 +55,7 @@ struct ChatView: View {
                 ScrollView(.vertical, showsIndicators: false) {
                     ScrollViewReader { scrollView in
                         LazyVStack {
-                            ForEach(self.messages, id:\.self) { message in
+                            ForEach(self.messages) { message in
                                 VStack {
                                     HStack {
                                         if message.sentBySelf ?? false {
@@ -111,12 +112,23 @@ struct ChatView: View {
                         .animation(.easeInOut(duration: 0.7))
                         .drawingGroup()
                         .padding(.top,5)
-                        .onChange(of: messages, perform: { value in
-                            
-                            withAnimation() {
-                                scrollView.scrollTo(messages.last, anchor: .bottom)
+                        .onChange(of: messages, perform: { messages in
+                            guard let lastMessage = messages.last else { return }
+                            if let id = lastMessage.id {
+                                self.lastMessageID = id
+                            }
+
+                            withAnimation {
+                                scrollView.scrollTo(lastMessage.id, anchor: .bottom)
                             }
                         })
+                        .onReceive(Publishers.keyboardHeight){height in
+                            guard !lastMessageID.isEmpty else { return }
+
+                            withAnimation {
+                                scrollView.scrollTo(self.lastMessageID, anchor: .bottom)
+                            }
+                        }
                     }
                 }
                 .disabled(membersList ? true : false)
