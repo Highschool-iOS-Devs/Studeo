@@ -1,16 +1,17 @@
 //
-//  ContentView.swift
+//  ContentViewSubviews.swift
 //  StudyHub
 //
-//  Created by Dakshin Devanand on 8/22/20.
-//  Copyright © 2020 Dakshin Devanand. All rights reserved.
+//  Created by Jevon Mao on 1/7/21.
+//  Copyright © 2021 Dakshin Devanand. All rights reserved.
 //
 
 import SwiftUI
 import FirebaseAuth
 import FirebaseFirestore
 import FirebaseStorage
-struct ContentView: View {
+
+struct ContentViewSubviews: View {
     @EnvironmentObject var userData: UserData
     @EnvironmentObject var viewRouter:ViewRouter
     @State private var hasCheckedAuth = false
@@ -32,105 +33,99 @@ struct ContentView: View {
     @State var i = 0
     @State var i2 = -1
     @State var timerLog = [TimerLog]()
-  
+    @State var show = false
+    @State var devGroup = Groups(id: "", groupID: UUID().uuidString, groupName: "Andreas", members: [String](), membersCount: 0, interests: [UserInterestTypes?](), recentMessage: "", recentMessageTime: Date(), userInVC: [String]())
     @State var interestSelected: [UserInterestTypes] = []
+
     var body: some View {
-        GeometryReader { geo in
-        ZStack { 
-            Color("Background")
-                .edgesIgnoringSafeArea(.all)
-                .onAppear{
-                    self.checkAuth()
-                    self.firstLaunchAction()
-                    userData.uses += 1
-                    userData.uses = 2
-                   
-            }
-           
-                if hasCheckedAuth {
-                    Color("Background")
-                        .edgesIgnoringSafeArea(.all)
-                        .onAppear{
-                            self.loadDMsData(){ userData in
-                                //Get completion handler data results from loadData function and set it as the recentPeople local variable
-                                self.recentPeople = userData ?? []
-                                
-        
-
-                               
-                            }
-                            self.loadUserTimerLog(){ userData in
-                                //Get completion handler data results from loadData function and set it as the recentPeople local variable
-                                self.timerLog = userData 
-                                
-        
-
-                               
-                            }
-                           
-                            self.loadUserData(){ userData in
-                                //Get completion handler data results from loadData function and set it as the recentPeople local variable
-                                self.user = userData
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                                    hasLoaded = true
-                                }
-                                self.loadMyGroupsData(){ userData in
-                                    myGroups = userData ?? []
-                                    self.loadMyMentorsData(){ userData in
-                                        myMentors = userData ?? []
-                                        
-                                self.loadGroupsData(){ userData in
-                                    //Get completion handler data results from loadData function and set it as the recentPeople local variable
-                                    recommendGroups = userData ?? []
-                                   // self.recommendGroups = userData!.removeDuplicates()
-                                    let g = recommendGroups + myGroups
-                                  recommendGroups = g.removeDuplicates()
-                                   
-                                  
-                                    hasLoaded = true
-                                }
-                                }
-                            }
-
-                            }
-                           
-                    }
-               
-                        if hasLoaded {
-                            ContentViewSubviews()
-
-                    }
-                       
-                        
-                        
+        switch viewRouter.currentView {
+        case .devChat:
+            ChatView(group: devGroup, show: $show)
+                .onAppear() {
+                    viewRouter.showTabBar = false
                     
-                    }
-            if viewRouter.showTabBar {
-                VStack {
-                    Spacer()
-                    tabBarView()
-                        .transition(AnyTransition.move(edge: .bottom))
-                        .animation(Animation.easeInOut(duration: 0.5))
-                        .frame(height: geo.size.height/8)
-                } .transition(AnyTransition.move(edge: .bottom))
-                .animation(Animation.easeInOut(duration: 0.5))
-            }
-         
-            // == true || viewRouter.currentView != .registration || viewRouter.currentView != .login 
-           
-                
-        }
-        .frame(height: geo.size.height)
-     //   .preferredColorScheme((userData.darkModeOn==true) ? .dark : .light)
-        }
+                    
+                    userData.hasDev = true
+                }
+        case .mentor:
+            MentorPairingView(settings: $settings, add: $add, myGroups: $myGroups, myMentors: $myMentors)
+        case .registration:
+            RegistrationView()
+        .environmentObject(viewRouter)
+case .login:
+    LoginView()
+   
+case .chatList:
+    RecentsView2(myMentors: $myMentors, timerLog: $timerLog)
         .environmentObject(userData)
         .environmentObject(viewRouter)
+        .onAppear() {
+            viewRouter.showTabBar = true
+        }
+case .profile:
+    ProfileView(user: $user)
+        .environmentObject(userData)
+        .environmentObject(viewRouter)
+        .onAppear() {
+            viewRouter.showTabBar = true
+        }
+case .home:
+    if userData.uses == 1 {
+        Homev2(recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user, timerLog: $timerLog, devGroup: $devGroup)
+           
+            .onAppear() {
+                viewRouter.showTabBar = true
+            }
+    } else {
+        //Home(timerLog: $timerLog)
+        Homev2(recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user, timerLog: $timerLog, devGroup: $devGroup)
+                                            .onAppear() {
+                viewRouter.showTabBar = true
+            }
+        .environmentObject(userData)
+        .environmentObject(viewRouter)
+
+   
+    }
+case .custom:
+    IntroCustomize(interestSelected: $interestSelected, isNotOnboarding: true, interests: $interests, settings: $settings, add: $add)
+        .onAppear {
+            viewRouter.showTabBar = false
+        }
+        .onDisappear() {
+            viewRouter.showTabBar = true
+        }
+        case .mentorCustom:
+            IntroMentor()
+                .onAppear() {
+                    viewRouter.showTabBar = false
+                }
+case .settings:
+    SettingView()
+        .environmentObject(viewRouter)
+        .environmentObject(userData)
+        .onAppear() {
+            viewRouter.showTabBar = true
+        }
+case .leaderboard:
+    LeaderboardView()
+        .environmentObject(userData)
+        .environmentObject(viewRouter)
+        .onAppear() {
+            viewRouter.showTabBar = true
+        }
+case .introView:
+    IntroView()
+        .transition(.opacity)
+        .animation(.easeInOut)
+        .onAppear() {
+            viewRouter.showTabBar = false
+        }
         
-
+case .quizList:
+    IntroView()
 }
-
-    
-
+    }
     func loadUserData(performAction: @escaping ([User]) -> Void) {
         let db = Firestore.firestore()
      let docRef = db.collection("users").document(self.userData.userID)
@@ -482,9 +477,10 @@ struct ContentView: View {
             userData.firstRun = false
         }
     }
-    
-
 }
 
-
-
+struct ContentViewSubviews_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentViewSubviews()
+    }
+}
