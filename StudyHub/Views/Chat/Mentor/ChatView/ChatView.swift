@@ -258,6 +258,8 @@ struct ChatView: View {
                     }
               
                 }
+            } .onTapGesture() {
+                toggleReaction = false
             }
             if viewImage {
                 FullImageView(id: $id, viewImage: $viewImage)
@@ -282,7 +284,7 @@ struct ChatView: View {
                 Picker(selection: $message.reactions, label: HStack{
                         Text("Reaction: ")
                         }) {
-                    ForEach(reactions, id: \.self) { (reaction) in
+                    ForEach(reactions, id: \.self) { reaction in
                         Text(reaction == "love" ? "❤️" : "")
                         
                         Text(reaction == "thumbsup" ? "👍" : "")
@@ -294,7 +296,7 @@ struct ChatView: View {
                 }
                 .pickerStyle(MenuPickerStyle())
                 .foregroundColor(Color("Text"))
-                .font(.custom("Montserrat-regular", size: 14))
+                
             }
             BottomCardSubview(displayView: AnyView(MemberListSubview(members: $members, memberList: $membersList, showFull: $showFull, group: $group, person: $person, messages: $messages)), showFull: $showFull, showCard: $membersList)
             
