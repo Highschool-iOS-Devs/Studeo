@@ -14,28 +14,43 @@ struct QuizzesList: View {
     @State var testing = true
     @Binding var group: Groups
     @EnvironmentObject var viewRouter:ViewRouter
+    @Binding var quiz: Bool
+    @State var add = false
     var body: some View {
         ZStack {
             Color("Background")
                 .onAppear() {
                     self.loadQuizzes(){ userData in
                         quizzes = userData ?? []
+                        print(quizzes)
                         for i in quizzes.indices {
-                            self.loadQuestions(id: quizzes[i].id, i: i)
+                            //self.loadQuestions(id: quizzes[i].id, i: i)
                       
                         }
                     }
                 }
         if testing {
+            VStack {
+                HStack {
+                    
+                    Button(action: {
+                        add = true
+                    }) {
+                        Image(systemName: "plus")
+                    }
+                    Spacer()
+                } .padding()
         ForEach(quizzes, id: \.self) { quiz in
             QuizzesRow(quiz: quiz)
         }
+                Spacer()
+            }
         } else {
             VStack {
                 HStack {
                     
                     Button(action: {
-                        viewRouter.currentView = .chatList
+                        quiz = false
                     }) {
                         Image(systemName: "xmark")
                     }
@@ -55,10 +70,13 @@ struct QuizzesList: View {
             } .padding()
         }
 }
+        if add {
+            AddQuiz(quiz: Quiz(id: UUID().uuidString, name: "Test", tags: [String](), questions: [Question](), groupID: group.groupID))
+        }
     }
     func loadQuizzes(performAction: @escaping ([Quiz]?) -> Void) {
         let db = Firestore.firestore()
-        let docRef = db.collection("users").whereField("groupID", arrayContains: group.groupID)
+        let docRef = db.collection("quizzes").whereField("groupID", isEqualTo: group.groupID)
         var groupList:[Quiz] = []
         //Get every single document under collection users
         

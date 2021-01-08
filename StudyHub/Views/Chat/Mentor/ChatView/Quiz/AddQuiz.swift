@@ -38,12 +38,20 @@ struct AddQuiz: View {
             .padding()
         }
         } .onAppear() {
+            let db = Firestore.firestore()
            
+                let docRef = db.collection("quizzes").document(quiz.id)
+            do{
+                try docRef.setData(from: quiz)
+                
+            } catch {
+                print("Error writing to database, \(error)")
             }
+            
     }
     
     }
-
+}
 struct AddQuiz_Previews: PreviewProvider {
     static var previews: some View {
         AddQuiz()
