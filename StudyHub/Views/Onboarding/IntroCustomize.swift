@@ -14,21 +14,27 @@ import FirebaseAuth
 import FirebaseCore
 
 func hapticEngine(style: UIImpactFeedbackGenerator.FeedbackStyle){
-    let impact = UIImpactFeedbackGenerator(style: .medium)
+    let impact = UIImpactFeedbackGenerator(style: style)
     impact.impactOccurred()
 }
 
 struct IntroCustomize: View {
-    @State var interestSelected:[UserInterestTypes] = []
+    @Binding var interestSelected: [UserInterestTypes]
+    //@State var existingInterests: [UserInterestTypes]
     @EnvironmentObject var userData: UserData
     @State var isNotOnboarding: Bool = false
     @Binding var interests: [String]
     @Binding var settings: Bool
     @Binding var add: Bool
     @EnvironmentObject var viewRouter:ViewRouter
+    var groupModel:ChatViewModel?
+    
     var body: some View {
         ZStack {
-            Color(.systemBackground).edgesIgnoringSafeArea(.all)
+            Color("Background").edgesIgnoringSafeArea(.all)
+                .onAppear() {
+                  
+                }
             VStack {
                 if !isNotOnboarding {
         
@@ -61,17 +67,19 @@ struct IntroCustomize: View {
                         .padding(.vertical, 20)
                     
                 }
-                Text("Select your classes and learning topics and we'll recommend groups where you can find help.")
+                Text("Select your classes and learning topics and we'll recommend groups where you can find studymates.")
                     .multilineTextAlignment(.center)
                     .font(.custom("Montserrat-light", size: 15))
                     .padding(.bottom, 30)
                     .padding(.horizontal, 20)
-                
+                ScrollView {
                 VStack(spacing: 10) {
                     ForEach(UserInterestTypes.allCases, id:\.self){name in
                         InterestSelectRow(interestSelected: $interestSelected, interestName: name)
                             
                     }
+                }
+                    Spacer(minLength: 200)
                 }
                 Spacer()
             
@@ -100,7 +108,7 @@ struct IntroCustomize: View {
                         .font(.custom("Montserrat-SemiBold", size: 18))
                 }
                 .buttonStyle(BlueStyle())
-                .padding(.bottom, 110)
+                .padding(.bottom, 20)
                 .padding(.horizontal, 35)
                 
                 }
@@ -108,11 +116,36 @@ struct IntroCustomize: View {
             }
         }
         .animation(.easeInOut)
+        .onAppear{
+//            if let groupModel = groupModel{
+//                getInterests(model: groupModel)
+//
+//            }
+        }
+        .onDisappear {
+            interestSelected = interestSelected.removeDuplicates()
+            interests.removeAll()
+            for interest in interestSelected {
+                interests.append(interest.rawValue)
+                do {
+                    
+               try saveData()
+                } catch {
+                    print("error")
+                }
+        }
        
         
         
     }
+    }
     
+//    func getInterests(model:ChatViewModel){
+//        for interest in model.currentUser?.interests ?? []{
+//            existingInterests.append(interest)
+//        }
+//        
+//    }
     func saveData() throws -> Void{
         let db = Firestore.firestore()
         let docRef = db.collection("users").document(userData.userID)
@@ -168,6 +201,11 @@ struct InterestSelectRow: View {
         )
         .clipShape(RoundedRectangle(cornerRadius: 30))
         .padding(.horizontal, 10)
+        .onAppear{
+            if interestSelected.contains(interestName){
+                selected = true
+            }
+        }
         .onTapGesture(){
             if selected{
                interestSelected = interestSelected.filter {$0 != interestName}
@@ -196,9 +234,15 @@ struct InterestSelectRow: View {
 }
 
 enum UserInterestTypes:String,CaseIterable, Codable{
-    case SAT = "SAT"
-    case ACT = "ACT"
-    case APCalculus = "AP Calculus"
+    case SAT = "Standardized Tests"
+    case Spanish = "Spanish"
     case Algebra2 = "Algebra 2"
+    case Algebra1 = "Algebra 1"
+    case Chemistry = "Chemistry"
+    case Physics = "Physics"
+    case Biology = "Biology"
+    case CS = "Computer Science"
+    case CollegeApps = "College Applications"
+    case Other = "Other"
     
 }

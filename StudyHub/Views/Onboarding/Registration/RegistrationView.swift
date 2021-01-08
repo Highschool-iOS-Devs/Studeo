@@ -40,7 +40,7 @@ struct RegistrationView: View {
                     }, secondaryButtonAction: {self.viewRouter.updateCurrentView(view: .login)}, displayMode: .registration)
                     .padding(.top, 30)
                     .padding(.bottom, 30)
-                }
+            } .padding(.bottom, 62)
                 .blur(radius: showLoadingAnimation ? 20 : 0)
                 .onAppear{
                     viewRouter.showTabBar = false
@@ -95,7 +95,7 @@ struct RegistrationView: View {
                 self.userData.userID = authResult!.id.uuidString
                 self.userData.name = authResult!.name
                 uploadImage()
-                self.viewRouter.updateCurrentView(view: .custom)
+                self.viewRouter.updateCurrentView(view: .mentorCustom)
                // self.viewRouter.showTabBar = true
         }
 
@@ -147,9 +147,9 @@ struct RegistrationView: View {
              let metadata = StorageMetadata()
              metadata.contentType = "image/jpeg"
           let storage = Storage.storage().reference().child("User_Profile/\(userData.userID)")
-            let imagePlaceholder = UIImage(systemName: "person.circle.fill")!
+            let imagePlaceholder = UIImage(named: "placeholder")!
 
-              storage.putData(imagePlaceholder.jpegData(compressionQuality: 10)!, metadata: metadata) { meta, error in
+              storage.putData(imagePlaceholder.pngData()!, metadata: metadata) { meta, error in
                 if let error = error{
                     print("Error uploading image, \(error)")
                     return

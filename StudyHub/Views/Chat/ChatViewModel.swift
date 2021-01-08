@@ -16,6 +16,7 @@ class ChatViewModel:ObservableObject{
     @Published var allGroups:[Groups] = []
     @Published var recentGroups:[Groups] = []
     @Published var recentPeople:[User] = []
+    @Published var currentUser:User?
     
     func getAllGroups(performAction: @escaping ([Groups]) -> Void){
         guard userData != nil else {return}
@@ -68,6 +69,7 @@ class ChatViewModel:ObservableObject{
     func getRecentPeople() -> [User]{
         var recentPeople:[User] = []
         getCurrentOrAnyUser(){user in
+            self.currentUser = user
             if let people = user.recentPeople{
                 for id in people{
                     self.getCurrentOrAnyUser(userID: id){user in

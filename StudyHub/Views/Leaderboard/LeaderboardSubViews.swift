@@ -10,20 +10,22 @@ import SwiftUI
 struct SelfRankView: View {
     
     var hours:Double
+    @State var id = ""
     var body: some View {
+        
         HStack(alignment: .center) {
-            ProfileRingView(size: 60)
-            
+            ProfilePic(name: "", id: id)
+                .frame(width: 75, height: 75)
             Spacer()
             VStack {
                 Image(systemName: "stopwatch.fill")
-                    .foregroundColor(Color.black.opacity(0.8))
+                    .foregroundColor(Color("Text").opacity(0.8))
                     .font(.system(size: 13))
                Text(hours.removeZerosFromEnd())
-                    .foregroundColor(.black)
+                    .foregroundColor(Color("Text"))
                 HStack {
                     Text("All Time Hours")
-                        .foregroundColor(.black)
+                        .foregroundColor(Color("Text"))
                         .padding(.top, 5)
                     
                 }
@@ -45,32 +47,34 @@ struct SelfRankView: View {
         } .padding()
         .font(.custom("Montserrat-SemiBold", size: 15))
         .frame(width: 300, height: 100)
-        .background(Color.white)
+        .background(Color("Card"))
+       // .opacity(0.6)
         .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
-        .shadow(radius: 5)
+        .shadow(color: Color("CardShadow") ,radius: 6)
     }
 }
 
 struct ProfilePicture: View {
     var pictureSize:Int
     @State var image:Image
+    @State var id = ""
     var body: some View {
-        image
-            .resizable()
-            .clipShape(Circle())
-            .aspectRatio(contentMode: .fill)
-            .frame(width: CGFloat(pictureSize), height: CGFloat(pictureSize))
+        ProfilePic(name: "", id: id)
+            .frame(width: 75, height: 75)
+            
     }
 }
 
 struct LeaderboardRow: View {
     var name:String
     var hours:[Double]
+     var id = ""
     @State var showGreenArrow:Bool = false
-    init(name:String, hours:[Double]){
+    init(name:String, hours:[Double], id: String){
         self.name = name
         self.hours = hours
         self.showGreenArrow = parseHours()
+        self.id = id
     }
     
     var body: some View {
@@ -82,8 +86,9 @@ struct LeaderboardRow: View {
               //  Text("4")
                 //    .foregroundColor(Color("Text"))
             }
-            ProfilePicture(pictureSize: 45, image: Image("demoprofile"))
-             
+            ProfilePic(name: "", id: id)
+                .frame(width: 75, height: 75)
+            
             Text(name)
                 .foregroundColor(Color("Text"))
 
@@ -118,10 +123,12 @@ struct LeaderboardRow: View {
 
 struct dateSelectionView: View {
     @Binding var currentDateTab:LeaderBoardTabRouter.tabViews
-    
+    @State  var testing = false
     var body: some View {
         HStack(spacing: 25){
+            if testing {
             VStack {
+                
                 Text("Today")
                     .foregroundColor(Color(.white).opacity(self.currentDateTab == .today ? 1 : 0.25))
                     .onTapGesture {
@@ -132,7 +139,7 @@ struct dateSelectionView: View {
                     .frame(width: 50, height: 7)
                     
             }
-            
+          
             VStack {
                 Text("Month")
                     .foregroundColor(Color(.white).opacity(self.currentDateTab == .month ? 1 : 0.25))
@@ -143,7 +150,7 @@ struct dateSelectionView: View {
                     .fill(currentDateTab == .month ? Color("primaryYellow") : Color.white.opacity(0))
                     .frame(width: 50, height: 7)
             }
-            
+            }
             VStack {
                 Text("All Time")
                     .foregroundColor(Color(.white).opacity(self.currentDateTab == .allTime ? 1 : 0.25))
@@ -163,9 +170,12 @@ struct dateSelectionView: View {
 struct LeaderRankView: View {
      var name:String
     var hours:[Double]
+    @State var id = ""
     var body: some View {
+        
         VStack{
-            ProfilePicture(pictureSize: 70, image: Image("demoprofile"))
+            ProfilePic(name: "", id: id)
+                .frame(width: 75, height: 75)
             Text(name)
                 .foregroundColor(Color("Text"))
                 .font(.custom("Montserrat-SemiBold", size: 12))
@@ -185,19 +195,20 @@ struct LeaderRankView: View {
 
 struct LeadersStack: View {
     var leaders: [User]
+    
     var body: some View {
         HStack(spacing: 30) {
             if leaders.count > 1 {
-                LeaderRankView(name: leaders[1].name, hours: leaders[1].studyHours)
+                LeaderRankView(name: leaders[1].name, hours: leaders[1].studyHours, id: leaders[1].id.uuidString)
                     .offset(x: 0, y: 10)
             }
             if leaders.isEmpty {
             } else {
-            LeaderRankView(name: leaders[0].name, hours: leaders[0].studyHours)
+                LeaderRankView(name: leaders[0].name, hours: leaders[0].studyHours, id: leaders[2].id.uuidString)
             }
             
             if leaders.count > 2 {
-                LeaderRankView(name: leaders[2].name, hours: leaders[2].studyHours)
+                LeaderRankView(name: leaders[2].name, hours: leaders[2].studyHours, id: leaders[2].id.uuidString)
                     .offset(x: 0, y: 10)
             }
         }

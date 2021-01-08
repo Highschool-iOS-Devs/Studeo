@@ -30,6 +30,9 @@ final class UserData: ObservableObject {
     @Published(key: "userID")
     var userID: String = "nil"
     
+    @Published(key: "darkModeOn")
+    var darkModeOn: Bool = false
+    
     
     @Published(key: "hasInteractedWith")
     var interactedPeople: [String] = [""]

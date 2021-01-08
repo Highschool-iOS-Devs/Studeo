@@ -13,7 +13,7 @@ class TimerManager: ObservableObject {
     
     var userData: UserData = UserData.shared
     
-    var minutes = [4, 90, 120, 180]
+    var minutes = [5, 10, 30, 60]
     
     private var timer: Timer? = nil
     

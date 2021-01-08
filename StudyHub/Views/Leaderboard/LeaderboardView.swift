@@ -87,7 +87,7 @@ struct LeaderboardView: View {
                 
                 HStack {
                     ForEach(user){user in
-                        SelfRankView(hours: user.all)
+                        SelfRankView(hours: user.all, id: user.id.uuidString)
                             .padding(.top, 20)
                             .onAppear {
                                 withAnimation {
@@ -109,7 +109,7 @@ struct LeaderboardView: View {
                         VStack(spacing: 30) {
                             ForEach(people){user in
                                 
-                                LeaderboardRow(name: user.name, hours: user.studyHours)
+                                LeaderboardRow(name: user.name, hours: user.studyHours, id: user.id.uuidString)
                                     .onAppear() {
                                         print(user.name)
                                     }

@@ -24,7 +24,7 @@ struct RecentGroupRowSubview: View {
         //Chat row background
         ZStack {
             RoundedRectangle(cornerRadius: 20)
-                .fill(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                .fill(Color("Card"))
    
             HStack {
                 MiniProfileSubview(group:group)
@@ -33,7 +33,7 @@ struct RecentGroupRowSubview: View {
                             .textCase(.uppercase)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     Spacer()
-                        Text(messagePreview).font(.custom("Montserrat Regular", size: 12))
+                        Text(messagePreview).font(.custom("Montserrat Medium", size: 12))
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .foregroundColor(Color(#colorLiteral(red: 0.18, green: 0.57, blue: 0.82, alpha: 1)))
                 }
@@ -42,14 +42,14 @@ struct RecentGroupRowSubview: View {
                 
                 VStack {
                     ZStack {
-                        Circle()
-                        .fill(Color(#colorLiteral(red: 0.9666666388511658, green: 0.257515013217926, blue: 0.2497221827507019, alpha: 1)))
-                        .frame(width: 16, height: 16)
+                       // Circle()
+                        //.fill(Color(#colorLiteral(red: 0.9666666388511658, green: 0.257515013217926, blue: 0.2497221827507019, alpha: 1)))
+                      //  .frame(width: 16, height: 16)
                
-                        Text("8").font(.custom("Montserrat SemiBold", size: 9)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center)
-                        .textCase(.uppercase)
+                      //  Text("8").font(.custom("Montserrat SemiBold", size: 9)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center)
+                      //  .textCase(.uppercase)
                     }
-                    Text(sentTime).font(.custom("Montserrat Regular", size: 12)).foregroundColor(Color(#colorLiteral(red: 0.18, green: 0.57, blue: 0.82, alpha: 1))).multilineTextAlignment(.center)
+                    Text(sentTime).font(.custom("Montserrat Medium", size: 12)).foregroundColor(Color(#colorLiteral(red: 0.18, green: 0.57, blue: 0.82, alpha: 1))).multilineTextAlignment(.center)
 
 
                 }
@@ -57,9 +57,9 @@ struct RecentGroupRowSubview: View {
             .padding(.horizontal, 10)
         }
         .frame(height: 91)
-        .shadow(color: Color(#colorLiteral(red: 0.4166666865, green: 0.7666666508, blue: 1, alpha: 0.3000000119)), radius:7, x:0, y:7)
-        .shadow(color: Color(#colorLiteral(red: 0.4166666865348816, green: 0.7666666507720947, blue: 1, alpha: 0.30000001192092896)), radius:7, x:3, y:0)
-        .shadow(color: Color(#colorLiteral(red: 0.4166666865348816, green: 0.7666666507720947, blue: 1, alpha: 0.30000001192092896)), radius:7, x:-3, y:0)
+        .shadow(color: Color("CardShadow"), radius:2, x:0, y:2)
+        .shadow(color: Color("CardShadow"), radius:2, x:2, y:0)
+        .shadow(color: Color("CardShadow"), radius:2, x:-2, y:0)
      
         .onAppear{
             getTimeAndMessageRecord()

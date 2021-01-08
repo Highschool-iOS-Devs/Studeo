@@ -22,6 +22,9 @@ class ViewRouter:ObservableObject{
         case profile
         case custom
         case mentor
+        case quizList
+        case devChat
+        case mentorCustom
     }
     @Published var currentView = Views.registration
     @Published var showChatView = false {
@@ -29,7 +32,7 @@ class ViewRouter:ObservableObject{
             showTabBar.toggle()
         }
     }
-    @Published var showTabBar = true
+    @Published var showTabBar = false
     public static let shared = ViewRouter()
     func updateCurrentView(view:Views){
         self.currentView = view

@@ -48,7 +48,7 @@ struct MemberListSubview: View {
                 .padding(.bottom, 2)
                 HStack{
                     Spacer()
-                    Text("\(group.membersCount) studymates")
+                    Text("\(group.membersCount-1) studymates")
                         .foregroundColor(Color("Secondary"))
                         .font(.custom("Montserrat-SemiBold", size: 15))
 
@@ -56,21 +56,22 @@ struct MemberListSubview: View {
                     Spacer()
                 }
                 if members.count <= 4{
-                    HStack(alignment: .center){
+                    HStack(alignment: .center) {
                         ForEach(members) { member in
-                            if member.id.uuidString != self.userData.userID{
+                            if member.id.uuidString != self.userData.userID {
                                 VStack {
-                                   ProfileRingView(imagePlaceholder: Image("person"), size: 75)
+                                    ProfilePic(name: "", id: member.id.uuidString)
+                                        .frame(width: 75, height: 75)
+                                        .padding(5)
                                 Text(member.name)
                                     .minimumScaleFactor(0.001)
                                     .font(.custom("Montserrat-Semibold", size: 15))
                                     .foregroundColor(Color("Text"))
-                                    .padding(.top, 10)
                                     .lineLimit(1)
 
                                 }
                                 .frame(maxWidth:.infinity)
-                                .padding(.top, 20)
+                                
                                 .onTapGesture {
                                     self.member = member
                                     showFull = true
@@ -80,13 +81,14 @@ struct MemberListSubview: View {
                            
                         }
                     }
+                    
                 }
                 else{
                     LazyVGrid(columns: columns){
                         ForEach(members) { member in
                             if member.id.uuidString != self.userData.userID{
                                 VStack {
-                                    ProfileRingView(imageURL:member.profileImageURL ?? nil, size: 75)
+                                    ProfilePic(name: "", id: member.id.uuidString)
                                 Text(member.name)
                                     .minimumScaleFactor(0.001)
                                     .font(.custom("Montserrat-Semibold", size: 15))

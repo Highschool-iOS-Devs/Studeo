@@ -8,7 +8,7 @@
 import SwiftUI
 import Firebase
 struct QuizView: View {
-    @State var quiz = Quiz(id: UUID().uuidString, questions: [Question]())
+    @State var quiz = Quiz(id: UUID().uuidString, name: "", tags: [String](), questions: [Question](), groupID: "")
     @EnvironmentObject var userData: UserData
     @Binding var i: Int
     @State var isAndreas = true

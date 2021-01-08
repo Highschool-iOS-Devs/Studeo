@@ -28,7 +28,7 @@ struct PairingView: View {
     var groupModel:ChatViewModel
     var body: some View {
         ZStack {
-            Color(.systemBackground)
+            Color("Background")
                 .edgesIgnoringSafeArea(.all)
             VStack {
                 HStack {
@@ -132,7 +132,7 @@ struct PairingView: View {
             
             if settings {
                 
-                IntroCustomize(isNotOnboarding: false, interests: $interests, settings: $settings, add: $add)
+                IntroCustomize(interestSelected: $selectedInterests, isNotOnboarding: false, interests: $interests, settings: $settings, add: $add, groupModel:groupModel)
                 
             }
             if error {
@@ -146,6 +146,9 @@ struct PairingView: View {
         }
         .onAppear{
             loadData()
+        }
+        .onDisappear {
+            saveData()
         }
     }
     
@@ -202,7 +205,7 @@ struct PairingView: View {
         ])
         let ref2 = db.collection("users").document(userData.userID)
         ref2.updateData([
-            "groups":[groupID]
+            "groups":FieldValue.arrayUnion([groupID])
         ])
     }
     
@@ -234,6 +237,23 @@ struct PairingView: View {
           
             
         }
+    
+    func saveData() {
+        let db = Firestore.firestore()
+        let docRef = db.collection("users").document(self.userData.userID)
+        do {
+            try docRef.setData(from: ["interests": interests], merge: true)
+            docRef.updateData(["finishedOnboarding": true]) { error in
+                if let error = error {
+                    print("Error updating data: \(error)")
+                }
+            }
+        } catch let error {
+            print(error)
+        }
+        
+    }
+    
     func checkIfExistingGroup(completion: @escaping (Bool) -> Void){
         var interests = selectedInterests
         let allUserGroups = groupModel.allGroups
@@ -255,6 +275,7 @@ struct PairingView: View {
                 return
             }
             if snapshot!.documents.count > 0{
+                paired = true
                 completion(true)
                 let document = snapshot!.documents[0]
                 let result = Result{

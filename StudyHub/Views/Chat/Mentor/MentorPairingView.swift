@@ -154,7 +154,7 @@ struct MentorPairingView: View {
             
             if settings {
                 
-                IntroCustomize(isNotOnboarding: false, interests: $interests, settings: $settings, add: $add)
+                IntroCustomize(interestSelected: $selectedInterests, isNotOnboarding: false, interests: $interests, settings: $settings, add: $add)
                 
             }
             if error {
@@ -280,7 +280,7 @@ struct MentorPairingView: View {
 }
     
     func checkPreviousPairing(from myGroups: [Groups], withUser pairedUser: String, for interest: UserInterestTypes) -> Bool {
-        var pairedInterests: [UserInterestTypes: [String]] = [.ACT: [], .APCalculus : [], .SAT: [], .Algebra2: []]
+        var pairedInterests: [UserInterestTypes: [String]] = [.SAT: [], .Algebra1 : [], .Algebra2: [], .Chemistry: [], .Biology: [],.Physics: [], .Spanish: [], .CS: [], .CollegeApps: [], .Other: []]
         for group in myMentors {
             for interest in group.interests {
                 guard let interest = interest else { return false }

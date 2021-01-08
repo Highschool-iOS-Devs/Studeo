@@ -20,12 +20,12 @@ struct RecentChatGroupSubview: View {
                         .font(.custom("Montserrat Bold", size: 20))
                         .minimumScaleFactor(0.1)
 
-                        .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                    .foregroundColor(Color.white.opacity(0.96))
                         .multilineTextAlignment(.center)
                         .padding(.bottom,2)
                     //5 members
                 
-                Text("\(group.members.count) members").font(.custom("Montserrat SemiBold", size: 15)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center)
+                Text("\(group.members.count) members").font(.custom("Montserrat SemiBold", size: 15)).foregroundColor(Color.white.opacity(0.96)).multilineTextAlignment(.center)
                 //Available in iOS 14 only
                 .textCase(.uppercase)
                 //SAT
@@ -36,9 +36,9 @@ struct RecentChatGroupSubview: View {
      
     }
         .frame(width: 138, height: 138)
-        .background(Color(#colorLiteral(red: 0.27450981736183167, green: 0.886274516582489, blue: 0.9803921580314636, alpha: 1)))
+        .background(Color("GroupCard"))
         .clipShape(RoundedRectangle(cornerRadius: 20))
-        .shadow(color: Color(#colorLiteral(red: 0.27450981736183167, green: 0.886274516582489, blue: 0.9803921580314636, alpha: 0.30000001192092896)), radius:7, x:4, y:4)
+        .shadow(color: Color("CardShadow"), radius:3, x:4, y:4)
       
     }
 }

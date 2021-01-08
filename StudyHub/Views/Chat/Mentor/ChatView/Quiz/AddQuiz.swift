@@ -7,26 +7,39 @@
 //
 
 import SwiftUI
-
+import Firebase
+import FirebaseFirestoreSwift
 struct AddQuiz: View {
-    @State var quiz = Quiz(id: UUID().uuidString, questions: [Question]())
+    @State var quiz =  Quiz(id: UUID().uuidString, name: "", tags: [String](), questions: [Question](), groupID: "")
     var body: some View {
         List {
        
-        ForEach(self.quiz.questions, id:\.self) { question in
-            QuizAddRow(question: question.question)
+            ForEach(self.quiz.questions) { question in
+            QuizAddRow(question: question, quiz: $quiz)
             
         }
             VStack {
             Spacer()
             Button(action: {
-                quiz.questions.append(Question(id: UUID().uuidString, question: "", answers: [String](), answer: "", selected: ""))
+                quiz.questions.append(Question(id: UUID().uuidString, question: "", answers: ["Answer1", "Answer2", "Answer3"], answer: "", selected: "", quizID: quiz.id))
+                let db = Firestore.firestore()
+                for question in quiz.questions {
+                    let docRef = db.collection("quizzes/questions/\(quiz.id)").document(question.id)
+                do{
+                    try docRef.setData(from: question)
+                    
+                } catch {
+                    print("Error writing to database, \(error)")
+                }
+                }
             }) {
                 Image(systemName: "plus")
             } .buttonStyle(BlueStyle())
             .padding()
         }
-        }
+        } .onAppear() {
+           
+            }
     }
     
     }

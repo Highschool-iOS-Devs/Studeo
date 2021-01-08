@@ -21,6 +21,7 @@ struct ChatView: View {
     //@State var nameAndProfiles:[NameAndProfileModel] = []
     @State var messageField = ""
     @State var messages = [MessageData]()
+    @State var memeberSent = [MessageData]()
     @State var members = [User]()
     @State var group: Groups
     //@State var image:Image
@@ -31,9 +32,21 @@ struct ChatView: View {
     @State var token = ""
     @State var showFull = false
     @State var keyboardHeight:CGFloat = CGFloat.zero
+    @Binding var show: Bool
+    @State var showLoadingAnimation = false
+    @State var showImagePicker = false
+    @State private var image : UIImage? = nil
+    @State var viewImage = false
+    @State var id = ""
+    @State var toggleReaction = false
+    @State var message = MessageData(id: "", messageText: "", sentBy: "", sentByName: "", sentTime: Date(), sentBySelf: false, assetID: "", reactions: [String]())
+    @State var reactions = ["love", "thumbsup", "celebrate", "laugh"]
     var body: some View {
         ZStack {
             Color("Background").edgesIgnoringSafeArea(.all)
+                .onAppear() {
+                    //viewRouter.showTabBar = false
+                }
             VStack {
                 //Testing UI with some messages
                 
@@ -41,11 +54,58 @@ struct ChatView: View {
                     ScrollViewReader { scrollView in
                         LazyVStack {
                             ForEach(self.messages, id:\.self) { message in
+                                VStack {
+                                    HStack {
+                                        if message.sentBySelf ?? false {
+                                            Spacer()
+                                        }
+                                    
+                                    if message.assetID != "" {
+                                        assetMessage(assetID: message.assetID)
+                                            .frame(width: 150, height: 150)
+                                            .onTapGesture() {
+                                                id = message.assetID
+                                                viewImage = true
+                                            }
+                                    }
+                                    if !message.sentBySelf! {
+                                        Spacer()
+                                    }
+                                    }
                                 MessageCellView(message)
                                     .id(message.id)
-                                    
+                                    .onLongPressGesture {
+                                        toggleReaction = true
+                                        self.message = message
+                                    }
+                                    HStack {
+                                        if message.sentBySelf ?? false {
+                                            Spacer()
+                                        }
+                                    Text(message.sentByName)
+                                        .font(.custom("Montserrat Light", size: 10))
+                                        
+                                        if !message.sentBySelf! {
+                                            Spacer()
+                                        }
+                                        if !message.reactions.isEmpty {
+                                            HStack {
+                                            ForEach(message.reactions, id:\.self) { reaction in
+                                                Text(reaction == "love" ? "❤️" : "")
+                                                
+                                                Text(reaction == "thumbsup" ? "👍" : "")
+                                                
+                                                Text(reaction == "laugh" ? "🤣" : "")
+                                                
+                                                Text(reaction == "celebrate" ? "🎉" : "")
+                                               
+                                            }
+                                            }
+                                        }
+                                    } .padding(.horizontal)
+                                }
                             }
-                        } .transition(.opacity)
+                        } //.transition(.move(edge: .top))
                         .animation(.easeInOut(duration: 0.7))
                         .drawingGroup()
                         .padding(.top,5)
@@ -62,15 +122,26 @@ struct ChatView: View {
                 Spacer()
                 
                 Divider()
+                if image != nil {
+                    Image(uiImage: image!)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 100, height: 100)
+                        .id(UUID())
+                }
                 HStack {
                     
                     MessageButtons(imageName: "xmark")
                         .onTapGesture {
-                            
+                            show = false
                             presentationMode.wrappedValue.dismiss()
                             
                         }
-                  //  MessageButtons(imageName: "mic.fill")
+                    MessageButtons(imageName: "camera.fill")
+                        .onTapGesture {
+                           
+                            showImagePicker = true
+                        }
                     Spacer()
                     TextField("Enter message", text: self.$messageField)
                         .font(.custom("Montserrat", size: 15))
@@ -83,21 +154,48 @@ struct ChatView: View {
                     Image(systemName: "paperplane.fill")
                         .foregroundColor(Color.gray.opacity(1))
                         .onTapGesture{
+                            var id = ""
+                            if image != nil {
+                                id = UUID().uuidString
+                                let metadata = StorageMetadata()
+                                metadata.contentType = "image/jpeg"
+                             let storage = Storage.storage().reference().child("Message_Assets/\(id)")
+                             if let image = image {
+                             
+                                 storage.putData(image.jpegData(compressionQuality: 100)!, metadata: metadata) { meta, error in
+                                    if let error = error {
+                                        print(error)
+                                        return
+                                    }
+
+                                    
+
+                                }
+                             }
+                            }
                             if self.messageField != ""{
-                                let newMessage = MessageData(messageText: self.messageField, sentBy: self.userData.userID, sentTime: Date())
+                                let newMessage = MessageData(messageText: self.messageField, sentBy: self.userData.userID, sentByName: self.userData.name, sentTime: Date(), assetID: id != "" ? id : "", reactions: [String]())
                                 for member in members {
                                 let sender = PushNotificationSender()
-                                    sender.sendPushNotification(to: member.firebaseID, title: userData.name, body: self.messageField, user: userData.userID)
+                                    if member.fcmToken != nil {
+                                    sender.sendPushNotification(to: member.fcmToken!, title: userData.name, body: self.messageField, user: userData.userID)
                             }
+                                }
                                 self.messageField = ""
                                 self.saveMessage(outgoingMessage: newMessage)
                                 
                             }
-                            
+                           
+                            image = nil
                         }
                     
                     
                 }
+                .sheet(isPresented: self.$showImagePicker){
+                    ImagePicker(isShown: self.$showImagePicker, image: self.$image, userID: $userData.userID)
+                        .environmentObject(userData)
+                       
+                 }
                 .onReceive(Publishers.keyboardHeight){height in
                     keyboardHeight=height
                 }
@@ -124,7 +222,9 @@ struct ChatView: View {
                 ToolbarItem(placement:.navigation){
                     HStack{
                         if test {
+                          
                             Button(action: {
+                                showLoadingAnimation = true
                                 let request = AF.request("https://studyhub1.herokuapp.com/access_token?channel=\(group.groupID)&uid=0")
                                 
                                 request.responseJSON { (response) in
@@ -135,14 +235,14 @@ struct ChatView: View {
                                     self.token = token
                                     
                                     if token != "" {
-                                        ARChat.toggle()
+                                        ARChat = true
                                     }
                                 }
                                 
                             }) {
                                 Image(systemName: "phone")
                                     .font(.system(size: 25))
-                                    .foregroundColor(Color("Secondary"))
+                                    .foregroundColor(Color("Primary"))
                                 
                             }
                             
@@ -150,7 +250,7 @@ struct ChatView: View {
                         Button(action: {membersList=true}){
                             Image(systemName: "ellipsis.circle.fill")
                                 .font(.system(size: 25))
-                                .foregroundColor(Color("Secondary"))
+                                .foregroundColor(Color("Primary"))
 
 
                         }
@@ -158,8 +258,12 @@ struct ChatView: View {
                     }
               
                 }
+            } .onTapGesture() {
+                toggleReaction = false
             }
-
+            if viewImage {
+                FullImageView(id: $id, viewImage: $viewImage)
+            }
                 if ARChat {
                     VStack {
                         HStack {
@@ -174,11 +278,44 @@ struct ChatView: View {
                         }
                         Spacer()
                     } .padding()
-                    VoiceChat(agoraKit: AgoraRtcEngineKit(), token: token, name: group.groupID, vc: $ARChat)
+                    VoiceChat(agoraKit: AgoraRtcEngineKit(), token: token, name: group.groupID, vc: $ARChat, group: group, loadingAnimation: $showLoadingAnimation)
                 }
-
+            if toggleReaction {
+                Picker(selection: $message.reactions, label: HStack{
+                        Text("Reaction: ")
+                        }) {
+                    ForEach(reactions, id: \.self) { reaction in
+                        Text(reaction == "love" ? "❤️" : "")
+                        
+                        Text(reaction == "thumbsup" ? "👍" : "")
+                        
+                        Text(reaction == "laugh" ? "🤣" : "")
+                        
+                        Text(reaction == "celebrate" ? "🎉" : "")
+                    }
+                }
+                .pickerStyle(MenuPickerStyle())
+                .foregroundColor(Color("Text"))
+                
+            }
             BottomCardSubview(displayView: AnyView(MemberListSubview(members: $members, memberList: $membersList, showFull: $showFull, group: $group, person: $person, messages: $messages)), showFull: $showFull, showCard: $membersList)
             
+            if showLoadingAnimation{
+                VStack{
+                    LottieUIView()
+                        .animation(.easeInOut)
+                    Text("Joining Voice Chat...")
+                        .font(.custom("Montserrat-SemiBold", size: 25))
+                        .offset(y: -40)
+                        .foregroundColor(Color("Text"))
+                }
+                .frame(width: 300, height: 400)
+                .background(Color("Background"))
+                .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                .shadow(color: Color.black.opacity(0.3), radius: 15, x: 10, y: 10)
+                .animation(.easeInOut)
+                
+            }
             }
 
             .onAppear{
@@ -388,3 +525,41 @@ struct ChatView: View {
                 .clipShape(Circle())
         }
     }
+struct assetMessage: View {
+    var assetID: String
+    @State var image = UIImage()
+    var body: some View {
+
+        ZStack {
+            Color.clear
+                .onAppear() {
+                    getProfileImage()
+                }
+            Image(uiImage: image)
+                .resizable()
+                .scaledToFill()
+                
+        }
+    }
+    func getProfileImage() {
+      
+
+        // Create a storage reference from our storage service
+        
+            
+      
+        let storage = Storage.storage().reference().child("Message_Assets/\(assetID)")
+        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
+        storage.getData(maxSize: 1 * 1024 * 1024) { data, error in
+          if let error = error {
+           print(error)
+          } else {
+            // Data for "images/island.jpg" is returned
+            withAnimation(.easeInOut) {
+            image = UIImage(data: data!)!
+                
+            }
+          }
+        }
+    }
+}

@@ -28,7 +28,7 @@ struct PairingSuccess: View {
             
         }
             if chat {
-                ChatView(group: group)
+                ChatView(group: group, show: $chat)
             }
     }
 }

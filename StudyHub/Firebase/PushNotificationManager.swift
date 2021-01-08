@@ -46,7 +46,7 @@ class PushNotificationManager: NSObject, MessagingDelegate, UNUserNotificationCe
         if let token = Messaging.messaging().fcmToken {
            
             let usersRef = Firestore.firestore().collection("users").document(userID)
-            usersRef.setData(["firebaseID": token], merge: true)
+            usersRef.setData(["fcmToken": token], merge: true)
         }
     }
 

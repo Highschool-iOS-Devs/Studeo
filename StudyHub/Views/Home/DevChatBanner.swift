@@ -15,13 +15,17 @@ struct DevChatBanner: View {
     @EnvironmentObject var viewRouter:ViewRouter
     @EnvironmentObject var userData:UserData
     ///DevGroup
-    @State var devGroup = Groups(id: "", groupID: UUID().uuidString, groupName: "Andreas", members: [String](), membersCount: 0, interests: [UserInterestTypes?](), recentMessage: "", recentMessageTime: Date(), userInVC: [String]())
+    @Binding var devGroup: Groups
+    @Binding var show: Bool
     var body: some View {
         NavigationView{
             ZStack {
                 Color("Primary")
                     .ignoresSafeArea()
-                    .frame(height: 200)
+                    .animation(.easeInOut(duration: 2.0))
+                    .onAppear() {
+                        
+                    }
                 HStack {
                     VStack {
                     Text("Have a question or feedback?")
@@ -29,34 +33,33 @@ struct DevChatBanner: View {
                         .foregroundColor(.white)
                         .padding()
                         ///NavigationLink that takes user directly to the talk with developer chat, without going through viewRouter
-                        NavigationLink(destination: ChatView(group: devGroup)
-                                                        .onAppear() {
-                                                            viewRouter.showTabBar = false
-                                                            joinGroup(newGroup: devGroup)
-                                                            userData.hasDev = true
-                                                        }
-                        ){
-                            Button(action: {
-                            }) {
+                        Button(action: {
+                            joinGroup(newGroup: devGroup)
+                            show = true
+                        }) {
+                            
+                        
+                           
                                 Text("Talk directly to a developer of this app")
                                     .font(.custom("Montserrat-Semibold", size: 12))
                                     .foregroundColor(Color("Primary"))
                                     .padding()
                                     .background(RoundedRectangle(cornerRadius: 25).foregroundColor(.white))
-                            }
+                            
                             .padding()
-                        }
+                        } 
+                        .frame(height: 60)
                         .navigationTitle("")
                         .navigationBarHidden(true)
                       
                         
                         }
                    
-                }  .animation(.easeInOut(duration: 1.0))
+                } // .animation(.linear(duration: 2.0))
             }
         } .frame(height: 220)
-        .animation(.easeInOut(duration: 1.0))
-        .transition(.move(edge: .top))
+        
+       
     
     }
     func joinGroup(newGroup: Groups) {
@@ -70,7 +73,7 @@ struct DevChatBanner: View {
             print("Error writing to database, \(error)")
         }
         
-        devGroup.members.append("n3SQZeq1oMhJzHNd1WlMSEClLHp2")
+        devGroup.members.append("6888DA56-1995-46ED-9B79-F1056D363D6F")
         devGroup.members.append(userData.userID)
         for member in devGroup.members {
             print(member)

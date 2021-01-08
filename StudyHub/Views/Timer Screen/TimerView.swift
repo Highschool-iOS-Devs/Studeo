@@ -34,13 +34,14 @@ struct TimerView: View {
     
     @Binding var timerLog: [TimerLog]
     var body: some View {
+        ZStack {
         VStack(spacing: 0) {
             
             HStack {
                 Button(action: {
                     stats.toggle()
                 }) {
-                    Image(systemName: "chart.bar")
+                    Image(systemName: "")
                 }
                 Spacer()
                 Button(action: {
@@ -50,7 +51,7 @@ struct TimerView: View {
                     }
                 }) {
                     Image(systemName: "xmark")
-                        .foregroundColor(Color.black.opacity(0.7))
+                        .foregroundColor(Color("Text"))
                         .font(.body)
                 }
             }
@@ -151,7 +152,7 @@ struct TimerView: View {
                     .padding(8)
                 }
             }
-            
+           
         }
         .padding()
         .background(Color(.systemBackground))
@@ -173,9 +174,11 @@ struct TimerView: View {
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification), perform: { _ in
             self.timer.loadData()
         })
-        .sheet(isPresented: $stats) {
-            TimerStatsView(timerLog: $timerLog)
-                }
+            if stats {
+               // TimerStatsView(timerLog: $timerLog, stats: $stats)
+            }
+        }
+        
     }//body
     
    

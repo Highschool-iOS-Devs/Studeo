@@ -8,7 +8,8 @@
 
 
 import SwiftUI
-
+import Firebase
+import FirebaseFirestoreSwift
 struct Homev2: View {
     var columns = [
         GridItem(.fixed(250)),
@@ -32,22 +33,27 @@ struct Homev2: View {
     @State var scrollOffset = 0
     @State var currentOffset = 0
     @Binding var recentPeople: [Groups]
-    @State var chat = false
+    @State var dmChat = false
     @State var group = Groups(id: UUID().uuidString, groupID: "", groupName: "", members: [String](), membersCount: 0, interests: [UserInterestTypes?](), userInVC: [String]())
     @Binding var recommendGroups: [Groups]
     @Binding var user: [User]
     @State var imgs = ["2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing", "2868759", "66209", "Group", "studying_drawing"]
     @State var sum = 0.0
-    @State var animate = false
-    @State var animation = false
+    @State var animate = true
+    @State var animation = true
     @Binding var timerLog: [TimerLog]
+    @State var disable = true
+    @Binding var devGroup: Groups
+    @State var show = false
+    @State var users = [String]()
     var body: some View {
-
+        GeometryReader { geo in
         ZStack {
             ZStack(alignment: .top) {
                 Color("Background").edgesIgnoringSafeArea(.all)
                     .onAppear() {
-                       
+                       // userData.hasDev = false
+                        recommendGroups.removeAll()
                         if !user.isEmpty {
                         if !user[0].studyHours.isEmpty {
                         
@@ -56,9 +62,16 @@ struct Homev2: View {
                             
                         }
                     }
+                        for group in recentPeople {
+                            for user in group.members {
+                                if user != userData.userID {
+                                    users.append(user)
+                                }
+                            }
+                        }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                             withAnimation(.easeInOut(duration: 1.0)) {
-                                animation.toggle()
+                              //  animation.toggle()
                             }
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -80,42 +93,52 @@ struct Homev2: View {
                     
                     ScrollView(.vertical, showsIndicators: false) {
                         if animate {
-                            DevChatBanner()
-                                .transition(.move(edge: .top))
-
+                           
+                            DevChatBanner(devGroup: $devGroup, show: $show)
+                                .frame(width: geo.size.width, height: geo.size.height/3)
+                                .transition(.identity)
+                            }
                             
                             
-                        }
-                        
+                        if !recentPeople.isEmpty {
+                            if !users.isEmpty {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
-                                ForEach(recentPeople, id:\.self){ groups in
-                                    ProfilePic(name: groups.groupName, size: 70)
+                                ForEach(recentPeople.indices, id:\.self){ i in
+                                   
+                                    //ProfilePic(name: groups.groupName, size: 70)
+                                    ProfilePic(name: recentPeople[i].groupName, id: users[i])
+                                        .frame(width: 75, height: 75)
+                                        .padding()
                                         .onTapGesture() {
-                                            group = groups
-                                            chat.toggle()
+                                            group = recentPeople[i]
+                                            dmChat = true
+                                            show.toggle()
                                         }
                                 }
                                 
-                            } .padding(.top, 42)
+                            } .padding(.top, 22)
                         }
                         Divider()
-                        
+                        }
+                        }
                         if recommendGroups.isEmpty {
                             
                         } else {
+                            if !disable {
                         HStack {
                             Text("Recommended")
                                 .font(.custom("Montserrat Bold", size: 24)).foregroundColor(Color("Primary"))
                             Spacer()
                         }.padding()
                         .padding(.top, 40)
-                        }
+                        
+                       
                         ScrollView(.horizontal, showsIndicators: false) {
                                 HStack {
                                     ForEach(Array(recommendGroups.enumerated()), id: \.element) { i, group in
                     
-                                        GroupsView(imgName: imgs[i], cta: "Join", name: group.groupName, group: $group, chat: $chat)
+                                        GroupsView(imgName: imgs[i], cta: "Join", name: group.groupName, group: $group)
                                             .onAppear() {
                                                 self.group = group
                                             }
@@ -125,17 +148,21 @@ struct Homev2: View {
                                     Spacer(minLength: 110)
                                 }
                             }
-                   
+                        }
+                        }
 
                            
                         if user.isEmpty {
                             
                         } else {
-                            SelfRankView(hours: sum)
+                            SelfRankView(hours: sum, id: user[0].id.uuidString)
                                 .padding()
                                 .onTapGesture {
                                     viewRouter.updateCurrentView(view: .leaderboard)
                                 }
+                        }
+                        if recentPeople.isEmpty {
+                        CTA(imgName: "friends", cta: "Find Study Partners")
                         }
                             CTA(imgName: "mentor", cta: "Find a Mentor")
                                
@@ -165,7 +192,6 @@ struct Homev2: View {
             if showingTimer {
                 VStack {
                     TimerView(showingView: $showingTimer, timerLog: $timerLog)
-                        .padding(.top, 110)
                         .transition(.move(edge: .bottom))
                         .onAppear {
                             self.viewRouter.showTabBar = false
@@ -178,10 +204,25 @@ struct Homev2: View {
        
         
         }
+        .sheet(isPresented: $show, content: {
+            if dmChat {
+                ChatView(group: group, show: $show)
+                    .onDisappear {
+                        dmChat = false
+                    }
+            } else {
+                ChatView(group: devGroup, show: $show)
+            }
+        })
     
-
+//            if show {
+//                ChatView(group: devGroup, show: $show)
+//            }
 
 }
-
+       
+}
+  
+    
 }
 

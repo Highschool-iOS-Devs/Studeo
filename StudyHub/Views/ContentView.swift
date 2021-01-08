@@ -31,8 +31,9 @@ struct ContentView: View {
     @State var interests = [String]()
     @State var i = 0
     @State var i2 = -1
-    @State var chat = true
     @State var timerLog = [TimerLog]()
+  
+    @State var interestSelected: [UserInterestTypes] = []
     var body: some View {
         GeometryReader { geo in
         ZStack { 
@@ -66,6 +67,7 @@ struct ContentView: View {
 
                                
                             }
+                           
                             self.loadUserData(){ userData in
                                 //Get completion handler data results from loadData function and set it as the recentPeople local variable
                                 self.user = userData
@@ -93,81 +95,33 @@ struct ContentView: View {
                             }
                            
                     }
-                    VStack {
-                if hasLoaded {
-                    switch viewRouter.currentView {
-                    case .mentor:
-                        MentorPairingView(settings: $settings, add: $add, myGroups: $myGroups, myMentors: $myMentors)
-                    case .registration:
-                        RegistrationView()
-                            .environmentObject(viewRouter)
-                    case .login:
-                        LoginView()
-                       
-                    case .chatList:
-                        RecentsView2(myMentors: $myMentors, timerLog: $timerLog)
-                            .environmentObject(userData)
-                            .environmentObject(viewRouter)
-                    case .profile:
-                        ProfileView(user: $user)
-                            .environmentObject(userData)
-                            .environmentObject(viewRouter)
-                    case .home:
-                        if userData.uses == 1 {
-                            Home(timerLog: $timerLog)
-                                .onAppear() {
-                                    viewRouter.showTabBar = true
-                                }
-                        } else {
-                           // Home(timerLog: $timerLog)
-                            Homev2(recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user, timerLog: $timerLog)
-                                .onAppear() {
-                                    viewRouter.showTabBar = true
-                                }
-                            .environmentObject(userData)
-                            .environmentObject(viewRouter)
-
-                       
-                        }
-                    case .custom:
-                        IntroCustomize(isNotOnboarding: true, interests: $interests, settings: $settings, add: $add)
-                            .onDisappear() {
-                                viewRouter.showTabBar = true
-                            }
-                    case .settings:
-                        SettingView()
-                            .environmentObject(viewRouter)
-                            .environmentObject(userData)
-                    case .leaderboard:
-                        LeaderboardView()
-                            .environmentObject(userData)
-                            .environmentObject(viewRouter)
-                    case .introView:
-                        IntroView()
-                            .onAppear() {
-                                viewRouter.showTabBar = false
-                            }
-                            
-                        }
+               
+                        if hasLoaded {
+                            ContentViewSubviews()
 
                     }
                        
-                        if viewRouter.showTabBar {
-                          
-                                Spacer()
-                                tabBarView()
-                                    .transition(AnyTransition.move(edge: .bottom))
-                                    .animation(Animation.easeInOut(duration: 0.5))
-                                    .frame(height: geo.size.height/20)
-                            }
-                        }
-                    }
+                        
+                        
                     
+                    }
+            if viewRouter.showTabBar {
+                VStack {
+                    Spacer()
+                    tabBarView()
+                        .transition(AnyTransition.move(edge: .bottom))
+                        .animation(Animation.easeInOut(duration: 0.5))
+                        .frame(height: geo.size.height/8)
+                } .transition(AnyTransition.move(edge: .bottom))
+                .animation(Animation.easeInOut(duration: 0.5))
+            }
          
             // == true || viewRouter.currentView != .registration || viewRouter.currentView != .login 
            
                 
-                } .frame(height: geo.size.height)
+        }
+        .frame(height: geo.size.height)
+     //   .preferredColorScheme((userData.darkModeOn==true) ? .dark : .light)
         }
         .environmentObject(userData)
         .environmentObject(viewRouter)
@@ -183,7 +137,7 @@ struct ContentView: View {
         var userList:[User] = []
         //Get every single document under collection users
     
-     docRef.getDocument{ (document, error) in
+     docRef.addSnapshotListener{ (document, error) in
          
                 let result = Result {
                  try document?.data(as: User.self)
@@ -205,13 +159,14 @@ struct ContentView: View {
               performAction(userList)
         }
     }
+   
     func loadMyMentorsData(performAction: @escaping ([Groups]?) -> Void) {
         let db = Firestore.firestore()
         let docRef = db.collection("mentorships")
         var groupList:[Groups] = []
         //Get every single document under collection users
         let queryParameter = docRef.whereField("members", arrayContains: userData.userID)
-        queryParameter.getDocuments{ (querySnapshot, error) in
+        queryParameter.addSnapshotListener(){ (querySnapshot, error) in
             if let querySnapshot = querySnapshot,!querySnapshot.isEmpty{
             for document in querySnapshot.documents{
                 let result = Result {
@@ -259,7 +214,7 @@ struct ContentView: View {
         var groupList:[Groups] = []
         //Get every single document under collection users
         let queryParameter = docRef.whereField("members", arrayContains: userData.userID)
-        queryParameter.getDocuments{ (querySnapshot, error) in
+        queryParameter.addSnapshotListener{ (querySnapshot, error) in
             if let querySnapshot = querySnapshot,!querySnapshot.isEmpty{
             for document in querySnapshot.documents{
                 let result = Result {
@@ -307,7 +262,7 @@ struct ContentView: View {
         var groupList:[Groups] = []
         //Get every single document under collection users
         let queryParameter = docRef.whereField("members", arrayContains: userData.userID)
-        queryParameter.getDocuments{ (querySnapshot, error) in
+        queryParameter.addSnapshotListener{ (querySnapshot, error) in
             if let querySnapshot = querySnapshot,!querySnapshot.isEmpty{
             for document in querySnapshot.documents{
                 let result = Result {
@@ -356,7 +311,7 @@ struct ContentView: View {
         var userList:[TimerLog] = []
         //Get every single document under collection users
     
-     docRef.getDocuments { (document, error) in
+     docRef.addSnapshotListener { (document, error) in
         if let document = document, !document.isEmpty {
         for document in document.documents {
                 let result = Result {
@@ -393,7 +348,7 @@ struct ContentView: View {
                 //Get every single document under collection users
                 
                 let queryParameter = docRef.whereField("interests", arrayContains: "\(user[0].interests!.first!)")
-                queryParameter.getDocuments { (querySnapshot, error) in
+                queryParameter.addSnapshotListener { (querySnapshot, error) in
                     if let querySnapshot = querySnapshot,!querySnapshot.isEmpty{
                         for document in querySnapshot.documents{
                             let result = Result {
@@ -441,7 +396,7 @@ struct ContentView: View {
     }
     
     func checkPreviousPairing(from myGroups: [Groups], withUser pairedUser: String, for interest: UserInterestTypes) -> Bool {
-        var pairedInterests: [UserInterestTypes: [String]] = [.ACT: [], .APCalculus : [], .SAT: [], .Algebra2: []]
+        var pairedInterests: [UserInterestTypes: [String]] = [.SAT: [], .Algebra1 : [], .Algebra2: [], .Chemistry: [], .Biology: [],.Physics: [], .Spanish: [], .CS: [], .CollegeApps: [], .Other: []]
         for group in myGroups {
             for interest in group.interests {
                 guard let interest = interest else { return false }
@@ -497,8 +452,9 @@ struct ContentView: View {
             Auth.auth().addStateDidChangeListener { (auth, user) in
                 if user != nil{
                     if userData.isOnboardingCompleted {
-
+                        withAnimation(.easeOut(duration: 1.0)) {
                         self.viewRouter.currentView = .home
+                        }
                     }
                     else{
                         self.viewRouter.showTabBar = false
@@ -509,10 +465,11 @@ struct ContentView: View {
                 
                 }
                 else {
+                    withAnimation(.easeInOut(duration: 1.5)) {
                     self.viewRouter.currentView = .introView
                     self.hasCheckedAuth = true
                 }
-               
+                }
             }
         
          

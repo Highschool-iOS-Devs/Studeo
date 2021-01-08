@@ -24,7 +24,7 @@ struct Home: View {
                     .ignoresSafeArea()
                     .onAppear() {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            withAnimation(.easeInOut(duration: 1.0)) {
+                            withAnimation(.easeInOut(duration: 2.0)) {
                                
                              //   if userData.uses == 1 || userData.uses == 2 || userData.uses == 10 {
                                     if !userData.hasDev {
@@ -34,11 +34,13 @@ struct Home: View {
                             }
                         }
                     }
+               
                 ScrollView(showsIndicators: false) {
                     if animate {
-                    DevChatBanner()
-                        .transition(.move(edge: .top))
-
+                  //  DevChatBanner()
+                       
+                       
+                      //  .transition(.move(edge: .top))
                        
                     }
                        
@@ -56,9 +58,11 @@ struct Home: View {
                         Spacer()
                     } .padding(.horizontal, 12)
                     
-                    CTA(imgName: "friends", cta: "Add Friends")
+                   
                         
                     CTA(imgName: "mentor", cta: "Find a Mentor")
+                    
+                    CTA(imgName: "friends", cta: "Add Friends")
                     
                    // CTA(imgName: "Group", cta: "Add Group")
                        
