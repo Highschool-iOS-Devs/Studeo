@@ -19,13 +19,13 @@ struct SelfRankView: View {
             Spacer()
             VStack {
                 Image(systemName: "stopwatch.fill")
-                    .foregroundColor(Color.black.opacity(0.8))
+                    .foregroundColor(Color("Text").opacity(0.8))
                     .font(.system(size: 13))
                Text(hours.removeZerosFromEnd())
-                    .foregroundColor(.black)
+                    .foregroundColor(Color("Text"))
                 HStack {
                     Text("All Time Hours")
-                        .foregroundColor(.black)
+                        .foregroundColor(Color("Text"))
                         .padding(.top, 5)
                     
                 }
@@ -50,7 +50,7 @@ struct SelfRankView: View {
         .background(Color("Card"))
        // .opacity(0.6)
         .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
-        .shadow(color: Color("shadow") ,radius: 5)
+        .shadow(color: Color("CardShadow") ,radius: 6)
     }
 }
 

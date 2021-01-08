@@ -15,8 +15,13 @@
         }
       ],
       "color" : {
-        "platform" : "ios",
-        "reference" : "systemGray4Color"
+        "color-space" : "srgb",
+        "components" : {
+          "alpha" : "1.000",
+          "blue" : "48",
+          "green" : "19",
+          "red" : "16"
+        }
       },
       "idiom" : "universal"
     }

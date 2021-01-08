@@ -14,21 +14,24 @@ import FirebaseAuth
 import FirebaseCore
 
 func hapticEngine(style: UIImpactFeedbackGenerator.FeedbackStyle){
-    let impact = UIImpactFeedbackGenerator(style: .medium)
+    let impact = UIImpactFeedbackGenerator(style: style)
     impact.impactOccurred()
 }
 
 struct IntroCustomize: View {
     @Binding var interestSelected: [UserInterestTypes]
+    //@State var existingInterests: [UserInterestTypes]
     @EnvironmentObject var userData: UserData
     @State var isNotOnboarding: Bool = false
     @Binding var interests: [String]
     @Binding var settings: Bool
     @Binding var add: Bool
     @EnvironmentObject var viewRouter:ViewRouter
+    var groupModel:ChatViewModel?
+    
     var body: some View {
         ZStack {
-            Color(.systemBackground).edgesIgnoringSafeArea(.all)
+            Color("Background").edgesIgnoringSafeArea(.all)
                 .onAppear() {
                   
                 }
@@ -113,6 +116,12 @@ struct IntroCustomize: View {
             }
         }
         .animation(.easeInOut)
+        .onAppear{
+//            if let groupModel = groupModel{
+//                getInterests(model: groupModel)
+//
+//            }
+        }
         .onDisappear {
             interestSelected = interestSelected.removeDuplicates()
             interests.removeAll()
@@ -131,6 +140,12 @@ struct IntroCustomize: View {
     }
     }
     
+//    func getInterests(model:ChatViewModel){
+//        for interest in model.currentUser?.interests ?? []{
+//            existingInterests.append(interest)
+//        }
+//        
+//    }
     func saveData() throws -> Void{
         let db = Firestore.firestore()
         let docRef = db.collection("users").document(userData.userID)
@@ -186,6 +201,11 @@ struct InterestSelectRow: View {
         )
         .clipShape(RoundedRectangle(cornerRadius: 30))
         .padding(.horizontal, 10)
+        .onAppear{
+            if interestSelected.contains(interestName){
+                selected = true
+            }
+        }
         .onTapGesture(){
             if selected{
                interestSelected = interestSelected.filter {$0 != interestName}

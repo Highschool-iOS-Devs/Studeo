@@ -48,7 +48,7 @@ struct MemberListSubview: View {
                 .padding(.bottom, 2)
                 HStack{
                     Spacer()
-                    Text("\(group.membersCount) studymates")
+                    Text("\(group.membersCount-1) studymates")
                         .foregroundColor(Color("Secondary"))
                         .font(.custom("Montserrat-SemiBold", size: 15))
 
