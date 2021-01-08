@@ -12,16 +12,19 @@ struct ChatCellSelf: View {
     
     @State var name = ""
     
-    @State var message = ""
+    @State var message: MessageData
     
+    @State var toggleReaction = false
+    
+    @State var group: Groups
     var body: some View {
         
         ZStack(alignment: .leading) {
-            
+            VStack {
             HStack {
                 Spacer()
                 
-                Text(self.message)
+                Text(self.message.messageText)
                     .foregroundColor(.white)
                     .lineLimit(.none)
                     .fixedSize(horizontal: false, vertical: true)
@@ -32,27 +35,58 @@ struct ChatCellSelf: View {
                     .clipShape(RoundedCorner(radius: 10, corners: .topRight))
                     .clipShape(RoundedCorner(radius: 10, corners: .bottomLeft))
                 
-                
+                    .onLongPressGesture {
+                        toggleReaction = true
+                       
+                    }
             } .padding(.trailing, 12)
+                if !message.reactions.isEmpty {
+                    HStack {
+                    ForEach(message.reactions, id:\.self) { reaction in
+                        Text(reaction == "love" ? "❤️" : "")
+                        
+                        Text(reaction == "thumbsup" ? "👍" : "")
+                        
+                        Text(reaction == "laugh" ? "🤣" : "")
+                        
+                        Text(reaction == "celebrate" ? "🎉" : "")
+                       
+                    }
+                    }
+                }
+                if toggleReaction {
+                    HStack {
+                        Spacer()
+                        ReactionSelectView(message: $message, toggleReaction: $toggleReaction, group: group)
+                }
+                }
+            }
         } .transition(.opacity)
         .frame(minWidth: 100, minHeight: 50)
+        .onTapGesture() {
+            toggleReaction = false
+        }
         
         
     }
+    
 }
 //Subview for the chat bubble
 struct ChatCell: View {
    @State var name = ""
     
-    @State var message = ""
+    @State var message: MessageData
     
+    @State var toggleReaction = false
+    
+    @State var group: Groups
     var body: some View {
         
         ZStack(alignment: .leading) {
             VStack {
             HStack {
                 
-                Text(self.message)
+                Text(self.message.messageText)
                     .foregroundColor(.white)
                     .lineLimit(.none)
                     .fixedSize(horizontal: false, vertical: true)
@@ -64,20 +98,37 @@ struct ChatCell: View {
                 
                 Spacer()
             } .padding(.horizontal, 12)
-                
+                if !message.reactions.isEmpty {
+                    HStack {
+                    ForEach(message.reactions, id:\.self) { reaction in
+                        Text(reaction == "love" ? "❤️" : "")
+                        
+                        Text(reaction == "thumbsup" ? "👍" : "")
+                        
+                        Text(reaction == "laugh" ? "🤣" : "")
+                        
+                        Text(reaction == "celebrate" ? "🎉" : "")
+                       
+                    }
+                    }
+                }
+                if toggleReaction {
+                    HStack {
+                    ReactionSelectView(message: $message, toggleReaction: $toggleReaction,  group: group)
+                        Spacer()
+                    }
+                }
         }
         
         } .transition(.opacity)
         .frame(minWidth: 100, minHeight: 50)
+        .onTapGesture() {
+            toggleReaction = false
+        }
     }
 }
 
-struct ChatCells_Preview: PreviewProvider {
-    static var previews: some View {
-        //ChatCellsSelf(message: "Hello how are you doing?")
-        ChatCell(message: "Hi!")
-    }
-}
+
 extension View {
     func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
         clipShape( RoundedCorner(radius: radius, corners: corners) )

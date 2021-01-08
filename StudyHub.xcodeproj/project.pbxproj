@@ -106,6 +106,7 @@
 		E12C5FB4259A518500D3314E /* MultiLineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12C5FA3259A518500D3314E /* MultiLineChartView.swift */; };
 		E12C5FB5259A518500D3314E /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12C5FA4259A518500D3314E /* Line.swift */; };
 		E12C83EF25A8F52300C2F827 /* ChatHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12C83EE25A8F52200C2F827 /* ChatHeader.swift */; };
+		E12C83F225A8F9DF00C2F827 /* ReactionSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12C83F125A8F9DF00C2F827 /* ReactionSelectView.swift */; };
 		E12E5FC92584924900FB216C /* test.MP4 in Resources */ = {isa = PBXBuildFile; fileRef = E12E5FC82584924900FB216C /* test.MP4 */; };
 		E133D66125A7D0B100730B7C /* FullImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E133D66025A7D0B100730B7C /* FullImageView.swift */; };
 		E155D69B251AA665008281AE /* ProfileStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155D69A251AA665008281AE /* ProfileStats.swift */; };
@@ -245,6 +246,7 @@
 		E12C5FA3259A518500D3314E /* MultiLineChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiLineChartView.swift; sourceTree = "<group>"; };
 		E12C5FA4259A518500D3314E /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		E12C83EE25A8F52200C2F827 /* ChatHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHeader.swift; sourceTree = "<group>"; };
+		E12C83F125A8F9DF00C2F827 /* ReactionSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionSelectView.swift; sourceTree = "<group>"; };
 		E12E5FC82584924900FB216C /* test.MP4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.MP4; sourceTree = "<group>"; };
 		E13032A8258CCFD500135CAC /* ProfileRingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRingView.swift; sourceTree = "<group>"; };
 		E133D66025A7D0B100730B7C /* FullImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullImageView.swift; sourceTree = "<group>"; };
@@ -461,6 +463,7 @@
 				624FAFDB25720AA0000E0203 /* RecentsView */,
 				620590E124FDBB21001565BF /* AddChat.swift */,
 				620590E024FDBB21001565BF /* ChatCell.swift */,
+				E12C83F125A8F9DF00C2F827 /* ReactionSelectView.swift */,
 				62C3ED20250597A300CEA882 /* CreateGroupView.swift */,
 				E11157A22593CF31005E9AEA /* VoiceChat.swift */,
 				E163D37825A2CC1400102895 /* VCGridView.swift */,
@@ -967,6 +970,7 @@
 				628A128025186940001C4B13 /* IntroCustomize.swift in Sources */,
 				62F24BE4251415DB00777610 /* Lottie.swift in Sources */,
 				E1A8D1CE25A3C8080057B882 /* QuizzesRow.swift in Sources */,
+				E12C83F225A8F9DF00C2F827 /* ReactionSelectView.swift in Sources */,
 				E12C5FB2259A518500D3314E /* MagnifierRect.swift in Sources */,
 				BE5C7F2F259D05DB00824346 /* IntroMentor.swift in Sources */,
 				6205911924FDBB21001565BF /* LoginView.swift in Sources */,

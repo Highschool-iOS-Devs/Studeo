@@ -11,7 +11,7 @@ import Lottie
 
 struct LottieView:UIViewRepresentable{
     @State var name = "planeLoading"
-    @State var loop = false
+    @State var loop = true
     func makeUIView(context: UIViewRepresentableContext<LottieView>) -> UIView {
         let newView = UIView(frame: .zero)
         let animationView = AnimationView()

@@ -79,10 +79,8 @@ struct ChatView: View {
                                 MessageCellView(message)
                                     .id(message.id)
                                     .frame(minWidth: 100, minHeight: 50)
-                                    .onLongPressGesture {
-                                       // toggleReaction = true
-                                        self.message = message
-                                    }
+                                    
+                                   
                                     HStack {
                                         if message.sentBySelf ?? false {
                                             Spacer()
@@ -93,24 +91,13 @@ struct ChatView: View {
                                         if !message.sentBySelf! {
                                             Spacer()
                                         }
-                                        if !message.reactions.isEmpty {
-                                            HStack {
-                                            ForEach(message.reactions, id:\.self) { reaction in
-                                                Text(reaction == "love" ? "❤️" : "")
-                                                
-                                                Text(reaction == "thumbsup" ? "👍" : "")
-                                                
-                                                Text(reaction == "laugh" ? "🤣" : "")
-                                                
-                                                Text(reaction == "celebrate" ? "🎉" : "")
-                                               
-                                            }
-                                            }
-                                        }
+                                      
                                     } .padding(.horizontal)
-                                   
+                                    
                                 }
+                              
                             }
+                            
                         } .transition(.opacity)
                         .animation(.easeInOut(duration: 0.7))
                         .drawingGroup()
@@ -282,33 +269,7 @@ struct ChatView: View {
             } .onTapGesture() {
                 toggleReaction = false
             }
-            if toggleReaction {
-                HStack { //.font(.custom("Montserrat-regular", size: 14)).foregroundColor(Color("Text"))
-                    Picker(selection: $message.reactions, label: HStack{
-                            Text("Reaction: ")
-                            }) {
-                        ForEach(reactions, id: \.self) { (reaction) in
-                            if reaction == "love" {
-                                Text("❤️")
-                            } else
-                            if reaction == "thumbsup" {
-                                Text("👍")
-                            } else
-                            if reaction == "laugh" {
-                                Text("🤣")
-                            } else
-                            if reaction == "celebrate" {
-                                Text("🎉")
-                            }
-                        }
-                    }
-                    .pickerStyle(MenuPickerStyle())
-                    .foregroundColor(Color("Text"))
-                    .font(.custom("Montserrat-regular", size: 14))
-                    
-                }
-                .padding(.trailing, 10)
-            }
+          
             if viewImage {
                 FullImageView(id: $id, viewImage: $viewImage)
             }
@@ -337,6 +298,7 @@ struct ChatView: View {
                         .animation(.easeInOut)
                     Text("Joining Voice Chat...")
                         .font(.custom("Montserrat-SemiBold", size: 25))
+                    
                         .offset(y: -40)
                         .foregroundColor(Color("Text"))
                 }
@@ -528,9 +490,9 @@ struct ChatView: View {
         
         func MessageCellView(_ message: MessageData) -> AnyView {
             if message.sentBySelf! {
-                return AnyView(ChatCellSelf(message: message.messageText))
+                return AnyView(ChatCellSelf(message: message, group: group))
             } else {
-                return AnyView(ChatCell(name: message.sentBy, message: message.messageText))
+                return AnyView(ChatCell(name: message.sentBy, message: message, group: group))
             }
         }
         
