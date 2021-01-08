@@ -18,8 +18,7 @@ struct IntroMentor: View {
     @State var mentorSelected:[UserInterestTypes] = []
     
     @State var isNotOnboarding: Bool = false
-    @Binding var settings: Bool
-    @Binding var add: Bool
+
     
     @EnvironmentObject var viewRouter:ViewRouter
     var body: some View {
@@ -31,30 +30,25 @@ struct IntroMentor: View {
             
             VStack {
                 if !isNotOnboarding {
-        
-                    HStack {
-                        Button(action: {
-                           
-                            if !settings {
-                                add = false
-                            }
-                            if settings {
-                                settings = false
-                            }
-                           
-                            
-                        }) {
-                        Image(systemName: "xmark")
-                            .font(.largeTitle)
-                    }
-                        Spacer()
-                    } .padding()
+//
+//                    HStack {
+//                        Button(action: {
+//
+//
+//
+//                        }) {
+//                        Image(systemName: "xmark")
+//                            .foregroundColor(Color("Primary"))
+//                            .font(.title)
+//                    }
+//                        Spacer()
+//                    } .padding()
             
         
                 }
             
                 HStack {
-                    Text("Mentor Sign-Up")
+                    Text("Mentor Sign-Up (Optional)")
                         .font(.custom("Montserrat-Bold", size: 25))
                         .padding(.vertical, 20)
                     
@@ -62,6 +56,8 @@ struct IntroMentor: View {
                 Text("Select classes you would like to be a mentor to others in and input your grade as well.")
                     .multilineTextAlignment(.center)
                     .font(.custom("Montserrat-light", size: 15))
+                    .foregroundColor(Color("Text"))
+
                     .padding(.bottom, 30)
                     .padding(.horizontal, 20)
                 ScrollView {
@@ -72,26 +68,40 @@ struct IntroMentor: View {
                 }
                 }
                 Spacer()
-                Button(action: {
-                    if mentorSelected != [] {
-                        do{
-                            try saveData()
-                           // userData.isOnboardingCompleted = true
+                VStack{
+                    Text("Tap next without a selection to skip.")
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(Color("Text"))
+                        .font(.custom("Montserrat-light", size: 15))
+                    Button(action: {
+                        if mentorSelected != [] {
+                            do{
+                                try saveData()
+                               // userData.isOnboardingCompleted = true
+                                self.viewRouter.currentView = .custom
+                            }
+                            catch{
+                                print("Failed saving user interest data, \(error)")
+                            }
+                            
+                        }
+                        else{
                             self.viewRouter.currentView = .custom
                         }
-                        catch{
-                            print("Failed saving user interest data, \(error)")
-                        }
                         
+                    }) {
+                        Text("Next")
+                            .font(.custom("Montserrat-SemiBold", size: 18))
                     }
+                    .buttonStyle(BlueStyle())
                     
-                }) {
-                    Text("Next")
-                        .font(.custom("Montserrat-SemiBold", size: 18))
+                
                 }
-                .buttonStyle(BlueStyle())
                 .padding(.bottom, 20)
                 .padding(.horizontal, 35)
+
+                
+ 
                 
             }
             
@@ -165,22 +175,22 @@ struct MentorSelectionRow: View {
                 .accessibilityAddTraits(.isButton)
                 .accessibilityAddTraits(selected ? .isSelected : AccessibilityTraits())
                 
-                if selected {
-                    HStack { //.font(.custom("Montserrat-regular", size: 14)).foregroundColor(Color("Text"))
-                        Picker(selection: $chosenGrade, label: HStack{
-                                Text("Grade: ")
-                                Text("\(chosenGrade)").bold()}) {
-                            ForEach(grades, id: \.self) { (grade) in
-                                Text("\(grade)")
-                            }
-                        }
-                        .pickerStyle(MenuPickerStyle())
-                        .foregroundColor(Color("Text"))
-                        .font(.custom("Montserrat-regular", size: 14))
-                        
-                    }
-                    .padding(.trailing, 10)
-                }
+//                if selected {
+//                    HStack { //.font(.custom("Montserrat-regular", size: 14)).foregroundColor(Color("Text"))
+//                        Picker(selection: $chosenGrade, label: HStack{
+//                                Text("Grade: ")
+//                                Text("\(chosenGrade)").bold()}) {
+//                            ForEach(grades, id: \.self) { (grade) in
+//                                Text("\(grade)")
+//                            }
+//                        }
+//                        .pickerStyle(MenuPickerStyle())
+//                        .foregroundColor(Color("Text"))
+//                        .font(.custom("Montserrat-regular", size: 14))
+//                        
+//                    }
+//                    .padding(.trailing, 10)
+//                }
         }
     }
 }
