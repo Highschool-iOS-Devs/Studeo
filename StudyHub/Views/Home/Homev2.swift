@@ -112,7 +112,7 @@ struct Homev2: View {
                                     //ProfilePic(name: groups.groupName, size: 70)
                                     ProfilePic(name: recentPeople[i].groupName, id: users[i])
                                       
-                                        .padding()
+                                       
                                         .onTapGesture() {
                                             group = recentPeople[i]
                                             dmChat = true

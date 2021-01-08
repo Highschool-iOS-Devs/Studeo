@@ -49,7 +49,7 @@ struct ProfilePic: View {
                 
             }
             }
-            } .padding()
+            }
         }
     
     func getProfileImage() {
