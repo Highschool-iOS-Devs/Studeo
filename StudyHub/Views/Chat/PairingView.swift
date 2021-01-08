@@ -275,6 +275,7 @@ struct PairingView: View {
                 return
             }
             if snapshot!.documents.count > 0{
+                paired = true
                 completion(true)
                 let document = snapshot!.documents[0]
                 let result = Result{
