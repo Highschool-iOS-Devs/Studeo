@@ -242,7 +242,7 @@ struct ChatView: View {
                             }) {
                                 Image(systemName: "phone")
                                     .font(.system(size: 25))
-                                    .foregroundColor(Color("Secondary"))
+                                    .foregroundColor(Color("Primary"))
                                 
                             }
                             
@@ -250,7 +250,7 @@ struct ChatView: View {
                         Button(action: {membersList=true}){
                             Image(systemName: "ellipsis.circle.fill")
                                 .font(.system(size: 25))
-                                .foregroundColor(Color("Secondary"))
+                                .foregroundColor(Color("Primary"))
 
 
                         }

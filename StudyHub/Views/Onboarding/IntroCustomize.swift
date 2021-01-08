@@ -28,7 +28,7 @@ struct IntroCustomize: View {
     @EnvironmentObject var viewRouter:ViewRouter
     var body: some View {
         ZStack {
-            Color(.systemBackground).edgesIgnoringSafeArea(.all)
+            Color("Background").edgesIgnoringSafeArea(.all)
                 .onAppear() {
                   
                 }

@@ -57,7 +57,7 @@ struct ChatCell: View {
                     .lineLimit(.none)
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(12)
-                    .background(Color("Secondary"))
+                    .background(Color("OtherChatCell"))
                     .clipShape(RoundedCorner(radius: 10, corners: .topLeft))
                     .clipShape(RoundedCorner(radius: 10, corners: .topRight))
                     .clipShape(RoundedCorner(radius: 10, corners: .bottomRight))

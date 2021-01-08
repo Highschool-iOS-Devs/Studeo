@@ -28,7 +28,7 @@ struct PairingView: View {
     var groupModel:ChatViewModel
     var body: some View {
         ZStack {
-            Color(.systemBackground)
+            Color("Background")
                 .edgesIgnoringSafeArea(.all)
             VStack {
                 HStack {

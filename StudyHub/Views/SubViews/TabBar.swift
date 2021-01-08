@@ -68,7 +68,7 @@ struct tabBarView: View {
           .frame(width: screenSize.width, height: 110)
             .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
             //.background(BlurView(style: .systemMaterial).shadow(radius: 0.5))
-                .background(Color("Background").shadow(color: Color("shadow"), radius: 0.75))
+                .background(Color("Background").shadow(color: Color("shadow"), radius: 1.5))
             .overlay(
                 tabBigButton()
                     .onTapGesture {

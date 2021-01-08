@@ -30,7 +30,7 @@ struct RecentChatTextRow: View {
                             add = true
                         }
                 )
-                .shadow(color: Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.20000000298023224)), radius: 4, x: 0, y: 2)
+                .shadow(color: Color("shadow"), radius: 4, x: 0, y: 2)
         }
         .padding(.horizontal, 20)
         .padding(.top, 80)
