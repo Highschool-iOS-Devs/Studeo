@@ -97,7 +97,7 @@ struct ContentView: View {
                     }
                
                         if hasLoaded {
-                            ContentViewSubviews()
+                            ContentViewSubviews(recentPeople: $recentPeople)
 
                     }
                        
@@ -262,7 +262,7 @@ struct ContentView: View {
         var groupList:[Groups] = []
         //Get every single document under collection users
         let queryParameter = docRef.whereField("members", arrayContains: userData.userID)
-        queryParameter.addSnapshotListener{ (querySnapshot, error) in
+        queryParameter.addSnapshotListener { (querySnapshot, error) in
             if let querySnapshot = querySnapshot,!querySnapshot.isEmpty{
             for document in querySnapshot.documents{
                 let result = Result {

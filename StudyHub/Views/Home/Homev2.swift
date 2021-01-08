@@ -46,6 +46,7 @@ struct Homev2: View {
     @Binding var devGroup: Groups
     @State var show = false
     @State var users = [String]()
+    @State var ready = false
     var body: some View {
         GeometryReader { geo in
         ZStack {
@@ -66,9 +67,11 @@ struct Homev2: View {
                             for user in group.members {
                                 if user != userData.userID {
                                     users.append(user)
+                                    print(user)
                                 }
                             }
                         }
+                        ready = true
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                             withAnimation(.easeInOut(duration: 1.0)) {
                               //  animation.toggle()
@@ -99,7 +102,7 @@ struct Homev2: View {
                                 .transition(.identity)
                             }
                             
-                            
+                       
                         if !recentPeople.isEmpty {
                             if !users.isEmpty {
                         ScrollView(.horizontal, showsIndicators: false) {
@@ -108,7 +111,7 @@ struct Homev2: View {
                                    
                                     //ProfilePic(name: groups.groupName, size: 70)
                                     ProfilePic(name: recentPeople[i].groupName, id: users[i])
-                                        .frame(width: 75, height: 75)
+                                      
                                         .padding()
                                         .onTapGesture() {
                                             group = recentPeople[i]
@@ -116,12 +119,13 @@ struct Homev2: View {
                                             show.toggle()
                                         }
                                 }
-                                
+                                Spacer()
                             } .padding(.top, 22)
                         }
                         Divider()
                         }
                         }
+                        
                         if recommendGroups.isEmpty {
                             
                         } else {
