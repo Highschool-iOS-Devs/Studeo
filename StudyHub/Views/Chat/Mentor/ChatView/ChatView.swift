@@ -39,6 +39,8 @@ struct ChatView: View {
     @State var viewImage = false
     @State var id = ""
     @State var toggleReaction = false
+    @State var message = MessageData(id: "", messageText: "", sentBy: "", sentByName: "", sentTime: Date(), sentBySelf: false, assetID: "", reactions: [String]())
+    @State var reactions = ["love", "thumbsup", "celebrate", "laugh"]
     var body: some View {
         ZStack {
             Color("Background").edgesIgnoringSafeArea(.all)
@@ -73,7 +75,8 @@ struct ChatView: View {
                                 MessageCellView(message)
                                     .id(message.id)
                                     .onLongPressGesture {
-                                        
+                                        toggleReaction = true
+                                        self.message = message
                                     }
                                     HStack {
                                         if message.sentBySelf ?? false {
@@ -89,6 +92,12 @@ struct ChatView: View {
                                             HStack {
                                             ForEach(message.reactions, id:\.self) { reaction in
                                                 Text(reaction == "love" ? "❤️" : "")
+                                                
+                                                Text(reaction == "thumbsup" ? "👍" : "")
+                                                
+                                                Text(reaction == "laugh" ? "🤣" : "")
+                                                
+                                                Text(reaction == "celebrate" ? "🎉" : "")
                                                
                                             }
                                             }
@@ -118,6 +127,7 @@ struct ChatView: View {
                         .resizable()
                         .scaledToFill()
                         .frame(width: 100, height: 100)
+                        .id(UUID())
                 }
                 HStack {
                     
@@ -268,7 +278,24 @@ struct ChatView: View {
                     } .padding()
                     VoiceChat(agoraKit: AgoraRtcEngineKit(), token: token, name: group.groupID, vc: $ARChat, group: group, loadingAnimation: $showLoadingAnimation)
                 }
-
+            if toggleReaction {
+                Picker(selection: $message.reactions, label: HStack{
+                        Text("Reaction: ")
+                        }) {
+                    ForEach(reactions, id: \.self) { (reaction) in
+                        Text(reaction == "love" ? "❤️" : "")
+                        
+                        Text(reaction == "thumbsup" ? "👍" : "")
+                        
+                        Text(reaction == "laugh" ? "🤣" : "")
+                        
+                        Text(reaction == "celebrate" ? "🎉" : "")
+                    }
+                }
+                .pickerStyle(MenuPickerStyle())
+                .foregroundColor(Color("Text"))
+                .font(.custom("Montserrat-regular", size: 14))
+            }
             BottomCardSubview(displayView: AnyView(MemberListSubview(members: $members, memberList: $membersList, showFull: $showFull, group: $group, person: $person, messages: $messages)), showFull: $showFull, showCard: $membersList)
             
             if showLoadingAnimation{

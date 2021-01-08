@@ -21,10 +21,20 @@ struct MiniProfileSubview: View {
     var group:Groups
     var body: some View {
         LazyVGrid(columns: gridItemLayout){
-            ForEach(group.members, id: \.self){ user in
-                ProfilePic(name: "", id: user, size: 10)
-                   
-                   
+            ForEach(0..<profileImages.count, id: \.self){index in
+                KFImage(profileImages[index], options: [.transition(.fade(0.5)), .processor(DownsamplingImageProcessor(size: CGSize(width: 60, height: 60))), .cacheOriginalImage])
+                    .onSuccess { r in
+                         // r: RetrieveImageResult
+                         //print("success: \(r)")
+                     }
+                     .onFailure { e in
+                         // e: KingfisherError
+                         print("failure: \(e)")
+                     }
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .clipShape(Circle())
+                    .frame(minWidth:10, minHeight:10)
                     .overlay(Circle().stroke(Color("Background"), lineWidth: 1))
                     .animation(.easeInOut)
                     .transition(.opacity)
@@ -35,8 +45,26 @@ struct MiniProfileSubview: View {
         
         .frame(width:25, height: 25)
         .padding()
-        
+        .onAppear{
+            getProfileImage()
+        }
     }
-
+    func getProfileImage(){
+        if profileImages == []{
+            for member in group.members{
+                let metadata = StorageMetadata()
+                metadata.contentType = "image/jpeg"
+                let storage = Storage.storage().reference().child("User_Profile/\(member)")
+                storage.downloadURL{url, error in
+                    if let error = error{
+                        print("Error downloading image, \(error)")
+                    }
+                    profileImages.append(url!)
+                }
+            }
+        }
+    
+       
+    }
 }
 
