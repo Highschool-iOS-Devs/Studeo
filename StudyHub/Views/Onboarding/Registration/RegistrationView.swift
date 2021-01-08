@@ -147,9 +147,9 @@ struct RegistrationView: View {
              let metadata = StorageMetadata()
              metadata.contentType = "image/jpeg"
           let storage = Storage.storage().reference().child("User_Profile/\(userData.userID)")
-            let imagePlaceholder = UIImage(systemName: "person.circle.fill")!
+            let imagePlaceholder = UIImage(named: "placeholder")!
 
-              storage.putData(imagePlaceholder.jpegData(compressionQuality: 10)!, metadata: metadata) { meta, error in
+              storage.putData(imagePlaceholder.pngData()!, metadata: metadata) { meta, error in
                 if let error = error{
                     print("Error uploading image, \(error)")
                     return

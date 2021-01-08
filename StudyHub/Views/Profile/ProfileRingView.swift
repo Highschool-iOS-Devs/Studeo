@@ -27,6 +27,7 @@ struct ProfileRingView: View {
              }
              .onFailure { e in
                  // e: KingfisherError
+                downloadImage()
                  print("failure: \(e)")
              }
              .placeholder {
@@ -49,9 +50,24 @@ struct ProfileRingView: View {
             return lineWidth
         }
     }
+    
+    func downloadImage() {
+
+             let metadata = StorageMetadata()
+          let storage = Storage.storage().reference().child("User_Profile/\(userData.userID)")
+                storage.downloadURL { url, error in
+                    if let error = error {
+                      print("Error downloading image, \(error)")
+                    } else {
+                        userData.profilePictureURL = url!.absoluteString
+                    }
+                  }
+             }
+          
+       }
 
   
-}
+
 
 
 struct ProfileRingView_Previews: PreviewProvider {

@@ -67,8 +67,12 @@ struct ProfilePic: View {
           } else {
             // Data for "images/island.jpg" is returned
             withAnimation(.easeInOut) {
-            image = UIImage(data: data!)!
+                if let safeData = data{
+                    image = UIImage(data: safeData)! 
+                }
                 animate = true
+
+       
             }
           }
         }
