@@ -102,7 +102,18 @@ struct LoginView: View {
         
         
     }
-    
+    func downloadImage() {
+
+             let metadata = StorageMetadata()
+          let storage = Storage.storage().reference().child("User_Profile/\(userData.userID)")
+                storage.downloadURL { url, error in
+                    if let error = error {
+                      print("Error downloading image, \(error)")
+                    } else {
+                        userData.profilePictureURL = url!.absoluteString
+                    }
+                  }
+             }
     func sendData(performActions: @escaping (ErrorModel, AuthDataResult?) -> Void) {
         Auth.auth().signIn(withEmail: self.email, password: self.password) { [] authResult, error in
             
@@ -130,10 +141,7 @@ struct LoginView: View {
                             self.userData.name = user.name
                             let pushManager = PushNotificationManager(userID: user.id.uuidString)
                                     pushManager.registerForPushNotifications()
-                            if let url = user.profileImageURL{
-                                self.userData.profilePictureURL = url.absoluteString
-
-                            }
+                          downloadImage()
                             let didFinishOnboarding = user.finishedOnboarding ?? false
                             userData.isOnboardingCompleted = didFinishOnboarding
                             self.finishedOnboarding = didFinishOnboarding
