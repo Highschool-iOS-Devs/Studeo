@@ -76,6 +76,7 @@ struct ChatView: View {
                                     }
                                 MessageCellView(message)
                                     .id(message.id)
+                                    .frame(minWidth: 100, minHeight: 50)
                                     .onLongPressGesture {
                                        // toggleReaction = true
                                         self.message = message
@@ -108,24 +109,27 @@ struct ChatView: View {
                                    
                                 }
                             }
-                        } //.transition(.move(edge: .top))
+                        } .transition(.opacity)
                         .animation(.easeInOut(duration: 0.7))
-                        .drawingGroup()
+                       // .drawingGroup()
                         .padding(.top,5)
                         .onChange(of: messages, perform: { messages in
                             guard let lastMessage = messages.last else { return }
                             if let id = lastMessage.id {
+                                withAnimation(.easeInOut(duration: 1.5)) {
                                 self.lastMessageID = id
                             }
-
-                            withAnimation {
+                            }
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            withAnimation(.easeInOut(duration: 1.5)) {
                                 scrollView.scrollTo(lastMessage.id, anchor: .bottom)
+                            }
                             }
                         })
                         .onReceive(Publishers.keyboardHeight){height in
                             guard !lastMessageID.isEmpty else { return }
 
-                            withAnimation {
+                            withAnimation(.easeInOut(duration: 1.5)) {
                                 scrollView.scrollTo(self.lastMessageID, anchor: .bottom)
                             }
                         }

@@ -35,7 +35,7 @@ struct ChatCellSelf: View {
                 
             } .padding(.trailing, 12)
         } .transition(.opacity)
-        
+        .frame(minWidth: 100, minHeight: 50)
         
         
     }
@@ -68,7 +68,7 @@ struct ChatCell: View {
         }
         
         } .transition(.opacity)
-        
+        .frame(minWidth: 100, minHeight: 50)
     }
 }
 
