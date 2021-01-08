@@ -47,4 +47,5 @@ struct MessageData: Codable, Identifiable, Hashable {
     var sentTime:Date
     var sentBySelf:Bool?
     var assetID: String
+    var reactions: [String]
 }

@@ -38,6 +38,7 @@ struct ChatView: View {
     @State private var image : UIImage? = nil
     @State var viewImage = false
     @State var id = ""
+    @State var toggleReaction = false
     var body: some View {
         ZStack {
             Color("Background").edgesIgnoringSafeArea(.all)
@@ -71,7 +72,9 @@ struct ChatView: View {
                                     }
                                 MessageCellView(message)
                                     .id(message.id)
-                                    
+                                    .onLongPressGesture {
+                                        
+                                    }
                                     HStack {
                                         if message.sentBySelf ?? false {
                                             Spacer()
@@ -81,6 +84,14 @@ struct ChatView: View {
                                         
                                         if !message.sentBySelf! {
                                             Spacer()
+                                        }
+                                        if !message.reactions.isEmpty {
+                                            HStack {
+                                            ForEach(message.reactions, id:\.self) { reaction in
+                                                Text(reaction == "love" ? "❤️" : "")
+                                               
+                                            }
+                                            }
                                         }
                                     } .padding(.horizontal)
                                 }
@@ -153,7 +164,7 @@ struct ChatView: View {
                              }
                             }
                             if self.messageField != ""{
-                                let newMessage = MessageData(messageText: self.messageField, sentBy: self.userData.userID, sentByName: self.userData.name, sentTime: Date(), assetID: id != "" ? id : "")
+                                let newMessage = MessageData(messageText: self.messageField, sentBy: self.userData.userID, sentByName: self.userData.name, sentTime: Date(), assetID: id != "" ? id : "", reactions: [String]())
                                 for member in members {
                                 let sender = PushNotificationSender()
                                     if member.fcmToken != nil {

@@ -13,8 +13,10 @@ struct ProfilePic: View {
    // var size: CGFloat
     @State var isTimer = false
     var id = ""
+    @State var size = 75
     @State var image = UIImage()
     @State var animate = false
+    
     var body: some View {
         ZStack {
             Color.clear
@@ -27,7 +29,7 @@ struct ProfilePic: View {
                     Image(uiImage: image)
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 75, height: 75)
+                        .frame(width: CGFloat(size), height: CGFloat(size))
                     
                         
                         
@@ -38,7 +40,7 @@ struct ProfilePic: View {
                             Circle()
                                 
                                 .stroke(LinearGradient(gradient: Gradient(colors: [Color("Secondary"), Color("Primary")]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 3)
-                                .frame(width: 75, height: 75)
+                                .frame(width: CGFloat(size), height: CGFloat(size))
                             
                         )
                     Text(name)
