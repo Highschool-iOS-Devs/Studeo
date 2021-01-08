@@ -113,6 +113,20 @@ quiz = true
                             .foregroundColor(.white)
                 }
                     }
+                    Button(action: {
+                       
+                        
+                            agoraKit.leaveChannel()
+                        vc = false
+                    }) {
+                        ZStack {
+                            Circle()
+                                .frame(width: 75, height: 75)
+                            .foregroundColor(Color("Primary"))
+                            Image(systemName: "phone")
+                            .foregroundColor(.white)
+                }
+                    }
                    
                 } .padding()
            

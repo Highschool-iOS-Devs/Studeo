@@ -111,7 +111,7 @@ struct ChatView: View {
                             }
                         } .transition(.opacity)
                         .animation(.easeInOut(duration: 0.7))
-                       // .drawingGroup()
+                        .drawingGroup()
                         .padding(.top,5)
                         .onChange(of: messages, perform: { messages in
                             guard let lastMessage = messages.last else { return }
