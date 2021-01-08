@@ -205,7 +205,7 @@ struct PairingView: View {
         ])
         let ref2 = db.collection("users").document(userData.userID)
         ref2.updateData([
-            "groups":[groupID]
+            "groups":FieldValue.arrayUnion([groupID])
         ])
     }
     
@@ -275,6 +275,7 @@ struct PairingView: View {
                 return
             }
             if snapshot!.documents.count > 0{
+                paired = true
                 completion(true)
                 let document = snapshot!.documents[0]
                 let result = Result{
