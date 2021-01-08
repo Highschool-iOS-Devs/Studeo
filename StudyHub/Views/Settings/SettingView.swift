@@ -28,7 +28,10 @@ struct SettingView: View {
     
     @State private var showHelp = false
     let dataSource = URL(string: "https://raw.githubusercontent.com/Highschool-iOS-Devs/Studeo-Help/DataSource/_data/supportdocs_datasource.json")!
-    
+    @State var interestSelected: [UserInterestTypes] = []
+    @State var settings = false
+    @State var interests = [String]()
+    @State var add = false
     var body: some View {
             NavigationView {
                 ZStack {
@@ -61,6 +64,7 @@ struct SettingView: View {
                                     settingRowView(settingText: "Personal info", settingState: "", newView: AnyView(PersonalInfoView()))
                                     settingRowView(settingText: "Country", settingState: country, newView: AnyView(CountrySelectionView(selectedCountry: $country)))
                                     settingRowView(settingText: "Language", settingState: language, newView: AnyView(LanguageSelectionView(selectedLanguage: $language)))
+                                    settingRowView(settingText: "Interests", settingState: "", newView: AnyView(IntroCustomize(interestSelected: $interestSelected, isNotOnboarding: true, interests: $interests, settings: $settings, add: $add)))
                                     settingRowView(settingText: "Sign out", settingState: "", newView: AnyView(Text("Placeholder")), disableNavigation: true)
                                         .onTapGesture(){
                                             signOut()

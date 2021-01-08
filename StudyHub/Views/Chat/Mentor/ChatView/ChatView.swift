@@ -41,6 +41,7 @@ struct ChatView: View {
     @State var toggleReaction = false
     @State var message = MessageData(id: "", messageText: "", sentBy: "", sentByName: "", sentTime: Date(), sentBySelf: false, assetID: "", reactions: [String]())
     @State var reactions = ["love", "thumbsup", "celebrate", "laugh"]
+    @State var reaction = "love"
     var body: some View {
         ZStack {
             Color("Background").edgesIgnoringSafeArea(.all)
@@ -75,7 +76,7 @@ struct ChatView: View {
                                 MessageCellView(message)
                                     .id(message.id)
                                     .onLongPressGesture {
-                                        toggleReaction = true
+                                       // toggleReaction = true
                                         self.message = message
                                     }
                                     HStack {
@@ -103,6 +104,7 @@ struct ChatView: View {
                                             }
                                         }
                                     } .padding(.horizontal)
+                                   
                                 }
                             }
                         } //.transition(.move(edge: .top))
@@ -125,8 +127,9 @@ struct ChatView: View {
                 if image != nil {
                     Image(uiImage: image!)
                         .resizable()
-                        .scaledToFill()
+                        .scaledToFit()
                         .frame(width: 100, height: 100)
+                        
                         .id(UUID())
                 }
                 HStack {
@@ -261,6 +264,33 @@ struct ChatView: View {
             } .onTapGesture() {
                 toggleReaction = false
             }
+            if toggleReaction {
+                HStack { //.font(.custom("Montserrat-regular", size: 14)).foregroundColor(Color("Text"))
+                    Picker(selection: $message.reactions, label: HStack{
+                            Text("Reaction: ")
+                            }) {
+                        ForEach(reactions, id: \.self) { (reaction) in
+                            if reaction == "love" {
+                                Text("❤️")
+                            } else
+                            if reaction == "thumbsup" {
+                                Text("👍")
+                            } else
+                            if reaction == "laugh" {
+                                Text("🤣")
+                            } else
+                            if reaction == "celebrate" {
+                                Text("🎉")
+                            }
+                        }
+                    }
+                    .pickerStyle(MenuPickerStyle())
+                    .foregroundColor(Color("Text"))
+                    .font(.custom("Montserrat-regular", size: 14))
+                    
+                }
+                .padding(.trailing, 10)
+            }
             if viewImage {
                 FullImageView(id: $id, viewImage: $viewImage)
             }
@@ -280,24 +310,7 @@ struct ChatView: View {
                     } .padding()
                     VoiceChat(agoraKit: AgoraRtcEngineKit(), token: token, name: group.groupID, vc: $ARChat, group: group, loadingAnimation: $showLoadingAnimation)
                 }
-            if toggleReaction {
-                Picker(selection: $message.reactions, label: HStack{
-                        Text("Reaction: ")
-                        }) {
-                    ForEach(reactions, id: \.self) { reaction in
-                        Text(reaction == "love" ? "❤️" : "")
-                        
-                        Text(reaction == "thumbsup" ? "👍" : "")
-                        
-                        Text(reaction == "laugh" ? "🤣" : "")
-                        
-                        Text(reaction == "celebrate" ? "🎉" : "")
-                    }
-                }
-                .pickerStyle(MenuPickerStyle())
-                .foregroundColor(Color("Text"))
-                
-            }
+        
             BottomCardSubview(displayView: AnyView(MemberListSubview(members: $members, memberList: $membersList, showFull: $showFull, group: $group, person: $person, messages: $messages)), showFull: $showFull, showCard: $membersList)
             
             if showLoadingAnimation{
@@ -537,7 +550,7 @@ struct assetMessage: View {
                 }
             Image(uiImage: image)
                 .resizable()
-                .scaledToFill()
+                .scaledToFit()
                 
         }
     }
