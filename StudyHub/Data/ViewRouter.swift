@@ -42,3 +42,18 @@ class ViewRouter:ObservableObject{
 
 
 
+
+class QuizRouter: ObservableObject{
+    enum Views {
+        case leaderboard
+        case question
+       
+    }
+    @Published var currentView = Views.question
+    @Published var nextView = Views.leaderboard
+    public static let shared = QuizRouter()
+    func updateCurrentView(view: Views){
+        self.currentView = view
+    }
+}
+

@@ -18,6 +18,8 @@ struct QuizBtn: View {
     @State var image = UIImage()
     @Binding var group: Groups
     @Binding var points: Int
+    @Binding var quiz: Quiz
+    @EnvironmentObject var quizRouter: QuizRouter
     var body: some View {
       
         Button(action: {
@@ -25,19 +27,25 @@ struct QuizBtn: View {
             questionL.selected = text
             print(question.selected)
             if question.selected == question.answer {
-              i += 1
-                let db = Firestore.firestore()
-              //  db.collection("quizzes").document("\(group.id)/\(userData.userID)").updateData ([
-               //     "points":  points + 1,
+                let isIndexValid = quiz.questions.indices.contains(i + 1)
+                if isIndexValid {
                     
-               // ]) { err in
-                //    if let err = err {
-                 //       print("Error updating document: \(err)")
-                 //   } else {
-                 //       print("Document successfully updated")
+                    
+              i += 1
+                }
+                quizRouter.currentView = .leaderboard
+                let db = Firestore.firestore()
+                db.collection("quizzes").document("\(group.id)/\(quiz.id)/\(userData.userID)").setData ([
+                    "points":  points + 1,
+                    
+                ]) { err in
+                   if let err = err {
+                       print("Error updating document: \(err)")
+                   } else {
+                        print("Document successfully updated")
                     }
-               // }
-           // }
+                }
+            }
             
           
             

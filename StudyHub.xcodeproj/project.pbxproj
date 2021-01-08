@@ -130,6 +130,8 @@
 		E192890925984AE600B67C3C /* TimerLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E192890825984AE600B67C3C /* TimerLog.swift */; };
 		E19A0BC725925C4500F5F855 /* PairingSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19A0BC625925C4500F5F855 /* PairingSuccessView.swift */; };
 		E1A39F2025A8CC100001B96F /* QuizTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A39F1F25A8CC100001B96F /* QuizTitle.swift */; };
+		E1A39F2525A8D5670001B96F /* QuizLeaderboardRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A39F2325A8D5670001B96F /* QuizLeaderboardRow.swift */; };
+		E1A39F2625A8D5670001B96F /* QuizLeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A39F2425A8D5670001B96F /* QuizLeaderboardView.swift */; };
 		E1A8D1CB25A3C7DC0057B882 /* QuizzesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A8D1CA25A3C7DC0057B882 /* QuizzesList.swift */; };
 		E1A8D1CE25A3C8080057B882 /* QuizzesRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A8D1CD25A3C8080057B882 /* QuizzesRow.swift */; };
 		E1BCD3E1251E46540051A28C /* EditProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BCD3E0251E46540051A28C /* EditProfile.swift */; };
@@ -267,6 +269,8 @@
 		E192890825984AE600B67C3C /* TimerLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerLog.swift; sourceTree = "<group>"; };
 		E19A0BC625925C4500F5F855 /* PairingSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingSuccessView.swift; sourceTree = "<group>"; };
 		E1A39F1F25A8CC100001B96F /* QuizTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizTitle.swift; sourceTree = "<group>"; };
+		E1A39F2325A8D5670001B96F /* QuizLeaderboardRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizLeaderboardRow.swift; sourceTree = "<group>"; };
+		E1A39F2425A8D5670001B96F /* QuizLeaderboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizLeaderboardView.swift; sourceTree = "<group>"; };
 		E1A8D1CA25A3C7DC0057B882 /* QuizzesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizzesList.swift; sourceTree = "<group>"; };
 		E1A8D1CD25A3C8080057B882 /* QuizzesRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizzesRow.swift; sourceTree = "<group>"; };
 		E1BCD3E0251E46540051A28C /* EditProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfile.swift; sourceTree = "<group>"; };
@@ -651,6 +655,9 @@
 		E163D31325A280D000102895 /* Quiz */ = {
 			isa = PBXGroup;
 			children = (
+				E163D30A25A280CC00102895 /* QuizDetails.swift */,
+				E1A39F2425A8D5670001B96F /* QuizLeaderboardView.swift */,
+				E1A39F2325A8D5670001B96F /* QuizLeaderboardRow.swift */,
 				E163D32E25A28F5200102895 /* AddQuiz.swift */,
 				E163D33225A28F6500102895 /* QuizAddRow.swift */,
 				E163D33525A2914700102895 /* QuizInputFieldView.swift */,
@@ -659,7 +666,6 @@
 				E1A8D1CD25A3C8080057B882 /* QuizzesRow.swift */,
 				E163D30C25A280CC00102895 /* QuizBtn.swift */,
 				E163D30925A280CC00102895 /* QuizData.swift */,
-				E163D30A25A280CC00102895 /* QuizDetails.swift */,
 				E163D30B25A280CC00102895 /* QuizQuestion.swift */,
 				E163D30825A280CC00102895 /* QuizView.swift */,
 			);
@@ -893,6 +899,7 @@
 				BE167C452514333A00402C14 /* SettingsData.swift in Sources */,
 				626EEC8F25897BD200E7A7A5 /* AllGroupTextRow.swift in Sources */,
 				E1BCD3E1251E46540051A28C /* EditProfile.swift in Sources */,
+				E1A39F2625A8D5670001B96F /* QuizLeaderboardView.swift in Sources */,
 				E163D30F25A280CC00102895 /* QuizDetails.swift in Sources */,
 				6205910D24FDBB21001565BF /* Header.swift in Sources */,
 				E1760ABC25925A3600AA8BCF /* MentorPairingView.swift in Sources */,
@@ -929,6 +936,7 @@
 				E1BCD406251E8A080051A28C /* PairingView.swift in Sources */,
 				6205910324FDBB21001565BF /* Categories.swift in Sources */,
 				E192890925984AE600B67C3C /* TimerLog.swift in Sources */,
+				E1A39F2525A8D5670001B96F /* QuizLeaderboardRow.swift in Sources */,
 				6205911624FDBB21001565BF /* TimerButtonStyles.swift in Sources */,
 				E1BCD401251E7CF50051A28C /* LeaderboardSubViews.swift in Sources */,
 				6205911B24FDBB21001565BF /* SceneDelegate.swift in Sources */,
