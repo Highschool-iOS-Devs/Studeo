@@ -205,7 +205,7 @@ struct PairingView: View {
         ])
         let ref2 = db.collection("users").document(userData.userID)
         ref2.updateData([
-            "groups":[groupID]
+            "groups":FieldValue.arrayUnion([groupID])
         ])
     }
     
