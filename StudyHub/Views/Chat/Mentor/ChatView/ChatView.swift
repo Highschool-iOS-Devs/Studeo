@@ -85,8 +85,7 @@ struct ChatView: View {
                                         if message.sentBySelf ?? false {
                                             Spacer()
                                         }
-                                    Text(message.sentByName)
-                                        .font(.custom("Montserrat Light", size: 10))
+                                    
                                         
                                         if !message.sentBySelf! {
                                             Spacer()

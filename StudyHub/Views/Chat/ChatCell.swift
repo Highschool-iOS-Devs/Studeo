@@ -35,25 +35,42 @@ struct ChatCellSelf: View {
                     .clipShape(RoundedCorner(radius: 10, corners: .topRight))
                     .clipShape(RoundedCorner(radius: 10, corners: .bottomLeft))
                 
-                    .onLongPressGesture {
-                        toggleReaction = true
-                       
-                    }
+                   
             } .padding(.trailing, 12)
+            .onLongPressGesture {
+                toggleReaction = true
+               
+            }
+                HStack {
+                    Spacer()
+                Text(message.sentByName)
+                    .font(.custom("Montserrat Light", size: 10))
+                    
+                } .padding(.trailing, 12)
                 if !message.reactions.isEmpty {
                     HStack {
+                        Spacer()
                     ForEach(message.reactions, id:\.self) { reaction in
-                        Text(reaction == "love" ? "❤️" : "")
-                        
-                        Text(reaction == "thumbsup" ? "👍" : "")
-                        
-                        Text(reaction == "laugh" ? "🤣" : "")
-                        
+                        if reaction == "love" {
+                            Text(reaction == "love" ? "❤️" : "")
+                                .font(.caption)
+                        } else if reaction == "thumbsup" {
+                            Text(reaction == "thumbsup" ? "👍" : "")
+                                .font(.caption)
+                        } else if reaction == "laugh"{
+                            Text(reaction == "laugh" ? "🤣" : "")
+                                .font(.caption)
+                        } else if reaction == "celebrate" {
+                       
                         Text(reaction == "celebrate" ? "🎉" : "")
+                            .font(.caption)
+                    }
                        
                     }
-                    }
+                        
+                    } .padding(.trailing, 12)
                 }
+               
                 if toggleReaction {
                     HStack {
                         Spacer()
@@ -98,23 +115,43 @@ struct ChatCell: View {
                 
                 Spacer()
             } .padding(.horizontal, 12)
+            .onLongPressGesture {
+                toggleReaction = true
+               
+            }
+                HStack {
+                    
+                Text(message.sentByName)
+                    .font(.custom("Montserrat Light", size: 10))
+                    Spacer()
+                } .padding(.leading, 12)
                 if !message.reactions.isEmpty {
                     HStack {
+                       
                     ForEach(message.reactions, id:\.self) { reaction in
-                        Text(reaction == "love" ? "❤️" : "")
-                        
-                        Text(reaction == "thumbsup" ? "👍" : "")
-                        
-                        Text(reaction == "laugh" ? "🤣" : "")
-                        
+                        if reaction == "love" {
+                            Text(reaction == "love" ? "❤️" : "")
+                                .font(.caption)
+                        } else if reaction == "thumbsup" {
+                            Text(reaction == "thumbsup" ? "👍" : "")
+                                .font(.caption)
+                        } else if reaction == "laugh"{
+                            Text(reaction == "laugh" ? "🤣" : "")
+                                .font(.caption)
+                        } else if reaction == "celebrate" {
+                       
                         Text(reaction == "celebrate" ? "🎉" : "")
+                            .font(.caption)
+                    }
                        
                     }
-                    }
+                        Spacer()
+                    } .padding(.leading, 12)
                 }
                 if toggleReaction {
                     HStack {
                     ReactionSelectView(message: $message, toggleReaction: $toggleReaction,  group: group)
+                        
                         Spacer()
                     }
                 }
