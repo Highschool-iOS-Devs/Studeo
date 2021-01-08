@@ -132,7 +132,7 @@ struct PairingView: View {
             
             if settings {
                 
-                IntroCustomize(interestSelected: $selectedInterests, isNotOnboarding: false, interests: $interests, settings: $settings, add: $add)
+                IntroCustomize(interestSelected: $selectedInterests, isNotOnboarding: false, interests: $interests, settings: $settings, add: $add, groupModel:groupModel)
                 
             }
             if error {
