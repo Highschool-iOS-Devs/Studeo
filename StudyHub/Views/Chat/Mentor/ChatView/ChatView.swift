@@ -43,20 +43,18 @@ struct ChatView: View {
     @State var reactions = ["love", "thumbsup", "celebrate", "laugh"]
     @State private var lastMessageID = ""
     @State var reaction = "love"
-    @State var isDMs = false
     var body: some View {
         ZStack {
             Color("Background").edgesIgnoringSafeArea(.all)
-               
+                .onAppear() {
+                    //viewRouter.showTabBar = false
+                }
             VStack {
-               
-                    ChatHeader(group: group, isDMs: $isDMs)
-                
                 //Testing UI with some messages
                 
                 ScrollView(.vertical, showsIndicators: false) {
                     ScrollViewReader { scrollView in
-                        VStack {
+                        LazyVStack {
                             ForEach(self.messages) { message in
                                 VStack {
                                     HStack {
@@ -79,24 +77,38 @@ struct ChatView: View {
                                 MessageCellView(message)
                                     .id(message.id)
                                     .frame(minWidth: 100, minHeight: 50)
-                                    
-                                   
+                                    .onLongPressGesture {
+                                       // toggleReaction = true
+                                        self.message = message
+                                    }
                                     HStack {
                                         if message.sentBySelf ?? false {
                                             Spacer()
                                         }
-                                    
+                                    Text(message.sentByName)
+                                        .font(.custom("Montserrat Light", size: 10))
                                         
                                         if !message.sentBySelf! {
                                             Spacer()
                                         }
-                                      
+                                        if !message.reactions.isEmpty {
+                                            HStack {
+                                            ForEach(message.reactions, id:\.self) { reaction in
+                                                Text(reaction == "love" ? "❤️" : "")
+                                                
+                                                Text(reaction == "thumbsup" ? "👍" : "")
+                                                
+                                                Text(reaction == "laugh" ? "🤣" : "")
+                                                
+                                                Text(reaction == "celebrate" ? "🎉" : "")
+                                               
+                                            }
+                                            }
+                                        }
                                     } .padding(.horizontal)
-                                    
+                                   
                                 }
-                              
                             }
-                            
                         } .transition(.opacity)
                         .animation(.easeInOut(duration: 0.7))
                         .drawingGroup()
@@ -109,7 +121,7 @@ struct ChatView: View {
                             }
                             }
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            withAnimation(.linear(duration: 1.5)) {
+                            withAnimation(.easeInOut(duration: 1.5)) {
                                 scrollView.scrollTo(lastMessage.id, anchor: .bottom)
                             }
                             }
@@ -117,7 +129,7 @@ struct ChatView: View {
                         .onReceive(Publishers.keyboardHeight){height in
                             guard !lastMessageID.isEmpty else { return }
 
-                            withAnimation(.linear(duration: 1.5)) {
+                            withAnimation(.easeInOut(duration: 1.5)) {
                                 scrollView.scrollTo(self.lastMessageID, anchor: .bottom)
                             }
                         }
@@ -268,7 +280,33 @@ struct ChatView: View {
             } .onTapGesture() {
                 toggleReaction = false
             }
-          
+            if toggleReaction {
+                HStack { //.font(.custom("Montserrat-regular", size: 14)).foregroundColor(Color("Text"))
+                    Picker(selection: $message.reactions, label: HStack{
+                            Text("Reaction: ")
+                            }) {
+                        ForEach(reactions, id: \.self) { (reaction) in
+                            if reaction == "love" {
+                                Text("❤️")
+                            } else
+                            if reaction == "thumbsup" {
+                                Text("👍")
+                            } else
+                            if reaction == "laugh" {
+                                Text("🤣")
+                            } else
+                            if reaction == "celebrate" {
+                                Text("🎉")
+                            }
+                        }
+                    }
+                    .pickerStyle(MenuPickerStyle())
+                    .foregroundColor(Color("Text"))
+                    .font(.custom("Montserrat-regular", size: 14))
+                    
+                }
+                .padding(.trailing, 10)
+            }
             if viewImage {
                 FullImageView(id: $id, viewImage: $viewImage)
             }
@@ -297,7 +335,6 @@ struct ChatView: View {
                         .animation(.easeInOut)
                     Text("Joining Voice Chat...")
                         .font(.custom("Montserrat-SemiBold", size: 25))
-                    
                         .offset(y: -40)
                         .foregroundColor(Color("Text"))
                 }
@@ -309,7 +346,7 @@ struct ChatView: View {
                 
             }
             }
-
+        
             .onAppear{
                 
                 self.loadData()
@@ -411,47 +448,27 @@ struct ChatView: View {
             var groupList:[User] = []
             //Get every single document under collection users
             
-            docRef.addSnapshotListener{ (querySnapshot, error) in
-                if let querySnapshot = querySnapshot?.documentChanges,!querySnapshot.isEmpty{
-                    querySnapshot.forEach { (change) in
-                        switch change.type {
-                        case .added:
-                            let result = Result {
-                                try change.document.data(as: User.self)
-                            }
-                            switch result {
-                            case .success(let user):
-                                if var user = user {
-                                    
-                                    groupList.append(user)
-                                    
-                                } else {
-                                    
-                                    print("Document does not exist")
-                                }
-                            case .failure(let error):
-                                print("Error decoding user: \(error)")
-                            }
-                        case .removed:
-                            let result = Result {
-                                try change.document.data(as: User.self)
-                            }
-                            switch result {
-                            case .success(let user):
-                                if var user = user {
-                                    
-                                    groupList.removeAll(where: { $0 == user})
-                                    
-                                } else {
-                                    
-                                    print("Document does not exist")
-                                }
-                            case .failure(let error):
-                                print("Error decoding user: \(error)")
-                            }
-                        case .modified:
-                            return
+            docRef.getDocuments{ (querySnapshot, error) in
+                if let querySnapshot = querySnapshot,!querySnapshot.isEmpty{
+                    for document in querySnapshot.documents{
+                        let result = Result {
+                            try document.data(as: User.self)
                         }
+                        switch result {
+                        case .success(let user):
+                            if var user = user {
+                                
+                                groupList.append(user)
+                                
+                            } else {
+                                
+                                print("Document does not exist")
+                            }
+                        case .failure(let error):
+                            print("Error decoding user: \(error)")
+                        }
+                        
+                        
                     }
                 }
                 else{

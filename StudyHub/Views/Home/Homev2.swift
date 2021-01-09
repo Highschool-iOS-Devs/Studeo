@@ -210,12 +210,12 @@ struct Homev2: View {
         }
         .fullScreenCover(isPresented: $show, content: {
             if dmChat {
-                ChatView(group: group, show: $show, isDMs: true)
+                ChatView(group: group, show: $show)
                     .onDisappear {
                         dmChat = false
                     }
             } else {
-                ChatView(group: devGroup, show: $show, isDMs: true)
+                ChatView(group: devGroup, show: $show)
             }
         })
     
