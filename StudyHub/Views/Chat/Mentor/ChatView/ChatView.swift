@@ -55,7 +55,7 @@ struct ChatView: View {
             VStack {
                 //Testing UI with some messages
                 
-                ScrollView(.vertical, showsIndicators: false) {
+                ScrollView(.vertical) {
                     ScrollViewReader { scrollView in
                         LazyVStack {
                             ForEach(self.messages) { message in
@@ -113,7 +113,6 @@ struct ChatView: View {
                             }
                         } .transition(.opacity)
                         .animation(.easeInOut(duration: 0.7))
-                        .drawingGroup()
                         .padding(.top,5)
                         .onChange(of: messages, perform: { messages in
                             guard let lastMessage = messages.last else { return }
