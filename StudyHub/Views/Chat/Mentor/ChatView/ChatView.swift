@@ -109,7 +109,7 @@ struct ChatView: View {
                             }
                             }
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            withAnimation(.easeInOut(duration: 1.5)) {
+                            withAnimation(.linear(duration: 1.5)) {
                                 scrollView.scrollTo(lastMessage.id, anchor: .bottom)
                             }
                             }
@@ -117,7 +117,7 @@ struct ChatView: View {
                         .onReceive(Publishers.keyboardHeight){height in
                             guard !lastMessageID.isEmpty else { return }
 
-                            withAnimation(.easeInOut(duration: 1.5)) {
+                            withAnimation(.linear(duration: 1.5)) {
                                 scrollView.scrollTo(self.lastMessageID, anchor: .bottom)
                             }
                         }
@@ -411,27 +411,47 @@ struct ChatView: View {
             var groupList:[User] = []
             //Get every single document under collection users
             
-            docRef.getDocuments{ (querySnapshot, error) in
-                if let querySnapshot = querySnapshot,!querySnapshot.isEmpty{
-                    for document in querySnapshot.documents{
-                        let result = Result {
-                            try document.data(as: User.self)
-                        }
-                        switch result {
-                        case .success(let user):
-                            if var user = user {
-                                
-                                groupList.append(user)
-                                
-                            } else {
-                                
-                                print("Document does not exist")
+            docRef.addSnapshotListener{ (querySnapshot, error) in
+                if let querySnapshot = querySnapshot?.documentChanges,!querySnapshot.isEmpty{
+                    querySnapshot.forEach { (change) in
+                        switch change.type {
+                        case .added:
+                            let result = Result {
+                                try change.document.data(as: User.self)
                             }
-                        case .failure(let error):
-                            print("Error decoding user: \(error)")
+                            switch result {
+                            case .success(let user):
+                                if var user = user {
+                                    
+                                    groupList.append(user)
+                                    
+                                } else {
+                                    
+                                    print("Document does not exist")
+                                }
+                            case .failure(let error):
+                                print("Error decoding user: \(error)")
+                            }
+                        case .removed:
+                            let result = Result {
+                                try change.document.data(as: User.self)
+                            }
+                            switch result {
+                            case .success(let user):
+                                if var user = user {
+                                    
+                                    groupList.removeAll(where: { $0 == user})
+                                    
+                                } else {
+                                    
+                                    print("Document does not exist")
+                                }
+                            case .failure(let error):
+                                print("Error decoding user: \(error)")
+                            }
+                        case .modified:
+                            return
                         }
-                        
-                        
                     }
                 }
                 else{
