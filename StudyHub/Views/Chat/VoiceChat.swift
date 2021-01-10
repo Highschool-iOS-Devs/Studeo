@@ -18,13 +18,14 @@ struct VoiceChat: View {
     @State var name = ""
     @State var isMuted = false
     @Binding var vc: Bool
-    @State var group: Groups?
+    @State var group: Groups
     @State var usersInVC = [User]()
     @State var usersInVCString = [String]()
     @State var i = 0
     @State var ready = false
     @Binding var loadingAnimation: Bool
-    
+    @State var quiz = false
+    @State var testing = false
     var body: some View {
         ZStack {
         Color("Background").edgesIgnoringSafeArea(.all)
@@ -49,7 +50,7 @@ struct VoiceChat: View {
                             self.loadUsersData(vcuserID: user) { userData in
                                
                                 
-                                let usersRef = Firestore.firestore().collection("groups").document(group!.groupID)
+                                let usersRef = Firestore.firestore().collection("groups").document(group.groupID)
                                 //causing error
                                // usersRef.setData(["userInVC": usersInVCString], merge: true)
                                 
@@ -84,9 +85,10 @@ struct VoiceChat: View {
             VStack {
                 HStack {
                     Spacer()
+                    if testing {
                     Button(action: {
-                        viewRouter.currentView = .quizList
-
+                       // viewRouter.currentView = .quizList
+quiz = true
                     }) {
                         ZStack {
                            Circle()
@@ -95,6 +97,7 @@ struct VoiceChat: View {
                             Image(systemName: "doc.fill")
                                 .foregroundColor(Color(.white))
                 }
+                    }
                     }
                     Button(action: {
                         isMuted.toggle()
@@ -110,6 +113,20 @@ struct VoiceChat: View {
                             .foregroundColor(.white)
                 }
                     }
+                    Button(action: {
+                       
+                        
+                            agoraKit.leaveChannel()
+                        vc = false
+                    }) {
+                        ZStack {
+                            Circle()
+                                .frame(width: 75, height: 75)
+                            .foregroundColor(Color("Primary"))
+                            Image(systemName: "phone")
+                            .foregroundColor(.white)
+                }
+                    }
                    
                 } .padding()
            
@@ -118,12 +135,15 @@ struct VoiceChat: View {
             }
             }
     }
+            if quiz {
+                QuizzesList(group: $group, quiz: $quiz)
+            }
         }
         
         .onDisappear() {
             let db = Firestore.firestore()
 
-            let ref2 = db.collection("groups").document(group!.groupID)
+            let ref2 = db.collection("groups").document(group.groupID)
             ref2.getDocument{document, error in
 
                 if let document = document, document.exists {
@@ -148,11 +168,14 @@ struct VoiceChat: View {
                 }
             }
         }
+        if quiz {
+            QuizzesList(group: $group, quiz: $quiz)
+        }
     }
     
     func loadUsersInVC(performAction: @escaping ([Groups]) -> Void) {
         let db = Firestore.firestore()
-        let docRef = db.collection("groups").document(group!.groupID)
+        let docRef = db.collection("groups").document(group.groupID)
         var groupList:[Groups] = []
         //Get every single document under collection users
         usersInVCString.removeAll()

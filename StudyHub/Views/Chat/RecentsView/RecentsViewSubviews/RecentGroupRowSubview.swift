@@ -25,7 +25,7 @@ struct RecentGroupRowSubview: View {
         ZStack {
             RoundedRectangle(cornerRadius: 20)
                 .fill(Color("Card"))
-   
+                .shadow(color: Color("CardShadow"), radius:4, x:0, y:0)
             HStack {
                 MiniProfileSubview(group:group)
                 VStack {
@@ -57,9 +57,9 @@ struct RecentGroupRowSubview: View {
             .padding(.horizontal, 10)
         }
         .frame(height: 91)
-        .shadow(color: Color("CardShadow"), radius:2, x:0, y:2)
-        .shadow(color: Color("CardShadow"), radius:2, x:2, y:0)
-        .shadow(color: Color("CardShadow"), radius:2, x:-2, y:0)
+       
+       // .shadow(color: Color("CardShadow"), radius:2, x:2, y:0)
+       // .shadow(color: Color("CardShadow"), radius:2, x:-2, y:0)
      
         .onAppear{
             getTimeAndMessageRecord()

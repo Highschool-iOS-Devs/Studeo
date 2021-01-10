@@ -20,7 +20,7 @@ struct QuizInputFieldView: View {
         VStack(spacing: 5) {
             HStack {
                 if isQuestion {
-                TextField("Question", text: $text)
+                    TextField("Question", text: $question.question)
                     .font(.subheadline)
                     .foregroundColor(Color(#colorLiteral(red: 0.6549019608, green: 0.7137254902, blue: 0.862745098, alpha: 1)))
                     .padding(.horizontal)

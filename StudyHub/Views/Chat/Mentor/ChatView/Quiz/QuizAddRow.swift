@@ -13,7 +13,7 @@ struct QuizAddRow: View {
     @State var answer1 = ""
     @State var answer2 = ""
     @State var answer3 = ""
-    @State var question: Question
+    @Binding var question: Question
     @Binding var quiz: Quiz
     var body: some View {
         VStack {

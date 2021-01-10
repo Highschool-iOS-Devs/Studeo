@@ -30,6 +30,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let contentView = ContentView()//IntroMentor(settings: $settings, add: $add)//VideoChatView(room: $room, video: $video, tapped: $tapped)
             .environmentObject(ViewRouter.shared)
             .environmentObject(UserData.shared)
+            .environmentObject(QuizRouter.shared)
         
         
         

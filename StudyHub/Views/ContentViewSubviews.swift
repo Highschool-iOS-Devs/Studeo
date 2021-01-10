@@ -23,7 +23,7 @@ struct ContentViewSubviews: View {
     @State var isIntroducing = false
     @State var settings = false
     @State var add = false
-    @State var recentPeople = [Groups]()
+    @Binding var recentPeople: [Groups]
     @State var recommendGroups = [Groups]()
     @State var images = [UIImage]()
     @State var user = [User]()
@@ -479,8 +479,4 @@ case .quizList:
     }
 }
 
-struct ContentViewSubviews_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentViewSubviews()
-    }
-}
+

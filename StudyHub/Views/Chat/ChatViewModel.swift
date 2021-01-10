@@ -25,7 +25,7 @@ class ChatViewModel:ObservableObject{
         let queryParameter = docRef.whereField("members", arrayContains: userData!.userID)
         var allGroups:[Groups] = []
 
-        queryParameter.addSnapshotListener{ (querySnapshot, error) in
+        queryParameter.getDocuments{ (querySnapshot, error) in
             guard querySnapshot != nil else {
                 print("Empty snapshot")
                 return}

@@ -12,16 +12,19 @@ struct ChatCellSelf: View {
     
     @State var name = ""
     
-    @State var message = ""
+    @State var message: MessageData
     
+    @State var toggleReaction = false
+    
+    @State var group: Groups
     var body: some View {
         
         ZStack(alignment: .leading) {
-            
+            VStack {
             HStack {
                 Spacer()
                 
-                Text(self.message)
+                Text(self.message.messageText)
                     .foregroundColor(.white)
                     .lineLimit(.none)
                     .fixedSize(horizontal: false, vertical: true)
@@ -32,27 +35,48 @@ struct ChatCellSelf: View {
                     .clipShape(RoundedCorner(radius: 10, corners: .topRight))
                     .clipShape(RoundedCorner(radius: 10, corners: .bottomLeft))
                 
-                
+                   
             } .padding(.trailing, 12)
+            .onLongPressGesture {
+                toggleReaction = true
+               
+            }
+                HStack {
+                    Spacer()
+                Text(message.sentByName)
+                    .font(.custom("Montserrat Light", size: 10))
+                    
+                } .padding(.trailing, 12)
+               
+               
+               
+            }
         } .transition(.opacity)
-        
+        .frame(minWidth: 100, minHeight: 50)
+        .onTapGesture() {
+            toggleReaction = false
+        }
         
         
     }
+    
 }
 //Subview for the chat bubble
 struct ChatCell: View {
    @State var name = ""
     
-    @State var message = ""
+    @State var message: MessageData
     
+    @State var toggleReaction = false
+    
+    @State var group: Groups
     var body: some View {
         
         ZStack(alignment: .leading) {
             VStack {
             HStack {
                 
-                Text(self.message)
+                Text(self.message.messageText)
                     .foregroundColor(.white)
                     .lineLimit(.none)
                     .fixedSize(horizontal: false, vertical: true)
@@ -64,20 +88,29 @@ struct ChatCell: View {
                 
                 Spacer()
             } .padding(.horizontal, 12)
-                
+            .onLongPressGesture {
+                toggleReaction = true
+               
+            }
+                HStack {
+                    
+                Text(message.sentByName)
+                    .font(.custom("Montserrat Light", size: 10))
+                    Spacer()
+                } .padding(.leading, 12)
+               
+               
         }
         
         } .transition(.opacity)
-        
+        .frame(minWidth: 100, minHeight: 50)
+        .onTapGesture() {
+            toggleReaction = false
+        }
     }
 }
 
-struct ChatCells_Preview: PreviewProvider {
-    static var previews: some View {
-        //ChatCellsSelf(message: "Hello how are you doing?")
-        ChatCell(message: "Hi!")
-    }
-}
+
 extension View {
     func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
         clipShape( RoundedCorner(radius: radius, corners: corners) )

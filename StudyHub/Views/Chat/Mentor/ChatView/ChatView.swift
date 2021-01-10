@@ -41,6 +41,8 @@ struct ChatView: View {
     @State var toggleReaction = false
     @State var message = MessageData(id: "", messageText: "", sentBy: "", sentByName: "", sentTime: Date(), sentBySelf: false, assetID: "", reactions: [String]())
     @State var reactions = ["love", "thumbsup", "celebrate", "laugh"]
+    @State private var lastMessageID = ""
+    @State var reaction = "love"
     var body: some View {
         ZStack {
             Color("Background").edgesIgnoringSafeArea(.all)
@@ -53,7 +55,7 @@ struct ChatView: View {
                 ScrollView(.vertical, showsIndicators: false) {
                     ScrollViewReader { scrollView in
                         LazyVStack {
-                            ForEach(self.messages, id:\.self) { message in
+                            ForEach(self.messages) { message in
                                 VStack {
                                     HStack {
                                         if message.sentBySelf ?? false {
@@ -74,16 +76,16 @@ struct ChatView: View {
                                     }
                                 MessageCellView(message)
                                     .id(message.id)
+                                    .frame(minWidth: 100, minHeight: 50)
                                     .onLongPressGesture {
-                                        toggleReaction = true
+                                       // toggleReaction = true
                                         self.message = message
                                     }
                                     HStack {
                                         if message.sentBySelf ?? false {
                                             Spacer()
                                         }
-                                    Text(message.sentByName)
-                                        .font(.custom("Montserrat Light", size: 10))
+                                    
                                         
                                         if !message.sentBySelf! {
                                             Spacer()
@@ -103,18 +105,33 @@ struct ChatView: View {
                                             }
                                         }
                                     } .padding(.horizontal)
+                                   
                                 }
                             }
-                        } //.transition(.move(edge: .top))
+                        } .transition(.opacity)
                         .animation(.easeInOut(duration: 0.7))
                         .drawingGroup()
                         .padding(.top,5)
-                        .onChange(of: messages, perform: { value in
-                            
-                            withAnimation() {
-                                scrollView.scrollTo(messages.last, anchor: .bottom)
+                        .onChange(of: messages, perform: { messages in
+                            guard let lastMessage = messages.last else { return }
+                            if let id = lastMessage.id {
+                                withAnimation(.easeInOut(duration: 1.5)) {
+                                self.lastMessageID = id
+                            }
+                            }
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            withAnimation(.easeInOut(duration: 1.5)) {
+                                scrollView.scrollTo(lastMessage.id, anchor: .bottom)
+                            }
                             }
                         })
+                        .onReceive(Publishers.keyboardHeight){height in
+                            guard !lastMessageID.isEmpty else { return }
+
+                            withAnimation(.easeInOut(duration: 1.5)) {
+                                scrollView.scrollTo(self.lastMessageID, anchor: .bottom)
+                            }
+                        }
                     }
                 }
                 .disabled(membersList ? true : false)
@@ -125,8 +142,9 @@ struct ChatView: View {
                 if image != nil {
                     Image(uiImage: image!)
                         .resizable()
-                        .scaledToFill()
+                        .scaledToFit()
                         .frame(width: 100, height: 100)
+                        
                         .id(UUID())
                 }
                 HStack {
@@ -261,6 +279,33 @@ struct ChatView: View {
             } .onTapGesture() {
                 toggleReaction = false
             }
+            if toggleReaction {
+                HStack { //.font(.custom("Montserrat-regular", size: 14)).foregroundColor(Color("Text"))
+                    Picker(selection: $message.reactions, label: HStack{
+                            Text("Reaction: ")
+                            }) {
+                        ForEach(reactions, id: \.self) { (reaction) in
+                            if reaction == "love" {
+                                Text("❤️")
+                            } else
+                            if reaction == "thumbsup" {
+                                Text("👍")
+                            } else
+                            if reaction == "laugh" {
+                                Text("🤣")
+                            } else
+                            if reaction == "celebrate" {
+                                Text("🎉")
+                            }
+                        }
+                    }
+                    .pickerStyle(MenuPickerStyle())
+                    .foregroundColor(Color("Text"))
+                    .font(.custom("Montserrat-regular", size: 14))
+                    
+                }
+                .padding(.trailing, 10)
+            }
             if viewImage {
                 FullImageView(id: $id, viewImage: $viewImage)
             }
@@ -280,24 +325,7 @@ struct ChatView: View {
                     } .padding()
                     VoiceChat(agoraKit: AgoraRtcEngineKit(), token: token, name: group.groupID, vc: $ARChat, group: group, loadingAnimation: $showLoadingAnimation)
                 }
-            if toggleReaction {
-                Picker(selection: $message.reactions, label: HStack{
-                        Text("Reaction: ")
-                        }) {
-                    ForEach(reactions, id: \.self) { reaction in
-                        Text(reaction == "love" ? "❤️" : "")
-                        
-                        Text(reaction == "thumbsup" ? "👍" : "")
-                        
-                        Text(reaction == "laugh" ? "🤣" : "")
-                        
-                        Text(reaction == "celebrate" ? "🎉" : "")
-                    }
-                }
-                .pickerStyle(MenuPickerStyle())
-                .foregroundColor(Color("Text"))
-                
-            }
+        
             BottomCardSubview(displayView: AnyView(MemberListSubview(members: $members, memberList: $membersList, showFull: $showFull, group: $group, person: $person, messages: $messages)), showFull: $showFull, showCard: $membersList)
             
             if showLoadingAnimation{
@@ -317,7 +345,7 @@ struct ChatView: View {
                 
             }
             }
-
+        
             .onAppear{
                 
                 self.loadData()
@@ -337,7 +365,7 @@ struct ChatView: View {
             }
      
             
-            
+      
     
             
             
@@ -497,9 +525,9 @@ struct ChatView: View {
         
         func MessageCellView(_ message: MessageData) -> AnyView {
             if message.sentBySelf! {
-                return AnyView(ChatCellSelf(message: message.messageText))
+                return AnyView(ChatCellSelf(message: message, group: group))
             } else {
-                return AnyView(ChatCell(name: message.sentBy, message: message.messageText))
+                return AnyView(ChatCell(name: message.sentBy, message: message, group: group))
             }
         }
         
@@ -537,7 +565,7 @@ struct assetMessage: View {
                 }
             Image(uiImage: image)
                 .resizable()
-                .scaledToFill()
+                .scaledToFit()
                 
         }
     }

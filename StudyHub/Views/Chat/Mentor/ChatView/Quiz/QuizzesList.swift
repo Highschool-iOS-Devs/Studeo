@@ -11,31 +11,50 @@ import Firebase
 import FirebaseFirestoreSwift
 struct QuizzesList: View {
     @State var quizzes = [Quiz(id: UUID().uuidString, name: "", tags: [String](), questions: [Question](), groupID: "")]
+    @State var quizzing = Quiz(id: UUID().uuidString, name: "", tags: [String](), questions: [Question](), groupID: "")
     @State var testing = true
     @Binding var group: Groups
     @EnvironmentObject var viewRouter:ViewRouter
+    @Binding var quiz: Bool
+    @State var add = false
+    @State var viewQuiz = false
+    @State var i = 0
     var body: some View {
         ZStack {
             Color("Background")
                 .onAppear() {
                     self.loadQuizzes(){ userData in
                         quizzes = userData ?? []
+                       
                         for i in quizzes.indices {
                             self.loadQuestions(id: quizzes[i].id, i: i)
-                      
+                            print(quizzes[i].questions)
                         }
                     }
                 }
         if testing {
+            VStack {
+                HStack {
+                    
+                    Button(action: {
+                        add = true
+                    }) {
+                        Image(systemName: "plus")
+                    }
+                    Spacer()
+                } .padding()
         ForEach(quizzes, id: \.self) { quiz in
-            QuizzesRow(quiz: quiz)
+            QuizzesRow(quiz: quiz, quizzing: $quizzing, viewQuiz: $viewQuiz)
+                
         }
+                Spacer()
+            }
         } else {
             VStack {
                 HStack {
                     
                     Button(action: {
-                        viewRouter.currentView = .chatList
+                        quiz = false
                     }) {
                         Image(systemName: "xmark")
                     }
@@ -55,10 +74,16 @@ struct QuizzesList: View {
             } .padding()
         }
 }
+        if viewQuiz {
+            QuizView(quiz: quizzing, i: $i, group: $group)
+        }
+        if add {
+            AddQuiz(quiz: Quiz(id: UUID().uuidString, name: "Test", tags: [String](), questions: [Question](), groupID: group.groupID))
+        }
     }
     func loadQuizzes(performAction: @escaping ([Quiz]?) -> Void) {
         let db = Firestore.firestore()
-        let docRef = db.collection("users").whereField("groupID", arrayContains: group.groupID)
+        let docRef = db.collection("quizzes").whereField("groupID", isEqualTo: group.groupID)
         var groupList:[Quiz] = []
         //Get every single document under collection users
         
@@ -95,8 +120,8 @@ struct QuizzesList: View {
     }
     func loadQuestions(id: String, i: Int) {
         let db = Firestore.firestore()
-        for quiz in quizzes {
-        let docRef = db.collection("users").whereField("quizID", arrayContains: id)
+        for quiz in quizzes.indices {
+            let docRef = db.collection("quizzes/questions/\(quizzes[quiz].id)")
         var groupList:[Question] = []
         //Get every single document under collection users
         
@@ -110,7 +135,7 @@ struct QuizzesList: View {
                     case .success(let user):
                         if var user = user {
                             
-                            quizzes[i].questions.append(user)
+                            quizzes[quiz].questions.append(user)
                             
                         } else {
                             

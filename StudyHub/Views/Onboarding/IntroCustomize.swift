@@ -108,7 +108,7 @@ struct IntroCustomize: View {
                         .font(.custom("Montserrat-SemiBold", size: 18))
                 }
                 .buttonStyle(BlueStyle())
-                .padding(.bottom, 20)
+                .padding(.bottom, 125)
                 .padding(.horizontal, 35)
                 
                 }

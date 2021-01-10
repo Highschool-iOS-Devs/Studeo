@@ -18,7 +18,7 @@ struct QuizQuestion: View {
         Text(question.question)
            .font(.custom("Montserrat Bold", size: 18)).foregroundColor(Color("Primary"))
             .multilineTextAlignment(.center)
-            .foregroundColor(.white)
+            
             
     }
 }

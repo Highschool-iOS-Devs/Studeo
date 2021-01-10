@@ -17,7 +17,7 @@ struct QuizView: View {
     var body: some View {
         ZStack {
             
-            QuizDetails(question: $quiz.questions[i], i: $i, group: $group, points: $points)
+            QuizDetails(question: $quiz.questions[i], i: $i, group: $group, points: $points, quiz: $quiz)
            
                 .onAppear() {
                     print(quiz.questions.count)

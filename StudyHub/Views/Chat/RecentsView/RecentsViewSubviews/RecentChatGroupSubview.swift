@@ -38,7 +38,7 @@ struct RecentChatGroupSubview: View {
         .frame(width: 138, height: 138)
         .background(Color("GroupCard"))
         .clipShape(RoundedRectangle(cornerRadius: 20))
-        .shadow(color: Color("CardShadow"), radius:3, x:4, y:4)
+        .shadow(color: Color("CardShadow"), radius:3, x:0, y:0)
       
     }
 }
