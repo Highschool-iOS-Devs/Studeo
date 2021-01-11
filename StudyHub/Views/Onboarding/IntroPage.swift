@@ -62,7 +62,7 @@ struct IntroPage: View {
                 Text(bodyText)
                     .multilineTextAlignment(.center)
                     .font(Font.custom("Montserrat-Light", size: 15, relativeTo: .headline))
-                    .padding(.bottom, 30)
+                  
                     .padding(.horizontal, 20)
                     .foregroundColor(Color("Text"))
                     .transition(.opacity)

@@ -45,7 +45,7 @@ struct SelfRankView: View {
                    // .padding(.top, 5)
             }
         } .padding()
-        .font(.custom("Montserrat-SemiBold", size: 15))
+        .font(Font.custom("Montserrat-Semi-Bold", size: 14, relativeTo: .subheadline))
         .frame(width: 300, height: 100)
         .background(Color("Card"))
        // .opacity(0.6)

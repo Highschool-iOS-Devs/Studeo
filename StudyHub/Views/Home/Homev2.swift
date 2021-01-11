@@ -103,7 +103,7 @@ struct Homev2: View {
                                 .transition(.identity)
                                 .fullScreenCover(isPresented: $show, content: {
                                    
-                                        ChatView(group: devGroup, show: $show)
+                                        ChatView(group: $devGroup, show: $show)
                                             .onDisappear {
                                                 show = false
                                             }
@@ -119,34 +119,34 @@ struct Homev2: View {
                                 
                                 ForEach(recentPeople.indices, id:\.self){ i in
                                     Button(action: {
+                                        
                                         self.i = i
                                         self.group = recentPeople[i]
-                                        dmChat = true
+                                        
+                                       
+                                        
                                         
                                     }) {
                                         ProfilePic(name: recentPeople[i].groupName, id: users[i])
                                         
                                     }
+                                
+                                   
                                     //ProfilePic(name: groups.groupName, size: 70)
                                    
                                       
-                                    .fullScreenCover(isPresented: $dmChat, content: {
-                                       
-                                        ChatView(group: recentPeople[self.i], show: $dmChat)
-                                                .onDisappear {
-                                                    dmChat = false
-                                                }
-                                        
-                                    })
+                                    
                                         
                                 
                                 }
+                               
                                 Spacer()
                             } .padding(.top, 22)
                             .padding(.horizontal)
                         }
                         Divider()
-                        }
+                            
+                            }
                         }
                         
                         if recommendGroups.isEmpty {
@@ -215,7 +215,17 @@ struct Homev2: View {
                      Header(showTimer: $showingTimer)
                 }
             }.blur(radius: showingTimer ? 20 : 0)
-            
+            .onChange(of: self.i) { newValue in
+               dmChat = true
+           }
+            .fullScreenCover(isPresented: $dmChat, content: {
+              
+                ChatView(group: $recentPeople[self.i], show: $dmChat)
+                        .onDisappear {
+                            dmChat = false
+                        }
+                
+            })
             if showingTimer {
                 VStack {
                     TimerView(showingView: $showingTimer, timerLog: $timerLog)

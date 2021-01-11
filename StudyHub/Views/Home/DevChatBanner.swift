@@ -22,7 +22,7 @@ struct DevChatBanner: View {
             ZStack {
                 Color("Primary")
                     .ignoresSafeArea()
-                    .animation(.easeInOut(duration: 2.0))
+                    
                     .onAppear() {
                         
                     }
@@ -33,6 +33,7 @@ struct DevChatBanner: View {
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
                         .padding()
+                       
                         ///NavigationLink that takes user directly to the talk with developer chat, without going through viewRouter
                         Button(action: {
                             joinGroup(newGroup: devGroup)
@@ -42,14 +43,14 @@ struct DevChatBanner: View {
                         
                            
                                 Text("Talk directly to a developer of this app")
-                                    .font(Font.custom("Montserrat-SemiBold", size: 12, relativeTo: .subheadline))
+                                    .font(Font.custom("Montserrat-SemiBold", size: 14, relativeTo: .subheadline))
                                     .foregroundColor(Color("Primary"))
                                     .padding()
                                     .background(RoundedRectangle(cornerRadius: 25).foregroundColor(.white))
-                            
+                                    .multilineTextAlignment(.center)
                             .padding()
                         } 
-                        .frame(height: 60)
+                        
                         .navigationTitle("")
                         .navigationBarHidden(true)
                       
@@ -58,7 +59,7 @@ struct DevChatBanner: View {
                    
                 } // .animation(.linear(duration: 2.0))
             }
-        } .frame(height: 220)
+        } .frame(maxHeight: 400)
         
        
     

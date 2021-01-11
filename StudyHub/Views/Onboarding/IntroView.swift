@@ -28,8 +28,7 @@ struct IntroView: View {
                 IntroPage(titleText: "Study", bodyText: "Gain motivation by tracking your progress with a study timer and compete with others.", image: "mentor_drawing" )
                 IntroPage(titleText: "Motivate", bodyText: "Join a community deticated to motivating each other to study.", image: "timer_drawing")
                 RegistrationView()
-                    .environmentObject(ViewRouter.shared)
-                    .environmentObject(UserData.shared)
+                    
                     .ignoresSafeArea()
                 
             }.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))

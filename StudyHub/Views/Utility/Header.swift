@@ -17,7 +17,7 @@ struct Header: View {
             VStack {
                 HStack {
                 Text("Hello,")
-                    .font(.custom("Montserrat-Regular", size: 17))
+                    .font(Font.custom("Montserrat-Regular", size: 17, relativeTo: .headline))
                     .foregroundColor(Color("Text"))
                     .opacity(25)
                     .multilineTextAlignment(.leading)
@@ -26,7 +26,7 @@ struct Header: View {
                 HStack {
                 Text("\(userData.name)")
                     .frame(minWidth: 150, alignment: .leading)
-                    .font(.custom("Montserrat-Semibold", size: 29))
+                    .font(Font.custom("Montserrat-SemiBold", size: 22, relativeTo: .title))
                     .foregroundColor(Color("Text"))
                     .multilineTextAlignment(.leading)
                     Spacer()

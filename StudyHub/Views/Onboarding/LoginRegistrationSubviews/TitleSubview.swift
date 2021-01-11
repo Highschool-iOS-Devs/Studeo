@@ -14,7 +14,7 @@ struct TitleSubview: View {
     var body: some View {
         VStack {
             Text(titleText)
-                .font(Font.custom("Montserrat-SemiBold", size: 34))
+                .font(Font.custom("Montserrat-Bold", size: 24, relativeTo: .headline))
                 .padding(.bottom, 40)
                 .foregroundColor(Color("Text"))
             Image(decorative: image)
