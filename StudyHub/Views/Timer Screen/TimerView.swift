@@ -41,7 +41,7 @@ struct TimerView: View {
                 Button(action: {
                     stats.toggle()
                 }) {
-                    Image(systemName: "")
+                    Image(systemName: "chart.bar")
                 }
                 Spacer()
                 Button(action: {
@@ -175,7 +175,7 @@ struct TimerView: View {
             self.timer.loadData()
         })
             if stats {
-               // TimerStatsView(timerLog: $timerLog, stats: $stats)
+                TimerStatsView(timerLog: $timerLog, stats: $stats)
             }
         }
         

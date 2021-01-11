@@ -97,7 +97,7 @@ struct ContentView: View {
                     }
                
                         if hasLoaded {
-                            ContentViewSubviews(recentPeople: $recentPeople)
+                            ContentViewSubviews(myGroups: $myGroups, myMentors: $myMentors,  recentPeople: $recentPeople, user: $user, interests: $interests, timerLog: $timerLog, interestSelected: $interestSelected)
 
                     }
                        

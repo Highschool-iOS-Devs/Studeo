@@ -25,6 +25,7 @@ struct MentorPairingView: View {
     @State var interests = [String]()
     @State var num = 0
     @State var error = false
+    @State var error2 = false
     @State var chat = false
     @EnvironmentObject var viewRouter:ViewRouter
    
@@ -84,6 +85,7 @@ struct MentorPairingView: View {
                     }
                         var groupMemberIDs = matchedPeople.map{$0.id.uuidString}
                         groupMemberIDs += [userData.userID]
+                    if !self.selectedInterests.isEmpty {
                         newGroup = Groups(id: UUID().uuidString,
                                           groupID: UUID().uuidString,
                                           groupName: "\(self.selectedInterests[0]) Mentorship Group",
@@ -106,7 +108,9 @@ struct MentorPairingView: View {
                         
                         
              
-                    
+                    } else {
+                        error2.toggle()
+                    }
                 }) {
                     Text("Pair")
                         .font(Font.custom("Montserrat-SemiBold", size: 14.0))
@@ -164,7 +168,13 @@ struct MentorPairingView: View {
                     Spacer()
                 } .padding(.top, 100)
             }
-            
+            if error2 {
+                VStack {
+                   
+                ErrorMessage(errorObject: ErrorModel(errorMessage: "Please select an interest by pressing the gear in the top right corner", errorState: true), displayError: true)
+                    Spacer()
+                } .padding(.top, 100)
+            }
         }
     }
     

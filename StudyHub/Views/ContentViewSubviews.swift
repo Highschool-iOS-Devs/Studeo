@@ -17,8 +17,8 @@ struct ContentViewSubviews: View {
     @State private var hasCheckedAuth = false
     @Environment(\.presentationMode) var presentationMode
     @State private var showSheet = false
-    @State var myGroups = [Groups]()
-    @State var myMentors = [Groups]()
+    @Binding var myGroups: [Groups]
+    @Binding var myMentors: [Groups]
     @State var hasIntroed = false
     @State var isIntroducing = false
     @State var settings = false
@@ -26,16 +26,16 @@ struct ContentViewSubviews: View {
     @Binding var recentPeople: [Groups]
     @State var recommendGroups = [Groups]()
     @State var images = [UIImage]()
-    @State var user = [User]()
+    @Binding var user: [User]
     @State private var offset = CGSize.zero
     @State var hasLoaded: Bool = false
-    @State var interests = [String]()
+    @Binding var interests: [String]
     @State var i = 0
     @State var i2 = -1
-    @State var timerLog = [TimerLog]()
+    @Binding var timerLog: [TimerLog]
     @State var show = false
-    @State var devGroup = Groups(id: "", groupID: UUID().uuidString, groupName: "Andreas", members: [String](), membersCount: 0, interests: [UserInterestTypes?](), recentMessage: "", recentMessageTime: Date(), userInVC: [String]())
-    @State var interestSelected: [UserInterestTypes] = []
+    @State var devGroup = Groups(id: "", groupID: "", groupName: "", members: [String](), membersCount: 0, interests: [UserInterestTypes?](), recentMessage: "", recentMessageTime: Date(), userInVC: [String]())
+    @Binding var interestSelected: [UserInterestTypes]
 
     var body: some View {
         switch viewRouter.currentView {
