@@ -100,6 +100,14 @@ struct Homev2: View {
                             DevChatBanner(devGroup: $devGroup, show: $show)
                                 .frame(width: geo.size.width, height: geo.size.height/3)
                                 .transition(.identity)
+                                .fullScreenCover(isPresented: $show, content: {
+                                   
+                                        ChatView(group: devGroup, show: $show)
+                                            .onDisappear {
+                                                dmChat = false
+                                            }
+                                    
+                                })
                             }
                             
                        
@@ -107,17 +115,29 @@ struct Homev2: View {
                             if !users.isEmpty {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
+                                
                                 ForEach(recentPeople.indices, id:\.self){ i in
-                                   
+                                    Button(action: {
+                                        self.group = recentPeople[i]
+                                        dmChat = true
+                                        
+                                    }) {
+                                        ProfilePic(name: recentPeople[i].groupName, id: users[i])
+                                        
+                                    }
                                     //ProfilePic(name: groups.groupName, size: 70)
-                                    ProfilePic(name: recentPeople[i].groupName, id: users[i])
+                                   
                                       
+                                    .fullScreenCover(isPresented: $dmChat, content: {
                                        
-                                        .onTapGesture() {
-                                            group = recentPeople[i]
-                                            dmChat = true
-                                            show.toggle()
-                                        }
+                                            ChatView(group: recentPeople[i], show: $dmChat)
+                                                .onDisappear {
+                                                    dmChat = false
+                                                }
+                                        
+                                    })
+                                        
+                                
                                 }
                                 Spacer()
                             } .padding(.top, 22)
@@ -144,7 +164,7 @@ struct Homev2: View {
                     
                                         GroupsView(imgName: imgs[i], cta: "Join", name: group.groupName, group: $group)
                                             .onAppear() {
-                                                self.group = group
+                                             //  self.group = group
                                             }
                                         .padding()
                                    
@@ -208,16 +228,7 @@ struct Homev2: View {
        
         
         }
-        .fullScreenCover(isPresented: $show, content: {
-            if dmChat {
-                ChatView(group: group, show: $show)
-                    .onDisappear {
-                        dmChat = false
-                    }
-            } else {
-                ChatView(group: devGroup, show: $show)
-            }
-        })
+       
     
 //            if show {
 //                ChatView(group: devGroup, show: $show)

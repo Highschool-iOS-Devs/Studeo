@@ -47,13 +47,13 @@ struct RecentsView2: View {
                             else{
                                 VStack(spacing: 20) {
                                     if !groupModel.recentGroups.isEmpty {
-                                        ForEach(groupModel.recentGroups, id: \.groupID){ group in
+                                        ForEach(groupModel.recentGroups.indices) { i in//, id: \.groupID){ group in
                                         NavigationLink(
-                                            destination:ChatView(group: group, show: $show)
+                                            destination:ChatView(group: groupModel.recentGroups[i], show: $show)
                                                         .environmentObject(userData)
                                             ){
                                             
-                                            RecentGroupRowSubview(group: group, profilePicture: Image("demoprofile"))
+                                            RecentGroupRowSubview(group: groupModel.recentGroups[i], profilePicture: Image("demoprofile"))
                                                 .padding(.horizontal, 20)
                                                 .environmentObject(UserData.shared)
                                             
@@ -73,10 +73,10 @@ struct RecentsView2: View {
                                 AllGroupTextRow()
                                     .environmentObject(userData)
                                 LazyVGrid(columns: gridItemLayout, spacing: 40){
-                                    ForEach(groupModel.allGroups, id: \.groupID){group in
-                                        NavigationLink(destination: ChatView(group: group, show: $show)
+                                    ForEach(groupModel.allGroups.indices) {i in//, id: \.groupID){group in
+                                        NavigationLink(destination: ChatView(group: groupModel.allGroups[i], show: $show)
                                                         .environmentObject(userData)){
-                                            RecentChatGroupSubview(group: group)
+                                            RecentChatGroupSubview(group: groupModel.allGroups[i])
                                                 .environmentObject(UserData.shared)
                                         }
                                     
@@ -93,13 +93,13 @@ struct RecentsView2: View {
                             } .padding()
                           
                             LazyVGrid(columns: gridItemLayout, spacing: 40) {
-                                ForEach(myMentors, id: \.groupID){ group in
+                                ForEach(myMentors.indices) { i in//, id: \.groupID){ i in
                                     NavigationLink(
-                                        destination:ChatView(group: group, show: $show)
+                                        destination:ChatView(group: myMentors[i], show: $show)
                                                     .environmentObject(userData)
                                            
                                         ){
-                                    RecentChatGroupSubview(group: group)
+                                    RecentChatGroupSubview(group: myMentors[i])
                                         .environmentObject(UserData.shared)
                                         
                                 }

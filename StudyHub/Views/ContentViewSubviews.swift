@@ -25,7 +25,7 @@ struct ContentViewSubviews: View {
     @State var add = false
     @Binding var recentPeople: [Groups]
     @State var recommendGroups = [Groups]()
-    @State var images = [UIImage]()
+    @Binding var images: [UIImage]
     @Binding var user: [User]
     @State private var offset = CGSize.zero
     @State var hasLoaded: Bool = false

@@ -59,8 +59,9 @@ struct OtherUserProfileView: View {
                     //if !alreadyHaveDM{
                         Button(action: {
                             let groupMemberIDs = [user.id.uuidString, userData.userID]
-                            let newGroup = Groups(id: UUID().uuidString,
-                                                  groupID: user.id.uuidString,
+                            let id = UUID().uuidString
+                            let newGroup = Groups(id: id,
+                                                  groupID: id,
                                               groupName: String(describing: userData.name + " and " + user.name),
                                               members: groupMemberIDs,
                                               membersCount: groupMemberIDs.count,
