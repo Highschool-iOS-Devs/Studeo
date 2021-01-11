@@ -29,7 +29,7 @@ struct DevChatBanner: View {
                 HStack {
                     VStack {
                     Text("Have a question or feedback?")
-                        .font(Font.custom("Montserrat-Bold", size: 18, relativeTo: .headline))
+                        .font(Font.custom("Montserrat-Bold", size: 16, relativeTo: .subheadline))
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
                         .padding()

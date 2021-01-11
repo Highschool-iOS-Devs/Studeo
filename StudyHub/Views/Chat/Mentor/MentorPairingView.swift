@@ -92,7 +92,7 @@ struct MentorPairingView: View {
                                           members: groupMemberIDs,
                                           membersCount: groupMemberIDs.count,
                                           interests: self.selectedInterests, userInVC: [String]())
-                        if let group = newGroup{
+                        if let group = newGroup {
                             self.joinGroup(newGroup: group)
                             paired = true
                         }

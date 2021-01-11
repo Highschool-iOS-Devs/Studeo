@@ -73,10 +73,10 @@ struct SettingView: View {
                                             KingfisherManager.shared.cache.clearCache()
                                             viewRouter.updateCurrentView(view:.login)
                                         }
-                                    settingRowView(settingText: "Help", settingState: "", newView: AnyView(Text("")), disableNavigation: true)
-                                        .onTapGesture {
-                                            self.showHelp = true
-                                        }
+                                  //  settingRowView(settingText: "Help", settingState: "", newView: AnyView(Text("")), disableNavigation: true)
+                                   //     .onTapGesture {
+                                    //        self.showHelp = true
+                                     //   }
                                 }
                                 Spacer()
                             }
