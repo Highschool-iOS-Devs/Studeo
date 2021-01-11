@@ -48,6 +48,8 @@ struct ChatView: View {
             Color("Background").edgesIgnoringSafeArea(.all)
                 .onAppear() {
                     //viewRouter.showTabBar = false
+                    messages.removeAll()
+                    memeberSent.removeAll()
                 }
             VStack {
                 //Testing UI with some messages

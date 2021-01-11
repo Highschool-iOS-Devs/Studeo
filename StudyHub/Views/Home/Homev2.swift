@@ -47,6 +47,7 @@ struct Homev2: View {
     @State var show = false
     @State var users = [String]()
     @State var ready = false
+    @State var i = 0
     var body: some View {
         GeometryReader { geo in
         ZStack {
@@ -118,6 +119,7 @@ struct Homev2: View {
                                 
                                 ForEach(recentPeople.indices, id:\.self){ i in
                                     Button(action: {
+                                        self.i = i
                                         self.group = recentPeople[i]
                                         dmChat = true
                                         
@@ -130,7 +132,7 @@ struct Homev2: View {
                                       
                                     .fullScreenCover(isPresented: $dmChat, content: {
                                        
-                                            ChatView(group: recentPeople[i], show: $dmChat)
+                                        ChatView(group: recentPeople[self.i], show: $dmChat)
                                                 .onDisappear {
                                                     dmChat = false
                                                 }
