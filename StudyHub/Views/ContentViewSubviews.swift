@@ -34,7 +34,7 @@ struct ContentViewSubviews: View {
     @State var i2 = -1
     @Binding var timerLog: [TimerLog]
     @State var show = false
-    @State var devGroup = Groups(id: "", groupID: "", groupName: "", members: [String](), membersCount: 0, interests: [UserInterestTypes?](), recentMessage: "", recentMessageTime: Date(), userInVC: [String]())
+    @State var devGroup = Groups(id: UUID().uuidString, groupID: UUID().uuidString, groupName: "", members: [String](), membersCount: 0, interests: [UserInterestTypes?](), recentMessage: "", recentMessageTime: Date(), userInVC: [String]())
     @Binding var interestSelected: [UserInterestTypes]
 
     var body: some View {

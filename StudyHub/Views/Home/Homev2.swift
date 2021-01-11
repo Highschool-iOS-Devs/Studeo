@@ -104,7 +104,7 @@ struct Homev2: View {
                                    
                                         ChatView(group: devGroup, show: $show)
                                             .onDisappear {
-                                                dmChat = false
+                                                show = false
                                             }
                                     
                                 })
