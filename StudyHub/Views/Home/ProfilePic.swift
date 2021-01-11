@@ -61,7 +61,7 @@ struct ProfilePic: View {
       
         let storage = Storage.storage().reference().child("User_Profile/\(id)")
         // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
-        storage.getData(maxSize: 1 * 1024 * 1024) { data, error in
+        storage.getData(maxSize: 1 * 10240 * 10240) { data, error in
           if let error = error {
            print(error)
           } else {
