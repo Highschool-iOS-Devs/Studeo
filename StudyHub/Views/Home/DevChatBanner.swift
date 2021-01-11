@@ -77,6 +77,7 @@ struct DevChatBanner: View {
         
         devGroup.members.append("6888DA56-1995-46ED-9B79-F1056D363D6F")
         devGroup.members.append(userData.userID)
+      
         for member in devGroup.members {
             print(member)
         let ref2 = db.collection("users").document(member)

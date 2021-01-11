@@ -101,14 +101,7 @@ struct Homev2: View {
                             DevChatBanner(devGroup: $devGroup, show: $show)
                                 .frame(width: geo.size.width, height: geo.size.height/3)
                                 .transition(.identity)
-                                .fullScreenCover(isPresented: $show, content: {
-                                   
-                                        ChatView(group: $devGroup, show: $show)
-                                            .onDisappear {
-                                                show = false
-                                            }
-                                    
-                                })
+                               
                             }
                             
                        
@@ -216,14 +209,18 @@ struct Homev2: View {
                 }
             }.blur(radius: showingTimer ? 20 : 0)
             .onChange(of: self.i) { newValue in
+                show = true
                dmChat = true
            }
-            .fullScreenCover(isPresented: $dmChat, content: {
-              
+            .fullScreenCover(isPresented: $show, content: {
+                if dmChat {
                 ChatView(group: $recentPeople[self.i], show: $dmChat)
                         .onDisappear {
                             dmChat = false
                         }
+                } else {
+                    ChatView(group: $devGroup, show: $dmChat)
+                }
                 
             })
             if showingTimer {
