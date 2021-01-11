@@ -25,6 +25,7 @@ struct ChatCellSelf: View {
                 Spacer()
                 
                 Text(self.message.messageText)
+                    .font(Font.custom("Montserrat-SemiBold", size: 12, relativeTo: .headline))
                     .foregroundColor(.white)
                     .lineLimit(.none)
                     .fixedSize(horizontal: false, vertical: true)
@@ -77,6 +78,7 @@ struct ChatCell: View {
             HStack {
                 
                 Text(self.message.messageText)
+                    .font(Font.custom("Montserrat-SemiBold", size: 12, relativeTo: .headline))
                     .foregroundColor(.white)
                     .lineLimit(.none)
                     .fixedSize(horizontal: false, vertical: true)
@@ -95,7 +97,7 @@ struct ChatCell: View {
                 HStack {
                     
                 Text(message.sentByName)
-                    .font(.custom("Montserrat Light", size: 10))
+                    .font(Font.custom("Montserrat-Light", size: 12, relativeTo: .headline))
                     Spacer()
                 } .padding(.leading, 12)
                

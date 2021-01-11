@@ -44,9 +44,29 @@ struct ProfilePic: View {
                             
                         )
                     Text(name)
+                        .font(.custom("Montserrat SemiBold", size: 14, relativeTo: .headline))
+                        
                 }
             } else {
+                Image(systemName: "person")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: CGFloat(size), height: CGFloat(size))
                 
+                    
+                    
+                    //.frame(width:size,height:size)
+                    .clipShape(Circle())
+                    
+                    .overlay(
+                        Circle()
+                            
+                            .stroke(LinearGradient(gradient: Gradient(colors: [Color("Secondary"), Color("Primary")]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 3)
+                            .frame(width: CGFloat(size), height: CGFloat(size))
+                        
+                    )
+                Text(name)
+                    .font(.custom("Montserrat SemiBold", size: 14, relativeTo: .headline))
             }
             }
             }

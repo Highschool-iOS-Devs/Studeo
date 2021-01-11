@@ -113,7 +113,7 @@ struct MentorPairingView: View {
                     }
                 }) {
                     Text("Pair")
-                        .font(Font.custom("Montserrat-SemiBold", size: 14.0))
+                        .font(Font.custom("Montserrat-SemiBold", size: 14, relativeTo: .headline))
                 } .buttonStyle(BlueStyle())
                 .padding()
                 Spacer(minLength: 200)

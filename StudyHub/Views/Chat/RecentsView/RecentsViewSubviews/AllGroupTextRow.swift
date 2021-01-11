@@ -12,7 +12,7 @@ struct AllGroupTextRow: View {
     var body: some View {
         HStack{
             VStack(alignment:.leading){
-                Text("All Study Groups").font(.custom("Montserrat Bold", size: 24)).foregroundColor(Color("Primary"))
+                Text("All Study Groups").font(Font.custom("Montserrat-Bold", size: 24, relativeTo: .headline)).foregroundColor(Color("Primary"))
             }
             Spacer()
           //  Text("View all").font(.custom("Montserrat Regular", size: 15)).foregroundColor(Color("Primary"))

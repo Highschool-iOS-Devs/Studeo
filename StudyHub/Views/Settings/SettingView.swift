@@ -288,14 +288,14 @@ struct SettingView: View {
                 HStack{
                     NavigationLink(destination: newView) {
                         Text(settingText)
-                            .font(.custom("Montserrat-SemiBold", size: 12))
+                            .font(Font.custom("Montserrat-SemiBold", size: 12, relativeTo: .subheadline))
                             .foregroundColor(Color("Text"))
                             .opacity(0.9)
                             .padding()
                         
                         Spacer()
                         Text(settingState)
-                            .font(.custom("Montserrat-SemiBold", size: 12))
+                            .font(Font.custom("Montserrat-SemiBold", size: 12, relativeTo: .subheadline))
                             .lineLimit(1)
                             .foregroundColor(Color("Text"))
                             .opacity(0.4)

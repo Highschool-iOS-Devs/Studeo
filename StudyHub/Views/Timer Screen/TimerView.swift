@@ -94,7 +94,8 @@ struct TimerView: View {
                     .rotationEffect(.degrees(-90))
                 
                 Text(formattedTime)
-                    .font(Font.custom("Montserrat-Bold", size: 28).monospacedDigit())
+                    
+                    .font(Font.custom("Montserrat-Bold", size: 28, relativeTo: .subheadline).monospacedDigit())
                     .animation(nil)
                 
             }

@@ -39,7 +39,7 @@ struct RecentsView2: View {
                             Spacer()
                             if groupModel.allGroups == [] {
                                 
-                                Text("You are not in any study group yet,\n\nUse the add button to pair. 🙌").font(.custom("Montserrat Bold", size: 24)).foregroundColor(Color(#colorLiteral(red: 0.27, green: 0.89, blue: 0.98, alpha: 1)))
+                                Text("You are not in any study group yet,\n\nUse the add button to pair. 🙌").font(Font.custom("Montserrat-Bold", size: 24, relativeTo: .headline)).foregroundColor(Color(#colorLiteral(red: 0.27, green: 0.89, blue: 0.98, alpha: 1)))
                                 .multilineTextAlignment(.center)
                                     .frame(width: 250)
                                     .frame(height:425)
@@ -87,7 +87,7 @@ struct RecentsView2: View {
                             if !myMentors.isEmpty {
                             HStack{
                                 
-                                    Text("Mentors").font(.custom("Montserrat Bold", size: 24)).foregroundColor(Color("Primary"))
+                                    Text("Mentors").font(Font.custom("Montserrat-Bold", size: 24, relativeTo: .headline)).foregroundColor(Color("Primary"))
                                 Spacer()
                                 
                             } .padding()

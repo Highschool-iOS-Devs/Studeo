@@ -29,11 +29,11 @@ struct RecentGroupRowSubview: View {
             HStack {
                 MiniProfileSubview(group:group)
                 VStack {
-                    Text(group.groupName).font(.custom("Montserrat SemiBold", size: 15)).foregroundColor(Color(#colorLiteral(red: 0, green: 0.6, blue: 1, alpha: 1)))
+                    Text(group.groupName) .font(Font.custom("Montserrat-SemiBold", size: 15, relativeTo: .headline)).foregroundColor(Color(#colorLiteral(red: 0, green: 0.6, blue: 1, alpha: 1)))
                             .textCase(.uppercase)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     Spacer()
-                        Text(messagePreview).font(.custom("Montserrat Medium", size: 12))
+                        Text(messagePreview).font(Font.custom("Montserrat-Medium", size: 12, relativeTo: .headline))
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .foregroundColor(Color(#colorLiteral(red: 0.18, green: 0.57, blue: 0.82, alpha: 1)))
                 }
@@ -49,7 +49,7 @@ struct RecentGroupRowSubview: View {
                       //  Text("8").font(.custom("Montserrat SemiBold", size: 9)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center)
                       //  .textCase(.uppercase)
                     }
-                    Text(sentTime).font(.custom("Montserrat Medium", size: 12)).foregroundColor(Color(#colorLiteral(red: 0.18, green: 0.57, blue: 0.82, alpha: 1))).multilineTextAlignment(.center)
+                    Text(sentTime).font(Font.custom("Montserrat-Medium", size: 12, relativeTo: .headline)).foregroundColor(Color(#colorLiteral(red: 0.18, green: 0.57, blue: 0.82, alpha: 1))).multilineTextAlignment(.center)
 
 
                 }

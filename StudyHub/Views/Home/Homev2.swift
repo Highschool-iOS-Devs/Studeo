@@ -143,6 +143,7 @@ struct Homev2: View {
                                 }
                                 Spacer()
                             } .padding(.top, 22)
+                            .padding(.horizontal)
                         }
                         Divider()
                         }
@@ -154,7 +155,7 @@ struct Homev2: View {
                             if !disable {
                         HStack {
                             Text("Recommended")
-                                .font(.custom("Montserrat Bold", size: 24)).foregroundColor(Color("Primary"))
+                                .font(.custom("Montserrat Bold", size: 18, relativeTo: .headline)).foregroundColor(Color("Primary"))
                             Spacer()
                         }.padding()
                         .padding(.top, 40)

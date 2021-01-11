@@ -29,8 +29,9 @@ struct DevChatBanner: View {
                 HStack {
                     VStack {
                     Text("Have a question or feedback?")
-                        .font(.custom("Montserrat-Bold", size: 18))
+                        .font(Font.custom("Montserrat-Bold", size: 18, relativeTo: .headline))
                         .foregroundColor(.white)
+                        .multilineTextAlignment(.center)
                         .padding()
                         ///NavigationLink that takes user directly to the talk with developer chat, without going through viewRouter
                         Button(action: {
@@ -41,7 +42,7 @@ struct DevChatBanner: View {
                         
                            
                                 Text("Talk directly to a developer of this app")
-                                    .font(.custom("Montserrat-Semibold", size: 12))
+                                    .font(Font.custom("Montserrat-SemiBold", size: 12, relativeTo: .subheadline))
                                     .foregroundColor(Color("Primary"))
                                     .padding()
                                     .background(RoundedRectangle(cornerRadius: 25).foregroundColor(.white))

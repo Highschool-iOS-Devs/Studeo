@@ -13,7 +13,7 @@ struct RecentChatTextRow: View {
     var body: some View {
         HStack {
             VStack {
-                Text("Recent Chats").font(.custom("Montserrat Bold", size: 24)).foregroundColor(Color("Primary"))
+                Text("Recent Chats").font(Font.custom("Montserrat-Bold", size: 24, relativeTo: .headline)).foregroundColor(Color("Primary"))
             }
             Spacer()
            // Text("View all").font(.custom("Montserrat Regular", size: 15)).foregroundColor(Color("Primary"))

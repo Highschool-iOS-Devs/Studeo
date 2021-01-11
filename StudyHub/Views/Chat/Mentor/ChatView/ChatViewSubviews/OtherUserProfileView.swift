@@ -32,7 +32,7 @@ struct OtherUserProfileView: View {
 
                     Text(user.name)
                         // .frame(minWidth: 100, alignment: .leading)
-                         .font(.custom("Montserrat-Semibold", size: 22))
+                        .font(Font.custom("Montserrat-SemiBold", size: 22, relativeTo: .headline))
                          .foregroundColor(Color("Text"))
                          .multilineTextAlignment(.leading)
                         .padding(.vertical, 15)
@@ -52,7 +52,7 @@ struct OtherUserProfileView: View {
                     
                     Text(user.description)
                          .frame(minWidth: 100, alignment: .center)
-                         .font(.custom("Montserrat-Semibold", size: 18))
+                        .font(Font.custom("Montserrat-SemiBold", size: 16, relativeTo: .headline))
                          .foregroundColor(Color("Text"))
                          .multilineTextAlignment(.center)
                         .padding(.bottom, 22)
@@ -75,7 +75,7 @@ struct OtherUserProfileView: View {
                             
                         }){
                             Text("Private message")
-                                .font(Font.custom("Montserrat-SemiBold", size: 16.0))
+                                .font(Font.custom("Montserrat-Bold", size: 16, relativeTo: .headline))
                         }
                         .frame(height:50)
                         .buttonStyle(BlueStyle())
