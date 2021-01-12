@@ -96,6 +96,7 @@ struct Homev2: View {
                         .fixedSize()
                     
                     ScrollView(.vertical, showsIndicators: false) {
+                        if !userData.hasDev {
                         if animate {
                            
                             DevChatBanner(devGroup: $devGroup, show: $show)
@@ -103,7 +104,7 @@ struct Homev2: View {
                                 .transition(.identity)
                                
                             }
-                            
+                        }
                        
                         if !recentPeople.isEmpty {
                             if !users.isEmpty {
@@ -136,7 +137,7 @@ struct Homev2: View {
                                 Spacer()
                             } .padding(.top, 22)
                             .padding(.horizontal)
-                        }
+                        } .padding(.vertical)
                         Divider()
                             
                             }

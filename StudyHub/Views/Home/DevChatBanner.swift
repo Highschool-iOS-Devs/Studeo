@@ -38,6 +38,7 @@ struct DevChatBanner: View {
                         Button(action: {
                             joinGroup(newGroup: devGroup)
                             show = true
+                            self.userData.hasDev = true
                         }) {
                             
                         
@@ -66,17 +67,18 @@ struct DevChatBanner: View {
     }
     func joinGroup(newGroup: Groups) {
         let db = Firestore.firestore()
-        let docRef = db.collection("groups")
+        let docRef = db.collection("devChat")
+        devGroup.members.append("6888DA56-1995-46ED-9B79-F1056D363D6F")
+        devGroup.members.append(userData.userID)
         do{
-            try docRef.document(newGroup.groupID).setData(from: newGroup)
+            try docRef.document(devGroup.groupID).setData(from: devGroup)
             
         }
         catch{
             print("Error writing to database, \(error)")
         }
         
-        devGroup.members.append("6888DA56-1995-46ED-9B79-F1056D363D6F")
-        devGroup.members.append(userData.userID)
+        
       
         for member in devGroup.members {
             print(member)

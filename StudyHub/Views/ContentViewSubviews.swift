@@ -35,8 +35,9 @@ struct ContentViewSubviews: View {
     @Binding var timerLog: [TimerLog]
     @State var show = false
     @State var devGroup = Groups(id: UUID().uuidString, groupID: UUID().uuidString, groupName: "Dev Chat", members: [String](), membersCount: 0, interests: [UserInterestTypes?](), recentMessage: "", recentMessageTime: Date(), userInVC: [String]())
+    
     @Binding var interestSelected: [UserInterestTypes]
-
+    @Binding var devChats: [Groups]
     var body: some View {
         switch viewRouter.currentView {
         case .devChat:
@@ -56,7 +57,7 @@ case .login:
     LoginView()
    
 case .chatList:
-    RecentsView2(myMentors: $myMentors, timerLog: $timerLog)
+    RecentsView2(myMentors: $myMentors, timerLog: $timerLog, devChats: $devChats)
         .environmentObject(userData)
         .environmentObject(viewRouter)
         .onAppear() {
@@ -79,13 +80,14 @@ case .home:
     } else {
         //Home(timerLog: $timerLog)
         Homev2(recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user, timerLog: $timerLog, devGroup: $devGroup)
+          
                                             .onAppear() {
                 viewRouter.showTabBar = true
             }
         .environmentObject(userData)
         .environmentObject(viewRouter)
 
-   
+         
     }
 case .custom:
     IntroCustomize(interestSelected: $interestSelected, isNotOnboarding: true, interests: $interests, settings: $settings, add: $add)

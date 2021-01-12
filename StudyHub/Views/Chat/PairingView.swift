@@ -24,6 +24,7 @@ struct PairingView: View {
     @State var interests = [String]()
     @State var num = 0
     @State var error = false
+    @State var errorMessage = ""
     @State var chat = false
     var groupModel:ChatViewModel
     var body: some View {
@@ -138,7 +139,7 @@ struct PairingView: View {
             if error {
                 VStack {
                    
-                ErrorMessage(errorObject: ErrorModel(errorMessage: "You've paired with everyone!", errorState: true), displayError: true)
+                ErrorMessage(errorObject: ErrorModel(errorMessage: errorMessage, errorState: true), displayError: true)
                     Spacer()
                 } .padding(.top, 100)
             }
@@ -258,10 +259,14 @@ struct PairingView: View {
         var interests = selectedInterests
         let allUserGroups = groupModel.allGroups
         for group in allUserGroups{
-            
+            if !group.interests.isEmpty {
             if interests.contains(group.interests[0]!){
                 let interestIndex = interests.firstIndex(of: group.interests[0]!)!
                 interests.remove(at: interestIndex)
+            }
+            } else{
+                errorMessage = "We were unable to pair, please try again"
+                error.toggle()
             }
         }
         let rawValueInterests = interests.map{$0.rawValue}
@@ -305,10 +310,15 @@ struct PairingView: View {
         var interests = selectedInterests
         let allUserGroups = groupModel.allGroups
         for group in allUserGroups{
-            
+            if !group.interests.isEmpty {
             if interests.contains(group.interests[0]!){
                 let interestIndex = interests.firstIndex(of: group.interests[0]!)!
                 interests.remove(at: interestIndex)
+            }
+            } else {
+                errorMessage = "We were unable to pair, please try again"
+                error.toggle()
+                
             }
         }
         let rawValueInterests = interests.map{$0.rawValue}

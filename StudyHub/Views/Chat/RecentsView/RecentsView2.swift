@@ -24,6 +24,7 @@ struct RecentsView2: View {
     @State var showTimer = false
     @Binding var myMentors:[Groups]
     @Binding var timerLog: [TimerLog]
+    @Binding var devChats:[Groups]
 @State var show = false
     var body: some View {
         NavigationView{
@@ -100,6 +101,28 @@ struct RecentsView2: View {
                                            
                                         ){
                                     RecentChatGroupSubview(group: myMentors[i])
+                                        .environmentObject(UserData.shared)
+                                        
+                                }
+                                }
+                            }
+                            }
+                            if !devChats.isEmpty {
+                            HStack{
+                                
+                                    Text("Dev Chats").font(Font.custom("Montserrat-Bold", size: 24, relativeTo: .headline)).foregroundColor(Color("Primary"))
+                                Spacer()
+                                
+                            } .padding()
+                          
+                            LazyVGrid(columns: gridItemLayout, spacing: 40) {
+                                ForEach(devChats.indices) { i in//, id: \.groupID){ i in
+                                    NavigationLink(
+                                        destination:ChatView(group: $devChats[i], show: $show)
+                                                    .environmentObject(userData)
+                                           
+                                        ){
+                                    RecentChatGroupSubview(group:devChats[i])
                                         .environmentObject(UserData.shared)
                                         
                                 }
