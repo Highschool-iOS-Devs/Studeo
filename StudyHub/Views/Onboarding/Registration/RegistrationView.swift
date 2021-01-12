@@ -40,7 +40,7 @@ struct RegistrationView: View {
                     .frame(height: 44)
                     .padding(.trailing, 15)
                     .accessibility(hint: Text("Enter the username for your new account"))
-                
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
                 TextField("Email".uppercased(), text: $email)
                     .lineLimit(nil)
                     .font(.subheadline)
@@ -51,7 +51,7 @@ struct RegistrationView: View {
                     .textContentType(.emailAddress)
                     .padding(.trailing, 15)
                     .accessibility(hint: Text("Enter the email address for your new account"))
-                   
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
                 
                 SecureField("Password".uppercased(), text: $password)
                     .lineLimit(nil)
@@ -61,6 +61,7 @@ struct RegistrationView: View {
                     .frame(height: 44)
                     .textContentType(.newPassword)
                     .padding(.trailing, 15)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
                     Spacer()
                     ButtonsSubview(mainButtonAction: {
                       parseData()
