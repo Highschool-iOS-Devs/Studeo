@@ -24,6 +24,7 @@ struct ChatView: View {
     @State var memeberSent = [MessageData]()
     @State var members = [User]()
     @Binding var group: Groups
+    @Binding var navigationBarHidden:Bool
     //@State var image:Image
     @State var ARChat = false
     @State var test = true
@@ -347,7 +348,7 @@ struct ChatView: View {
                 
             }
             }
-        
+            .navigationBarHidden(self.navigationBarHidden)
             .onAppear{
                 
                 self.loadData()
@@ -361,6 +362,8 @@ struct ChatView: View {
                     // getProfileImage()
                     
                 }
+                self.navigationBarHidden = false
+
             }
             .onDisappear{
                 self.viewRouter.showTabBar = true

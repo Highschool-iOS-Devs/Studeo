@@ -42,203 +42,185 @@ struct Homev2: View {
     @State var animate = true
     @State var animation = true
     @Binding var timerLog: [TimerLog]
-    @State var disable = true
+    @State var disable = false
     @Binding var devGroup: Groups
     @State var show = false
     @State var users = [String]()
     @State var ready = false
     @State var i = 0
+    @State var navigationBarHidden: Bool = false
     var body: some View {
         GeometryReader { geo in
-        ZStack {
-            ZStack(alignment: .top) {
-                Color("Background").edgesIgnoringSafeArea(.all)
-                    .onAppear() {
-                       // userData.hasDev = false
-                        recommendGroups.removeAll()
-                        if !user.isEmpty {
-                        if !user[0].studyHours.isEmpty {
-                        
-                        sum = user[0].studyHours.reduce(0, +)
-                            
-                            
+            NavigationView {
+            ZStack {
+                ZStack(alignment: .top) {
+                    Color("Background").edgesIgnoringSafeArea(.all)
+                        .onAppear() {
+                           loadAllData()
+                            self.navigationBarHidden = true
                         }
-                    }
-                        for group in recentPeople {
-                            for user in group.members {
-                                if user != userData.userID {
-                                    users.append(user)
-                                    print(user)
+                    if animation {
+                    VStack {
+                        Spacer()
+                            .frame(minHeight: 60, idealHeight: 60, maxHeight: 60)
+                            .fixedSize()
+                        
+                        ScrollView(.vertical, showsIndicators: false) {
+                            if !userData.hasDev {
+                            if animate {
+                               
+                                DevChatBanner(devGroup: $devGroup, show: $show)
+                                    .frame(width: geo.size.width, height: geo.size.height/3)
+                                    .transition(.identity)
+                                   
                                 }
                             }
-                        }
-                        ready = true
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                            withAnimation(.easeInOut(duration: 1.0)) {
-                              //  animation.toggle()
-                            }
-                        
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            withAnimation(.easeInOut(duration: 1.0)) {
-                               // if userData.uses == 2 || userData.uses == 3 || userData.uses == 10 {
-                                    if !userData.hasDev {
-                        animate = true
-                                    }
-                       // }
-                            }
-                        }
-                        }
-                    }
-                if animation {
-                VStack {
-                    Spacer()
-                        .frame(minHeight: 60, idealHeight: 60, maxHeight: 60)
-                        .fixedSize()
-                    
-                    ScrollView(.vertical, showsIndicators: false) {
-                        if !userData.hasDev {
-                        if animate {
-                           
-                            DevChatBanner(devGroup: $devGroup, show: $show)
-                                .frame(width: geo.size.width, height: geo.size.height/3)
-                                .transition(.identity)
-                               
-                            }
-                        }
-                        if !disable {
-                        if !recentPeople.isEmpty {
-                            if !users.isEmpty {
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack {
-                                
-                                ForEach(recentPeople.indices, id:\.self){ i in
-                                    Button(action: {
-                                        
-                                        self.i = i
-                                        self.group = recentPeople[i]
-                                        
-                                       
-                                        
-                                        
-                                    }) {
-                                        ProfilePic(name: recentPeople[i].groupName, id: users[i])
-                                        
-                                    }
-                                
-                                   
-                                    //ProfilePic(name: groups.groupName, size: 70)
-                                   
-                                      
-                                    
-                                        
-                                
-                                }
-                               
-                                Spacer()
-                            } .padding(.top, 22)
-                            .padding(.horizontal)
-                        } .padding(.vertical)
-                        Divider()
-                            
-                            }
-                        }
-                        }
-                        if recommendGroups.isEmpty {
-                            
-                        } else {
                             if !disable {
-                        HStack {
-                            Text("Recommended")
-                                .font(.custom("Montserrat Bold", size: 18, relativeTo: .headline)).foregroundColor(Color("Primary"))
-                            Spacer()
-                        }.padding()
-                        .padding(.top, 40)
-                        
-                       
-                        ScrollView(.horizontal, showsIndicators: false) {
+                            if !recentPeople.isEmpty {
+                                if !users.isEmpty {
+                            ScrollView(.horizontal, showsIndicators: false) {
                                 HStack {
-                                    ForEach(Array(recommendGroups.enumerated()), id: \.element) { i, group in
-                    
-                                        GroupsView(imgName: imgs[i], cta: "Join", name: group.groupName, group: $group)
-                                            .onAppear() {
-                                             //  self.group = group
-                                            }
-                                        .padding()
-                                   
+                                    
+                                    ForEach(recentPeople.indices, id:\.self){ i in
+                                        Button(action: {
+                                            
+                                            self.i = i
+                                            self.group = recentPeople[i]
+                                            
+                                           
+                                            
+                                            
+                                        }) {
+                                            ProfilePic(name: recentPeople[i].groupName, id: users[i])
+                                            
+                                        }
+                                    
+                                       
+                                        //ProfilePic(name: groups.groupName, size: 70)
+                                       
+                                          
+                                        
+                                            
+                                    
                                     }
-                                    Spacer(minLength: 110)
+                                   
+                                    Spacer()
+                                } .padding(.top, 22)
+                                .padding(.horizontal)
+                            } .padding(.vertical)
+                            Divider()
+                                
                                 }
                             }
-                        }
-                        }
-
+                            }
+                            if recommendGroups.isEmpty {
+                                
+                            } else {
+                                if !disable {
+                            HStack {
+                                Text("Recommended")
+                                    .font(.custom("Montserrat Bold", size: 18, relativeTo: .headline)).foregroundColor(Color("Primary"))
+                                Spacer()
+                            }.padding()
+                            .padding(.top, 40)
+                            
                            
-                        if user.isEmpty {
-                            
-                        } else {
-                            SelfRankView(hours: sum, id: user[0].id.uuidString)
-                                .padding()
-                                .padding(.top, 62)
-                                .onTapGesture {
-                                    viewRouter.updateCurrentView(view: .leaderboard)
-                                }
-                        }
-                        if recentPeople.isEmpty {
-                        CTA(imgName: "friends", cta: "Find Study Partners")
-                        }
-                            CTA(imgName: "mentor", cta: "Find a Mentor")
-                               
-                             
-                         //   CTA(imgName: "study", cta: "Compete")
-                           //     .padding()
-                        if user.isEmpty {
-                            
-                        } else {
-                        LineView(data: user[0].studyHours, title: "Hours Studied", legend: "", style: Styles.barChartStyleNeonBlueLight)
-                                .padding()
-                        }
-                            Spacer(minLength: 500)
-                   
-                    
-                        .transition(.move(edge: .bottom))
-                        .zIndex(1)
-                        .edgesIgnoringSafeArea(.all)
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                    HStack {
+                                        ForEach(Array(recommendGroups.enumerated()), id: \.element) { i, group in
                         
-                    }.disabled(showingTimer ? true : false)
-        }
-              
-                     Header(showTimer: $showingTimer)
-                }
-            }.blur(radius: showingTimer ? 20 : 0)
-            .onChange(of: self.i) { newValue in
-                show = true
-               dmChat = true
-           }
-            .fullScreenCover(isPresented: $show, content: {
-                if dmChat {
-                ChatView(group: $recentPeople[self.i], show: $dmChat)
-                        .onDisappear {
-                            dmChat = false
+                                            GroupsView(imgName: imgs[i], cta: "Join", name: group.groupName, group: $group)
+                                                .onAppear() {
+                                                 //  self.group = group
+                                                }
+                                            .padding()
+                                       
+                                        }
+                                        Spacer(minLength: 110)
+                                    }
+                                }
+                            }
+                            }
+
+                               
+                            if user.isEmpty {
+                                
+                            } else {
+                                SelfRankView(hours: sum, id: user[0].id.uuidString)
+                                    .padding()
+                                    .padding(.top, 62)
+                                    .onTapGesture {
+                                        viewRouter.updateCurrentView(view: .leaderboard)
+                                    }
+                            }
+                            if recentPeople.isEmpty {
+                            CTA(imgName: "friends", cta: "Find Study Partners")
+                            }
+                                CTA(imgName: "mentor", cta: "Find a Mentor")
+                                   
+                                 
+                             //   CTA(imgName: "study", cta: "Compete")
+                               //     .padding()
+                            if user.isEmpty {
+                                
+                            } else {
+                            LineView(data: user[0].studyHours, title: "Hours Studied", legend: "", style: Styles.barChartStyleNeonBlueLight)
+                                    .padding()
+                            }
+                                Spacer(minLength: 500)
+                       
+                        
+                            .transition(.move(edge: .bottom))
+                            .zIndex(1)
+                            .edgesIgnoringSafeArea(.all)
+                            
+                        }.disabled(showingTimer ? true : false)
+            }
+                  
+                         Header(showTimer: $showingTimer)
+                    }
+                    
+                    NavigationLink(destination: getCorrectChatView(), isActive: $show) {
+                        EmptyView()
+                    }
+
+                }.blur(radius: showingTimer ? 20 : 0)
+                .onChange(of: self.i) { newValue in
+                    print(self.i)
+                    if self.i != -1 {
+                        show = true
+                       dmChat = true
+                    }
+               }
+                /*.fullScreenCover(isPresented: $show, content: {
+                    if dmChat {
+                    ChatView(group: $recentPeople[self.i], show: $dmChat)
+                            .onDisappear {
+                                dmChat = false
+                                // prevent DM from not being able to be opened twice in a row
+                                self.i = -1 // different placeholder? -1 wld crash
+                            }
+                    } else {
+                        ChatView(group: $devGroup, show: $dmChat)
+                    }
+                    
+                })*/
+                if showingTimer {
+                    VStack {
+                        TimerView(showingView: $showingTimer, timerLog: $timerLog)
+                            .transition(.move(edge: .bottom))
+                            .onAppear {
+                                self.viewRouter.showTabBar = false
+                            }
+                            .onDisappear {
+                                self.viewRouter.showTabBar = true
                         }
-                } else {
-                    ChatView(group: $devGroup, show: $dmChat)
-                }
-                
-            })
-            if showingTimer {
-                VStack {
-                    TimerView(showingView: $showingTimer, timerLog: $timerLog)
-                        .transition(.move(edge: .bottom))
-                        .onAppear {
-                            self.viewRouter.showTabBar = false
-                        }
-                        .onDisappear {
-                            self.viewRouter.showTabBar = true
                     }
                 }
+           
+            
             }
-       
-        
+            .navigationBarHidden(self.navigationBarHidden)
         }
        
     

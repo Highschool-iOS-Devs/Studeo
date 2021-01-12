@@ -84,6 +84,7 @@
 		BE3E16182517F96900E0A845 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E16172517F96900E0A845 /* TimerManager.swift */; };
 		BE5C7F2F259D05DB00824346 /* IntroMentor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5C7F2E259D05DB00824346 /* IntroMentor.swift */; };
 		BE5F3760259C3B9400542AA0 /* SupportDocs in Frameworks */ = {isa = PBXBuildFile; productRef = BE5F375F259C3B9400542AA0 /* SupportDocs */; };
+		BEB4A2A225AE2AB3007AA731 /* Homev2Subview.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB4A2A125AE2AB3007AA731 /* Homev2Subview.swift */; };
 		E10C058625900A100020FD7C /* Pods_StudyHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47F4119D880B6AFBE91DBA85 /* Pods_StudyHub.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		E10C05CD259013B70020FD7C /* MemberListSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10C05CC259013B70020FD7C /* MemberListSubview.swift */; };
 		E11157A32593CF31005E9AEA /* VoiceChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11157A22593CF31005E9AEA /* VoiceChat.swift */; };
@@ -223,6 +224,7 @@
 		BE167C442514333A00402C14 /* SettingsData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsData.swift; sourceTree = "<group>"; };
 		BE3E16172517F96900E0A845 /* TimerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
 		BE5C7F2E259D05DB00824346 /* IntroMentor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroMentor.swift; sourceTree = "<group>"; };
+		BEB4A2A125AE2AB3007AA731 /* Homev2Subview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Homev2Subview.swift; sourceTree = "<group>"; };
 		C7A62219EB10FE2A621A6C84 /* Pods-StudyHub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudyHub.debug.xcconfig"; path = "Target Support Files/Pods-StudyHub/Pods-StudyHub.debug.xcconfig"; sourceTree = "<group>"; };
 		E10C0584259009020020FD7C /* StudyHub.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StudyHub.entitlements; sourceTree = "<group>"; };
 		E10C05CC259013B70020FD7C /* MemberListSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberListSubview.swift; sourceTree = "<group>"; };
@@ -446,6 +448,7 @@
 				620590DC24FDBB21001565BF /* CTA.swift */,
 				620590DD24FDBB21001565BF /* Home.swift */,
 				E15A20AE253FA796006E042E /* Homev2.swift */,
+				BEB4A2A125AE2AB3007AA731 /* Homev2Subview.swift */,
 				E170EF552540BF9000BEE97C /* GroupsView.swift */,
 				E15A20B1253FA7A6006E042E /* ProfilePic.swift */,
 				E15A20B8253FAC28006E042E /* Test.swift */,
@@ -878,6 +881,7 @@
 				E12C5FB4259A518500D3314E /* MultiLineChartView.swift in Sources */,
 				E10C05CD259013B70020FD7C /* MemberListSubview.swift in Sources */,
 				E10C05CD259013B70020FD7C /* MemberListSubview.swift in Sources */,
+				BEB4A2A225AE2AB3007AA731 /* Homev2Subview.swift in Sources */,
 				624FAF02256EF540000E0203 /* TitleSubview.swift in Sources */,
 				62FAED0D259BC2580015B094 /* PasswordResetView.swift in Sources */,
 				E1646BF925912076003B2FB4 /* DevChatBanner.swift in Sources */,
@@ -1129,7 +1133,7 @@
 				CURRENT_PROJECT_VERSION = 15;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyHub/Preview Content\"";
-				DEVELOPMENT_TEAM = MC27HKM86M;
+				DEVELOPMENT_TEAM = NQX94FAFJ8;
 				ENABLE_PREVIEWS = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1139,7 +1143,7 @@
 					"@executable_path/Frameworks",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DDEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = com.StudyHub.Studeo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dakshin.Studeo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTS_MACCATALYST = NO;
@@ -1159,7 +1163,7 @@
 				CURRENT_PROJECT_VERSION = 15;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyHub/Preview Content\"";
-				DEVELOPMENT_TEAM = MC27HKM86M;
+				DEVELOPMENT_TEAM = NQX94FAFJ8;
 				ENABLE_PREVIEWS = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1169,7 +1173,7 @@
 					"@executable_path/Frameworks",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DRELEASE";
-				PRODUCT_BUNDLE_IDENTIFIER = com.StudyHub.Studeo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dakshin.Studeo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTS_MACCATALYST = NO;

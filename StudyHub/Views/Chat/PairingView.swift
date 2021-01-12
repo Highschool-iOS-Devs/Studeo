@@ -101,6 +101,7 @@ struct PairingView: View {
                     //ChatView(group: group)
 //                        .environmentObject(userData)
                     PairingSuccess(paired: $paired, chat: $chat, group: group)
+                        .environmentObject(userData)
                 }
                
             }
