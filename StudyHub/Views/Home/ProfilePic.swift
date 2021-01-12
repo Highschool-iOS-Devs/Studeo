@@ -44,9 +44,29 @@ struct ProfilePic: View {
                             
                         )
                     Text(name)
+                        .font(.custom("Montserrat SemiBold", size: 14, relativeTo: .headline))
+                        
                 }
             } else {
+                Image(systemName: "person")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: CGFloat(size), height: CGFloat(size))
                 
+                    
+                    
+                    //.frame(width:size,height:size)
+                    .clipShape(Circle())
+                    
+                    .overlay(
+                        Circle()
+                            
+                            .stroke(LinearGradient(gradient: Gradient(colors: [Color("Secondary"), Color("Primary")]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 3)
+                            .frame(width: CGFloat(size), height: CGFloat(size))
+                        
+                    )
+                Text(name)
+                    .font(.custom("Montserrat SemiBold", size: 14, relativeTo: .headline))
             }
             }
             }
@@ -61,7 +81,7 @@ struct ProfilePic: View {
       
         let storage = Storage.storage().reference().child("User_Profile/\(id)")
         // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
-        storage.getData(maxSize: 1 * 1024 * 1024) { data, error in
+        storage.getData(maxSize: 1 * 10240 * 10240) { data, error in
           if let error = error {
            print(error)
           } else {

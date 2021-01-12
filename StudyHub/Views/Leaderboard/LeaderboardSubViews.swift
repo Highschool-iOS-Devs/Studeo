@@ -45,7 +45,7 @@ struct SelfRankView: View {
                    // .padding(.top, 5)
             }
         } .padding()
-        .font(.custom("Montserrat-SemiBold", size: 15))
+        .font(Font.custom("Montserrat-SemiBold", size: 14, relativeTo: .subheadline))
         .frame(width: 300, height: 100)
         .background(Color("Card"))
        // .opacity(0.6)
@@ -178,10 +178,10 @@ struct LeaderRankView: View {
                 .frame(width: 75, height: 75)
             Text(name)
                 .foregroundColor(Color("Text"))
-                .font(.custom("Montserrat-SemiBold", size: 12))
+                .font(Font.custom("Montserrat-SemiBold", size: 12, relativeTo: .headline))
             HStack {
                 Text(hours.last!.removeZerosFromEnd())
-                    .font(.custom("Montserrat-SemiBold", size: 12))
+                    .font(Font.custom("Montserrat-SemiBold", size: 12, relativeTo: .headline))
                     .foregroundColor(Color("Text").opacity(0.25))
                 Image(systemName: "stopwatch.fill")
                     .foregroundColor(Color("Text").opacity(0.25))

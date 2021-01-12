@@ -17,7 +17,8 @@ struct RecentChatGroupSubview: View {
    
             VStack{
                 Text(group.groupName)
-                        .font(.custom("Montserrat Bold", size: 20))
+                    .font(Font.custom("Montserrat-Bold", size: 20, relativeTo: .headline))
+                        
                         .minimumScaleFactor(0.1)
 
                     .foregroundColor(Color.white.opacity(0.96))
@@ -25,7 +26,7 @@ struct RecentChatGroupSubview: View {
                         .padding(.bottom,2)
                     //5 members
                 
-                Text("\(group.members.count) members").font(.custom("Montserrat SemiBold", size: 15)).foregroundColor(Color.white.opacity(0.96)).multilineTextAlignment(.center)
+                Text("\(group.members.count) members").font(Font.custom("Montserrat-SemiBold", size: 12, relativeTo: .headline)).foregroundColor(Color.white.opacity(0.96)).multilineTextAlignment(.center)
                 //Available in iOS 14 only
                 .textCase(.uppercase)
                 //SAT

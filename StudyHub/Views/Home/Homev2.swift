@@ -47,6 +47,7 @@ struct Homev2: View {
     @State var show = false
     @State var users = [String]()
     @State var ready = false
+    @State var i = 0
     var body: some View {
         GeometryReader { geo in
         ZStack {
@@ -95,35 +96,51 @@ struct Homev2: View {
                         .fixedSize()
                     
                     ScrollView(.vertical, showsIndicators: false) {
+                        if !userData.hasDev {
                         if animate {
                            
                             DevChatBanner(devGroup: $devGroup, show: $show)
                                 .frame(width: geo.size.width, height: geo.size.height/3)
                                 .transition(.identity)
+                               
                             }
-                            
+                        }
                        
                         if !recentPeople.isEmpty {
                             if !users.isEmpty {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
+                                
                                 ForEach(recentPeople.indices, id:\.self){ i in
+                                    Button(action: {
+                                        
+                                        self.i = i
+                                        self.group = recentPeople[i]
+                                        
+                                       
+                                        
+                                        
+                                    }) {
+                                        ProfilePic(name: recentPeople[i].groupName, id: users[i])
+                                        
+                                    }
+                                
                                    
                                     //ProfilePic(name: groups.groupName, size: 70)
-                                    ProfilePic(name: recentPeople[i].groupName, id: users[i])
+                                   
                                       
-                                       
-                                        .onTapGesture() {
-                                            group = recentPeople[i]
-                                            dmChat = true
-                                            show.toggle()
-                                        }
+                                    
+                                        
+                                
                                 }
+                               
                                 Spacer()
                             } .padding(.top, 22)
-                        }
+                            .padding(.horizontal)
+                        } .padding(.vertical)
                         Divider()
-                        }
+                            
+                            }
                         }
                         
                         if recommendGroups.isEmpty {
@@ -132,7 +149,7 @@ struct Homev2: View {
                             if !disable {
                         HStack {
                             Text("Recommended")
-                                .font(.custom("Montserrat Bold", size: 24)).foregroundColor(Color("Primary"))
+                                .font(.custom("Montserrat Bold", size: 18, relativeTo: .headline)).foregroundColor(Color("Primary"))
                             Spacer()
                         }.padding()
                         .padding(.top, 40)
@@ -144,7 +161,7 @@ struct Homev2: View {
                     
                                         GroupsView(imgName: imgs[i], cta: "Join", name: group.groupName, group: $group)
                                             .onAppear() {
-                                                self.group = group
+                                             //  self.group = group
                                             }
                                         .padding()
                                    
@@ -192,7 +209,21 @@ struct Homev2: View {
                      Header(showTimer: $showingTimer)
                 }
             }.blur(radius: showingTimer ? 20 : 0)
-            
+            .onChange(of: self.i) { newValue in
+                show = true
+               dmChat = true
+           }
+            .fullScreenCover(isPresented: $show, content: {
+                if dmChat {
+                ChatView(group: $recentPeople[self.i], show: $dmChat)
+                        .onDisappear {
+                            dmChat = false
+                        }
+                } else {
+                    ChatView(group: $devGroup, show: $dmChat)
+                }
+                
+            })
             if showingTimer {
                 VStack {
                     TimerView(showingView: $showingTimer, timerLog: $timerLog)
@@ -208,16 +239,7 @@ struct Homev2: View {
        
         
         }
-        .fullScreenCover(isPresented: $show, content: {
-            if dmChat {
-                ChatView(group: group, show: $show)
-                    .onDisappear {
-                        dmChat = false
-                    }
-            } else {
-                ChatView(group: devGroup, show: $show)
-            }
-        })
+       
     
 //            if show {
 //                ChatView(group: devGroup, show: $show)

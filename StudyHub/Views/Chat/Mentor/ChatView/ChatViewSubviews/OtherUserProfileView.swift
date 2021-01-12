@@ -32,7 +32,7 @@ struct OtherUserProfileView: View {
 
                     Text(user.name)
                         // .frame(minWidth: 100, alignment: .leading)
-                         .font(.custom("Montserrat-Semibold", size: 22))
+                        .font(Font.custom("Montserrat-SemiBold", size: 22, relativeTo: .headline))
                          .foregroundColor(Color("Text"))
                          .multilineTextAlignment(.leading)
                         .padding(.vertical, 15)
@@ -52,15 +52,16 @@ struct OtherUserProfileView: View {
                     
                     Text(user.description)
                          .frame(minWidth: 100, alignment: .center)
-                         .font(.custom("Montserrat-Semibold", size: 18))
+                        .font(Font.custom("Montserrat-SemiBold", size: 16, relativeTo: .headline))
                          .foregroundColor(Color("Text"))
                          .multilineTextAlignment(.center)
                         .padding(.bottom, 22)
                     //if !alreadyHaveDM{
                         Button(action: {
                             let groupMemberIDs = [user.id.uuidString, userData.userID]
-                            let newGroup = Groups(id: UUID().uuidString,
-                                                  groupID: user.id.uuidString,
+                            let id = UUID().uuidString
+                            let newGroup = Groups(id: id,
+                                                  groupID: id,
                                               groupName: String(describing: userData.name + " and " + user.name),
                                               members: groupMemberIDs,
                                               membersCount: groupMemberIDs.count,
@@ -74,7 +75,7 @@ struct OtherUserProfileView: View {
                             
                         }){
                             Text("Private message")
-                                .font(Font.custom("Montserrat-SemiBold", size: 16.0))
+                                .font(Font.custom("Montserrat-Bold", size: 16, relativeTo: .headline))
                         }
                         .frame(height:50)
                         .buttonStyle(BlueStyle())

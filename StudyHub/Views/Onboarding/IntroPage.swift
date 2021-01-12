@@ -47,7 +47,7 @@ struct IntroPage: View {
                 HStack {
                     if animate1 {
                     Text(titleText)
-                        .font(.custom("Montserrat-Bold", size: 25))
+                        .font(Font.custom("Montserrat-Bold", size: 25, relativeTo: .headline))
                         .foregroundColor(Color("Text"))
                         .padding(.vertical, 20)
                         .transition(.opacity)
@@ -61,8 +61,8 @@ struct IntroPage: View {
                 if animate3 {
                 Text(bodyText)
                     .multilineTextAlignment(.center)
-                    .font(.custom("Montserrat-light", size: 15))
-                    .padding(.bottom, 30)
+                    .font(Font.custom("Montserrat-Light", size: 15, relativeTo: .headline))
+                  
                     .padding(.horizontal, 20)
                     .foregroundColor(Color("Text"))
                     .transition(.opacity)

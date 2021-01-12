@@ -34,6 +34,7 @@ struct ContentView: View {
     @State var timerLog = [TimerLog]()
   
     @State var interestSelected: [UserInterestTypes] = []
+    @State var devChats = [Groups]()
     var body: some View {
         GeometryReader { geo in
         ZStack { 
@@ -44,13 +45,18 @@ struct ContentView: View {
                     self.firstLaunchAction()
                     userData.uses += 1
                     userData.uses = 2
-                   
+                  
             }
-           
+             
                 if hasCheckedAuth {
                     Color("Background")
                         .edgesIgnoringSafeArea(.all)
                         .onAppear{
+                            
+                            self.loadDevChatsData(){ userData in
+                                //Get completion handler data results from loadData function and set it as the recentPeople local variable
+                                self.devChats = userData ?? []
+                        }
                             self.loadDMsData(){ userData in
                                 //Get completion handler data results from loadData function and set it as the recentPeople local variable
                                 self.recentPeople = userData ?? []
@@ -58,7 +64,10 @@ struct ContentView: View {
         
 
                                
+                                
                             }
+                            
+                            
                             self.loadUserTimerLog(){ userData in
                                 //Get completion handler data results from loadData function and set it as the recentPeople local variable
                                 self.timerLog = userData 
@@ -97,7 +106,7 @@ struct ContentView: View {
                     }
                
                         if hasLoaded {
-                            ContentViewSubviews(recentPeople: $recentPeople)
+                            ContentViewSubviews(myGroups: $myGroups, myMentors: $myMentors,  recentPeople: $recentPeople, images: $images, user: $user, interests: $interests, timerLog: $timerLog, interestSelected: $interestSelected, devChats: $devChats)
 
                     }
                        
@@ -129,7 +138,55 @@ struct ContentView: View {
 
 }
 
-    
+    func loadDevChatsData(performAction: @escaping ([Groups]?) -> Void) {
+        let db = Firestore.firestore()
+        let docRef = db.collection("devChat")
+        var groupList:[Groups] = []
+        //Get every single document under collection users
+        let queryParameter = docRef.whereField("members", arrayContains: userData.userID)
+        queryParameter.addSnapshotListener{ (querySnapshot, error) in
+            if let querySnapshot = querySnapshot,!querySnapshot.isEmpty{
+            for document in querySnapshot.documents{
+                let result = Result {
+                    try document.data(as: Groups.self)
+                }
+                switch result {
+                    case .success(let group):
+                        if var group = group {
+                            i = 0
+                            var array = group.groupName.components(separatedBy: " and ")
+                            for a in array {
+                                if a == userData.name {
+                                    print(i)
+                                    if i < array.count {
+                                    array.remove(at: i)
+                                }
+                                }
+                                i += 1
+                            }
+                            group.groupName = array.joined()
+                            groupList.append(group)
+                            
+                        } else {
+                            
+                            print("Document does not exist")
+                        }
+                    case .failure(let error):
+                        print("Error decoding user: \(error)")
+                    }
+                
+              
+            }
+            }
+            else{
+                performAction(nil)
+            }
+              performAction(groupList)
+        }
+        
+        
+    }
+
 
     func loadUserData(performAction: @escaping ([User]) -> Void) {
         let db = Firestore.firestore()

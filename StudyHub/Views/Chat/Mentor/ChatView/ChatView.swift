@@ -23,7 +23,7 @@ struct ChatView: View {
     @State var messages = [MessageData]()
     @State var memeberSent = [MessageData]()
     @State var members = [User]()
-    @State var group: Groups
+    @Binding var group: Groups
     //@State var image:Image
     @State var ARChat = false
     @State var test = true
@@ -48,6 +48,8 @@ struct ChatView: View {
             Color("Background").edgesIgnoringSafeArea(.all)
                 .onAppear() {
                     //viewRouter.showTabBar = false
+                    messages.removeAll()
+                    memeberSent.removeAll()
                 }
             VStack {
                 //Testing UI with some messages

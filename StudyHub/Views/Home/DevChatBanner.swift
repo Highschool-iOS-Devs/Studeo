@@ -22,33 +22,36 @@ struct DevChatBanner: View {
             ZStack {
                 Color("Primary")
                     .ignoresSafeArea()
-                    .animation(.easeInOut(duration: 2.0))
+                    
                     .onAppear() {
                         
                     }
                 HStack {
                     VStack {
                     Text("Have a question or feedback?")
-                        .font(.custom("Montserrat-Bold", size: 18))
+                        .font(Font.custom("Montserrat-Bold", size: 16, relativeTo: .subheadline))
                         .foregroundColor(.white)
+                        .multilineTextAlignment(.center)
                         .padding()
+                       
                         ///NavigationLink that takes user directly to the talk with developer chat, without going through viewRouter
                         Button(action: {
                             joinGroup(newGroup: devGroup)
                             show = true
+                            self.userData.hasDev = true
                         }) {
                             
                         
                            
                                 Text("Talk directly to a developer of this app")
-                                    .font(.custom("Montserrat-Semibold", size: 12))
+                                    .font(Font.custom("Montserrat-SemiBold", size: 14, relativeTo: .subheadline))
                                     .foregroundColor(Color("Primary"))
                                     .padding()
                                     .background(RoundedRectangle(cornerRadius: 25).foregroundColor(.white))
-                            
+                                    .multilineTextAlignment(.center)
                             .padding()
                         } 
-                        .frame(height: 60)
+                        
                         .navigationTitle("")
                         .navigationBarHidden(true)
                       
@@ -57,24 +60,26 @@ struct DevChatBanner: View {
                    
                 } // .animation(.linear(duration: 2.0))
             }
-        } .frame(height: 220)
+        } .frame(maxHeight: 400)
         
        
     
     }
     func joinGroup(newGroup: Groups) {
         let db = Firestore.firestore()
-        let docRef = db.collection("groups")
+        let docRef = db.collection("devChat")
+        devGroup.members.append("6888DA56-1995-46ED-9B79-F1056D363D6F")
+        devGroup.members.append(userData.userID)
         do{
-            try docRef.document(newGroup.groupID).setData(from: newGroup)
+            try docRef.document(devGroup.groupID).setData(from: devGroup)
             
         }
         catch{
             print("Error writing to database, \(error)")
         }
         
-        devGroup.members.append("6888DA56-1995-46ED-9B79-F1056D363D6F")
-        devGroup.members.append(userData.userID)
+        
+      
         for member in devGroup.members {
             print(member)
         let ref2 = db.collection("users").document(member)

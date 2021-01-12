@@ -17,30 +17,31 @@ struct ContentViewSubviews: View {
     @State private var hasCheckedAuth = false
     @Environment(\.presentationMode) var presentationMode
     @State private var showSheet = false
-    @State var myGroups = [Groups]()
-    @State var myMentors = [Groups]()
+    @Binding var myGroups: [Groups]
+    @Binding var myMentors: [Groups]
     @State var hasIntroed = false
     @State var isIntroducing = false
     @State var settings = false
     @State var add = false
     @Binding var recentPeople: [Groups]
     @State var recommendGroups = [Groups]()
-    @State var images = [UIImage]()
-    @State var user = [User]()
+    @Binding var images: [UIImage]
+    @Binding var user: [User]
     @State private var offset = CGSize.zero
     @State var hasLoaded: Bool = false
-    @State var interests = [String]()
+    @Binding var interests: [String]
     @State var i = 0
     @State var i2 = -1
-    @State var timerLog = [TimerLog]()
+    @Binding var timerLog: [TimerLog]
     @State var show = false
-    @State var devGroup = Groups(id: "", groupID: UUID().uuidString, groupName: "Andreas", members: [String](), membersCount: 0, interests: [UserInterestTypes?](), recentMessage: "", recentMessageTime: Date(), userInVC: [String]())
-    @State var interestSelected: [UserInterestTypes] = []
-
+    @State var devGroup = Groups(id: UUID().uuidString, groupID: UUID().uuidString, groupName: "Dev Chat", members: [String](), membersCount: 0, interests: [UserInterestTypes?](), recentMessage: "", recentMessageTime: Date(), userInVC: [String]())
+    
+    @Binding var interestSelected: [UserInterestTypes]
+    @Binding var devChats: [Groups]
     var body: some View {
         switch viewRouter.currentView {
         case .devChat:
-            ChatView(group: devGroup, show: $show)
+            ChatView(group: $devGroup, show: $show)
                 .onAppear() {
                     viewRouter.showTabBar = false
                     
@@ -56,7 +57,7 @@ case .login:
     LoginView()
    
 case .chatList:
-    RecentsView2(myMentors: $myMentors, timerLog: $timerLog)
+    RecentsView2(myMentors: $myMentors, timerLog: $timerLog, devChats: $devChats)
         .environmentObject(userData)
         .environmentObject(viewRouter)
         .onAppear() {
@@ -79,13 +80,14 @@ case .home:
     } else {
         //Home(timerLog: $timerLog)
         Homev2(recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user, timerLog: $timerLog, devGroup: $devGroup)
+          
                                             .onAppear() {
                 viewRouter.showTabBar = true
             }
         .environmentObject(userData)
         .environmentObject(viewRouter)
 
-   
+         
     }
 case .custom:
     IntroCustomize(interestSelected: $interestSelected, isNotOnboarding: true, interests: $interests, settings: $settings, add: $add)

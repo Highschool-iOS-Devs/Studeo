@@ -17,18 +17,18 @@ struct PairingSuccess: View {
             LottieView(name: "34595-confetti-for-ios-and-android")
             VStack {
                 Text("Pairing Successful!")
-                    .font(Font.custom("Montserrat-SemiBold", size: 24.0))
+                    .font(Font.custom("Montserrat-SemiBold", size: 24, relativeTo: .headline))
             Button(action: {
                chat = true
             }) {
                 Text("Chat")
-                    .font(Font.custom("Montserrat-SemiBold", size: 14.0))
+                    .font(Font.custom("Montserrat-SemiBold", size: 14, relativeTo: .headline))
             } .buttonStyle(BlueStyle())
             .padding()
             
         }
             if chat {
-                ChatView(group: group, show: $chat)
+                ChatView(group: $group, show: $chat)
             }
     }
 }

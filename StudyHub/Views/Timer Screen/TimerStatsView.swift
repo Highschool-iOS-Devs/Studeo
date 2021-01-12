@@ -67,7 +67,7 @@ struct TimerStatsView: View {
                         Image(systemName: "xmark")
                     }
                     Spacer()
-                }
+                } .padding()
                 if !langauge.isEmpty {
                 LineChartView(data: langauge, title: "Foreign Language", legend: "Seconds", dropShadow: false)
                     .padding()
@@ -94,10 +94,26 @@ struct TimerStatsView: View {
                     .padding()
             }
             }
-            }
+          //  }
             }
             
-    }
+            } else {
+                VStack {
+                HStack {
+                    Button(action: {
+                        stats = false
+                    }) {
+                        Image(systemName: "xmark")
+                    }
+                    Spacer()
+                } .padding()
+                Text("Study using the study timer to unlock stats. 🙌").font(.custom("Montserrat Bold", size: 24)).foregroundColor(Color(#colorLiteral(red: 0.27, green: 0.89, blue: 0.98, alpha: 1)))
+                .multilineTextAlignment(.center)
+                    .frame(width: 250)
+                    .frame(height:425)
+            }
+            }
 }.frame(maxWidth: 400)
 } 
+}
 }

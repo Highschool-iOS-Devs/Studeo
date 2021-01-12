@@ -30,10 +30,37 @@ struct RegistrationView: View {
             
             VStack {
                     TitleSubview(titleText: "Registration", image: "registration_drawing")
-                    
-                    RegistrationInputSubview(password: $password, email: $email, name: $username)
-                        .padding(.top)
-                        .padding(.bottom, 20)
+                
+                TextField("Name".uppercased(), text: $username)
+                    .lineLimit(nil)
+                    .keyboardType(.alphabet)
+                    .font(.subheadline)
+                    .foregroundColor(Color(#colorLiteral(red: 0.6549019608, green: 0.7137254902, blue: 0.862745098, alpha: 1)))
+                    .padding(.horizontal)
+                    .frame(height: 44)
+                    .padding(.trailing, 15)
+                    .accessibility(hint: Text("Enter the username for your new account"))
+                
+                TextField("Email".uppercased(), text: $email)
+                    .lineLimit(nil)
+                    .font(.subheadline)
+                    .foregroundColor(Color(#colorLiteral(red: 0.6549019608, green: 0.7137254902, blue: 0.862745098, alpha: 1)))
+                    .padding(.horizontal)
+                    .frame(height: 44)
+                    .autocapitalization(.none)
+                    .textContentType(.emailAddress)
+                    .padding(.trailing, 15)
+                    .accessibility(hint: Text("Enter the email address for your new account"))
+                   
+                
+                SecureField("Password".uppercased(), text: $password)
+                    .lineLimit(nil)
+                    .font(.subheadline)
+                    .foregroundColor(Color(#colorLiteral(red: 0.6549019608, green: 0.7137254902, blue: 0.862745098, alpha: 1)))
+                    .padding(.horizontal)
+                    .frame(height: 44)
+                    .textContentType(.newPassword)
+                    .padding(.trailing, 15)
                     Spacer()
                     ButtonsSubview(mainButtonAction: {
                       parseData()

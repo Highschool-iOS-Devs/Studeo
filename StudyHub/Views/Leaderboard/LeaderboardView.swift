@@ -174,7 +174,7 @@ struct LeaderboardView: View {
                     LottieUIView()
                         .animation(.easeInOut)
                     Text("Loading...")
-                        .font(.custom("Montserrat-SemiBold", size: 25))
+                        .font(Font.custom("Montserrat-SemiBold", size: 25, relativeTo: .headline))
                         .offset(y: -40)
                 }
                 .frame(width: 300, height: 400)

@@ -33,7 +33,7 @@ struct MemberListSubview: View {
                     
                     Text(group.groupName)
                         .foregroundColor(Color("Primary"))
-                        .font(.custom("Montserrat-Bold", size: 28))
+                        .font(Font.custom("Montserrat-Bold", size: 28, relativeTo: .subheadline))
                     Spacer()
                 }
                 .padding(.horizontal)
@@ -41,7 +41,8 @@ struct MemberListSubview: View {
                 HStack{
                    Text("Tap on a member to view detail")
                     .foregroundColor(Color("Primary"))
-                    .font(.custom("Montserrat-SemiBold", size: 15))
+                    
+                    .font(Font.custom("Montserrat-SemiBold", size: 15, relativeTo: .subheadline))
 
                 }
                 .padding(.top, 5)
@@ -50,7 +51,7 @@ struct MemberListSubview: View {
                     Spacer()
                     Text("\(group.membersCount-1) studymates")
                         .foregroundColor(Color("Secondary"))
-                        .font(.custom("Montserrat-SemiBold", size: 15))
+                        .font(Font.custom("Montserrat-SemiBold", size: 15, relativeTo: .subheadline))
 
                     
                     Spacer()
@@ -65,7 +66,7 @@ struct MemberListSubview: View {
                                         .padding(5)
                                 Text(member.name)
                                     .minimumScaleFactor(0.001)
-                                    .font(.custom("Montserrat-Semibold", size: 15))
+                                    .font(Font.custom("Montserrat-SemiBold", size: 15, relativeTo: .subheadline))
                                     .foregroundColor(Color("Text"))
                                     .lineLimit(1)
 
@@ -91,7 +92,7 @@ struct MemberListSubview: View {
                                     ProfilePic(name: "", id: member.id.uuidString)
                                 Text(member.name)
                                     .minimumScaleFactor(0.001)
-                                    .font(.custom("Montserrat-Semibold", size: 15))
+                                    .font(Font.custom("Montserrat-SemiBold", size: 12, relativeTo: .subheadline))
                                     .foregroundColor(Color("Text"))
                                     .padding(.top, 10)
                                     .lineLimit(1)
