@@ -105,7 +105,7 @@ struct Homev2: View {
                                
                             }
                         }
-                       
+                        if !disable {
                         if !recentPeople.isEmpty {
                             if !users.isEmpty {
                         ScrollView(.horizontal, showsIndicators: false) {
@@ -142,7 +142,7 @@ struct Homev2: View {
                             
                             }
                         }
-                        
+                        }
                         if recommendGroups.isEmpty {
                             
                         } else {
@@ -178,6 +178,7 @@ struct Homev2: View {
                         } else {
                             SelfRankView(hours: sum, id: user[0].id.uuidString)
                                 .padding()
+                                .padding(.top, 62)
                                 .onTapGesture {
                                     viewRouter.updateCurrentView(view: .leaderboard)
                                 }

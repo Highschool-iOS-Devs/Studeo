@@ -24,7 +24,7 @@ struct PairingView: View {
     @State var interests = [String]()
     @State var num = 0
     @State var error = false
-    @State var errorMessage = ""
+    @State var errorMessage = "You've paired with everyone!"
     @State var chat = false
     var groupModel:ChatViewModel
     var body: some View {
@@ -75,6 +75,7 @@ struct PairingView: View {
                                     }
                                     else{
                                         print("Pairing failed.")
+                                        error.toggle()
                                     }
                             }
                         }
@@ -355,7 +356,8 @@ struct PairingView: View {
 
                 }
             }
-                guard matchedUsers.count != 0 else {self.error = true; return}
+                guard matchedUsers.count != 0 else {self.error = true
+                    errorMessage = "You've paired with everyone!"; return}
                 var matchedPeople:[User] = []
                 if matchedUsers.count > 5{
                     for _ in 0..<4{
