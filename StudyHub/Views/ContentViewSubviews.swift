@@ -41,7 +41,7 @@ struct ContentViewSubviews: View {
     var body: some View {
         switch viewRouter.currentView {
         case .devChat:
-            ChatView(group: $devGroup, show: $show)
+            ChatView(group: $devGroup, navigationBarHidden: .constant(false), show: $show)
                 .onAppear() {
                     viewRouter.showTabBar = false
                     

@@ -75,7 +75,7 @@ struct OtherUserProfileView: View {
                             
                         }){
                             Text("Private message")
-                             //   .font(Font.custom("Montserrat-Bold", size: 16, relativeTo: .headline))
+                               .font(Font.custom("Montserrat-Bold", size: 16, relativeTo: .headline))
                         }
                         .frame(height:50)
                         .buttonStyle(BlueStyle())
