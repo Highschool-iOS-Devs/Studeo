@@ -51,7 +51,14 @@ class PushNotificationManager: NSObject, MessagingDelegate, UNUserNotificationCe
     }
 
     func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
-        print(remoteMessage.appData) // or do whatever
+        let messageID = remoteMessage.appData["data"] as! [AnyHashable: Any]
+         print("Message ID: \(messageID)")
+         let defaults = UserDefaults.standard
+         defaults.set(messageID, forKey: "groupFromNoti")
+       
+
+       // Print full message.
+     
     }
 
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
@@ -61,4 +68,5 @@ class PushNotificationManager: NSObject, MessagingDelegate, UNUserNotificationCe
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         print(response)
     }
+    
 }

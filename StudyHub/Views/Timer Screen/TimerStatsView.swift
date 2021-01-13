@@ -21,7 +21,7 @@ struct TimerStatsView: View {
     @State var calculate = false
     @Binding var stats: Bool
     var body: some View {
-        GeometryReader { geo in
+       
         ZStack {
         Color("Background")
             .onAppear() {
@@ -94,7 +94,7 @@ struct TimerStatsView: View {
                 if !social.isEmpty {
                     TimerCardView(category: "Social Studies", points: math.reduce(0, +))
                     
-                LineChartView(data: social, title: "Social Studies", legend: "Seconds", form: CGSize(width: geo.size.width/1.1, height: geo.size.width/1.5), dropShadow: false)
+                LineChartView(data: social, title: "Social Studies", legend: "Seconds", dropShadow: false)
                     
                     .clipShape(RoundedRectangle(cornerRadius: 20))
                     
@@ -115,7 +115,7 @@ struct TimerStatsView: View {
                 if !english.isEmpty {
                     TimerCardView(category: "English", points: english.reduce(0, +))
                    
-                LineChartView(data: english, title: "English", legend: "Seconds", form: CGSize(width: geo.size.width/1.1, height: geo.size.width/1.5), dropShadow: false)
+                LineChartView(data: english, title: "English", legend: "Seconds", dropShadow: false)
                     .padding()
                     .clipShape(RoundedRectangle(cornerRadius: 20))
                     
@@ -125,14 +125,14 @@ struct TimerStatsView: View {
                 if !other.isEmpty {
                     TimerCardView(category: "Other", points: other.reduce(0, +))
                     
-                LineChartView(data: other, title: "Other", legend: "Seconds", form: CGSize(width: geo.size.width/1.1, height: geo.size.width/1.5), dropShadow: false)
+                LineChartView(data: other, title: "Other", legend: "Seconds",dropShadow: false)
                     .padding()
                     .clipShape(RoundedRectangle(cornerRadius: 20))
                     
                     .shadow(color: Color("Primary").opacity(0.1), radius: 15)
                     .shadow(color: Color("Primary").opacity(0.2), radius: 25, x: 0, y: 20)
             }
-            }
+                } .padding()
           //  }
             }
             
@@ -153,6 +153,6 @@ struct TimerStatsView: View {
             }
             }
 }.frame(maxWidth: 400)
-} 
+
 }
 }

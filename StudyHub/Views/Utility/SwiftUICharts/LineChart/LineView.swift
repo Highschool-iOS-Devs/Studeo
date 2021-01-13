@@ -101,7 +101,7 @@ public struct LineView: View {
                         self.hideHorizontalLines = false
                     })
                 )
-            } .padding()
+            } 
         }
     }
     
