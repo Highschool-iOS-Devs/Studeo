@@ -67,9 +67,9 @@ struct PairingView: View {
                     checkIfExistingGroup{
                         ///If already exist of  a group of correct interest, and it's not full, checkIfExstingGroup() will join user to that group. Otherwise, it will return false
                         if $0 == false{
-                            pairUser{ newGroup in
+                            pairUser{newGroup in
                                 self.newGroup = newGroup
-                                if let group = self.newGroup {
+                                if let group = self.newGroup{
                                         self.addUserGroupRecord(newGroup: group)
                                         paired = true
                                     }
@@ -146,12 +146,15 @@ struct PairingView: View {
         .sheet(isPresented: self.$paired, onDismiss: {
             self.add = false
         }){
-           
+            if let group = newGroup{
                 //ChatView(group: group)
 //                        .environmentObject(userData)
-                PairingSuccess(paired: $paired, chat: $chat, group: newGroup!)
-                    
-            
+                PairingSuccess(paired: $paired, chat: $chat, group: group)
+                    .environmentObject(userData)
+            } else {
+                PairingFailedView(paired: $paired)
+                    .environmentObject(userData)
+            }
            
         }
     }
