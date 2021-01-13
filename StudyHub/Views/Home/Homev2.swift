@@ -211,14 +211,17 @@ struct Homev2: View {
                 }
             }.blur(radius: showingTimer ? 20 : 0)
             .onChange(of: self.i) { newValue in
+                if newValue != -1 {
                 show = true
                dmChat = true
+                }
            }
             .fullScreenCover(isPresented: $show, content: {
                 if dmChat {
                 ChatView(group: $recentPeople[self.i], show: $dmChat)
                         .onDisappear {
                             dmChat = false
+                            i = -1
                         }
                 } else {
                     ChatView(group: $devGroup, show: $dmChat)
