@@ -144,13 +144,16 @@ struct PairingView: View {
             saveData()
         }
         .sheet(isPresented: self.$paired, onDismiss: {
-            self.add = false
+            
         }){
             if let group = newGroup{
                 //ChatView(group: group)
 //                        .environmentObject(userData)
                 PairingSuccess(paired: $paired, chat: $chat, group: group)
                     .environmentObject(userData)
+                    .onAppear() {
+                        self.add = false
+                    }
             } else {
                 PairingFailedView(paired: $paired)
                     .environmentObject(userData)
