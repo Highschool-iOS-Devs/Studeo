@@ -74,7 +74,7 @@ struct OtherUserProfileView: View {
     //                        messages.removeAll()
                             
                         }){
-                           // Text("Private message")
+                            Text("Private message")
                              //   .font(Font.custom("Montserrat-Bold", size: 16, relativeTo: .headline))
                         }
                         .frame(height:50)
@@ -162,7 +162,7 @@ struct OtherUserProfileView: View {
                     
                     guard !(groupListCast?.contains(newGroup.groupID))! else{return}
                     currentGroups.append(newGroup.groupID)
-                    ref2.updateData(
+                    ref2.setData (
                         [
                             "dms":currentGroups
                         ]

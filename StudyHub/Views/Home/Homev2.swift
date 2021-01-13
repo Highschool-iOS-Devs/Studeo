@@ -42,7 +42,7 @@ struct Homev2: View {
     @State var animate = true
     @State var animation = true
     @Binding var timerLog: [TimerLog]
-    @State var disable = true
+    @State var disable = false
     @Binding var devGroup: Groups
     @State var show = false
     @State var users = [String]()

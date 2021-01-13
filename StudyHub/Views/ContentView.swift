@@ -59,8 +59,9 @@ struct ContentView: View {
                         }
                             self.loadDMsData(){ userData in
                                 //Get completion handler data results from loadData function and set it as the recentPeople local variable
+                                self.recentPeople.removeAll()
                                 self.recentPeople = userData ?? []
-                                
+                                self.recentPeople = recentPeople.removeDuplicates()
         
 
                                
@@ -314,6 +315,7 @@ struct ContentView: View {
         
     }
     func loadDMsData(performAction: @escaping ([Groups]?) -> Void) {
+        
         let db = Firestore.firestore()
         let docRef = db.collection("dms")
         var groupList:[Groups] = []
