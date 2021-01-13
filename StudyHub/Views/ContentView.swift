@@ -35,6 +35,7 @@ struct ContentView: View {
   
     @State var interestSelected: [UserInterestTypes] = []
     @State var devChats = [Groups]()
+    @State var group = Groups(id: UUID().uuidString, groupID: "", groupName: "", members: [String](), membersCount: 0, interests: [UserInterestTypes](), recentMessage: "", recentMessageTime: Date(), userInVC: [String]())
     var body: some View {
         GeometryReader { geo in
         ZStack { 
@@ -81,6 +82,10 @@ struct ContentView: View {
                             self.loadUserData(){ userData in
                                 //Get completion handler data results from loadData function and set it as the recentPeople local variable
                                 self.user = userData
+                                //if user[0].sentNotiID ?? "" != "" {
+                                //    viewRouter.currentView = .chatList
+                                //    group.groupID = user[0].sentNotiID!
+                               // }
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                                     hasLoaded = true
                                 }
@@ -103,11 +108,14 @@ struct ContentView: View {
                             }
 
                             }
-                           
+                            if userData.groupFromNoti != "" {
+                                viewRouter.currentView = .chat
+                                group.groupID = userData.groupFromNoti
+                            }
                     }
                
                         if hasLoaded {
-                            ContentViewSubviews(myGroups: $myGroups, myMentors: $myMentors,  recentPeople: $recentPeople, images: $images, user: $user, interests: $interests, timerLog: $timerLog, interestSelected: $interestSelected, devChats: $devChats)
+                            ContentViewSubviews(myGroups: $myGroups, myMentors: $myMentors,  recentPeople: $recentPeople, images: $images, user: $user, interests: $interests, timerLog: $timerLog, interestSelected: $interestSelected, devChats: $devChats, group: $group)
 
                     }
                        

@@ -38,6 +38,8 @@ struct ContentViewSubviews: View {
     
     @Binding var interestSelected: [UserInterestTypes]
     @Binding var devChats: [Groups]
+    @Binding var group: Groups
+    @State var showChat = false
     var body: some View {
         switch viewRouter.currentView {
         case .devChat:
@@ -52,6 +54,15 @@ struct ContentViewSubviews: View {
             MentorPairingView(settings: $settings, add: $add, myGroups: $myGroups, myMentors: $myMentors)
         case .registration:
             RegistrationView()
+        .environmentObject(viewRouter)
+        case .chat:
+            ChatView(group: $group, navigationBarHidden: .constant(false), show: $showChat)
+                .onAppear() {
+                    viewRouter.showTabBar = false
+                    
+                    
+                    
+                }
         .environmentObject(viewRouter)
 case .login:
     LoginView()

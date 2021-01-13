@@ -199,8 +199,10 @@ struct ChatView: View {
                                 for member in members {
                                 let sender = PushNotificationSender()
                                     if member.fcmToken != nil {
-                                    sender.sendPushNotification(to: member.fcmToken!, title: userData.name, body: self.messageField, user: userData.userID)
+                                      ///  if member.id.uuidString != userData.userID {
+                                        sender.sendPushNotification(to: member.fcmToken!, title: userData.name, body: self.messageField, group: group.groupID)
                             }
+                                    ///  }
                                 }
                                 self.messageField = ""
                                 self.saveMessage(outgoingMessage: newMessage)

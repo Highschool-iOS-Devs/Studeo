@@ -84,6 +84,10 @@ final class UserData: ObservableObject {
     var uses: Int = 0
     @Published(key: "hasDev")
     var hasDev: Bool = false
+    
+    
+    var groupFromNoti: String = ""
+    
 }
 
 import Foundation

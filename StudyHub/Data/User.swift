@@ -40,7 +40,7 @@ struct User: Identifiable, Codable, Hashable {
     var finishedOnboarding: Bool?
     
     var dms:[String]?
-  
+   
 }
 
 struct BasicUser: Identifiable, Codable {

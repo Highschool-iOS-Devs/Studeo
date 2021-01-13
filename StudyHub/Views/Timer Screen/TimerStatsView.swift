@@ -59,7 +59,7 @@ struct TimerStatsView: View {
             }
             if calculate {
             ScrollView {
-            VStack {
+           
                 HStack {
                     Button(action: {
                         stats = false
@@ -68,30 +68,69 @@ struct TimerStatsView: View {
                     }
                     Spacer()
                 } .padding()
+                
+                VStack {
+                
                 if !langauge.isEmpty {
-                LineChartView(data: langauge, title: "Foreign Language", legend: "Seconds", dropShadow: false)
+                    TimerCardView(category: "Foreign Language", points: langauge.reduce(0, +))
                     .padding()
+                LineChartView(data: langauge, title: "Foreign Language", legend: "Seconds", dropShadow: false)
+                    
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                    
+                    .shadow(color: Color("Primary").opacity(0.1), radius: 15)
+                    .shadow(color: Color("Primary").opacity(0.2), radius: 25, x: 0, y: 20)
                 }
                 if !math.isEmpty {
-                LineChartView(data: math, title: "Math", legend: "Seconds", dropShadow: false)
+                    TimerCardView(category: "Math", points: math.reduce(0, +))
                     .padding()
+                LineChartView(data: math, title: "Math", legend: "Seconds", dropShadow: false)
+                   
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                    
+                    .shadow(color: Color("Primary").opacity(0.1), radius: 15)
+                    .shadow(color: Color("Primary").opacity(0.2), radius: 25, x: 0, y: 20)
                 }
                 if !social.isEmpty {
+                    TimerCardView(category: "Social Studies", points: math.reduce(0, +))
+                    
                 LineChartView(data: social, title: "Social Studies", legend: "Seconds", form: CGSize(width: geo.size.width/1.1, height: geo.size.width/1.5), dropShadow: false)
-                    .padding()
+                    
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                    
+                    .shadow(color: Color("Primary").opacity(0.1), radius: 15)
+                    .shadow(color: Color("Primary").opacity(0.2), radius: 25, x: 0, y: 20)
                 }
                 if !science.isEmpty {
-                LineChartView(data: science, title: "Science", legend: "Seconds", dropShadow: false)
+                    TimerCardView(category: "Science", points: science.reduce(0, +))
                     .padding()
+                LineChartView(data: science, title: "Science", legend: "Seconds", dropShadow: false)
+                    
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                    
+                    .shadow(color: Color("Primary").opacity(0.1), radius: 15)
+                    .shadow(color: Color("Primary").opacity(0.2), radius: 25, x: 0, y: 20)
                 }
                
                 if !english.isEmpty {
+                    TimerCardView(category: "English", points: english.reduce(0, +))
+                   
                 LineChartView(data: english, title: "English", legend: "Seconds", form: CGSize(width: geo.size.width/1.1, height: geo.size.width/1.5), dropShadow: false)
                     .padding()
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                    
+                    .shadow(color: Color("Primary").opacity(0.1), radius: 15)
+                    .shadow(color: Color("Primary").opacity(0.2), radius: 25, x: 0, y: 20)
                 }
                 if !other.isEmpty {
+                    TimerCardView(category: "Other", points: other.reduce(0, +))
+                    
                 LineChartView(data: other, title: "Other", legend: "Seconds", form: CGSize(width: geo.size.width/1.1, height: geo.size.width/1.5), dropShadow: false)
                     .padding()
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                    
+                    .shadow(color: Color("Primary").opacity(0.1), radius: 15)
+                    .shadow(color: Color("Primary").opacity(0.2), radius: 25, x: 0, y: 20)
             }
             }
           //  }

@@ -37,7 +37,7 @@ public struct LineChartView: View {
                 title: String,
                 legend: String? = nil,
                 style: ChartStyle = Styles.lineChartStyleOne,
-                form: CGSize? = ChartForm.large,
+                form: CGSize? = ChartForm.medium,
                 rateValue: Int? = 14,
                 dropShadow: Bool? = true,
                 valueSpecifier: String? = "%.1f") {
@@ -60,8 +60,8 @@ public struct LineChartView: View {
                 .foregroundColor( Color("Background"))
                
                 .clipShape(RoundedRectangle(cornerRadius: 25.0))
-                .frame( height: 240, alignment: .center)
-                .padding(12)
+                .frame( height: 200, alignment: .center)
+                .padding()
                // .shadow(color: self.style.dropShadowColor, radius: self.dropShadow ? 8 : 0)
             VStack(alignment: .leading){
                 if(!self.showIndicatorDot){
@@ -122,6 +122,7 @@ public struct LineChartView: View {
                 .offset(x: 0, y: 0)
             }.frame(width: self.formSize.width, height: self.formSize.height)
         }
+        
         .gesture(DragGesture()
         .onChanged({ value in
             self.touchLocation = value.location

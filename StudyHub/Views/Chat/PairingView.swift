@@ -146,7 +146,7 @@ struct PairingView: View {
         .sheet(isPresented: self.$paired, onDismiss: {
             
         }){
-            if let group = newGroup{
+            if let group = newGroup {
                 //ChatView(group: group)
 //                        .environmentObject(userData)
                 PairingSuccess(paired: $paired, chat: $chat, group: group)
