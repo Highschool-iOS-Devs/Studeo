@@ -203,7 +203,7 @@ struct ContentView: View {
         var userList:[User] = []
         //Get every single document under collection users
     
-     docRef.addSnapshotListener{ (document, error) in
+     docRef.addSnapshotListener { (document, error) in
          
                 let result = Result {
                  try document?.data(as: User.self)

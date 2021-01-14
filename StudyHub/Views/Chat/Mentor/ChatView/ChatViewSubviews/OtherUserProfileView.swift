@@ -162,7 +162,7 @@ struct OtherUserProfileView: View {
                     
                     guard !(groupListCast?.contains(newGroup.groupID))! else{return}
                     currentGroups.append(newGroup.groupID)
-                    ref2.setData (
+                    ref2.updateData (
                         [
                             "dms":currentGroups
                         ]

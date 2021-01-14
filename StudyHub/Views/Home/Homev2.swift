@@ -148,7 +148,7 @@ struct Homev2: View {
                             } else {
                                 SelfRankView(hours: sum, id: user[0].id.uuidString)
                                     .padding()
-                                    .padding(.top, 62)
+                                    //.padding(.top, 62)
                                     .onTapGesture {
                                         viewRouter.updateCurrentView(view: .leaderboard)
                                     }

@@ -92,7 +92,7 @@ struct TimerStatsView: View {
                     .shadow(color: Color("Primary").opacity(0.2), radius: 25, x: 0, y: 20)
                 }
                 if !social.isEmpty {
-                    TimerCardView(category: "Social Studies", points: math.reduce(0, +))
+                    TimerCardView(category: "Social Studies", points: social.reduce(0, +))
                     
                 LineChartView(data: social, title: "Social Studies", legend: "Seconds", dropShadow: false)
                     
