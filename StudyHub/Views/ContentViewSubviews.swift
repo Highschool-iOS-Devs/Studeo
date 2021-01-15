@@ -41,6 +41,8 @@ struct ContentViewSubviews: View {
     @Binding var group: Groups
     @State var showChat = false
     var body: some View {
+        
+              
         switch viewRouter.currentView {
         case .devChat:
             ChatView(group: $devGroup, navigationBarHidden: .constant(false), show: $show)

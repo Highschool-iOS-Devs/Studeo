@@ -202,9 +202,8 @@ struct LeadersStack: View {
                 LeaderRankView(name: leaders[1].name, hours: leaders[1].studyHours, id: leaders[1].id.uuidString)
                     .offset(x: 0, y: 10)
             }
-            if leaders.isEmpty {
-            } else {
-                LeaderRankView(name: leaders[0].name, hours: leaders[0].studyHours, id: leaders[2].id.uuidString)
+            if leaders.count > 0 {
+                LeaderRankView(name: leaders[0].name, hours: leaders[0].studyHours, id: leaders[0].id.uuidString)
             }
             
             if leaders.count > 2 {

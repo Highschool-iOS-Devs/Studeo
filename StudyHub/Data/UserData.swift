@@ -85,7 +85,7 @@ final class UserData: ObservableObject {
     @Published(key: "hasDev")
     var hasDev: Bool = false
     
-    
+    @Published(key: "groupFromNoti")
     var groupFromNoti: String = ""
     
 }
