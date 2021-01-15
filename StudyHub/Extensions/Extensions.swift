@@ -136,3 +136,7 @@ extension Array where Element: Hashable {
         self = self.removingDuplicates()
     }
 }
+
+extension Notification.Name {
+    static let timerEnded = Notification.Name("timerEnded")
+}

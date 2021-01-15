@@ -80,6 +80,7 @@
 		62FAED0D259BC2580015B094 /* PasswordResetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FAED0C259BC2580015B094 /* PasswordResetView.swift */; };
 		AE19201E25A3160300ABB098 /* CountrySelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE19201D25A3160300ABB098 /* CountrySelectionView.swift */; };
 		AE19202125A3160C00ABB098 /* LanguageSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE19202025A3160C00ABB098 /* LanguageSelectionView.swift */; };
+		AE4A89BC25B1368E002A6500 /* StudySessionFinishedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4A89BB25B1368E002A6500 /* StudySessionFinishedView.swift */; };
 		BE167C452514333A00402C14 /* SettingsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE167C442514333A00402C14 /* SettingsData.swift */; };
 		BE3E16182517F96900E0A845 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E16172517F96900E0A845 /* TimerManager.swift */; };
 		BE5C7F2F259D05DB00824346 /* IntroMentor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5C7F2E259D05DB00824346 /* IntroMentor.swift */; };
@@ -223,6 +224,7 @@
 		62FAED0C259BC2580015B094 /* PasswordResetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetView.swift; sourceTree = "<group>"; };
 		AE19201D25A3160300ABB098 /* CountrySelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountrySelectionView.swift; sourceTree = "<group>"; };
 		AE19202025A3160C00ABB098 /* LanguageSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageSelectionView.swift; sourceTree = "<group>"; };
+		AE4A89BB25B1368E002A6500 /* StudySessionFinishedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySessionFinishedView.swift; sourceTree = "<group>"; };
 		BE167C442514333A00402C14 /* SettingsData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsData.swift; sourceTree = "<group>"; };
 		BE3E16172517F96900E0A845 /* TimerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
 		BE5C7F2E259D05DB00824346 /* IntroMentor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroMentor.swift; sourceTree = "<group>"; };
@@ -411,6 +413,7 @@
 			children = (
 				62654AC925A7E01D00F7172C /* ContentViewSubviews.swift */,
 				620590EB24FDBB21001565BF /* ContentView.swift */,
+				AE4A89BB25B1368E002A6500 /* StudySessionFinishedView.swift */,
 				E155D6A0251AA682008281AE /* Profile */,
 				E1C91E152503B86800001424 /* Utility */,
 				620590D724FDBB21001565BF /* Timer Screen */,
@@ -971,6 +974,7 @@
 				628A127D25186938001C4B13 /* IntroPage.swift in Sources */,
 				E155D6A3251AACA9008281AE /* ImagePicker.swift in Sources */,
 				620590FF24FDBB21001565BF /* PushNotificationManager.swift in Sources */,
+				AE4A89BC25B1368E002A6500 /* StudySessionFinishedView.swift in Sources */,
 				E155D69B251AA665008281AE /* ProfileStats.swift in Sources */,
 				6205910424FDBB21001565BF /* User.swift in Sources */,
 				E163D30E25A280CC00102895 /* QuizData.swift in Sources */,
