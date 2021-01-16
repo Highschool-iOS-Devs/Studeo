@@ -454,27 +454,41 @@ struct ChatView: View {
             var groupList:[User] = []
             //Get every single document under collection users
             
-            docRef.getDocuments{ (querySnapshot, error) in
-                if let querySnapshot = querySnapshot,!querySnapshot.isEmpty{
-                    for document in querySnapshot.documents{
-                        let result = Result {
-                            try document.data(as: User.self)
-                        }
-                        switch result {
-                        case .success(let user):
-                            if var user = user {
-                                
-                                groupList.append(user)
-                                
-                            } else {
-                                
-                                print("Document does not exist")
+            docRef.addSnapshotListener{ (querySnapshot, error) in
+                if let querySnapshot = querySnapshot?.documentChanges,!querySnapshot.isEmpty{
+                    querySnapshot.forEach { change in
+                        switch change.type {
+                        case .added:
+                            let result = Result {
+                                try change.document.data(as: User.self)
                             }
-                        case .failure(let error):
-                            print("Error decoding user: \(error)")
+                            switch result {
+                            case .success(let user):
+                                if let user = user {
+                                    groupList.append(user)
+                                } else {
+                                    print("Document does not exist")
+                                }
+                            case .failure(let error):
+                                print("Error decoding user: \(error)")
+                            }
+                        case .removed:
+                            let result = Result {
+                                try change.document.data(as: User.self)
+                            }
+                            switch result {
+                            case .success(let user):
+                                if let user = user {
+                                    groupList.removeAll(where: { $0 == user})
+                                } else {
+                                    print("Document does not exist")
+                                }
+                            case .failure(let error):
+                                print("Error decoding user: \(error)")
+                            }
+                        case .modified:
+                            return
                         }
-                        
-                        
                     }
                 }
                 else{
