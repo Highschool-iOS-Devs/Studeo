@@ -71,6 +71,8 @@
 		628A127D25186938001C4B13 /* IntroPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628A127C25186938001C4B13 /* IntroPage.swift */; };
 		628A128025186940001C4B13 /* IntroCustomize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628A127F25186940001C4B13 /* IntroCustomize.swift */; };
 		6293A8B525A268B500E9B8DE /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6293A8B425A268B500E9B8DE /* ChatViewModel.swift */; };
+		62A6D36C25B3FF9000E75ABC /* PairingFailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A6D36B25B3FF8F00E75ABC /* PairingFailedView.swift */; };
+		62A6D37025B4000800E75ABC /* DynamicHeightTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A6D36F25B4000800E75ABC /* DynamicHeightTextField.swift */; };
 		62C3ED21250597A300CEA882 /* CreateGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C3ED20250597A300CEA882 /* CreateGroupView.swift */; };
 		62E98613257D96C9003B5113 /* RecentPeopleRowSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E98612257D96C9003B5113 /* RecentPeopleRowSubview.swift */; };
 		62F24BE4251415DB00777610 /* Lottie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F24BE3251415DB00777610 /* Lottie.swift */; };
@@ -134,7 +136,6 @@
 		E192890925984AE600B67C3C /* TimerLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E192890825984AE600B67C3C /* TimerLog.swift */; };
 		E19A0BC725925C4500F5F855 /* PairingSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19A0BC625925C4500F5F855 /* PairingSuccessView.swift */; };
 		E1A18C9C25AF995100016B0C /* TimerCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A18C9B25AF995000016B0C /* TimerCardView.swift */; };
-		E1A18C9F25AF9B1700016B0C /* PairingFailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A18C9E25AF9B1700016B0C /* PairingFailedView.swift */; };
 		E1A39F2025A8CC100001B96F /* QuizTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A39F1F25A8CC100001B96F /* QuizTitle.swift */; };
 		E1A39F2525A8D5670001B96F /* QuizLeaderboardRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A39F2325A8D5670001B96F /* QuizLeaderboardRow.swift */; };
 		E1A39F2625A8D5670001B96F /* QuizLeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A39F2425A8D5670001B96F /* QuizLeaderboardView.swift */; };
@@ -215,6 +216,8 @@
 		628A127C25186938001C4B13 /* IntroPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroPage.swift; sourceTree = "<group>"; };
 		628A127F25186940001C4B13 /* IntroCustomize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCustomize.swift; sourceTree = "<group>"; };
 		6293A8B425A268B500E9B8DE /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
+		62A6D36B25B3FF8F00E75ABC /* PairingFailedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PairingFailedView.swift; sourceTree = "<group>"; };
+		62A6D36F25B4000800E75ABC /* DynamicHeightTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicHeightTextField.swift; sourceTree = "<group>"; };
 		62C3ED20250597A300CEA882 /* CreateGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupView.swift; sourceTree = "<group>"; };
 		62E98612257D96C9003B5113 /* RecentPeopleRowSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentPeopleRowSubview.swift; sourceTree = "<group>"; };
 		62F24BE3251415DB00777610 /* Lottie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lottie.swift; sourceTree = "<group>"; };
@@ -279,7 +282,6 @@
 		E192890825984AE600B67C3C /* TimerLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerLog.swift; sourceTree = "<group>"; };
 		E19A0BC625925C4500F5F855 /* PairingSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingSuccessView.swift; sourceTree = "<group>"; };
 		E1A18C9B25AF995000016B0C /* TimerCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerCardView.swift; sourceTree = "<group>"; };
-		E1A18C9E25AF9B1700016B0C /* PairingFailedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PairingFailedView.swift; path = ../../../../Studeo/StudyHub/Views/Chat/PairingFailedView.swift; sourceTree = "<group>"; };
 		E1A39F1F25A8CC100001B96F /* QuizTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizTitle.swift; sourceTree = "<group>"; };
 		E1A39F2325A8D5670001B96F /* QuizLeaderboardRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizLeaderboardRow.swift; sourceTree = "<group>"; };
 		E1A39F2425A8D5670001B96F /* QuizLeaderboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizLeaderboardView.swift; sourceTree = "<group>"; };
@@ -469,7 +471,7 @@
 			children = (
 				622AABB225955E79004A984A /* ChatView */,
 				E1BCD405251E8A080051A28C /* PairingView.swift */,
-				E1A18C9E25AF9B1700016B0C /* PairingFailedView.swift */,
+				62A6D36B25B3FF8F00E75ABC /* PairingFailedView.swift */,
 				E19A0BC625925C4500F5F855 /* PairingSuccessView.swift */,
 				E1760ABE25925A3C00AA8BCF /* Mentor */,
 				624FAFDB25720AA0000E0203 /* RecentsView */,
@@ -537,6 +539,7 @@
 				E10C05CC259013B70020FD7C /* MemberListSubview.swift */,
 				6258E4DC2595AC900072DA87 /* OtherUserProfileView.swift */,
 				6258E4E0259942AC0072DA87 /* BottomCardSubview.swift */,
+				62A6D36F25B4000800E75ABC /* DynamicHeightTextField.swift */,
 			);
 			path = ChatViewSubviews;
 			sourceTree = "<group>";
@@ -950,7 +953,6 @@
 				6205910E24FDBB21001565BF /* ChatCell.swift in Sources */,
 				6258E4DD2595AC900072DA87 /* OtherUserProfileView.swift in Sources */,
 				624FAEFF256EF32D000E0203 /* FloatingBlobSubview.swift in Sources */,
-				E1A18C9F25AF9B1700016B0C /* PairingFailedView.swift in Sources */,
 				624FAF06256EF8BE000E0203 /* LoginButtonStyles.swift in Sources */,
 				6293A8B525A268B500E9B8DE /* ChatViewModel.swift in Sources */,
 				E12C5FA9259A518500D3314E /* Helpers.swift in Sources */,
@@ -979,6 +981,7 @@
 				6205910424FDBB21001565BF /* User.swift in Sources */,
 				E163D30E25A280CC00102895 /* QuizData.swift in Sources */,
 				E1C91E142503B86300001424 /* Blur.swift in Sources */,
+				62A6D36C25B3FF9000E75ABC /* PairingFailedView.swift in Sources */,
 				E163D30D25A280CC00102895 /* QuizView.swift in Sources */,
 				E15A20B9253FAC28006E042E /* Test.swift in Sources */,
 				6205910224FDBB21001565BF /* AppDelegate.swift in Sources */,
@@ -999,6 +1002,7 @@
 				E19289062598455000B67C3C /* TimerSelectView.swift in Sources */,
 				6205910024FDBB21001565BF /* PushNotificationSender.swift in Sources */,
 				E12C5FAD259A518500D3314E /* PieChartView.swift in Sources */,
+				62A6D37025B4000800E75ABC /* DynamicHeightTextField.swift in Sources */,
 				E3CA983825180CAD00602EB6 /* PersonalInfoView.swift in Sources */,
 				62654ACA25A7E01D00F7172C /* ContentViewSubviews.swift in Sources */,
 				E3CA983225167D4800602EB6 /* NotificationsView.swift in Sources */,

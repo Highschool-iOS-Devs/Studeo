@@ -44,6 +44,8 @@ struct ChatView: View {
     @State var reactions = ["love", "thumbsup", "celebrate", "laugh"]
     @State private var lastMessageID = ""
     @State var reaction = "love"
+    @State var text = ""
+    @State var height:CGFloat = 40
     var body: some View {
         ZStack {
             Color("Background").edgesIgnoringSafeArea(.all)
@@ -163,13 +165,14 @@ struct ChatView: View {
                             showImagePicker = true
                         }
                     Spacer()
-                    TextField("Enter message", text: self.$messageField)
-                        .font(.custom("Montserrat", size: 15))
-                        .padding()
-                        .frame(height: 40)
-                        .frame(maxWidth:.infinity)
-                        .background(Color.gray.opacity(0.2))
-                        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                    GeometryReader{geometry in
+                        DynamicHeightTextField(text: $text, height: $height, width:geometry.size.width)
+                            .frame(height: height)
+                            .background(Color.gray.opacity(0.2))
+                            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                    }
+                    .frame(height: height)
+
                     
                     Image(systemName: "paperplane.fill")
                         .foregroundColor(Color.gray.opacity(1))
