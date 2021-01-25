@@ -10,6 +10,7 @@ import SwiftUI
 import Firebase
 
 struct MemberListSubview: View {
+    @EnvironmentObject var viewRouter:ViewRouter
     @Binding var members: [User]
     @Binding var memberList: Bool
     @Binding var showFull:Bool
@@ -18,6 +19,7 @@ struct MemberListSubview: View {
     @EnvironmentObject var userData:UserData
     @State var member:User?
     @Binding var messages: [MessageData]
+    @Binding var showNavigation:Bool
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible()),
@@ -28,7 +30,6 @@ struct MemberListSubview: View {
         ZStack{
             VStack {
                 HStack {
-               
                     Spacer()
                     
                     Text(group.groupName)
@@ -113,7 +114,21 @@ struct MemberListSubview: View {
                 }
       
     
+                Button(action: {
+                    leaveGroup(){err in
+                        if let err = err{
+                            print(err)
+                        }
+                        else{
+                            viewRouter.updateCurrentView(view: .chatList)
+                        }
+                    }
+                }){
+                    Text("Leave Group")
+                }
+                .buttonStyle(BlueStyle())
                 Spacer()
+
             }
             if showFull{
                 withAnimation(Animation.easeInOut.speed(0.8)){
@@ -153,6 +168,20 @@ struct MemberListSubview: View {
         }
 
    
+    }
+    func leaveGroup(completion: @escaping (Error?)->Void){
+        let db = Firestore.firestore()
+        let batch = db.batch()
+        let userRef = db.collection("users").document(userData.userID)
+        batch.updateData(["groups":FieldValue.arrayRemove([group.groupID])], forDocument: userRef)
+        let groupRef = db.collection("groups").document(group.groupID)
+        batch.updateData(["membersCount":FieldValue.increment(Int64(-1))], forDocument: groupRef)
+        batch.updateData(["members":FieldValue.arrayRemove([userData.userID])], forDocument: groupRef)
+        batch.commit() { err in
+            completion(err)
+        }
+
+        
     }
     func downloadImages(for userID:String, completion: @escaping (URL) -> Void){
         let metadata = StorageMetadata()
