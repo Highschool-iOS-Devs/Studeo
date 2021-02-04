@@ -145,11 +145,42 @@
 		E1BCD401251E7CF50051A28C /* LeaderboardSubViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BCD400251E7CF50051A28C /* LeaderboardSubViews.swift */; };
 		E1BCD406251E8A080051A28C /* PairingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BCD405251E8A080051A28C /* PairingView.swift */; };
 		E1C91E142503B86300001424 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C91E132503B86300001424 /* Blur.swift */; };
+		E1ECAA5B25CB809E004AEABA /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1B51B4125CB70BE00E62688 /* WidgetKit.framework */; };
+		E1ECAA5C25CB809E004AEABA /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1B51B4325CB70BE00E62688 /* SwiftUI.framework */; };
+		E1ECAA5F25CB809E004AEABA /* StudeoWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ECAA5E25CB809E004AEABA /* StudeoWidget.swift */; };
+		E1ECAA6225CB809F004AEABA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1ECAA6125CB809F004AEABA /* Assets.xcassets */; };
+		E1ECAA6425CB809F004AEABA /* StudeoWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = E1ECAA6025CB809E004AEABA /* StudeoWidget.intentdefinition */; };
+		E1ECAA6525CB809F004AEABA /* StudeoWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = E1ECAA6025CB809E004AEABA /* StudeoWidget.intentdefinition */; };
+		E1ECAA6825CB809F004AEABA /* StudeoWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E1ECAA5A25CB809E004AEABA /* StudeoWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E1F2F8B9257009A800D8B87E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E1F2F8B8257009A800D8B87E /* Alamofire */; };
 		E1FD834D24F54E670024D2A3 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E1FD834C24F54E670024D2A3 /* IQKeyboardManagerSwift */; };
 		E3CA983225167D4800602EB6 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CA983125167D4800602EB6 /* NotificationsView.swift */; };
 		E3CA983825180CAD00602EB6 /* PersonalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CA983725180CAD00602EB6 /* PersonalInfoView.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E1ECAA6625CB809F004AEABA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E339448A24F1B71600F11BA9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E1ECAA5925CB809E004AEABA;
+			remoteInfo = StudeoWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E1B51B5425CB70C000E62688 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				E1ECAA6825CB809F004AEABA /* StudeoWidgetExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		47F4119D880B6AFBE91DBA85 /* Pods_StudyHub.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StudyHub.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -216,9 +247,7 @@
 		628A127C25186938001C4B13 /* IntroPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroPage.swift; sourceTree = "<group>"; };
 		628A127F25186940001C4B13 /* IntroCustomize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCustomize.swift; sourceTree = "<group>"; };
 		6293A8B425A268B500E9B8DE /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
-
 		62A6D36F25B4000800E75ABC /* DynamicHeightTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicHeightTextField.swift; sourceTree = "<group>"; };
-
 		62A6D37425B4BE7F00E75ABC /* PairingFailedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PairingFailedView.swift; path = StudyHub/Views/Chat/PairingFailedView.swift; sourceTree = SOURCE_ROOT; };
 		62C3ED20250597A300CEA882 /* CreateGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupView.swift; sourceTree = "<group>"; };
 		62E98612257D96C9003B5113 /* RecentPeopleRowSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentPeopleRowSubview.swift; sourceTree = "<group>"; };
@@ -289,10 +318,18 @@
 		E1A39F2425A8D5670001B96F /* QuizLeaderboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizLeaderboardView.swift; sourceTree = "<group>"; };
 		E1A8D1CA25A3C7DC0057B882 /* QuizzesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizzesList.swift; sourceTree = "<group>"; };
 		E1A8D1CD25A3C8080057B882 /* QuizzesRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizzesRow.swift; sourceTree = "<group>"; };
+		E1B51B4125CB70BE00E62688 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		E1B51B4325CB70BE00E62688 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		E1B51B5725CB728000E62688 /* WidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetExtension.entitlements; sourceTree = "<group>"; };
 		E1BCD3E0251E46540051A28C /* EditProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfile.swift; sourceTree = "<group>"; };
 		E1BCD400251E7CF50051A28C /* LeaderboardSubViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardSubViews.swift; sourceTree = "<group>"; };
 		E1BCD405251E8A080051A28C /* PairingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingView.swift; sourceTree = "<group>"; };
 		E1C91E132503B86300001424 /* Blur.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
+		E1ECAA5A25CB809E004AEABA /* StudeoWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = StudeoWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1ECAA5E25CB809E004AEABA /* StudeoWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudeoWidget.swift; sourceTree = "<group>"; };
+		E1ECAA6025CB809E004AEABA /* StudeoWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = StudeoWidget.intentdefinition; sourceTree = "<group>"; };
+		E1ECAA6125CB809F004AEABA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E1ECAA6325CB809F004AEABA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E339449224F1B71600F11BA9 /* StudyHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3CA983125167D4800602EB6 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
 		E3CA983725180CAD00602EB6 /* PersonalInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoView.swift; sourceTree = "<group>"; };
@@ -300,6 +337,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		E1ECAA5725CB809E004AEABA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1ECAA5C25CB809E004AEABA /* SwiftUI.framework in Frameworks */,
+				E1ECAA5B25CB809E004AEABA /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E339448F24F1B71600F11BA9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -320,6 +366,8 @@
 			isa = PBXGroup;
 			children = (
 				47F4119D880B6AFBE91DBA85 /* Pods_StudyHub.framework */,
+				E1B51B4125CB70BE00E62688 /* WidgetKit.framework */,
+				E1B51B4325CB70BE00E62688 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -473,7 +521,6 @@
 			children = (
 				622AABB225955E79004A984A /* ChatView */,
 				E1BCD405251E8A080051A28C /* PairingView.swift */,
-
 				62A6D37425B4BE7F00E75ABC /* PairingFailedView.swift */,
 				E19A0BC625925C4500F5F855 /* PairingSuccessView.swift */,
 				E1760ABE25925A3C00AA8BCF /* Mentor */,
@@ -718,10 +765,23 @@
 			path = Utility;
 			sourceTree = "<group>";
 		};
+		E1ECAA5D25CB809E004AEABA /* StudeoWidget */ = {
+			isa = PBXGroup;
+			children = (
+				E1ECAA5E25CB809E004AEABA /* StudeoWidget.swift */,
+				E1ECAA6025CB809E004AEABA /* StudeoWidget.intentdefinition */,
+				E1ECAA6125CB809F004AEABA /* Assets.xcassets */,
+				E1ECAA6325CB809F004AEABA /* Info.plist */,
+			);
+			path = StudeoWidget;
+			sourceTree = "<group>";
+		};
 		E339448924F1B71600F11BA9 = {
 			isa = PBXGroup;
 			children = (
+				E1B51B5725CB728000E62688 /* WidgetExtension.entitlements */,
 				620590B624FDBB21001565BF /* StudyHub */,
+				E1ECAA5D25CB809E004AEABA /* StudeoWidget */,
 				E339449324F1B71600F11BA9 /* Products */,
 				B7119E08197EA57CF68E817D /* Pods */,
 				51283CD47EB283397FC5B9FD /* Frameworks */,
@@ -732,6 +792,7 @@
 			isa = PBXGroup;
 			children = (
 				E339449224F1B71600F11BA9 /* StudyHub.app */,
+				E1ECAA5A25CB809E004AEABA /* StudeoWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -750,6 +811,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		E1ECAA5925CB809E004AEABA /* StudeoWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E1ECAA6925CB809F004AEABA /* Build configuration list for PBXNativeTarget "StudeoWidgetExtension" */;
+			buildPhases = (
+				E1ECAA5625CB809E004AEABA /* Sources */,
+				E1ECAA5725CB809E004AEABA /* Frameworks */,
+				E1ECAA5825CB809E004AEABA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = StudeoWidgetExtension;
+			productName = StudeoWidgetExtension;
+			productReference = E1ECAA5A25CB809E004AEABA /* StudeoWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		E339449124F1B71600F11BA9 /* StudyHub */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E33944A624F1B71B00F11BA9 /* Build configuration list for PBXNativeTarget "StudyHub" */;
@@ -759,10 +837,12 @@
 				E339448F24F1B71600F11BA9 /* Frameworks */,
 				E339449024F1B71600F11BA9 /* Resources */,
 				F1F20EBE931C76A2E21DBF8C /* [CP] Embed Pods Frameworks */,
+				E1B51B5425CB70C000E62688 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				E1ECAA6725CB809F004AEABA /* PBXTargetDependency */,
 			);
 			name = StudyHub;
 			packageProductDependencies = (
@@ -782,10 +862,13 @@
 		E339448A24F1B71600F11BA9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1150;
+				LastSwiftUpdateCheck = 1230;
 				LastUpgradeCheck = 1150;
 				ORGANIZATIONNAME = "Dakshin Devanand";
 				TargetAttributes = {
+					E1ECAA5925CB809E004AEABA = {
+						CreatedOnToolsVersion = 12.3;
+					};
 					E339449124F1B71600F11BA9 = {
 						CreatedOnToolsVersion = 11.5;
 					};
@@ -811,11 +894,20 @@
 			projectRoot = "";
 			targets = (
 				E339449124F1B71600F11BA9 /* StudyHub */,
+				E1ECAA5925CB809E004AEABA /* StudeoWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		E1ECAA5825CB809E004AEABA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1ECAA6225CB809F004AEABA /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E339449024F1B71600F11BA9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -885,6 +977,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		E1ECAA5625CB809E004AEABA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1ECAA6425CB809F004AEABA /* StudeoWidget.intentdefinition in Sources */,
+				E1ECAA5F25CB809E004AEABA /* StudeoWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E339448E24F1B71600F11BA9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -975,6 +1076,7 @@
 				E12C5FB3259A518500D3314E /* Path+QuadCurve.swift in Sources */,
 				E163D33325A28F6500102895 /* QuizAddRow.swift in Sources */,
 				E163D31025A280CC00102895 /* QuizQuestion.swift in Sources */,
+				E1ECAA6525CB809F004AEABA /* StudeoWidget.intentdefinition in Sources */,
 				E163D31125A280CC00102895 /* QuizBtn.swift in Sources */,
 				628A127D25186938001C4B13 /* IntroPage.swift in Sources */,
 				E155D6A3251AACA9008281AE /* ImagePicker.swift in Sources */,
@@ -984,7 +1086,6 @@
 				6205910424FDBB21001565BF /* User.swift in Sources */,
 				E163D30E25A280CC00102895 /* QuizData.swift in Sources */,
 				E1C91E142503B86300001424 /* Blur.swift in Sources */,
-				62A6D36C25B3FF9000E75ABC /* PairingFailedView.swift in Sources */,
 				E163D30D25A280CC00102895 /* QuizView.swift in Sources */,
 				E15A20B9253FAC28006E042E /* Test.swift in Sources */,
 				6205910224FDBB21001565BF /* AppDelegate.swift in Sources */,
@@ -1016,6 +1117,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		E1ECAA6725CB809F004AEABA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E1ECAA5925CB809E004AEABA /* StudeoWidgetExtension */;
+			targetProxy = E1ECAA6625CB809F004AEABA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		620590C624FDBB21001565BF /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -1028,6 +1137,54 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		E1ECAA6A25CB809F004AEABA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MC27HKM86M;
+				INFOPLIST_FILE = StudeoWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.StudyHub.Studeo.StudeoWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E1ECAA6B25CB809F004AEABA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MC27HKM86M;
+				INFOPLIST_FILE = StudeoWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.StudyHub.Studeo.StudeoWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		E33944A424F1B71B00F11BA9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1148,6 +1305,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C7A62219EB10FE2A621A6C84 /* Pods-StudyHub.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = StudyHub/StudyHub.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -1155,7 +1313,7 @@
 				CURRENT_PROJECT_VERSION = 15;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyHub/Preview Content\"";
-				DEVELOPMENT_TEAM = TNL6P3HKQQ;
+				DEVELOPMENT_TEAM = MC27HKM86M;
 				ENABLE_PREVIEWS = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1165,7 +1323,7 @@
 					"@executable_path/Frameworks",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DDEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = com.JevonMao.Studeo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.StudyHub.Studeo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTS_MACCATALYST = NO;
@@ -1178,6 +1336,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EEC3B6AC4F1E11EB05097CA0 /* Pods-StudyHub.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = StudyHub/StudyHub.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -1185,7 +1344,7 @@
 				CURRENT_PROJECT_VERSION = 15;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyHub/Preview Content\"";
-				DEVELOPMENT_TEAM = TNL6P3HKQQ;
+				DEVELOPMENT_TEAM = MC27HKM86M;
 				ENABLE_PREVIEWS = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1195,7 +1354,7 @@
 					"@executable_path/Frameworks",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DRELEASE";
-				PRODUCT_BUNDLE_IDENTIFIER = com.JevonMao.Studeo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.StudyHub.Studeo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTS_MACCATALYST = NO;
@@ -1207,6 +1366,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		E1ECAA6925CB809F004AEABA /* Build configuration list for PBXNativeTarget "StudeoWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E1ECAA6A25CB809F004AEABA /* Debug */,
+				E1ECAA6B25CB809F004AEABA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		E339448D24F1B71600F11BA9 /* Build configuration list for PBXProject "StudyHub" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

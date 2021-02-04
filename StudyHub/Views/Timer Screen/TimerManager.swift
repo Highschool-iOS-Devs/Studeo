@@ -213,6 +213,9 @@ class TimerManager: ObservableObject {
         let sum = studyHours.reduce(0, +)
         let day = today.reduce(0, +)
         let months = month.reduce(0, +)
+        
+        let container = UserDefaults(suiteName:"group.com.studeo")
+        container?.setValue(day, forKey: "day")
         let timerData: [String: Any] = [
             "studyDate" : studyDates,
             "studyHours" : studyHours,
