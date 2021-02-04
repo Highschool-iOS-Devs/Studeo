@@ -46,11 +46,11 @@ struct SmallWidgetEntryView : View {
     var entry: Provider.Entry
    
     @State var day = 0
-    @State var color1 = UIColor(.blue)
-    @State var color2 = UIColor(Color(.systemBlue))
+    @State var color1 = UIColor(Color("Primary"))
+    @State var color2 = UIColor(Color("Secondary"))
     @State var textColor = UIColor(.white)
     @State var loaded = false
-    @State var workout = "Pushups"
+   
     @State var font  = "Montserrat-Bold"
     @State var ready = false
     var body: some View {
@@ -68,11 +68,11 @@ struct SmallWidgetEntryView : View {
                 ready = true
             }
         if ready {
-            LinearGradient(gradient: Gradient(colors: [Color(color1 ?? .blue), Color(color2 ?? .systemBlue)]), startPoint: .leading, endPoint: .bottomTrailing)
+            LinearGradient(gradient: Gradient(colors: [Color(color1 ), Color(color2)]), startPoint: .leading, endPoint: .bottomTrailing)
         VStack {
             HStack {
             Image(systemName: "doc")
-                .font(.system(size: 24))
+                .font(.system(size: 20))
                 .foregroundColor(Color(textColor))
                 Spacer()
             } .padding(.top)
@@ -86,14 +86,24 @@ struct SmallWidgetEntryView : View {
                 
                 Spacer()
             }
+            VStack {
             HStack {
-            Text("Today")
-                .font(.custom(font, size: 12, relativeTo: .title))
+            Text("Hours Studied")
+                .font(.custom(font, size: 12, relativeTo: .callout))
                 .bold()
                 .foregroundColor(Color(textColor))
                 
                 Spacer()
-            } .padding(.bottom)
+            }
+                HStack {
+                Text("Today")
+                    .font(.custom(font, size: 12, relativeTo: .callout))
+                    .bold()
+                    .foregroundColor(Color(textColor))
+                    
+                    Spacer()
+                } .padding(.bottom)
+            }
             Spacer()
          
         } .padding()
@@ -111,10 +121,10 @@ struct StudeoWidgetEntryView : View {
              case .systemSmall:
                 SmallWidgetEntryView(entry: entry)
              case .systemMedium:
-                EmptyView()
+                SmallWidgetEntryView(entry: entry)
              case .systemLarge:
                  
-                   EmptyView()
+                SmallWidgetEntryView(entry: entry)
                  
              @unknown default:
                 SmallWidgetEntryView(entry: entry)
@@ -126,13 +136,13 @@ struct StudeoWidgetEntryView : View {
 @main
 struct StudeoWidget: Widget {
     let kind: String = "StudeoWidget"
-
+@State var myDescriptionString = "Hello"
     var body: some WidgetConfiguration {
         IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
             StudeoWidgetEntryView(entry: entry)
         }
         .configurationDisplayName("My Widget")
-        .description("This is an example widget.")
+        .description(myDescriptionString)
     }
 }
 
