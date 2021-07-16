@@ -96,15 +96,15 @@ struct Homev2: View {
                         .fixedSize()
                     
                     ScrollView(.vertical, showsIndicators: false) {
-                        if !userData.hasDev {
-                        if animate {
-                           
-                            DevChatBanner(devGroup: $devGroup, show: $show)
-                                .frame(width: geo.size.width, height: geo.size.height/3)
-                                .transition(.identity)
-                               
-                            }
-                        }
+//                        if !userData.hasDev {
+//                        if animate {
+//                           
+//                            DevChatBanner(devGroup: $devGroup, show: $show)
+//                                .frame(width: geo.size.width, height: geo.size.height/3)
+//                                .transition(.identity)
+//                               
+//                            }
+//                        }
                        
                         if !recentPeople.isEmpty {
                             if !users.isEmpty {

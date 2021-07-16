@@ -72,7 +72,7 @@ struct OtherUserProfileView: View {
 //                            showMemberList = false
 //    //                        group = newGroup
 //    //                        messages.removeAll()
-//                            
+//
 //                        }){
 //                            Text("Private message")
 //                                .font(Font.custom("Montserrat-Bold", size: 16, relativeTo: .headline))
