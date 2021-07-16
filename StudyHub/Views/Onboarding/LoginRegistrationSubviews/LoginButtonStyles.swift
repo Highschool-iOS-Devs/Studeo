@@ -12,7 +12,7 @@ struct BlueStyle: ButtonStyle {
  
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
-            .font(.custom("Montserrat SemiBold", size: 15, relativeTo: .subheadline))
+            .font(Font.custom("Montserrat-SemiBold", size: 15, relativeTo: .subheadline))
             .frame(minWidth: 0, maxWidth: .infinity)
             .padding()
             .foregroundColor(.white)
@@ -32,7 +32,7 @@ struct WhiteStyle: ButtonStyle {
  
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
-            .font(.custom("Montserrat SemiBold", size: 15, relativeTo: .subheadline))
+            .font(Font.custom("Montserrat-SemiBold", size: 15, relativeTo: .subheadline))
             .frame(minWidth: 0, maxWidth: .infinity)
             .padding()
             .foregroundColor(Color.buttonBlue)
