@@ -179,16 +179,16 @@ struct ChatView: View {
             .blur(radius: membersList ? 8 : 0)
             .animation(.easeInOut)
             .navigationBarTitleDisplayMode(.inline)
-//            .toolbar {
-//                ToolbarItem(placement: .principal) {
-//                    HStack {
-//                        Text(group.groupName)
-//                            .font(.custom("Montserrat-Bold", size: 18))
-//                            .padding()
-//                            .foregroundColor(Color("Text"))
-//
-//                    }
-//                }
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    HStack {
+                        Text(group.groupName)
+                            .font(.custom("Montserrat-Bold", size: 18, relativeTo: .headline))
+                            .fixedSize()
+                            .foregroundColor(Color("Text"))
+
+                    }
+                }
 //                ToolbarItem(placement:.navigation){
 //                    HStack{
 //                        if test {
@@ -217,15 +217,16 @@ struct ChatView: View {
 //                            }
 //
 //                        }
-//                        Button(action: {membersList=true}){
-//                            Image(systemName: "ellipsis.circle.fill")
-//                                .font(.system(size: 25))
-//                                .foregroundColor(Color("Primary"))
-//
-//
-//                        }
-//
-//                    }
+                ToolbarItem(placement:.navigation){
+                        Button(action: {membersList=true}){
+                            Image(systemName: "ellipsis.circle.fill")
+                                .font(.system(size: 25))
+                                .foregroundColor(Color("Primary"))
+
+                        }
+                        }
+
+                    }
 //
 //                }
 //            } .onTapGesture() {
