@@ -33,7 +33,7 @@ struct PairingView: View {
                 .edgesIgnoringSafeArea(.all)
             VStack {
                 HStack {
-                    Spacer()
+                    
                     Image(systemName: "gear")
                         .font(.largeTitle)
                         
@@ -41,71 +41,7 @@ struct PairingView: View {
                         .onTapGesture {
                             settings.toggle()
                         }
-                }
-                Spacer()
-            } .padding()
-          
-            
-            VStack {
-                VStack {
                     Spacer()
-                    HStack {
-                        Spacer()
-                        Image("3566801")
-                            
-                            .renderingMode(.original)
-                            
-                            .resizable()
-                            // .frame(width: 350, height: 350)
-                            
-                            .scaledToFit()
-                        Spacer()
-                    }
-                    Spacer()
-                }
-                Button(action: {
-                    checkIfExistingGroup{
-                        ///If already exist of  a group of correct interest, and it's not full, checkIfExstingGroup() will join user to that group. Otherwise, it will return false
-                        if $0 == false{
-                            pairUser{newGroup in
-                                self.newGroup = newGroup
-                                if let group = self.newGroup{
-                                        self.addUserGroupRecord(newGroup: group)
-                                        paired = true
-                                    }
-                                    else{
-                                        print("Pairing failed.")
-                                    }
-                            }
-                        }
-                        else{
-                            print("Group of corresponding interest already exist, joined user to that group.")
-                        }
-                        
-                    }
- 
-            
-                }) {
-                    Text("Pair")
-                        .font(Font.custom("Montserrat-SemiBold", size: 14, relativeTo: .headline))
-                } .buttonStyle(BlueStyle())
-                .padding()
-                Spacer(minLength: 200)
-            }
-            
-            .sheet(isPresented: self.$paired, onDismiss: {
-                self.add = false
-            }){
-                if let group = newGroup{
-                    //ChatView(group: group)
-//                        .environmentObject(userData)
-                    PairingSuccess(paired: $paired, chat: $chat, group: group)
-                }
-               
-            }
-            
-            VStack {
-                HStack {
                     Button(action: {
                         
                         if !settings {
@@ -126,10 +62,73 @@ struct PairingView: View {
                         
                         
                     }
-                    Spacer()
                 }
                 Spacer()
-            } .padding()
+           
+          
+            
+           
+                
+                    
+                    HStack {
+                        Spacer()
+                        Image("3566801")
+                            
+                            .renderingMode(.original)
+                            
+                            .resizable()
+                            // .frame(width: 350, height: 350)
+                            
+                            .scaledToFit()
+                        Spacer()
+                    }
+                    Spacer()
+                
+                Button(action: {
+                    checkIfExistingGroup{
+                        ///If already exist of  a group of correct interest, and it's not full, checkIfExstingGroup() will join user to that group. Otherwise, it will return false
+                        if $0 == false{
+                            
+                            pairUser{newGroup in
+                                self.newGroup = newGroup
+                                if let group = self.newGroup{
+                                        self.addUserGroupRecord(newGroup: group)
+                                        paired = true
+                                    }
+                                    else {
+                                        print("Pairing failed.")
+                                        error = true
+                                    }
+                            }
+                        }
+                        
+                        else{
+                            print("Group of corresponding interest already exist, joined user to that group.")
+                        }
+                        
+                    }
+ 
+            
+                }) {
+                    Text("Pair")
+                        .font(Font.custom("Montserrat-SemiBold", size: 14, relativeTo: .headline))
+                } .buttonStyle(BlueStyle())
+                .padding()
+                
+            }
+            
+            .sheet(isPresented: self.$paired, onDismiss: {
+                self.add = false
+            }){
+                if let group = newGroup{
+                    //ChatView(group: group)
+//                        .environmentObject(userData)
+                    PairingSuccess(paired: $paired, chat: $chat, group: group)
+                }
+               
+            }
+            
+           
             
             if settings {
                 
@@ -140,6 +139,7 @@ struct PairingView: View {
                 VStack {
                    
                 ErrorMessage(errorObject: ErrorModel(errorMessage: errorMessage, errorState: true), displayError: true)
+                       
                     Spacer()
                 } .padding(.top, 100)
             }
@@ -151,6 +151,7 @@ struct PairingView: View {
         .onDisappear {
             saveData()
         }
+        .padding()
     }
     
     func addUserGroupRecord(newGroup:Groups) {
