@@ -6,15 +6,7 @@ target 'StudyHub' do
   use_frameworks!
 
   # Pods for StudyHub
-    pod 'Firebase/Auth'
-    pod 'Firebase/Firestore'
-    pod 'FirebaseFirestoreSwift'
-pod 'Firebase/Analytics'
-pod 'Firebase/Messaging'
-pod 'Firebase/Storage'
-pod 'SDWebImage', '~> 5.0'
-pod 'lottie-ios'
-pod 'AgoraRtcEngine_iOS'
-  pod 'ARVideoKit', :git => 'https://github.com/AFathi/ARVideoKit', :branch => 'swift_4_2' # record ARKit session
+   
+ # pod 'ARVideoKit', :git => 'https://github.com/AFathi/ARVideoKit', :branch => 'swift_4_2' # record ARKit session
 
 end

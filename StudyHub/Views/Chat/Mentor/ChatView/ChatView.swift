@@ -58,57 +58,7 @@ struct ChatView: View {
                     ScrollViewReader { scrollView in
                         LazyVStack {
                             ForEach(self.messages) { message in
-                                VStack {
-                                    HStack {
-                                        if message.sentBySelf ?? false {
-                                            Spacer()
-                                        }
-                                    
-                                    if message.assetID != "" {
-                                        assetMessage(assetID: message.assetID)
-                                            .frame(width: 150, height: 150)
-                                            .onTapGesture() {
-                                                id = message.assetID
-                                                viewImage = true
-                                            }
-                                    }
-                                    if !message.sentBySelf! {
-                                        Spacer()
-                                    }
-                                    }
-                                MessageCellView(message)
-                                    .id(message.id)
-                                    .frame(minWidth: 100, minHeight: 50)
-                                    .onLongPressGesture {
-                                       // toggleReaction = true
-                                        self.message = message
-                                    }
-                                    HStack {
-                                        if message.sentBySelf ?? false {
-                                            Spacer()
-                                        }
-                                    
-                                        
-                                        if !message.sentBySelf! {
-                                            Spacer()
-                                        }
-                                        if !message.reactions.isEmpty {
-                                            HStack {
-                                            ForEach(message.reactions, id:\.self) { reaction in
-                                                Text(reaction == "love" ? "❤️" : "")
-                                                
-                                                Text(reaction == "thumbsup" ? "👍" : "")
-                                                
-                                                Text(reaction == "laugh" ? "🤣" : "")
-                                                
-                                                Text(reaction == "celebrate" ? "🎉" : "")
-                                               
-                                            }
-                                            }
-                                        }
-                                    } .padding(.horizontal)
-                                   
-                                }
+                                MessagesView(message: message, id: $id, viewImage: $viewImage, group: $group)
                             }
                         } .transition(.opacity)
                         .animation(.easeInOut(duration: 0.7))
@@ -212,8 +162,8 @@ struct ChatView: View {
                     
                 }
                 .sheet(isPresented: self.$showImagePicker){
-                    ImagePicker(isShown: self.$showImagePicker, image: self.$image, userID: $userData.userID)
-                        .environmentObject(userData)
+                   // ImagePicker(isShown: self.$showImagePicker, image: self.$image, userID: $userData.userID)
+                     //   .environmentObject(userData)
                        
                  }
                 .onReceive(Publishers.keyboardHeight){height in
@@ -229,104 +179,104 @@ struct ChatView: View {
             .blur(radius: membersList ? 8 : 0)
             .animation(.easeInOut)
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    HStack {
-                        Text(group.groupName)
-                            .font(.custom("Montserrat-Bold", size: 18))
-                            .padding()
-                            .foregroundColor(Color("Text"))
-                        
-                    }
-                }
-                ToolbarItem(placement:.navigation){
-                    HStack{
-                        if test {
-                          
-                            Button(action: {
-                                showLoadingAnimation = true
-                                let request = AF.request("https://studyhub1.herokuapp.com/access_token?channel=\(group.groupID)&uid=0")
-                                
-                                request.responseJSON { (response) in
-                                    print(response)
-                                    guard let tokenDict = response.value as! [String : Any]? else { return }
-                                    let token = tokenDict["token"] as! String
-                                    
-                                    self.token = token
-                                    
-                                    if token != "" {
-                                        ARChat = true
-                                    }
-                                }
-                                
-                            }) {
-                                Image(systemName: "phone")
-                                    .font(.system(size: 25))
-                                    .foregroundColor(Color("Primary"))
-                                
-                            }
-                            
-                        }
-                        Button(action: {membersList=true}){
-                            Image(systemName: "ellipsis.circle.fill")
-                                .font(.system(size: 25))
-                                .foregroundColor(Color("Primary"))
-
-
-                        }
-                   
-                    }
-              
-                }
-            } .onTapGesture() {
-                toggleReaction = false
-            }
-            if toggleReaction {
-                HStack { //.font(.custom("Montserrat-regular", size: 14)).foregroundColor(Color("Text"))
-                    Picker(selection: $message.reactions, label: HStack{
-                            Text("Reaction: ")
-                            }) {
-                        ForEach(reactions, id: \.self) { (reaction) in
-                            if reaction == "love" {
-                                Text("❤️")
-                            } else
-                            if reaction == "thumbsup" {
-                                Text("👍")
-                            } else
-                            if reaction == "laugh" {
-                                Text("🤣")
-                            } else
-                            if reaction == "celebrate" {
-                                Text("🎉")
-                            }
-                        }
-                    }
-                    .pickerStyle(MenuPickerStyle())
-                    .foregroundColor(Color("Text"))
-                    .font(.custom("Montserrat-regular", size: 14))
-                    
-                }
-                .padding(.trailing, 10)
-            }
+//            .toolbar {
+//                ToolbarItem(placement: .principal) {
+//                    HStack {
+//                        Text(group.groupName)
+//                            .font(.custom("Montserrat-Bold", size: 18))
+//                            .padding()
+//                            .foregroundColor(Color("Text"))
+//
+//                    }
+//                }
+//                ToolbarItem(placement:.navigation){
+//                    HStack{
+//                        if test {
+//
+//                            Button(action: {
+//                                showLoadingAnimation = true
+//                                let request = AF.request("https://studyhub1.herokuapp.com/access_token?channel=\(group.groupID)&uid=0")
+//
+//                                request.responseJSON { (response) in
+//                                    print(response)
+//                                    guard let tokenDict = response.value as! [String : Any]? else { return }
+//                                    let token = tokenDict["token"] as! String
+//
+//                                    self.token = token
+//
+//                                    if token != "" {
+//                                        ARChat = true
+//                                    }
+//                                }
+//
+//                            }) {
+//                                Image(systemName: "phone")
+//                                    .font(.system(size: 25))
+//                                    .foregroundColor(Color("Primary"))
+//
+//                            }
+//
+//                        }
+//                        Button(action: {membersList=true}){
+//                            Image(systemName: "ellipsis.circle.fill")
+//                                .font(.system(size: 25))
+//                                .foregroundColor(Color("Primary"))
+//
+//
+//                        }
+//
+//                    }
+//
+//                }
+//            } .onTapGesture() {
+               // toggleReaction = false
+           // }
+//            if toggleReaction {
+//                HStack { //.font(.custom("Montserrat-regular", size: 14)).foregroundColor(Color("Text"))
+//                    Picker(selection: $message.reactions, label: HStack{
+//                            Text("Reaction: ")
+//                            }) {
+//                        ForEach(reactions, id: \.self) { (reaction) in
+//                            if reaction == "love" {
+//                                Text("❤️")
+//                            } else
+//                            if reaction == "thumbsup" {
+//                                Text("👍")
+//                            } else
+//                            if reaction == "laugh" {
+//                                Text("🤣")
+//                            } else
+//                            if reaction == "celebrate" {
+//                                Text("🎉")
+//                            }
+//                        }
+//                    }
+//                    .pickerStyle(MenuPickerStyle())
+//                    .foregroundColor(Color("Text"))
+//                    .font(.custom("Montserrat-regular", size: 14))
+//
+//                }
+//                .padding(.trailing, 10)
+//            }
             if viewImage {
-                FullImageView(id: $id, viewImage: $viewImage)
+               // FullImageView(id: $id, viewImage: $viewImage)
             }
-                if ARChat {
-                    VStack {
-                        HStack {
-                            Button(action: {
-                                
-                                
-                            }) {
-                                Image(systemName: "xmark")
-                                    .foregroundColor(Color("Secondary"))
-                            }
-                            Spacer()
-                        }
-                        Spacer()
-                    } .padding()
-                    VoiceChat(agoraKit: AgoraRtcEngineKit(), token: token, name: group.groupID, vc: $ARChat, group: group, loadingAnimation: $showLoadingAnimation)
-                }
+//                if ARChat {
+//                    VStack {
+//                        HStack {
+//                            Button(action: {
+//
+//
+//                            }) {
+//                                Image(systemName: "xmark")
+//                                    .foregroundColor(Color("Secondary"))
+//                            }
+//                            Spacer()
+//                        }
+//                        Spacer()
+//                    } .padding()
+//                    VoiceChat(agoraKit: AgoraRtcEngineKit(), token: token, name: group.groupID, vc: $ARChat, group: group, loadingAnimation: $showLoadingAnimation)
+//                }
         
             BottomCardSubview(displayView: AnyView(MemberListSubview(members: $members, memberList: $membersList, showFull: $showFull, group: $group, person: $person, messages: $messages)), showFull: $showFull, showCard: $membersList)
             
@@ -525,13 +475,7 @@ struct ChatView: View {
             
         }
         
-        func MessageCellView(_ message: MessageData) -> AnyView {
-            if message.sentBySelf! {
-                return AnyView(ChatCellSelf(message: message, group: group))
-            } else {
-                return AnyView(ChatCell(name: message.sentBy, message: message, group: group))
-            }
-        }
+        
         
         
     }
@@ -590,6 +534,72 @@ struct assetMessage: View {
                 
             }
           }
+        }
+    }
+}
+struct MessagesView: View {
+    @State var message: MessageData
+    @Binding var id: String
+    @Binding var viewImage: Bool
+    @Binding var group: Groups
+    var body: some View {
+        VStack {
+            HStack {
+                if message.sentBySelf ?? false {
+                    Spacer()
+                }
+            
+            if message.assetID != "" {
+                assetMessage(assetID: message.assetID)
+                    .frame(width: 150, height: 150)
+                    .onTapGesture() {
+                        id = message.assetID
+                        viewImage = true
+                    }
+            }
+            if !message.sentBySelf! {
+                Spacer()
+            }
+            }
+        MessageCellView(message)
+            .id(message.id)
+            .frame(minWidth: 100, minHeight: 50)
+            .onLongPressGesture {
+               // toggleReaction = true
+                self.message = message
+            }
+            HStack {
+                if message.sentBySelf ?? false {
+                    Spacer()
+                }
+            
+                
+                if !message.sentBySelf! {
+                    Spacer()
+                }
+//                if !message.reactions.isEmpty {
+//                    HStack {
+//                    ForEach(message.reactions, id:\.self) { reaction in
+//                        Text(reaction == "love" ? "❤️" : "")
+//
+//                        Text(reaction == "thumbsup" ? "👍" : "")
+//
+//                        Text(reaction == "laugh" ? "🤣" : "")
+//
+//                        Text(reaction == "celebrate" ? "🎉" : "")
+//
+//                    }
+//                    }
+//                }
+            } .padding(.horizontal)
+           
+        }
+    }
+    func MessageCellView(_ message: MessageData) -> AnyView {
+        if message.sentBySelf! {
+            return AnyView(ChatCellSelf(message: message, group: group))
+        } else {
+            return AnyView(ChatCell(name: message.sentBy, message: message, group: group))
         }
     }
 }

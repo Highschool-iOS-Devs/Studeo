@@ -13,7 +13,6 @@ import FirebaseFirestore
 import FirebaseMessaging
 import UIKit
 import UserNotifications
-
 class PushNotificationManager: NSObject, MessagingDelegate, UNUserNotificationCenterDelegate {
     let userID: String
    
@@ -50,11 +49,11 @@ class PushNotificationManager: NSObject, MessagingDelegate, UNUserNotificationCe
         }
     }
 
-    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
-        print(remoteMessage.appData) // or do whatever
-    }
+//    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
+//        print(remoteMessage.appData) // or do whatever
+//    }
 
-    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         updateFirestorePushTokenIfNeeded()
     }
 
