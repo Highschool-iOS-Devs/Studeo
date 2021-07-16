@@ -21,6 +21,7 @@ struct DevChatBanner: View {
         NavigationView{
             ZStack {
                 Color("Primary")
+                
                     .ignoresSafeArea()
                     
                     .onAppear() {

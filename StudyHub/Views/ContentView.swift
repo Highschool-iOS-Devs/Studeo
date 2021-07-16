@@ -121,8 +121,10 @@ struct ContentView: View {
                         .transition(AnyTransition.move(edge: .bottom))
                         .animation(Animation.easeInOut(duration: 0.5))
                         .frame(height: geo.size.height/8)
+                       
                 } .transition(AnyTransition.move(edge: .bottom))
                 .animation(Animation.easeInOut(duration: 0.5))
+                .ignoresSafeArea(.all, edges: .bottom)
             }
          
             // == true || viewRouter.currentView != .registration || viewRouter.currentView != .login 
