@@ -57,29 +57,29 @@ struct OtherUserProfileView: View {
                          .multilineTextAlignment(.center)
                         .padding(.bottom, 22)
                     //if !alreadyHaveDM{
-                        Button(action: {
-                            let groupMemberIDs = [user.id.uuidString, userData.userID]
-                            let id = UUID().uuidString
-                            let newGroup = Groups(id: id,
-                                                  groupID: id,
-                                              groupName: String(describing: userData.name + " and " + user.name),
-                                              members: groupMemberIDs,
-                                              membersCount: groupMemberIDs.count,
-                                              interests: [nil], userInVC: [String]())
-
-                                self.joinGroup(newGroup: newGroup)
-                            presentationMode.wrappedValue.dismiss()
-                            showMemberList = false
-    //                        group = newGroup
-    //                        messages.removeAll()
-                            
-                        }){
-                            Text("Private message")
-                                .font(Font.custom("Montserrat-Bold", size: 16, relativeTo: .headline))
-                        }
-                        .frame(height:50)
-                        .buttonStyle(BlueStyle())
-                        .padding(.bottom)
+//                        Button(action: {
+//                            let groupMemberIDs = [user.id.uuidString, userData.userID]
+//                            let id = UUID().uuidString
+//                            let newGroup = Groups(id: id,
+//                                                  groupID: id,
+//                                              groupName: String(describing: userData.name + " and " + user.name),
+//                                              members: groupMemberIDs,
+//                                              membersCount: groupMemberIDs.count,
+//                                              interests: [nil], userInVC: [String]())
+//
+//                                self.joinGroup(newGroup: newGroup)
+//                            presentationMode.wrappedValue.dismiss()
+//                            showMemberList = false
+//    //                        group = newGroup
+//    //                        messages.removeAll()
+//                            
+//                        }){
+//                            Text("Private message")
+//                                .font(Font.custom("Montserrat-Bold", size: 16, relativeTo: .headline))
+//                        }
+//                        .frame(height:50)
+//                        .buttonStyle(BlueStyle())
+//                        .padding(.bottom)
                    // }
           
                    Spacer()
