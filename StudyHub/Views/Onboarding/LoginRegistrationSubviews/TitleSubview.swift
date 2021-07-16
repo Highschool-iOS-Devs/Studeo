@@ -15,13 +15,12 @@ struct TitleSubview: View {
         VStack {
             Text(titleText)
                 .font(Font.custom("Montserrat-Bold", size: 24, relativeTo: .headline))
-                .padding(.bottom, 40)
                 .foregroundColor(Color("Text"))
             Image(decorative: image)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 //.frame(height: 220)
-        }
+        } .padding(.top)
     }
         
         

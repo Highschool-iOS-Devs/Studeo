@@ -35,7 +35,7 @@ struct IntroView: View {
             
             .transition(.opacity)
             .animation(.easeInOut(duration: 1.5))
-            .ignoresSafeArea()
+            .ignoresSafeArea(.all, edges: .bottom)
 
        
         }

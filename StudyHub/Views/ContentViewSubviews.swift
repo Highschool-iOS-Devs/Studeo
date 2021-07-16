@@ -118,6 +118,7 @@ case .leaderboard:
         }
 case .introView:
     IntroView()
+               
         .transition(.opacity)
         .animation(.easeInOut)
         .onAppear() {
