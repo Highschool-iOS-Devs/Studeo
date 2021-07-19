@@ -85,6 +85,8 @@
 		E10C058625900A100020FD7C /* Pods_StudyHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47F4119D880B6AFBE91DBA85 /* Pods_StudyHub.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		E10C05CD259013B70020FD7C /* MemberListSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10C05CC259013B70020FD7C /* MemberListSubview.swift */; };
 		E11157A32593CF31005E9AEA /* VoiceChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11157A22593CF31005E9AEA /* VoiceChat.swift */; };
+		E122F4C426A6095000C81936 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = E122F4C326A6095000C81936 /* Kingfisher */; };
+		E122F4C626A6095000C81936 /* KingfisherSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = E122F4C526A6095000C81936 /* KingfisherSwiftUI */; };
 		E12C5F8C259A26FE00D3314E /* TimerStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12C5F8B259A26FE00D3314E /* TimerStatsView.swift */; };
 		E12C5FA5259A518500D3314E /* BarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12C5F92259A518500D3314E /* BarChartView.swift */; };
 		E12C5FA6259A518500D3314E /* BarChartRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12C5F93259A518500D3314E /* BarChartRow.swift */; };
@@ -139,7 +141,6 @@
 		E193F40026A110F60050BA0E /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = E193F3FF26A110F60050BA0E /* FirebaseMessaging */; };
 		E193F40226A110F60050BA0E /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = E193F40126A110F60050BA0E /* FirebaseStorage */; };
 		E193F40426A110F60050BA0E /* FirebaseStorageSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = E193F40326A110F60050BA0E /* FirebaseStorageSwift-Beta */; };
-		E193F40D26A1243D0050BA0E /* KingfisherSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = E193F40C26A1243D0050BA0E /* KingfisherSwiftUI */; };
 		E19A0BC725925C4500F5F855 /* PairingSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19A0BC625925C4500F5F855 /* PairingSuccessView.swift */; };
 		E1A39F2025A8CC100001B96F /* QuizTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A39F1F25A8CC100001B96F /* QuizTitle.swift */; };
 		E1A39F2525A8D5670001B96F /* QuizLeaderboardRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A39F2325A8D5670001B96F /* QuizLeaderboardRow.swift */; };
@@ -150,7 +151,6 @@
 		E1BCD401251E7CF50051A28C /* LeaderboardSubViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BCD400251E7CF50051A28C /* LeaderboardSubViews.swift */; };
 		E1BCD406251E8A080051A28C /* PairingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BCD405251E8A080051A28C /* PairingView.swift */; };
 		E1C91E142503B86300001424 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C91E132503B86300001424 /* Blur.swift */; };
-		E1F2F8B9257009A800D8B87E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E1F2F8B8257009A800D8B87E /* Alamofire */; };
 		E3CA983225167D4800602EB6 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CA983125167D4800602EB6 /* NotificationsView.swift */; };
 		E3CA983825180CAD00602EB6 /* PersonalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CA983725180CAD00602EB6 /* PersonalInfoView.swift */; };
 /* End PBXBuildFile section */
@@ -303,14 +303,14 @@
 			files = (
 				E193F3F826A110F60050BA0E /* FirebaseAnalyticsSwift-Beta in Frameworks */,
 				E193F3C626A107680050BA0E /* AgoraRtcKit in Frameworks */,
+				E122F4C426A6095000C81936 /* Kingfisher in Frameworks */,
 				E193F40026A110F60050BA0E /* FirebaseMessaging in Frameworks */,
-				E1F2F8B9257009A800D8B87E /* Alamofire in Frameworks */,
 				E193F40426A110F60050BA0E /* FirebaseStorageSwift-Beta in Frameworks */,
 				E193F3FE26A110F60050BA0E /* FirebaseFirestoreSwift-Beta in Frameworks */,
 				E193F3DA26A108440050BA0E /* Lottie in Frameworks */,
 				E193F3FC26A110F60050BA0E /* FirebaseFirestore in Frameworks */,
 				E193F40226A110F60050BA0E /* FirebaseStorage in Frameworks */,
-				E193F40D26A1243D0050BA0E /* KingfisherSwiftUI in Frameworks */,
+				E122F4C626A6095000C81936 /* KingfisherSwiftUI in Frameworks */,
 				BE5F3760259C3B9400542AA0 /* SupportDocs in Frameworks */,
 				E193F3FA26A110F60050BA0E /* FirebaseAuth in Frameworks */,
 				E10C058625900A100020FD7C /* Pods_StudyHub.framework in Frameworks */,
@@ -765,7 +765,6 @@
 			);
 			name = StudyHub;
 			packageProductDependencies = (
-				E1F2F8B8257009A800D8B87E /* Alamofire */,
 				BE5F375F259C3B9400542AA0 /* SupportDocs */,
 				E193F3C526A107680050BA0E /* AgoraRtcKit */,
 				E193F3D926A108440050BA0E /* Lottie */,
@@ -778,7 +777,8 @@
 				E193F3FF26A110F60050BA0E /* FirebaseMessaging */,
 				E193F40126A110F60050BA0E /* FirebaseStorage */,
 				E193F40326A110F60050BA0E /* FirebaseStorageSwift-Beta */,
-				E193F40C26A1243D0050BA0E /* KingfisherSwiftUI */,
+				E122F4C326A6095000C81936 /* Kingfisher */,
+				E122F4C526A6095000C81936 /* KingfisherSwiftUI */,
 			);
 			productName = StudyHub;
 			productReference = E339449224F1B71600F11BA9 /* StudyHub.app */;
@@ -809,13 +809,12 @@
 			);
 			mainGroup = E339448924F1B71600F11BA9;
 			packageReferences = (
-				E1F2F8B7257009A800D8B87E /* XCRemoteSwiftPackageReference "Alamofire" */,
 				BE5F375E259C3B9400542AA0 /* XCRemoteSwiftPackageReference "SupportDocs" */,
 				E193F3C426A107680050BA0E /* XCRemoteSwiftPackageReference "AgoraRtcEngine_iOS" */,
 				E193F3D826A108440050BA0E /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				E193F3DB26A108590050BA0E /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				E193F3F426A110F60050BA0E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				E193F40B26A1243D0050BA0E /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				E122F4C226A6095000C81936 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = E339449324F1B71600F11BA9 /* Products */;
 			projectDirPath = "";
@@ -1138,7 +1137,7 @@
 				CODE_SIGN_ENTITLEMENTS = StudyHub/StudyHub.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyHub/Preview Content\"";
 				DEVELOPMENT_TEAM = MC27HKM86M;
@@ -1169,7 +1168,7 @@
 				CODE_SIGN_ENTITLEMENTS = StudyHub/StudyHub.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyHub/Preview Content\"";
 				DEVELOPMENT_TEAM = MC27HKM86M;
@@ -1224,6 +1223,14 @@
 				minimumVersion = 1.1.0;
 			};
 		};
+		E122F4C226A6095000C81936 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = exactVersion;
+				version = 5.15.8;
+			};
+		};
 		E193F3C426A107680050BA0E /* XCRemoteSwiftPackageReference "AgoraRtcEngine_iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/AgoraIO/AgoraRtcEngine_iOS";
@@ -1256,22 +1263,6 @@
 				kind = branch;
 			};
 		};
-		E193F40B26A1243D0050BA0E /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
-			requirement = {
-				kind = exactVersion;
-				version = 5.15.8;
-			};
-		};
-		E1F2F8B7257009A800D8B87E /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.4.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1279,6 +1270,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BE5F375E259C3B9400542AA0 /* XCRemoteSwiftPackageReference "SupportDocs" */;
 			productName = SupportDocs;
+		};
+		E122F4C326A6095000C81936 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E122F4C226A6095000C81936 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		E122F4C526A6095000C81936 /* KingfisherSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E122F4C226A6095000C81936 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = KingfisherSwiftUI;
 		};
 		E193F3C526A107680050BA0E /* AgoraRtcKit */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -1334,16 +1335,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E193F3F426A110F60050BA0E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseStorageSwift-Beta";
-		};
-		E193F40C26A1243D0050BA0E /* KingfisherSwiftUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E193F40B26A1243D0050BA0E /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = KingfisherSwiftUI;
-		};
-		E1F2F8B8257009A800D8B87E /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E1F2F8B7257009A800D8B87E /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

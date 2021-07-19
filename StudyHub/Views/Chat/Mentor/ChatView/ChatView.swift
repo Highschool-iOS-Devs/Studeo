@@ -10,7 +10,7 @@ import Combine
 import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
-import Alamofire
+//import Alamofire
 import AgoraRtcKit
 //!!!You do not use OnAppear method with this view, this view
 //is created at the same time as AddChat View!!!
