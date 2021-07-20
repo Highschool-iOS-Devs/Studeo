@@ -144,8 +144,8 @@ struct MemberListSubview: View {
         
         }
         .onAppear{
-            for index in 0..<members.count{
-                downloadImages(for: members[index].id.uuidString){
+            for index in 0..<members.count {
+                downloadImages(for: members[index].id.uuidString) {
                     members[index].profileImageURL = $0
                 }
                 

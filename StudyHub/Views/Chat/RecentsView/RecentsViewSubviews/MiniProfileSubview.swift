@@ -21,7 +21,7 @@ struct MiniProfileSubview: View {
     var group:Groups
     var body: some View {
         LazyVGrid(columns: gridItemLayout){
-            ForEach(0..<profileImages.count, id: \.self){ index in
+            ForEach(profileImages.indices, id: \.self){ index in
                 KFImage(profileImages[index], options: [.transition(.fade(0.5)), .processor(DownsamplingImageProcessor(size: CGSize(width: 60, height: 60))), .cacheOriginalImage])
                     .onSuccess { r in
                          // r: RetrieveImageResult
@@ -50,7 +50,7 @@ struct MiniProfileSubview: View {
         }
     }
     func getProfileImage() {
-        if profileImages == []{
+        if profileImages == [] {
             for member in group.members.removeDuplicates() {
                 let metadata = StorageMetadata()
                 metadata.contentType = "image/jpeg"
@@ -64,7 +64,7 @@ struct MiniProfileSubview: View {
             }
         }
     
-       
+      
     }
 }
 

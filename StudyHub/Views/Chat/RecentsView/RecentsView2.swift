@@ -49,7 +49,10 @@ struct RecentsView2: View {
                                 VStack(spacing: 20) {
                                     if !groupModel.recentGroups.isEmpty {
                                         ForEach(groupModel.recentGroups.indices) { i in//, id: \.groupID){ group in
+#warning("maybe the issue is here")
+                                            if groupModel.recentGroups.indices.contains(i) {
                                         NavigationLink(
+                                           
                                             destination:ChatView(group: $groupModel.recentGroups[i], show: $show)
                                                         .environmentObject(userData)
                                             ){
@@ -59,6 +62,7 @@ struct RecentsView2: View {
                                                 .environmentObject(UserData.shared)
                                             
                                         }
+                                            }
                                         
                                     }
                                     }
@@ -74,9 +78,10 @@ struct RecentsView2: View {
                                 AllGroupTextRow()
                                     .environmentObject(userData)
                                 LazyVGrid(columns: gridItemLayout, spacing: 40){
-                                    ForEach(groupModel.allGroups.indices) {i in//, id: \.groupID){group in
+                                    ForEach(groupModel.allGroups.indices) { i in//, id: \.groupID){group in
                                         NavigationLink(destination: ChatView(group: $groupModel.allGroups[i], show: $show)
                                                         .environmentObject(userData)){
+                                           
                                             RecentChatGroupSubview(group: groupModel.allGroups[i])
                                                 .environmentObject(UserData.shared)
                                         }
