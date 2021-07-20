@@ -59,7 +59,9 @@ struct MiniProfileSubview: View {
                     if let error = error{
                         print("Error downloading image, \(error)")
                     }
-                    profileImages.append(url!)
+                    if let url = url {
+                        profileImages.append(url)
+                    }
                 }
             }
         }
