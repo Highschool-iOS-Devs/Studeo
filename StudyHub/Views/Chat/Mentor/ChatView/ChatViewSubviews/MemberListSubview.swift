@@ -49,14 +49,14 @@ struct MemberListSubview: View {
                 .padding(.bottom, 2)
                 HStack{
                     Spacer()
-                    Text("\(group.membersCount-1) studymates")
+                    Text("\(members.count-1) studymates")
                         .foregroundColor(Color("Secondary"))
                         .font(Font.custom("Montserrat-SemiBold", size: 15, relativeTo: .subheadline))
 
                     
                     Spacer()
                 }
-                if members.count <= 4{
+                if members.count <= 4 {
                     HStack(alignment: .center) {
                         ForEach(members) { member in
                             if member.id.uuidString != self.userData.userID {

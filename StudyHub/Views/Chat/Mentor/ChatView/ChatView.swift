@@ -107,11 +107,11 @@ struct ChatView: View {
                             presentationMode.wrappedValue.dismiss()
                             
                         }
-                    MessageButtons(imageName: "camera.fill")
-                        .onTapGesture {
-                           
-                            showImagePicker = true
-                        }
+//                    MessageButtons(imageName: "camera.fill")
+//                        .onTapGesture {
+//
+//                            showImagePicker = true
+//                        }
                     Spacer()
                     TextField("Enter message", text: self.$messageField)
                         .font(.custom("Montserrat", size: 15))
@@ -402,19 +402,19 @@ struct ChatView: View {
             
             docRef.getDocuments{ (querySnapshot, error) in
                 if let querySnapshot = querySnapshot,!querySnapshot.isEmpty{
-                    for document in querySnapshot.documents{
+                    for document in querySnapshot.documents {
                         let result = Result {
                             try document.data(as: User.self)
                         }
                         switch result {
                         case .success(let user):
-                            if var user = user {
+                            if let user = user {
                                 
                                 groupList.append(user)
-                                
+                                print(user)
                             } else {
                                 
-                                print("Document does not exist")
+                                print("Group member does not exist")
                             }
                         case .failure(let error):
                             print("Error decoding user: \(error)")
