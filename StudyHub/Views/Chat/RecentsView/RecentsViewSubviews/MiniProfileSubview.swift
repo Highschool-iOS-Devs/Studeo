@@ -49,9 +49,9 @@ struct MiniProfileSubview: View {
             getProfileImage()
         }
     }
-    func getProfileImage(){
+    func getProfileImage() {
         if profileImages == []{
-            for member in group.members{
+            for member in group.members.removeDuplicates() {
                 let metadata = StorageMetadata()
                 metadata.contentType = "image/jpeg"
                 let storage = Storage.storage().reference().child("User_Profile/\(member)")
