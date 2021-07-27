@@ -4,7 +4,7 @@ import SwiftUI
 import Firebase
 struct QuizLeaderboardView: View {
     @Binding var users: [User]
-    @EnvironmentObject var quizRouter: QuizRouter
+    @ObservedObject var quizRouter: QuizRouter
     @State var isAndreas = true
     @State var group: Groups
     @State var quiz: Quiz

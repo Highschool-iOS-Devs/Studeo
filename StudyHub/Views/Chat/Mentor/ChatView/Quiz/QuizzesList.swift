@@ -14,7 +14,7 @@ struct QuizzesList: View {
     @State var quizzing = Quiz(id: UUID().uuidString, name: "", tags: [String](), questions: [Question](), groupID: "")
     @State var testing = true
     @Binding var group: Groups
-    @EnvironmentObject var viewRouter:ViewRouter
+    @ObservedObject var viewRouter:ViewRouter
     @Binding var quiz: Bool
     @State var add = false
     @State var viewQuiz = false
@@ -75,7 +75,7 @@ struct QuizzesList: View {
         }
 }
         if viewQuiz {
-            QuizView(quiz: quizzing, i: $i, group: $group)
+           // QuizView(quiz: quizzing, i: $i, group: $group)
         }
         if add {
             AddQuiz(quiz: Quiz(id: UUID().uuidString, name: "Test", tags: [String](), questions: [Question](), groupID: group.groupID))

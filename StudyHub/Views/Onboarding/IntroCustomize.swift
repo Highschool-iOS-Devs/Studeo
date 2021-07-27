@@ -21,12 +21,12 @@ func hapticEngine(style: UIImpactFeedbackGenerator.FeedbackStyle){
 struct IntroCustomize: View {
     @Binding var interestSelected: [UserInterestTypes]
     //@State var existingInterests: [UserInterestTypes]
-    @EnvironmentObject var userData: UserData
+    @ObservedObject var userData: UserData
     @State var isNotOnboarding: Bool = false
     @Binding var interests: [String]
     @Binding var settings: Bool
     @Binding var add: Bool
-    @EnvironmentObject var viewRouter:ViewRouter
+    @ObservedObject var viewRouter:ViewRouter
     var groupModel:ChatViewModel?
     
     var body: some View {
@@ -113,7 +113,7 @@ struct IntroCustomize: View {
                 
                 }
                    
-            }
+            } .padding(.top)
         }
         .animation(.easeInOut)
         .onAppear{

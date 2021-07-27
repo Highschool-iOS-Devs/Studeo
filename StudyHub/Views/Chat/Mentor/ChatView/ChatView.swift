@@ -11,12 +11,12 @@ import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 //import Alamofire
-import AgoraRtcKit
+//import AgoraRtcKit
 //!!!You do not use OnAppear method with this view, this view
 //is created at the same time as AddChat View!!!
 struct ChatView: View {
-    @EnvironmentObject var userData:UserData
-    @EnvironmentObject var viewRouter:ViewRouter
+    @ObservedObject var userData:UserData
+    @ObservedObject var viewRouter:ViewRouter
     @Environment(\.presentationMode) var presentationMode
     //@State var nameAndProfiles:[NameAndProfileModel] = []
     @State var messageField = ""
@@ -163,7 +163,7 @@ struct ChatView: View {
                 }
                 .sheet(isPresented: self.$showImagePicker){
                    // ImagePicker(isShown: self.$showImagePicker, image: self.$image, userID: $userData.userID)
-                     //   .environmentObject(userData)
+                     //   
                        
                  }
                 .onReceive(Publishers.keyboardHeight){height in
@@ -279,7 +279,7 @@ struct ChatView: View {
 //                    VoiceChat(agoraKit: AgoraRtcEngineKit(), token: token, name: group.groupID, vc: $ARChat, group: group, loadingAnimation: $showLoadingAnimation)
 //                }
         
-            BottomCardSubview(displayView: AnyView(MemberListSubview(members: $members, memberList: $membersList, showFull: $showFull, group: $group, person: $person, messages: $messages)), showFull: $showFull, showCard: $membersList)
+            BottomCardSubview(displayView: AnyView(MemberListSubview(members: $members, memberList: $membersList, showFull: $showFull, group: $group, person: $person, userData: userData, messages: $messages)), showFull: $showFull, showCard: $membersList)
             
             if showLoadingAnimation{
                 VStack{

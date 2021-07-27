@@ -14,9 +14,79 @@ import FirebaseFirestoreSwift
 class ChatViewModel:ObservableObject{
     var userData:UserData?
     @Published var allGroups:[Groups] = []
+    @Published var allUnjoinedGroups:[Groups] = []
+    @Published var allUnjoinedMentors:[Groups] = []
     @Published var recentGroups:[Groups] = []
     @Published var recentPeople:[User] = []
     @Published var currentUser:User?
+    
+    func getAllUnJoinedGroups(performAction: @escaping ([Groups]) -> Void){
+        guard userData != nil else {return}
+        let db = Firestore.firestore()
+        let docRef = db.collection("groups")
+        let queryParameter = docRef
+        var allGroups:[Groups] = []
+
+        queryParameter.getDocuments{ (querySnapshot, error) in
+            guard querySnapshot != nil else {
+                print("Empty snapshot")
+                return}
+            for document in querySnapshot!.documents{
+                let result = Result {
+                    try document.data(as: Groups.self)
+                }
+                switch result {
+                    case .success(let user):
+                        if let user = user {
+                            if !user.members.contains(self.userData!.userID) {
+                                if user.members.count < 6 {
+                            allGroups.append(user)
+                                }
+                            }
+                        } else {
+                            print("Document does not exist")
+                        }
+                    case .failure(let error):
+                        print("Error decoding user: \(error)")
+                    }
+            }
+            performAction(allGroups)
+        }
+    }
+    
+    func getAllUnJoinedmentors(performAction: @escaping ([Groups]) -> Void){
+        guard userData != nil else {return}
+        let db = Firestore.firestore()
+        let docRef = db.collection("groups")
+        let queryParameter = docRef
+        var allGroups:[Groups] = []
+
+        queryParameter.getDocuments{ (querySnapshot, error) in
+            guard querySnapshot != nil else {
+                print("Empty snapshot")
+                return}
+            for document in querySnapshot!.documents{
+                let result = Result {
+                    try document.data(as: Groups.self)
+                }
+                switch result {
+                    case .success(let user):
+                        if let user = user {
+                            if !user.members.contains(self.userData!.userID) {
+                                if user.members.count < 3 {
+                            allGroups.append(user)
+                                }
+                            }
+                        } else {
+                            print("Document does not exist")
+                        }
+                    case .failure(let error):
+                        print("Error decoding user: \(error)")
+                    }
+            }
+            performAction(allGroups)
+        }
+    }
     
     func getAllGroups(performAction: @escaping ([Groups]) -> Void){
         guard userData != nil else {return}

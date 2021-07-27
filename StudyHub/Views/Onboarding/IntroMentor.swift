@@ -14,13 +14,14 @@ import FirebaseAuth
 import FirebaseCore
 
 struct IntroMentor: View {
-    @EnvironmentObject var userData: UserData
+    @ObservedObject var userData: UserData
+    @ObservedObject var viewRouter:ViewRouter
     @State var mentorSelected:[UserInterestTypes] = []
     
     @State var isNotOnboarding: Bool = false
 
     
-    @EnvironmentObject var viewRouter:ViewRouter
+   
     var body: some View {
         
         ZStack {

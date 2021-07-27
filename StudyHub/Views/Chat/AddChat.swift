@@ -14,8 +14,8 @@
 //import FirebaseCore
 //
 //struct AddChat: View {
-//    @EnvironmentObject var userData:UserData
-//    @EnvironmentObject var viewRouter:ViewRouter
+//    @ObservedObject var userData:UserData
+//    @ObservedObject var viewRouter:ViewRouter
 //
 //    //Used to control create new group modal view
 //    @State var presentCreateView = false
@@ -294,7 +294,7 @@
 //    }
 //}
 //struct CustomHeader: View {
-//    @EnvironmentObject var userData: UserData
+//    @ObservedObject var userData: UserData
 //    var body: some View {
 //        HStack {
 //
@@ -337,7 +337,7 @@
 //        } .padding(.horizontal, 12)
 //    }
 //}
-////    @EnvironmentObject var userData: UserData
+////    @ObservedObject var userData: UserData
 ////    @State var hasAppeared = false
 ////    @State var categories = [Categories]()
 ////    @State var people = [BasicUser]()

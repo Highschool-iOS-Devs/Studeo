@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct CountrySelectionView: View {
-    @EnvironmentObject var userData: UserData
+    @ObservedObject var userData: UserData
     @State private var displayError = false
     @State private var errorObject = ErrorModel(errorMessage: "Settings can not be updated at this time", errorState: false)
     

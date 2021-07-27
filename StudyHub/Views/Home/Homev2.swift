@@ -21,8 +21,8 @@ struct Homev2: View {
         GridItem(.flexible()),
        
     ]
-    @EnvironmentObject var userData: UserData
-    @EnvironmentObject var viewRouter:ViewRouter
+    @ObservedObject var userData: UserData
+    @ObservedObject var viewRouter:ViewRouter
     @State var columns3 = [GridItem]()
     @State var columns4 = [GridItem]()
     @State  var transition: Bool = false
@@ -159,7 +159,7 @@ struct Homev2: View {
                                 HStack {
                                     ForEach(Array(recommendGroups.enumerated()), id: \.element) { i, group in
                     
-                                        GroupsView(imgName: imgs[i], cta: "Join", name: group.groupName, group: $group)
+                                        GroupsView(imgName: imgs[i], cta: "Join", name: group.groupName, userData: userData, tabRouter: viewRouter, group: $group)
                                             .onAppear() {
                                              //  self.group = group
                                             }
@@ -176,16 +176,16 @@ struct Homev2: View {
                         if user.isEmpty {
                             
                         } else {
-                            SelfRankView(hours: sum, id: user[0].id.uuidString)
-                                .padding()
-                                .onTapGesture {
-                                    viewRouter.updateCurrentView(view: .leaderboard)
-                                }
+//                            SelfRankView(hours: sum, id: user[0].id.uuidString)
+//                                .padding()
+//                                .onTapGesture {
+//                                    viewRouter.updateCurrentView(view: .leaderboard)
+//                                }
                         }
                         if recentPeople.isEmpty {
-                        CTA(imgName: "friends", cta: "Find Study Partners")
+                        CTA(imgName: "friends", cta: "Find Study Partners", tabRouter: viewRouter, userData: userData)
                         }
-                            CTA(imgName: "mentor", cta: "Find a Mentor")
+                            CTA(imgName: "mentor", cta: "Find a Mentor", tabRouter: viewRouter, userData: userData)
                                
                              
                          //   CTA(imgName: "study", cta: "Compete")
@@ -193,8 +193,8 @@ struct Homev2: View {
                         if user.isEmpty {
                             
                         } else {
-                        LineView(data: user[0].studyHours, title: "Hours Studied", legend: "", style: Styles.barChartStyleNeonBlueLight)
-                                .padding()
+                        //LineView(data: user[0].studyHours, title: "Hours Studied", legend: "", style: Styles.barChartStyleNeonBlueLight)
+                               // .padding()
                         }
                             Spacer(minLength: 500)
                    
@@ -206,7 +206,7 @@ struct Homev2: View {
                     }.disabled(showingTimer ? true : false)
         }
               
-                     Header(showTimer: $showingTimer)
+                     Header(userData: userData, viewRouter: viewRouter, showTimer: $showingTimer)
                 }
             }.blur(radius: showingTimer ? 20 : 0)
             .onChange(of: self.i) { newValue in
@@ -215,12 +215,12 @@ struct Homev2: View {
            }
             .fullScreenCover(isPresented: $show, content: {
                 if dmChat {
-                ChatView(group: $recentPeople[self.i], show: $dmChat)
+                ChatView(userData: userData, viewRouter: viewRouter,group: $recentPeople[self.i], show: $dmChat)
                         .onDisappear {
                             dmChat = false
                         }
                 } else {
-                    ChatView(group: $devGroup, show: $dmChat)
+                    ChatView(userData: userData, viewRouter: viewRouter,group: $devGroup, show: $dmChat)
                 }
                 
             })

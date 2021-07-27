@@ -19,7 +19,8 @@ import UIKit
     @Binding var user: [User]
     @State var showEditProfile = false
     @State private var image : UIImage? = nil
-    @EnvironmentObject var userData: UserData
+    @ObservedObject var userData: UserData
+     @ObservedObject var viewRouter: ViewRouter
     @Environment(\.presentationMode) var presentationMode
      var body: some View {
         GeometryReader { geo in
@@ -50,7 +51,7 @@ import UIKit
                     .foregroundColor(Color("Primary"))
                     .padding(.top, 10)
                     
-                    ProfileRingView(size: geo.size.width-100)
+                     ProfileRingView(size: geo.size.width-100, userData: userData)
 
                     Text(userData.name)
                         // .frame(minWidth: 100, alignment: .leading)
@@ -84,7 +85,7 @@ import UIKit
                  .padding(.horizontal)
                 
              } .sheet(isPresented: self.$showEditProfile){
-                EditProfile(profileImage: $profileImage, user: $user)
+                EditProfile(profileImage: $profileImage, user: $user, userData: userData)
                     .environmentObject(UserData.shared)
              }
         }

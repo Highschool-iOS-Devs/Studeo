@@ -15,7 +15,7 @@ struct MemberListSubview: View {
     @Binding var showFull:Bool
     @Binding var group: Groups
     @Binding var person: User
-    @EnvironmentObject var userData:UserData
+    @ObservedObject var userData:UserData
     @State var member:User?
     @Binding var messages: [MessageData]
     let columns = [
@@ -118,7 +118,7 @@ struct MemberListSubview: View {
             if showFull{
                 withAnimation(Animation.easeInOut.speed(0.8)){
                     ZStack{
-                        OtherUserProfileView(user: member!, showMemberList: $memberList)
+                        OtherUserProfileView(user: member!, userData: userData, showMemberList: $memberList)
                         VStack{
                             HStack{
                                 Button(action: {

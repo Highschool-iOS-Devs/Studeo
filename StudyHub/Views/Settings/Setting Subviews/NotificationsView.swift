@@ -13,7 +13,7 @@ import Network
 let monitor = NWPathMonitor()
 fileprivate var networkConected = false
 struct NotificationsView: View {
-    @EnvironmentObject var userData: UserData
+    @ObservedObject var userData: UserData
     @Binding var chatNotifications: Bool
     @Binding var groupNotifications: Bool
     @State var displayError = false
@@ -41,8 +41,8 @@ struct NotificationsView: View {
                 .padding(.horizontal)
                 
                 VStack {
-                    NotificationRow(text: "Enable Chat Notifications", subText: "Get notified when a new message is sent", settingsVar: $chatNotifications, displayError: $displayError)
-                    NotificationRow(text: "Enable New Group Notifications", subText: "Get notified when we find you a new group", settingsVar: $groupNotifications, displayError: $displayError)
+                    NotificationRow(userData: userData, text: "Enable Chat Notifications", subText: "Get notified when a new message is sent", settingsVar: $chatNotifications, displayError: $displayError)
+                    NotificationRow(userData: userData, text: "Enable New Group Notifications", subText: "Get notified when we find you a new group", settingsVar: $groupNotifications, displayError: $displayError)
                 }
                 .padding(.vertical)
                 .background(Color("Background"))
@@ -72,7 +72,7 @@ struct NotificationsView: View {
 }
 
 struct NotificationRow: View {
-    @EnvironmentObject var userData: UserData
+    @ObservedObject var userData: UserData
     var text: String
     var subText: String
     @Binding var settingsVar: Bool

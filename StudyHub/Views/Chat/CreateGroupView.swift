@@ -15,7 +15,7 @@
 //struct CreateGroupView: View {
 //    @Binding var presentCreateView:Bool
 //    @State var selectedInterests:[UserInterestTypes] = []
-//    @EnvironmentObject var userData:UserData
+//    @ObservedObject var userData:UserData
 //    @Binding var myGroups:[Groups]
 //    @State var colorPick = Color.white
 //    @State var groupName = ""

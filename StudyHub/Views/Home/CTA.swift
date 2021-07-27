@@ -11,9 +11,9 @@ import SwiftUI
 struct CTA: View {
     @State var imgName = ""
     @State var cta = ""
-    var tabRouter:ViewRouter = .shared
+    @ObservedObject var tabRouter: ViewRouter
     @State var currentView: ViewRouter.Views = .home
-    @EnvironmentObject var userData: UserData
+    @ObservedObject var userData: UserData
     var body: some View {
         ZStack {
             
@@ -71,8 +71,3 @@ struct CTA: View {
     }
 }
 
-struct CTA_Previews: PreviewProvider {
-    static var previews: some View {
-        CTA()
-    }
-}

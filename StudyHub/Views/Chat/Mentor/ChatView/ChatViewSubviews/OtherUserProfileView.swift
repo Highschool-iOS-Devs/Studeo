@@ -17,7 +17,7 @@ struct OtherUserProfileView: View {
     @State var profileImageURL:URL?
     var user:User
     @State var alreadyHaveDM = true
-    @EnvironmentObject var userData:UserData
+    @ObservedObject var userData:UserData
     @Environment(\.presentationMode) var presentationMode
     @Binding var showMemberList:Bool
     var body: some View {
@@ -28,7 +28,7 @@ struct OtherUserProfileView: View {
                 
                  VStack {
                     
-                    ProfileRingView(imageURL:profileImageURL, size: geo.size.width-100)
+                     ProfileRingView(imageURL:profileImageURL, size: geo.size.width-100, userData: userData)
 
                     Text(user.name)
                         // .frame(minWidth: 100, alignment: .leading)

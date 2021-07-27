@@ -15,14 +15,14 @@ import KingfisherSwiftUI
 import struct Kingfisher.DownsamplingImageProcessor
 import struct Kingfisher.ImageResource
 import class Kingfisher.ImageCache
-import AgoraRtcKit
+//import AgoraRtcKit
 
 struct VCGridView: View {
     @State var profileImages:[URL] = []
     var gridItemLayout = [GridItem(.flexible()), GridItem(.flexible())]
     @Binding var users: [User]
     @Binding var isMuted: Bool
-    @Binding var agoraKit: AgoraRtcEngineKit
+    //@Binding var agoraKit: AgoraRtcEngineKit
    
     var body: some View {
         ZStack {

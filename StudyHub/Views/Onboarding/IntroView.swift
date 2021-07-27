@@ -13,8 +13,8 @@ struct IntroView: View {
     @State var interests = [String]()
     @State var add: Bool = false
     @State var settings: Bool = false
-    @EnvironmentObject var viewRouter: ViewRouter
-    @EnvironmentObject var userData: UserData
+    @ObservedObject var viewRouter: ViewRouter
+    @ObservedObject var userData: UserData
 
         
     
@@ -22,12 +22,13 @@ struct IntroView: View {
         ZStack {
            
             TabView {
-                IntroPage(titleText: "Welcome", bodyText: "Welcome to Studeo, a place to study with others and gain motivation. Build the future you've dreamed of, one study session at a time.", image: "studying_drawing")
+                IntroPage(titleText: "Welcome", bodyText: "Welcome to Studeo, a place to study with others and gain motivation. Build the future you've dreamed of, one study session at a time.", image: "studying_drawing", viewRouter: viewRouter)
                     
                 
-                IntroPage(titleText: "Study", bodyText: "Gain motivation by tracking your progress with a study timer and compete with others.", image: "mentor_drawing" )
-                IntroPage(titleText: "Motivate", bodyText: "Join a community deticated to motivating each other to study.", image: "timer_drawing")
-                RegistrationView()
+                IntroPage(titleText: "Study", bodyText: "Gain motivation by tracking your progress with a study timer and compete with others.", image: "mentor_drawing", viewRouter: viewRouter )
+                IntroPage(titleText: "Motivate", bodyText: "Join a community deticated to motivating each other to study.", image: "timer_drawing", viewRouter: viewRouter)
+                IntroPage(titleText: "Open Sourced", bodyText: "Studeo was created by amazing volunteers...", image: "", isOpenSourceView: true, viewRouter: viewRouter)
+                RegistrationView(viewRouter: viewRouter, userData: userData)
                     
                     .ignoresSafeArea()
                 
@@ -42,9 +43,5 @@ struct IntroView: View {
     }
 }
 
-struct IntroPages_Previews: PreviewProvider {
-    static var previews: some View {
-        IntroView()
-    }
-}
+
 

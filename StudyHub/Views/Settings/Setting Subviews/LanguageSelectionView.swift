@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct LanguageSelectionView: View {
-    @EnvironmentObject var userData: UserData
+    @ObservedObject var userData: UserData
     @State private var displayError = false
     @State private var errorObject = ErrorModel(errorMessage: "Settings can not be updated at this time", errorState: false)
     
@@ -101,20 +101,6 @@ struct LanguageRow: View {
         .padding()
         .onTapGesture {
             selectedLanguage = language
-        }
-    }
-}
-struct LanguageSelectionView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            LanguageSelectionView(selectedLanguage: .constant("EN"))
-                .previewDevice(PreviewDevice(rawValue: "iPhone 12 Pro"))
-                .previewDisplayName("iPhone 12 Pro")
-            
-            
-            LanguageSelectionView(selectedLanguage: .constant("EN"))
-                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
-                .previewDisplayName("iPhone SE")
         }
     }
 }

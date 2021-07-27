@@ -6,32 +6,32 @@
 //  Copyright © 2020 Dakshin Devanand. All rights reserved.
 //
 
-import SwiftUI
-
-struct PairingSuccess: View {
-    @Binding var paired: Bool
-    @Binding var chat: Bool
-    @State var group: Groups
-    var body: some View {
-        ZStack {
-            LottieView(name: "34595-confetti-for-ios-and-android")
-            VStack {
-                Text("Pairing Successful!")
-                    .font(Font.custom("Montserrat-SemiBold", size: 24, relativeTo: .headline))
-            Button(action: {
-               chat = true
-            }) {
-                Text("Chat")
-                    .font(Font.custom("Montserrat-SemiBold", size: 14, relativeTo: .headline))
-            } .buttonStyle(BlueStyle())
-            .padding()
-            
-        }
-            if chat {
-                ChatView(group: $group, show: $chat)
-            }
-    }
-}
-}
-
-
+//import SwiftUI
+//
+//struct PairingSuccess: View {
+//    @Binding var paired: Bool
+//    @Binding var chat: Bool
+//    @State var group: Groups
+//    var body: some View {
+//        ZStack {
+//            LottieView(name: "34595-confetti-for-ios-and-android")
+//            VStack {
+//                Text("Pairing Successful!")
+//                    .font(Font.custom("Montserrat-SemiBold", size: 24, relativeTo: .headline))
+//            Button(action: {
+//               chat = true
+//            }) {
+//                Text("Chat")
+//                    .font(Font.custom("Montserrat-SemiBold", size: 14, relativeTo: .headline))
+//            } .buttonStyle(BlueStyle())
+//            .padding()
+//            
+//        }
+//            if chat {
+//                ChatView( userData: userData, viewRouter: viewRouter, group: $group, show: $chat)
+//            }
+//    }
+//}
+//}
+//
+//

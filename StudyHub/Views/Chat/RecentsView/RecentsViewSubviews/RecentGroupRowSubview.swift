@@ -16,7 +16,7 @@ struct RecentGroupRowSubview: View {
    @State var group: Groups
     @State var tapped:Bool = false
     var profilePicture:Image
-    @EnvironmentObject var userData: UserData
+    @ObservedObject var userData: UserData
     @State var chat = false
     @State var sentTime = ""
     @State var messagePreview = ""

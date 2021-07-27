@@ -10,8 +10,8 @@ import SwiftUI
 
 struct Home: View {
     
-    @EnvironmentObject var userData: UserData
-     @EnvironmentObject var viewRouter:ViewRouter
+    @ObservedObject var userData: UserData
+     @ObservedObject var viewRouter:ViewRouter
     @State private var search: String = ""
     @State private var showingTimer = false
     @State var myGroups = [Groups]()
@@ -20,7 +20,7 @@ struct Home: View {
     var body: some View {
         ZStack {
             VStack {
-                Header(showTimer: $showingTimer)
+                Header(userData: userData, viewRouter: viewRouter, showTimer: $showingTimer)
                     .ignoresSafeArea()
                     .onAppear() {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -60,9 +60,9 @@ struct Home: View {
                     
                    
                         
-                    CTA(imgName: "mentor", cta: "Find a Mentor")
+                    CTA(imgName: "mentor", cta: "Find a Mentor", tabRouter: viewRouter, userData: userData)
                     
-                    CTA(imgName: "friends", cta: "Add Friends")
+                    CTA(imgName: "friends", cta: "Add Friends", tabRouter: viewRouter, userData: userData)
                     
                    // CTA(imgName: "Group", cta: "Add Group")
                        

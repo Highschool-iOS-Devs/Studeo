@@ -18,7 +18,7 @@ struct LeaderboardView: View {
     @State var leadersDay = [User]()
     @State var leadersMonth = [User]()
     @State var user = [User]()
-    @EnvironmentObject var userData: UserData
+    @ObservedObject var userData: UserData
     @State var leadersHasLoaded = false
     @State var leadersDayHasLoaded = false
     @State var leadersMonthHasLoaded = false
@@ -414,9 +414,4 @@ struct LeaderboardView: View {
     }
 }
 
-struct LeaderboardView_Previews: PreviewProvider {
-    static var previews: some View {
-        LeaderboardView()
-    }
-}
 

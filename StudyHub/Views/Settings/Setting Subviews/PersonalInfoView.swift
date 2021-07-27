@@ -10,7 +10,7 @@ import SwiftUI
 import Firebase
 
 struct PersonalInfoView: View {
-    @EnvironmentObject var userData: UserData
+    @ObservedObject var userData: UserData
     
     var body: some View {
         ZStack {
@@ -29,9 +29,9 @@ struct PersonalInfoView: View {
                 .padding(.horizontal)
                 
                 VStack {
-                    PersonalInfoRow(text: "Username", otherText: userData.name)
+                    PersonalInfoRow(userData: userData, text: "Username", otherText: userData.name)
                     // Find where the real name is stored
-                    PersonalInfoRow(text: "Full Name", otherText: userData.name)
+                    PersonalInfoRow(userData: userData, text: "Full Name", otherText: userData.name)
                     
                     Button(action: {
                         FirebaseManager.forgotPassword()
@@ -67,7 +67,7 @@ struct PersonalInfoView: View {
 }
 
 struct PersonalInfoRow: View {
-    @EnvironmentObject var userData: UserData
+    @ObservedObject var userData: UserData
     
     var text: String
     var otherText: String
@@ -87,8 +87,3 @@ struct PersonalInfoRow: View {
     }
 }
 
-struct PersonalInfoView_Previews: PreviewProvider {
-    static var previews: some View {
-        PersonalInfoView()
-    }
-}

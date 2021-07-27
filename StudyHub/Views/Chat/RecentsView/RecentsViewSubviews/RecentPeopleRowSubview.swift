@@ -13,7 +13,7 @@ struct RecentPeopleRowSubview: View {
     @State var person:User
     @State var tapped:Bool = false
     var profilePicture:Image
-    @EnvironmentObject var userData: UserData
+    @ObservedObject var userData: UserData
 
     var body: some View {
         //Chat row background
@@ -22,7 +22,7 @@ struct RecentPeopleRowSubview: View {
                 .fill(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
    
             HStack {
-                ProfileRingView(size:45)
+                ProfileRingView(size:45, userData: userData)
                 VStack {
                 //ACT Group
                     Text(person.name).font(Font.custom("Montserrat-Bold", size: 13, relativeTo: .headline)).foregroundColor(Color(#colorLiteral(red: 0, green: 0.6, blue: 1, alpha: 1)))

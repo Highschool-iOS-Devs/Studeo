@@ -15,7 +15,7 @@ import KingfisherSwiftUI
 struct ProfileRingView: View {
     var imagePlaceholder = Image(systemName: "person.circle.fill")
     var size:CGFloat
-    @EnvironmentObject var userData: UserData
+    @ObservedObject var userData: UserData
     
     var body: some View {
         withAnimation(.default){

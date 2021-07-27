@@ -23,7 +23,7 @@ struct EditProfile: View {
     @State private var showImagePicker : Bool = false
     @State var description: String = ""
     @State var name: String = ""
-    @EnvironmentObject var userData: UserData
+    @ObservedObject var userData: UserData
        @State private var image : UIImage? = nil
     @Environment(\.presentationMode) var presentationMode
     var imagePlaceholder = Image(systemName: "person.circle.fill")
@@ -39,7 +39,7 @@ struct EditProfile: View {
                      VStack {
                         ZStack(alignment:.center) {
                             if profileImage == nil{
-                                ProfileRingView(size: geo.size.width-90)
+                                ProfileRingView(size: geo.size.width-90,  userData: userData)
                                     .opacity(0.5)
                             }
                             else{
@@ -65,8 +65,8 @@ struct EditProfile: View {
                                 showImagePicker = true
                              }
                             .sheet(isPresented: self.$showImagePicker){
-                                ImagePicker(isShown: self.$showImagePicker, image: self.$image, userID: $userData.userID)
-                                    .environmentObject(userData)
+                                ImagePicker(isShown: self.$showImagePicker, image: self.$image, userID: $userData.userID, userData: userData)
+                                    
                                     .onDisappear() {
                                         profileImage = image ?? profileImage
                                     }

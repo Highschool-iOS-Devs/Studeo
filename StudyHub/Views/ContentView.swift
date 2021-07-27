@@ -11,8 +11,8 @@ import FirebaseAuth
 import FirebaseFirestore
 import FirebaseStorage
 struct ContentView: View {
-    @EnvironmentObject var userData: UserData
-    @EnvironmentObject var viewRouter:ViewRouter
+    @ObservedObject var userData: UserData
+    @ObservedObject var viewRouter:ViewRouter
     @State private var hasCheckedAuth = false
     @Environment(\.presentationMode) var presentationMode
     @State private var showSheet = false
@@ -106,7 +106,7 @@ struct ContentView: View {
                     }
                
                         if hasLoaded {
-                            ContentViewSubviews(myGroups: $myGroups, myMentors: $myMentors,  recentPeople: $recentPeople, images: $images, user: $user, interests: $interests, timerLog: $timerLog, interestSelected: $interestSelected, devChats: $devChats)
+                            ContentViewSubviews(userData: userData, viewRouter: viewRouter, myGroups: $myGroups, myMentors: $myMentors,  recentPeople: $recentPeople, images: $images, user: $user, interests: $interests, timerLog: $timerLog, interestSelected: $interestSelected, devChats: $devChats)
 
                     }
                        
@@ -117,7 +117,7 @@ struct ContentView: View {
             if viewRouter.showTabBar {
                 VStack {
                     Spacer()
-                    tabBarView()
+                    tabBarView(viewRouter: viewRouter)
                         .transition(AnyTransition.move(edge: .bottom))
                         .animation(Animation.easeInOut(duration: 0.5))
                         .frame(height: geo.size.height/8)
@@ -134,8 +134,8 @@ struct ContentView: View {
         .frame(height: geo.size.height)
      //   .preferredColorScheme((userData.darkModeOn==true) ? .dark : .light)
         }
-        .environmentObject(userData)
-        .environmentObject(viewRouter)
+        
+        
         
 
 }

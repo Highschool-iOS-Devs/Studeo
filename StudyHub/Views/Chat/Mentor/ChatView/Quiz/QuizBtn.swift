@@ -14,12 +14,12 @@ struct QuizBtn: View {
     @State var text = "text"
     let screenSize = UIScreen.main.bounds
     @State var questionL = Question2(id: "", question: "", answers: [String](), answer: "", selected: "")
-    @EnvironmentObject var userData: UserData
+    @ObservedObject var userData: UserData
     @State var image = UIImage()
     @Binding var group: Groups
     @Binding var points: Int
     @Binding var quiz: Quiz
-    @EnvironmentObject var quizRouter: QuizRouter
+    @ObservedObject var quizRouter: QuizRouter
     var body: some View {
       
         Button(action: {

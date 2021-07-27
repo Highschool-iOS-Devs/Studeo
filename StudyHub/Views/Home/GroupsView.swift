@@ -14,8 +14,8 @@ struct GroupsView: View {
     var imgName:String
     var cta:String
     var name:String
-    @EnvironmentObject var userData: UserData
-    @EnvironmentObject var tabRouter:ViewRouter
+    @ObservedObject var userData: UserData
+    @ObservedObject var tabRouter:ViewRouter
     @Binding var group: Groups
     let screenSize = UIScreen.main.bounds
     var body: some View {

@@ -17,7 +17,7 @@ struct ProfileRingView: View {
     var imagePlaceholder = Image(systemName: "person.circle.fill")
     var imageURL:URL?
     var size:CGFloat
-    @EnvironmentObject var userData: UserData
+    @ObservedObject var userData: UserData
     
     var body: some View {
         KFImage(imageURL ?? URL(string: userData.profilePictureURL), options: [.transition(.fade(0.5)), .processor(DownsamplingImageProcessor(size: CGSize(width: size*3, height: size*3))), .cacheOriginalImage])
@@ -70,8 +70,3 @@ struct ProfileRingView: View {
 
 
 
-struct ProfileRingView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfileRingView(size: 56)
-    }
-}

@@ -22,8 +22,8 @@ struct RegistrationView: View {
     @State var test = false
     @State var showLoadingAnimation = false
     @Environment(\.presentationMode) var presentationMode
-    @EnvironmentObject var viewRouter: ViewRouter
-    @EnvironmentObject var userData: UserData
+    @ObservedObject var viewRouter: ViewRouter
+    @ObservedObject var userData: UserData
     
     var body: some View {
         ZStack {
@@ -194,12 +194,6 @@ struct RegistrationView: View {
         
 
 
-}
-
-struct RegistrationView_Previews: PreviewProvider {
-    static var previews: some View {
-        RegistrationView()
-    }
 }
 
 

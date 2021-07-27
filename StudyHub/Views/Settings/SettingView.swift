@@ -15,8 +15,8 @@ import class Kingfisher.KingfisherManager
 let screenSize = UIScreen.main.bounds.size
 
 struct SettingView: View {
-    @EnvironmentObject var userData: UserData
-    @EnvironmentObject var viewRouter: ViewRouter
+    @ObservedObject var userData: UserData
+    @ObservedObject var viewRouter: ViewRouter
     @State private var userSettings = SettingsData(settings: [])
     @State private var userIsAvailable = true
     
@@ -38,7 +38,7 @@ struct SettingView: View {
                     ScrollView {
                         VStack {
                             VStack {
-                                ProfileRingView(size: 100)
+                                ProfileRingView(size: 100, userData: userData)
                                 Text(userData.name)
                                 .font(.custom("Montserrat-Bold", size: 28))
                                 .padding(.top, 10)
@@ -59,12 +59,12 @@ struct SettingView: View {
                                 VStack(spacing: 30) {
                                     availabilityRowView(settingText: "Available for new pairings", userAvailable: $userIsAvailable)
                                    // appearanceRowView()
-                                    //    .environmentObject(userData)
-                                    settingRowView(settingText: "Notifications", settingState: ((!chatNotifications && !newGroupNotifications) ? "Off" : "On"), newView: AnyView(NotificationsView(chatNotifications: $chatNotifications, groupNotifications: $newGroupNotifications)))
-                                    settingRowView(settingText: "Personal info", settingState: "", newView: AnyView(PersonalInfoView()))
-                                    settingRowView(settingText: "Country", settingState: country, newView: AnyView(CountrySelectionView(selectedCountry: $country)))
-                                    settingRowView(settingText: "Language", settingState: language, newView: AnyView(LanguageSelectionView(selectedLanguage: $language)))
-                                    settingRowView(settingText: "Interests", settingState: "", newView: AnyView(IntroCustomize(interestSelected: $interestSelected, isNotOnboarding: true, interests: $interests, settings: $settings, add: $add)))
+                                    //    
+                                    settingRowView(settingText: "Notifications", settingState: ((!chatNotifications && !newGroupNotifications) ? "Off" : "On"), newView: AnyView(NotificationsView(userData: userData, chatNotifications: $chatNotifications, groupNotifications: $newGroupNotifications)))
+                                    settingRowView(settingText: "Personal info", settingState: "", newView: AnyView(PersonalInfoView(userData: userData)))
+                                    settingRowView(settingText: "Country", settingState: country, newView: AnyView(CountrySelectionView(userData: userData, selectedCountry: $country)))
+                                    settingRowView(settingText: "Language", settingState: language, newView: AnyView(LanguageSelectionView(userData: userData, selectedLanguage: $language)))
+                                    settingRowView(settingText: "Interests", settingState: "", newView: AnyView(IntroCustomize(interestSelected: $interestSelected, userData: userData, isNotOnboarding: true, interests: $interests, settings: $settings, add: $add, viewRouter: viewRouter)))
                                     settingRowView(settingText: "Sign out", settingState: "", newView: AnyView(Text("Placeholder")), disableNavigation: true)
                                         .onTapGesture(){
                                             signOut()
@@ -252,11 +252,7 @@ struct SettingView: View {
 }
     
     
-    struct SettingView_Previews: PreviewProvider {
-        static var previews: some View {
-            SettingView()
-        }
-    }
+   
     
     struct profilePictureCircle: View {
         var body: some View {
@@ -340,7 +336,7 @@ struct SettingView: View {
     }
 
 struct appearanceRowView: View {
-    @EnvironmentObject var userData: UserData
+    @ObservedObject var userData: UserData
     var body: some View {
             HStack{
                 Text("Dark Mode")

@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct Header: View {
-    @EnvironmentObject var userData: UserData
-    @EnvironmentObject var viewRouter:ViewRouter
+    @ObservedObject var userData: UserData
+    @ObservedObject var viewRouter:ViewRouter
     @Binding var showTimer: Bool
     var body: some View {
         HStack {
@@ -36,24 +36,24 @@ struct Header: View {
             
             Button(action: {viewRouter.currentView = .profile}) {
                 
-                ProfileRingView(size: 55)
+                ProfileRingView(size: 55, userData: userData)
             
             } .padding(.trailing, 22)
             
-            Button(action: { withAnimation(.easeInOut(duration: 0.5)) {
-                    self.showTimer = true }}) {
-                ZStack {
-                    Color.white
-                        .frame(width: 40, height: 40)
-                        .clipShape(Circle())
-                        .shadow(color: Color.black.opacity(0.1), radius: 3)
-                        .overlay(
-                            Image(systemName: "timer")
-                                .foregroundColor(.black)
-                                .font(.system(size: 20)))
-                    
-                }
-            }
+//            Button(action: { withAnimation(.easeInOut(duration: 0.5)) {
+//                    self.showTimer = true }}) {
+//                ZStack {
+//                    Color.white
+//                        .frame(width: 40, height: 40)
+//                        .clipShape(Circle())
+//                        .shadow(color: Color.black.opacity(0.1), radius: 3)
+//                        .overlay(
+//                            Image(systemName: "timer")
+//                                .foregroundColor(.black)
+//                                .font(.system(size: 20)))
+//                    
+//                }
+//            }
             
         }
         .frame(height: 120)
@@ -69,9 +69,4 @@ struct Header: View {
     }
 }
 
-struct Header_Previews: PreviewProvider {
-    static var previews: some View {
-        Header(showTimer: .constant(true))
-    }
-}
 

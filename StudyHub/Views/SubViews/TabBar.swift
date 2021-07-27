@@ -12,7 +12,7 @@ struct tabItemView: View {
     var SFImage:String
     var text:String
     var tabType: ViewRouter.Views
-    @EnvironmentObject var viewRouter:ViewRouter
+    @ObservedObject var viewRouter:ViewRouter
     
     @Environment(\.colorScheme) var colorScheme
 
@@ -37,7 +37,7 @@ struct tabItemView: View {
 
 
 struct tabBarView: View {
-    @EnvironmentObject var viewRouter:ViewRouter
+    @ObservedObject var viewRouter:ViewRouter
     
     var body: some View {
         VStack {
@@ -47,7 +47,7 @@ struct tabBarView: View {
                 
                 HStack {
                     
-                    tabItemView(SFImage: "message.fill", text: "Chat", tabType: .chatList)
+                    tabItemView(SFImage: "message.fill", text: "Chat", tabType: .chatList, viewRouter: viewRouter)
                         
                         .onTapGesture {
                             self.viewRouter.updateCurrentView(view: .chatList)
@@ -55,7 +55,7 @@ struct tabBarView: View {
                     Spacer()
                   
            
-                    tabItemView(SFImage: "gear", text: "Settings", tabType: .settings)
+                    tabItemView(SFImage: "gear", text: "Settings", tabType: .settings, viewRouter: viewRouter)
                         
                         .onTapGesture {
                             self.viewRouter.updateCurrentView(view: .settings)
@@ -70,7 +70,7 @@ struct tabBarView: View {
             //.background(BlurView(style: .systemMaterial).shadow(radius: 0.5))
                 .background(Color("Background").shadow(color: Color("shadow"), radius: 1.5))
             .overlay(
-                tabBigButton()
+                tabBigButton(viewRouter: viewRouter)
                     .onTapGesture {
                         self.viewRouter.updateCurrentView(view: .home)
                     }
@@ -82,13 +82,9 @@ struct tabBarView: View {
         
     }
 }
-struct tabBarView_previews: PreviewProvider {
-    static var previews: some View {
-        tabBarView()
-    }
-}
+
 struct tabBigButton: View {
-    @EnvironmentObject var viewRouter:ViewRouter
+    @ObservedObject var viewRouter:ViewRouter
 
     var body: some View {
         ZStack {

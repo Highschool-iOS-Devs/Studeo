@@ -16,8 +16,8 @@ struct RecentsView2: View {
 //    @State var recentPeople: [User] = []
 //    @State var recentGroups: [Groups] = []
     var gridItemLayout = [GridItem(.flexible()), GridItem(.flexible())]
-    @EnvironmentObject var userData: UserData
-    @EnvironmentObject var viewRouter: ViewRouter
+    @ObservedObject var userData: UserData
+    @ObservedObject var viewRouter: ViewRouter
     @StateObject var groupModel = ChatViewModel()
     @State var add: Bool = false
     @State var settings: Bool = false
@@ -35,7 +35,7 @@ struct RecentsView2: View {
                     VStack {
                         ScrollView{
                             RecentChatTextRow(add: $add)
-                                .environmentObject(userData)
+                                
                                 
                             Spacer()
                             if groupModel.allGroups == [] {
@@ -53,34 +53,34 @@ struct RecentsView2: View {
                                             if groupModel.recentGroups.indices.contains(i) {
                                         NavigationLink(
                                            
-                                            destination:ChatView(group: $groupModel.recentGroups[i], show: $show)
-                                                        .environmentObject(userData)
+                                            destination:ChatView(userData: userData, viewRouter: viewRouter, group: $groupModel.recentGroups[i], show: $show)
+                                                        
                                             ){
                                             
-                                            RecentGroupRowSubview(group: groupModel.recentGroups[i], profilePicture: Image("demoprofile"))
+                                            RecentGroupRowSubview(group: groupModel.recentGroups[i], profilePicture: Image("demoprofile"), userData: userData)
                                                 .padding(.horizontal, 20)
                                                 .environmentObject(UserData.shared)
                                             
-                                        }
+                                        
                                             }
                                         
                                     }
                                     }
                                     Spacer()
                                 }
-                                .padding(.vertical)
+                               
                                
                                 
-                            }
+                            }  .padding(.vertical)
                             Spacer()
                             if !groupModel.allGroups.isEmpty {
                             VStack{
                                 AllGroupTextRow()
-                                    .environmentObject(userData)
+                                    
                                 LazyVGrid(columns: gridItemLayout, spacing: 40){
                                     ForEach(groupModel.allGroups.indices) { i in//, id: \.groupID){group in
-                                        NavigationLink(destination: ChatView(group: $groupModel.allGroups[i], show: $show)
-                                                        .environmentObject(userData)){
+                                        NavigationLink(destination: ChatView(userData: userData, viewRouter: viewRouter, group: $groupModel.allGroups[i], show: $show)
+                                                        ){
                                            
                                             RecentChatGroupSubview(group: groupModel.allGroups[i])
                                                 .environmentObject(UserData.shared)
@@ -101,8 +101,8 @@ struct RecentsView2: View {
                             LazyVGrid(columns: gridItemLayout, spacing: 40) {
                                 ForEach(myMentors.indices) { i in//, id: \.groupID){ i in
                                     NavigationLink(
-                                        destination:ChatView(group: $myMentors[i], show: $show)
-                                                    .environmentObject(userData)
+                                        destination:ChatView(userData: userData, viewRouter: viewRouter, group: $myMentors[i], show: $show)
+                                                    
                                            
                                         ){
                                     RecentChatGroupSubview(group: myMentors[i])
@@ -123,8 +123,8 @@ struct RecentsView2: View {
                             LazyVGrid(columns: gridItemLayout, spacing: 40) {
                                 ForEach(devChats.indices) { i in//, id: \.groupID){ i in
                                     NavigationLink(
-                                        destination:ChatView(group: $devChats[i], show: $show)
-                                                    .environmentObject(userData)
+                                        destination:ChatView(userData: userData, viewRouter: viewRouter, group: $devChats[i], show: $show)
+                                                    
                                            
                                         ){
                                     RecentChatGroupSubview(group:devChats[i])
@@ -161,8 +161,9 @@ struct RecentsView2: View {
      
             }
             .fullScreenCover(isPresented: $add){
-                PairingView(settings: $settings, add: $add, myGroups: $groupModel.allGroups, groupModel: groupModel)
-                    .environmentObject(userData)
+               // PairingView(settings: $settings, add: $add, myGroups: $groupModel.allGroups, groupModel: groupModel)
+                PairingListView(userData: userData, viewRouter: viewRouter, myMentors: $myMentors, timerLog: $timerLog, devChats: $devChats)
+                    
             }
 
         }
@@ -180,7 +181,7 @@ struct RecentsView2: View {
         
     }
 
-    
+    }
     func loadMessageData(){
         let db = Firestore.firestore()
 //        let docRef = db.collection("message/\(group.groupID)/messages").order(by: "sentTime", descending: true).limit(to: 1)
@@ -216,7 +217,8 @@ struct RecentsView2: View {
 
         
         
-    }
+    
+}
 
 extension UIView {
    func roundCorners(corners: UIRectCorner, radius: CGFloat) {

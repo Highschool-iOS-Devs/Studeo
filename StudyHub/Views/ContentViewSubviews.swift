@@ -12,8 +12,8 @@ import FirebaseFirestore
 import FirebaseStorage
 
 struct ContentViewSubviews: View {
-    @EnvironmentObject var userData: UserData
-    @EnvironmentObject var viewRouter:ViewRouter
+    @ObservedObject var userData: UserData
+    @ObservedObject var viewRouter:ViewRouter
     @State private var hasCheckedAuth = false
     @Environment(\.presentationMode) var presentationMode
     @State private var showSheet = false
@@ -41,7 +41,7 @@ struct ContentViewSubviews: View {
     var body: some View {
         switch viewRouter.currentView {
         case .devChat:
-            ChatView(group: $devGroup, show: $show)
+            ChatView(userData: userData, viewRouter: viewRouter, group: $devGroup, show: $show)
                 .onAppear() {
                     viewRouter.showTabBar = false
                     
@@ -49,48 +49,48 @@ struct ContentViewSubviews: View {
                     userData.hasDev = true
                 }
         case .mentor:
-            MentorPairingView(settings: $settings, add: $add, myGroups: $myGroups, myMentors: $myMentors)
+            PairingListView(userData: userData, viewRouter: viewRouter, myMentors: $myMentors, timerLog: $timerLog, devChats: $devChats, lookingForMentor: true)
         case .registration:
-            RegistrationView()
-        .environmentObject(viewRouter)
+            RegistrationView(viewRouter: viewRouter, userData: userData)
+        
 case .login:
-    LoginView()
+    LoginView(userData: userData, viewRouter: viewRouter)
    
 case .chatList:
-    RecentsView2(myMentors: $myMentors, timerLog: $timerLog, devChats: $devChats)
-        .environmentObject(userData)
-        .environmentObject(viewRouter)
+    RecentsView2(userData: userData, viewRouter: viewRouter, myMentors: $myMentors, timerLog: $timerLog, devChats: $devChats)
+        
+        
         .onAppear() {
             viewRouter.showTabBar = true
         }
 case .profile:
-    ProfileView(user: $user)
-        .environmentObject(userData)
-        .environmentObject(viewRouter)
+            ProfileView(user: $user, userData: userData, viewRouter: viewRouter)
+        
+        
         .onAppear() {
             viewRouter.showTabBar = true
         }
 case .home:
     if userData.uses == 1 {
-        Homev2(recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user, timerLog: $timerLog, devGroup: $devGroup)
+        Homev2(userData: userData, viewRouter: viewRouter, recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user, timerLog: $timerLog, devGroup: $devGroup)
            
             .onAppear() {
                 viewRouter.showTabBar = true
             }
     } else {
         //Home(timerLog: $timerLog)
-        Homev2(recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user, timerLog: $timerLog, devGroup: $devGroup)
+        Homev2(userData: userData, viewRouter: viewRouter, recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user, timerLog: $timerLog, devGroup: $devGroup)
           
                                             .onAppear() {
                 viewRouter.showTabBar = true
             }
-        .environmentObject(userData)
-        .environmentObject(viewRouter)
+        
+        
 
          
     }
 case .custom:
-    IntroCustomize(interestSelected: $interestSelected, isNotOnboarding: true, interests: $interests, settings: $settings, add: $add)
+            IntroCustomize(interestSelected: $interestSelected, userData: userData, isNotOnboarding: true, interests: $interests, settings: $settings, add: $add, viewRouter: viewRouter)
         .onAppear {
             viewRouter.showTabBar = false
         }
@@ -98,26 +98,26 @@ case .custom:
             viewRouter.showTabBar = true
         }
         case .mentorCustom:
-            IntroMentor()
+            IntroMentor(userData: userData, viewRouter: viewRouter)
                 .onAppear() {
                     viewRouter.showTabBar = false
                 }
 case .settings:
-    SettingView()
-        .environmentObject(viewRouter)
-        .environmentObject(userData)
+    SettingView(userData: userData, viewRouter: viewRouter)
+        
+        
         .onAppear() {
             viewRouter.showTabBar = true
         }
 case .leaderboard:
-    LeaderboardView()
-        .environmentObject(userData)
-        .environmentObject(viewRouter)
+    LeaderboardView(userData: userData)
+        
+        
         .onAppear() {
             viewRouter.showTabBar = true
         }
 case .introView:
-    IntroView()
+            IntroView(viewRouter: viewRouter, userData: userData)
                
         .transition(.opacity)
         .animation(.easeInOut)
@@ -126,7 +126,7 @@ case .introView:
         }
         
 case .quizList:
-    IntroView()
+            IntroView(viewRouter: viewRouter, userData: userData)
 }
     }
     func loadUserData(performAction: @escaping ([User]) -> Void) {

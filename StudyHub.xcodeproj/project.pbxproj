@@ -82,6 +82,7 @@
 		BE3E16182517F96900E0A845 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E16172517F96900E0A845 /* TimerManager.swift */; };
 		BE5C7F2F259D05DB00824346 /* IntroMentor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5C7F2E259D05DB00824346 /* IntroMentor.swift */; };
 		BE5F3760259C3B9400542AA0 /* SupportDocs in Frameworks */ = {isa = PBXBuildFile; productRef = BE5F375F259C3B9400542AA0 /* SupportDocs */; };
+		E10463FA26B0A77B00C7A742 /* PairingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10463F926B0A77B00C7A742 /* PairingListView.swift */; };
 		E10C058625900A100020FD7C /* Pods_StudyHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47F4119D880B6AFBE91DBA85 /* Pods_StudyHub.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		E10C05CD259013B70020FD7C /* MemberListSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10C05CC259013B70020FD7C /* MemberListSubview.swift */; };
 		E11157A32593CF31005E9AEA /* VoiceChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11157A22593CF31005E9AEA /* VoiceChat.swift */; };
@@ -130,7 +131,6 @@
 		E1760AC425925A9C00AA8BCF /* 34595-confetti-for-ios-and-android.json in Resources */ = {isa = PBXBuildFile; fileRef = E1760AC325925A9C00AA8BCF /* 34595-confetti-for-ios-and-android.json */; };
 		E19289062598455000B67C3C /* TimerSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19289052598455000B67C3C /* TimerSelectView.swift */; };
 		E192890925984AE600B67C3C /* TimerLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E192890825984AE600B67C3C /* TimerLog.swift */; };
-		E193F3C626A107680050BA0E /* AgoraRtcKit in Frameworks */ = {isa = PBXBuildFile; productRef = E193F3C526A107680050BA0E /* AgoraRtcKit */; };
 		E193F3DA26A108440050BA0E /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = E193F3D926A108440050BA0E /* Lottie */; };
 		E193F3DD26A108590050BA0E /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = E193F3DC26A108590050BA0E /* SDWebImage */; };
 		E193F3F626A110F60050BA0E /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = E193F3F526A110F60050BA0E /* FirebaseAnalytics */; };
@@ -233,6 +233,7 @@
 		BE3E16172517F96900E0A845 /* TimerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
 		BE5C7F2E259D05DB00824346 /* IntroMentor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroMentor.swift; sourceTree = "<group>"; };
 		C7A62219EB10FE2A621A6C84 /* Pods-StudyHub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudyHub.debug.xcconfig"; path = "Target Support Files/Pods-StudyHub/Pods-StudyHub.debug.xcconfig"; sourceTree = "<group>"; };
+		E10463F926B0A77B00C7A742 /* PairingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingListView.swift; sourceTree = "<group>"; };
 		E10C0584259009020020FD7C /* StudyHub.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StudyHub.entitlements; sourceTree = "<group>"; };
 		E10C05CC259013B70020FD7C /* MemberListSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberListSubview.swift; sourceTree = "<group>"; };
 		E11157A22593CF31005E9AEA /* VoiceChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceChat.swift; sourceTree = "<group>"; };
@@ -302,7 +303,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E193F3F826A110F60050BA0E /* FirebaseAnalyticsSwift-Beta in Frameworks */,
-				E193F3C626A107680050BA0E /* AgoraRtcKit in Frameworks */,
 				E122F4C426A6095000C81936 /* Kingfisher in Frameworks */,
 				E193F40026A110F60050BA0E /* FirebaseMessaging in Frameworks */,
 				E193F40426A110F60050BA0E /* FirebaseStorageSwift-Beta in Frameworks */,
@@ -476,6 +476,7 @@
 			children = (
 				622AABB225955E79004A984A /* ChatView */,
 				E1BCD405251E8A080051A28C /* PairingView.swift */,
+				E10463F926B0A77B00C7A742 /* PairingListView.swift */,
 				E19A0BC625925C4500F5F855 /* PairingSuccessView.swift */,
 				E1760ABE25925A3C00AA8BCF /* Mentor */,
 				624FAFDB25720AA0000E0203 /* RecentsView */,
@@ -766,7 +767,6 @@
 			name = StudyHub;
 			packageProductDependencies = (
 				BE5F375F259C3B9400542AA0 /* SupportDocs */,
-				E193F3C526A107680050BA0E /* AgoraRtcKit */,
 				E193F3D926A108440050BA0E /* Lottie */,
 				E193F3DC26A108590050BA0E /* SDWebImage */,
 				E193F3F526A110F60050BA0E /* FirebaseAnalytics */,
@@ -810,7 +810,6 @@
 			mainGroup = E339448924F1B71600F11BA9;
 			packageReferences = (
 				BE5F375E259C3B9400542AA0 /* XCRemoteSwiftPackageReference "SupportDocs" */,
-				E193F3C426A107680050BA0E /* XCRemoteSwiftPackageReference "AgoraRtcEngine_iOS" */,
 				E193F3D826A108440050BA0E /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				E193F3DB26A108590050BA0E /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				E193F3F426A110F60050BA0E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
@@ -989,6 +988,7 @@
 				6205910924FDBB21001565BF /* TimerView.swift in Sources */,
 				E1A39F2025A8CC100001B96F /* QuizTitle.swift in Sources */,
 				E12C5FAC259A518500D3314E /* PieChartCell.swift in Sources */,
+				E10463FA26B0A77B00C7A742 /* PairingListView.swift in Sources */,
 				624FAEFC256EF2EA000E0203 /* VectorImageRepresentable.swift in Sources */,
 				E133D66125A7D0B100730B7C /* FullImageView.swift in Sources */,
 				E19289062598455000B67C3C /* TimerSelectView.swift in Sources */,
@@ -1231,14 +1231,6 @@
 				version = 5.15.8;
 			};
 		};
-		E193F3C426A107680050BA0E /* XCRemoteSwiftPackageReference "AgoraRtcEngine_iOS" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/AgoraIO/AgoraRtcEngine_iOS";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
-			};
-		};
 		E193F3D826A108440050BA0E /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
@@ -1280,11 +1272,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E122F4C226A6095000C81936 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = KingfisherSwiftUI;
-		};
-		E193F3C526A107680050BA0E /* AgoraRtcKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E193F3C426A107680050BA0E /* XCRemoteSwiftPackageReference "AgoraRtcEngine_iOS" */;
-			productName = AgoraRtcKit;
 		};
 		E193F3D926A108440050BA0E /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -12,8 +12,8 @@ import FirebaseFirestore
 import FirebaseStorage
 
 struct DevChatBanner: View {
-    @EnvironmentObject var viewRouter:ViewRouter
-    @EnvironmentObject var userData:UserData
+    @ObservedObject var viewRouter:ViewRouter
+    @ObservedObject var userData:UserData
     ///DevGroup
     @Binding var devGroup: Groups
     @Binding var show: Bool

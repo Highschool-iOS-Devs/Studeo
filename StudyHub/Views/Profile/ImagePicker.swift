@@ -14,7 +14,7 @@ struct ImagePicker : UIViewControllerRepresentable {
     @Binding var isShown    : Bool
     @Binding var image      : UIImage?
     @Binding var userID    : String
-    @EnvironmentObject var userData: UserData
+    @ObservedObject var userData: UserData
     func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<ImagePicker>) {
        
     }

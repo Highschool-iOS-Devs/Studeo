@@ -21,8 +21,8 @@ struct LoginView: View {
     @State var test = true
     @State var errorObject:ErrorModel = ErrorModel(errorMessage: "", errorState: false)
     @State var finishedOnboarding = false
-    @EnvironmentObject var userData: UserData
-    @EnvironmentObject var viewRouter:ViewRouter
+    @ObservedObject var userData: UserData
+    @ObservedObject var viewRouter:ViewRouter
     
     var body: some View {
         ZStack {
@@ -160,13 +160,6 @@ struct LoginView: View {
             
         }
         
-    }
-}
-
-
-struct LoginView_Previews: PreviewProvider {
-    static var previews: some View {
-        LoginView()
     }
 }
 
