@@ -195,7 +195,7 @@ struct PairingListView: View {
                       
                     
                     }
-                    .frame(width: screenSize.width, height: screenSize.height)
+                   
                     .background(Color("Background"))
                     .cornerRadius(20)
                     .offset(y: 15)
@@ -222,12 +222,14 @@ struct PairingListView: View {
             } .navigationBarTitle("")
                 .navigationBarHidden(true)
                 .padding(.top)
+                
             
             .fullScreenCover(isPresented: $add){
                 IntroMentor(userData: userData, viewRouter: viewRouter, isNotOnboarding: true)
             }
             
         }
+        .navigationViewStyle(StackNavigationViewStyle())
         .blur(radius: showTimer ? 20 : 0)
         .accentColor(Color("Primary"))
         .animation(.none)

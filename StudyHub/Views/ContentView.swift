@@ -138,12 +138,15 @@ struct ContentView: View {
                 if viewRouter.showTabBar {
                     VStack {
                         Spacer()
+                        HStack {
                         tabBarView(viewRouter: viewRouter)
                             .transition(AnyTransition.move(edge: .bottom))
                             .animation(Animation.easeInOut(duration: 0.5))
                             
-                           
-                           
+                            if UIDevice.current.userInterfaceIdiom == .pad && viewRouter.currentView == .chatList {
+                                Spacer()
+                            }
+                        }
                     } .transition(AnyTransition.move(edge: .bottom))
                     .animation(Animation.easeInOut(duration: 0.5))
                     .ignoresSafeArea(.all, edges: .bottom)

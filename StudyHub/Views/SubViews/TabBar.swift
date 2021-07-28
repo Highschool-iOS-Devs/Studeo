@@ -46,12 +46,13 @@ struct tabBarView: View {
            
                 
                 HStack {
-                    
+                   
                     tabItemView(SFImage: "message.fill", text: "Chat", tabType: .chatList, viewRouter: viewRouter)
                         
                         .onTapGesture {
                             self.viewRouter.updateCurrentView(view: .chatList)
                         }
+                    
                     Spacer()
                   
            
@@ -61,11 +62,12 @@ struct tabBarView: View {
                             self.viewRouter.updateCurrentView(view: .settings)
                         }
                
-                   
+                    
             }
             .padding(62)
 
           .frame(height: 90)
+          .frame(width: UIDevice.current.userInterfaceIdiom == .pad && viewRouter.currentView == .chatList ? 320 : .infinity)
             .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
             //.background(BlurView(style: .systemMaterial).shadow(radius: 0.5))
                 .background(Color("Background").shadow(color: Color("shadow"), radius: 1.5))
@@ -97,7 +99,7 @@ struct tabBigButton: View {
                 .foregroundColor(Color.white)
                 .font(.system(size: 28))
         }
-        .offset(x: 0, y: -50)
+        .offset(x: 0, y: viewRouter.showTabBar ? -50 : 0)
         .animation(Animation
                     .easeInOut
                   )

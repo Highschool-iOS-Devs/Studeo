@@ -183,8 +183,8 @@ struct ChatView: View {
                 ToolbarItem(placement: .principal) {
                     HStack {
                         Text(group.groupName)
-                            .font(.custom("Montserrat-Bold", size: 18, relativeTo: .headline))
-                            .fixedSize()
+                            .font(.custom("Montserrat-Bold", size: 12, relativeTo: .headline))
+                            
                             .foregroundColor(Color("Text"))
 
                     }
@@ -303,9 +303,9 @@ struct ChatView: View {
                 
                 self.loadData()
                 self.addRecentRecord()
-                
+                if UIDevice.current.userInterfaceIdiom == .phone {
                 self.viewRouter.showTabBar = false
-
+                }
                 self.loadMembers(){ userData in
                     //Get completion handler data results from loadData function and set it as the recentPeople local variable
                     self.members = userData ?? []
@@ -314,7 +314,9 @@ struct ChatView: View {
                 }
             }
             .onDisappear{
+                if UIDevice.current.userInterfaceIdiom == .phone {
                 self.viewRouter.showTabBar = true
+                }
             }
      
             

@@ -149,7 +149,7 @@ struct SettingView: View {
             })
         
             }
-        
+            .navigationViewStyle(StackNavigationViewStyle())
         
     }
     

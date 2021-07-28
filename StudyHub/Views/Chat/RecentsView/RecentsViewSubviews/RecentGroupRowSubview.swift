@@ -29,7 +29,7 @@ struct RecentGroupRowSubview: View {
             HStack {
                 MiniProfileSubview(group:group)
                 VStack {
-                    Text(group.groupName) .font(Font.custom("Montserrat-SemiBold", size: 15, relativeTo: .headline)).foregroundColor(Color(#colorLiteral(red: 0, green: 0.6, blue: 1, alpha: 1)))
+                    Text(group.groupName) .font(Font.custom("Montserrat-SemiBold", size: 12, relativeTo: .headline)).foregroundColor(Color(#colorLiteral(red: 0, green: 0.6, blue: 1, alpha: 1)))
                             .textCase(.uppercase)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     Spacer()
