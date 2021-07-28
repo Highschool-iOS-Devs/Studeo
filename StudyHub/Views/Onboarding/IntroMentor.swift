@@ -20,7 +20,7 @@ struct IntroMentor: View {
     
     @State var isNotOnboarding: Bool = false
 
-    
+    @Environment(\.presentationMode) var presentationMode
    
     var body: some View {
         
@@ -75,6 +75,9 @@ struct IntroMentor: View {
                         .foregroundColor(Color("Text"))
                         .font(.custom("Montserrat-light", size: 15))
                     Button(action: {
+                        if isNotOnboarding {
+                            presentationMode.wrappedValue.dismiss()
+                        } else {
                         if mentorSelected != [] {
                             do{
                                 try saveData()
@@ -89,7 +92,7 @@ struct IntroMentor: View {
                         else{
                             self.viewRouter.currentView = .custom
                         }
-                        
+                        }
                     }) {
                         Text("Next")
                             .font(.custom("Montserrat-SemiBold", size: 18))

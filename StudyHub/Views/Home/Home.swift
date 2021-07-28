@@ -20,7 +20,7 @@ struct Home: View {
     var body: some View {
         ZStack {
             VStack {
-                Header(userData: userData, viewRouter: viewRouter, showTimer: $showingTimer)
+               EmptyView()
                     .ignoresSafeArea()
                     .onAppear() {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {

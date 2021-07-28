@@ -25,19 +25,26 @@ struct RecentsView2: View {
     @Binding var myMentors:[Groups]
     @Binding var timerLog: [TimerLog]
     @Binding var devChats:[Groups]
+    
 @State var show = false
+    
+    @State var gridLayout: [GridItem] = [ ]
+    @State private var orientation = UIDeviceOrientation.unknown
     var body: some View {
+        ZStack {
+            Color("Background").edgesIgnoringSafeArea(.all)
         NavigationView{
-            ZStack{
-                Color("Background").edgesIgnoringSafeArea(.all)
-                ZStack(alignment: .top) {
-                    
-                    VStack {
-                        ScrollView{
+           
+                VStack(spacing: 0) {
+                    ScrollView {
+                       
+                    LazyVGrid(columns: gridLayout, spacing: 30) {
+                     
                             RecentChatTextRow(add: $add)
                                 
-                                
+                        if UIDevice.current.userInterfaceIdiom == .phone {
                             Spacer()
+                        }
                             if groupModel.allGroups == [] {
                                 
                                 Text("You are not in any study group yet,\n\nUse the add button to pair. 🙌").font(Font.custom("Montserrat-Bold", size: 24, relativeTo: .headline)).foregroundColor(Color(#colorLiteral(red: 0.27, green: 0.89, blue: 0.98, alpha: 1)))
@@ -46,23 +53,24 @@ struct RecentsView2: View {
                                     .frame(height:425)
                             }
                             else{
-                                VStack(spacing: 20) {
+                               
                                     if !groupModel.recentGroups.isEmpty {
-                                        ForEach(groupModel.recentGroups.indices) { i in//, id: \.groupID){ group in
+                                        VStack {
+                                            ForEach($groupModel.recentGroups) { $group in//, id: \.groupID){ group in
 #warning("maybe the issue is here")
-                                            if groupModel.recentGroups.indices.contains(i) {
+                                            
                                         NavigationLink(
                                            
-                                            destination:ChatView(userData: userData, viewRouter: viewRouter, group: $groupModel.recentGroups[i], show: $show)
+                                            destination:ChatView(userData: userData, viewRouter: viewRouter, group: $group, show: $show)
                                                         
                                             ){
                                             
-                                            RecentGroupRowSubview(group: groupModel.recentGroups[i], profilePicture: Image("demoprofile"), userData: userData)
+                                            RecentGroupRowSubview(group: group, profilePicture: Image("demoprofile"), userData: userData)
                                                 .padding(.horizontal, 20)
                                                 .environmentObject(UserData.shared)
                                             
                                         
-                                            }
+                                            
                                         
                                     }
                                     }
@@ -70,13 +78,24 @@ struct RecentsView2: View {
                                 }
                                
                                
-                                
-                            }  .padding(.vertical)
-                            Spacer()
+                                    }
+                             
+                           
                             if !groupModel.allGroups.isEmpty {
-                            VStack{
-                                AllGroupTextRow()
+                                if !orientation.isPortrait {
+                                
+                               
+                                    ForEach($groupModel.allGroups) { $group in//, id: \.groupID){group in
+                                        NavigationLink(destination: ChatView(userData: userData, viewRouter: viewRouter, group: $group, show: $show)
+                                                        ){
+                                           
+                                            RecentChatGroupSubview(group: group)
+                                                .environmentObject(UserData.shared)
+                                        }
                                     
+                                    }
+                                } else {
+                                    AllGroupTextRow()
                                 LazyVGrid(columns: gridItemLayout, spacing: 40){
                                     ForEach($groupModel.allGroups) { $group in//, id: \.groupID){group in
                                         NavigationLink(destination: ChatView(userData: userData, viewRouter: viewRouter, group: $group, show: $show)
@@ -88,7 +107,8 @@ struct RecentsView2: View {
                                     
                                     }
                                 }
-                            }
+                                }
+                            
                             }
                             if !myMentors.isEmpty {
                             HStack{
@@ -106,7 +126,7 @@ struct RecentsView2: View {
                                            
                                         ){
                                     RecentChatGroupSubview(group: myMentors[i])
-                                        .environmentObject(UserData.shared)
+                                       
                                         
                                 }
                                 }
@@ -128,7 +148,7 @@ struct RecentsView2: View {
                                            
                                         ){
                                     RecentChatGroupSubview(group:devChats[i])
-                                        .environmentObject(UserData.shared)
+                                       
                                         
                                 }
                                 }
@@ -139,10 +159,10 @@ struct RecentsView2: View {
                       
                     
                     }
-                    .frame(width: screenSize.width, height: screenSize.height)
+                   
                     .background(Color("Background"))
                     .cornerRadius(20)
-                    .offset(y: 15)
+                   
 
                     if showTimer {
                         VStack {
@@ -158,8 +178,8 @@ struct RecentsView2: View {
                         }
                     }
             }
-     
-            }
+                }
+            
             .fullScreenCover(isPresented: $add){
                // PairingView(settings: $settings, add: $add, myGroups: $groupModel.allGroups, groupModel: groupModel)
                 PairingListView(userData: userData, viewRouter: viewRouter, myMentors: $myMentors, timerLog: $timerLog, devChats: $devChats)
@@ -169,18 +189,37 @@ struct RecentsView2: View {
         }
         .blur(radius: showTimer ? 20 : 0)
         .accentColor(Color("Primary"))
-        .animation(.none)
-        .onAppear{
+        
+        .onAppear {
+            
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                print("iPad")
+                self.gridLayout = [GridItem(), GridItem(.flexible())]
+            } else {
+                orientation = .portrait
+            self.gridLayout =  [GridItem(.flexible())]
+            }
             groupModel.userData = userData
             groupModel.getAllGroups(){groupModel.allGroups=$0}
             groupModel.getRecentGroups{groupModel.recentGroups=$0}
             groupModel.recentPeople = groupModel.getRecentPeople()
+           
         }
-
+        .onRotate { newOrientation in
+                    
+            if UIDevice.current.userInterfaceIdiom == .phone {
+            if !newOrientation.isFlat {
+                orientation = newOrientation
+            self.gridLayout = (orientation.isLandscape) ? [GridItem(), GridItem(.flexible())] :  [GridItem(.flexible())]
+            }
+                }
+        }
     
         
     }
-
+        .navigationBarTitle("")
+        .navigationBarHidden(true)
+        
     }
     func loadMessageData(){
         let db = Firestore.firestore()

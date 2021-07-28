@@ -63,10 +63,10 @@ struct CTA: View {
                         
                         
                     } .buttonStyle(BlueStyle())
-                    .animation(.easeInOut(duration: 1.5))
+                   
                         
                 }
-            } .padding(.all, 22)
+            } .padding(.horizontal, 22)
         }
     }
 }

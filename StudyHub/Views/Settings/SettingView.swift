@@ -38,7 +38,7 @@ struct SettingView: View {
     var body: some View {
             NavigationView {
                 ZStack {
-                    ScrollView {
+                    ScrollView(showsIndicators: false) {
                         VStack {
                             VStack {
                                 ProfileRingView(size: 100, userData: userData)
@@ -89,15 +89,15 @@ struct SettingView: View {
                                 }
                                 Spacer()
                             }
-                            .padding(.bottom, 20)
+                           
                             .background(Color("Background"))
                             .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
                             .shadow(color: Color("shadow") ,radius: 5)
                             .padding(.horizontal, 10)
-                            Spacer(minLength: 120)
+                            
                         }
                         .padding(.top, 50)
-                    }
+                    Spacer(minLength: 200)
                 }
                 .background(Color("Background"))
                 .edgesIgnoringSafeArea(.all)
@@ -136,7 +136,7 @@ struct SettingView: View {
                     resetUserDefaults()
                     removeAllPendingNotifications()
                     KingfisherManager.shared.cache.clearCache()
-                    viewRouter.currentView = .registration
+                    viewRouter.currentView = .introView
                     FirebaseManager.deleteUser(userID: userData.userID) { error in
                         guard error == nil else {
                             print(error?.localizedDescription)
@@ -148,7 +148,7 @@ struct SettingView: View {
                 }), secondaryButton: .cancel())
             })
         
-        
+            }
         
         
     }

@@ -35,19 +35,30 @@ struct ContentView: View {
   
     @State var interestSelected: [UserInterestTypes] = []
     @State var devChats = [Groups]()
+    
+    @State var width: CGFloat = 0.0
     var body: some View {
-        GeometryReader { geo in
+       
+            ZStack {
+            
         ZStack { 
             Color("Background")
                 .edgesIgnoringSafeArea(.all)
+                
+            LinearGradient(gradient: Gradient(colors: [Color("Primary"), Color("Secondary")]), startPoint: .top, endPoint: .bottomLeading)
+                .ignoresSafeArea()
+            Image("logo")
+                .resizable()
+                .scaledToFit()
+                .padding(100)
                 .onAppear{
+                   
                     self.checkAuth()
                     self.firstLaunchAction()
                     userData.uses += 1
                     userData.uses = 2
                   
             }
-             
                 if hasCheckedAuth {
                     Color("Background")
                         .edgesIgnoringSafeArea(.all)
@@ -114,31 +125,33 @@ struct ContentView: View {
                         
                     
                     }
-            if viewRouter.showTabBar {
-                VStack {
-                    Spacer()
-                    tabBarView(viewRouter: viewRouter)
-                        .transition(AnyTransition.move(edge: .bottom))
-                        .animation(Animation.easeInOut(duration: 0.5))
-                        .frame(height: geo.size.height/8)
-                       
-                } .transition(AnyTransition.move(edge: .bottom))
-                .animation(Animation.easeInOut(duration: 0.5))
-                .ignoresSafeArea(.all, edges: .bottom)
-            }
+           
          
             // == true || viewRouter.currentView != .registration || viewRouter.currentView != .login 
            
                 
         }
-        .frame(height: geo.size.height)
+        
      //   .preferredColorScheme((userData.darkModeOn==true) ? .dark : .light)
-        }
         
         
+                if viewRouter.showTabBar {
+                    VStack {
+                        Spacer()
+                        tabBarView(viewRouter: viewRouter)
+                            .transition(AnyTransition.move(edge: .bottom))
+                            .animation(Animation.easeInOut(duration: 0.5))
+                            
+                           
+                           
+                    } .transition(AnyTransition.move(edge: .bottom))
+                    .animation(Animation.easeInOut(duration: 0.5))
+                    .ignoresSafeArea(.all, edges: .bottom)
+                }
         
 
 }
+    }
 
     func loadDevChatsData(performAction: @escaping ([Groups]?) -> Void) {
         let db = Firestore.firestore()

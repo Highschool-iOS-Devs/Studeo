@@ -14,7 +14,11 @@ struct RecentChatGroupSubview: View {
     var body: some View {
    
         ZStack {
-   
+           Color("GroupCard")
+            .clipShape(RoundedRectangle(cornerRadius: 20))
+            .shadow(color: Color("CardShadow"), radius:3, x:0, y:0)
+            .padding()
+            .frame(minHeight: 150)
             VStack{
                 Text(group.groupName)
                     .font(Font.custom("Montserrat-Bold", size: 20, relativeTo: .headline))
@@ -32,14 +36,12 @@ struct RecentChatGroupSubview: View {
                 //SAT
               
             }
-            .padding(.bottom, 40)
+            .padding()
         
      
     }
-        .frame(width: 138, height: 138)
-        .background(Color("GroupCard"))
-        .clipShape(RoundedRectangle(cornerRadius: 20))
-        .shadow(color: Color("CardShadow"), radius:3, x:0, y:0)
+       
+       
       
     }
 }

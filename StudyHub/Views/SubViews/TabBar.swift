@@ -65,7 +65,7 @@ struct tabBarView: View {
             }
             .padding(62)
 
-          .frame(width: screenSize.width, height: 110)
+          .frame(height: 90)
             .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
             //.background(BlurView(style: .systemMaterial).shadow(radius: 0.5))
                 .background(Color("Background").shadow(color: Color("shadow"), radius: 1.5))

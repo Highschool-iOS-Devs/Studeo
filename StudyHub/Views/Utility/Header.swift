@@ -12,8 +12,9 @@ struct Header: View {
     @ObservedObject var userData: UserData
     @ObservedObject var viewRouter:ViewRouter
     @Binding var showTimer: Bool
+   
     var body: some View {
-        HStack {
+        HStack(alignment: .top) {
             VStack {
                 HStack {
                 Text("Hello,")
@@ -56,9 +57,9 @@ struct Header: View {
 //            }
             
         }
-        .frame(height: 120)
-        .padding(.horizontal, 15)
-        .padding(.top, 20)
+        .frame(height: 90)
+    
+        .padding(.top)
         .background(BlurView(style: .systemMaterial))
         .border(Color("Background").opacity(0.3), width:0.5)
         .edgesIgnoringSafeArea(.all)

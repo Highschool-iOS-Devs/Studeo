@@ -21,8 +21,8 @@ struct MiniProfileSubview: View {
     var group:Groups
     var body: some View {
         LazyVGrid(columns: gridItemLayout){
-            ForEach(profileImages.indices, id: \.self){ index in
-                KFImage(profileImages[index], options: [.transition(.fade(0.5)), .processor(DownsamplingImageProcessor(size: CGSize(width: 60, height: 60))), .cacheOriginalImage])
+            ForEach(profileImages, id: \.self){ image in
+                KFImage(image, options: [.transition(.fade(0.5)), .processor(DownsamplingImageProcessor(size: CGSize(width: 60, height: 60))), .cacheOriginalImage])
                     .onSuccess { r in
                          // r: RetrieveImageResult
                          //print("success: \(r)")
@@ -36,11 +36,11 @@ struct MiniProfileSubview: View {
                     .clipShape(Circle())
                     .frame(minWidth:10, minHeight:10)
                     .overlay(Circle().stroke(Color("Background"), lineWidth: 1))
-                    .animation(.easeInOut)
-                    .transition(.opacity)
+                
+                   
 
             }
-        } .animation(.easeInOut)
+        }
         .transition(.opacity)
         
         .frame(width:25, height: 25)

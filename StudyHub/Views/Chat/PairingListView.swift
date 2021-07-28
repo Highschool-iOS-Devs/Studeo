@@ -30,6 +30,7 @@ struct PairingListView: View {
     @State var selectedInterests:[UserInterestTypes] = []
     @State var interests:[String] = []
 @State var show = false
+    
     var body: some View {
         NavigationView{
             ZStack{
@@ -49,8 +50,7 @@ struct PairingListView: View {
                             if !lookingForMentor {
                             } else {
                                 Button(action: {
-                                  add = true
-                                    
+                                    add = true
                                     
                                 }) {
                                     Image(systemName: "plus")
@@ -222,14 +222,11 @@ struct PairingListView: View {
             } .navigationBarTitle("")
                 .navigationBarHidden(true)
                 .padding(.top)
+            
             .fullScreenCover(isPresented: $add){
-               PairingListView(userData: userData, viewRouter: viewRouter, myMentors: $myMentors, timerLog: $timerLog, devChats: $devChats)
-                    
+                IntroMentor(userData: userData, viewRouter: viewRouter, isNotOnboarding: true)
             }
-            .fullScreenCover(isPresented: $add){
-                IntroMentor(userData: userData, viewRouter: viewRouter)
-            }
-
+            
         }
         .blur(radius: showTimer ? 20 : 0)
         .accentColor(Color("Primary"))

@@ -21,6 +21,7 @@ struct Homev2: View {
         GridItem(.flexible()),
        
     ]
+   
     @ObservedObject var userData: UserData
     @ObservedObject var viewRouter:ViewRouter
     @State var columns3 = [GridItem]()
@@ -48,12 +49,20 @@ struct Homev2: View {
     @State var users = [String]()
     @State var ready = false
     @State var i = 0
+    @State var gridLayout: [GridItem] = [ ]
+    @State private var orientation = UIDeviceOrientation.unknown
     var body: some View {
-        GeometryReader { geo in
-        ZStack {
+     
+        
             ZStack(alignment: .top) {
                 Color("Background").edgesIgnoringSafeArea(.all)
                     .onAppear() {
+                        if UIDevice.current.userInterfaceIdiom == .pad {
+                            print("iPad")
+                            self.gridLayout = [GridItem(), GridItem(.flexible())]
+                        } else {
+                        self.gridLayout =  [GridItem(.flexible())]
+                        }
                        // userData.hasDev = false
                         recommendGroups.removeAll()
                         if !user.isEmpty {
@@ -89,13 +98,24 @@ struct Homev2: View {
                         }
                         }
                     }
+                    .onRotate { newOrientation in
+                                orientation = newOrientation
+                        if UIDevice.current.userInterfaceIdiom == .phone {
+                        if !orientation.isFlat {
+                        self.gridLayout = (orientation.isLandscape) ? [GridItem(), GridItem(.flexible())] :  [GridItem(.flexible())]
+                        }
+                            }
+                    }
                 if animation {
-                VStack {
-                    Spacer()
-                        .frame(minHeight: 60, idealHeight: 60, maxHeight: 60)
-                        .fixedSize()
+                    VStack(spacing: 0) {
+                       
+                        ScrollView(showsIndicators: false) {
+                            Spacer(minLength: 50)
+                    LazyVGrid(columns: gridLayout, spacing: 30) {
+                        
+                   
                     
-                    ScrollView(.vertical, showsIndicators: false) {
+                   
 //                        if !userData.hasDev {
 //                        if animate {
 //                           
@@ -135,9 +155,9 @@ struct Homev2: View {
                                 }
                                
                                 Spacer()
-                            } .padding(.top, 22)
+                            }
                             .padding(.horizontal)
-                        } .padding(.vertical)
+                        } 
                         Divider()
                             
                             }
@@ -152,7 +172,7 @@ struct Homev2: View {
                                 .font(.custom("Montserrat Bold", size: 18, relativeTo: .headline)).foregroundColor(Color("Primary"))
                             Spacer()
                         }.padding()
-                        .padding(.top, 40)
+                       
                         
                        
                         ScrollView(.horizontal, showsIndicators: false) {
@@ -205,9 +225,14 @@ struct Homev2: View {
                         
                     }.disabled(showingTimer ? true : false)
         }
-              
-                     Header(userData: userData, viewRouter: viewRouter, showTimer: $showingTimer)
+                    }
+                     
                 }
+                VStack {
+                Header(userData: userData, viewRouter: viewRouter, showTimer: $showingTimer)
+                    Spacer()
+                }
+                    .frame(height: 90)
             }.blur(radius: showingTimer ? 20 : 0)
             .onChange(of: self.i) { newValue in
                 show = true
@@ -233,12 +258,12 @@ struct Homev2: View {
                         }
                         .onDisappear {
                             self.viewRouter.showTabBar = true
-                    }
+                    
                 }
             }
        
         
-        }
+        
        
     
 //            if show {
@@ -247,8 +272,8 @@ struct Homev2: View {
 
 }
        
-}
+
   
     
 }
-
+}
