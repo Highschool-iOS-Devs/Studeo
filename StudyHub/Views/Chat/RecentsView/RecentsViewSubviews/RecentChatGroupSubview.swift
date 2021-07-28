@@ -10,9 +10,12 @@ import SwiftUI
 
 struct RecentChatGroupSubview: View {
     @State var group:Groups
-
+    @ObservedObject var userData: UserData
+    @ObservedObject var viewRouter: ViewRouter
+    @State var show = false
     var body: some View {
-   
+        NavigationLink(destination: ChatView(userData: userData, viewRouter: viewRouter, group: $group, show: $show)
+                        ){
         ZStack {
            Color("GroupCard")
             .clipShape(RoundedRectangle(cornerRadius: 20))
@@ -40,7 +43,7 @@ struct RecentChatGroupSubview: View {
         
      
     }
-       
+        }
        
       
     }

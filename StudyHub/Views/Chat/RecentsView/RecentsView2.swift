@@ -63,20 +63,16 @@ struct RecentsView2: View {
                                             ForEach($groupModel.recentGroups) { $group in//, id: \.groupID){ group in
 #warning("maybe the issue is here")
                                             
-                                        NavigationLink(
-                                           
-                                            destination:ChatView(userData: userData, viewRouter: viewRouter, group: $group, show: $show)
-                                                        
-                                            ){
+                                       
                                             
-                                            RecentGroupRowSubview(group: group, profilePicture: Image("demoprofile"), userData: userData)
+                                                RecentGroupRowSubview(group: group, profilePicture: Image("demoprofile"), userData: userData, viewRouter: viewRouter)
                                                 .padding(.horizontal, 20)
                                                
                                             
                                         
                                             
                                         
-                                    }
+                                    
                                     }
                                     Spacer()
                                 }
@@ -90,12 +86,11 @@ struct RecentsView2: View {
                                 
                                
                                     ForEach($groupModel.allGroups, id: \.id) { $group in//, id: \.groupID){group in
-                                        NavigationLink(destination: ChatView(userData: userData, viewRouter: viewRouter, group: $group, show: $show)
-                                                        ){
+                                        
                                            
-                                            RecentChatGroupSubview(group: group)
+                                        RecentChatGroupSubview(group: $group.wrappedValue, userData: userData, viewRouter: viewRouter)
                                                
-                                        }
+                                        
                                     
                                     }
                                 } else {
@@ -105,7 +100,7 @@ struct RecentsView2: View {
                                         NavigationLink(destination: ChatView(userData: userData, viewRouter: viewRouter, group: $group, show: $show)
                                                         ){
                                            
-                                            RecentChatGroupSubview(group: group)
+                                            RecentChatGroupSubview(group: $group.wrappedValue, userData: userData, viewRouter: viewRouter)
                                                
                                         }
                                     
@@ -129,7 +124,7 @@ struct RecentsView2: View {
                                                     
                                            
                                         ){
-                                    RecentChatGroupSubview(group: myMentors[i])
+                                            RecentChatGroupSubview(group: myMentors[i], userData: userData, viewRouter: viewRouter)
                                        
                                         
                                 }
@@ -151,7 +146,7 @@ struct RecentsView2: View {
                                                     
                                            
                                         ){
-                                    RecentChatGroupSubview(group:devChats[i])
+                                            RecentChatGroupSubview(group: devChats[i], userData: userData, viewRouter: viewRouter)
                                        
                                         
                                 }
@@ -181,6 +176,7 @@ struct RecentsView2: View {
                             }
                         }
                     }
+                        Spacer(minLength: 500)
             }
                     
                 }
@@ -191,9 +187,7 @@ struct RecentsView2: View {
                     
             }
 
-        } .navigationBarItems(trailing:
-                         (UIDevice.current.userInterfaceIdiom == .pad ?
-                          tabBigButton(viewRouter: viewRouter) : nil)
+        } .navigationViewStyle(StackNavigationViewStyle()
                
         )
        // .navigationViewStyle(StackNavigationViewStyle())

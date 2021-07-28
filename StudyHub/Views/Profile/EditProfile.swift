@@ -36,7 +36,9 @@ struct EditProfile: View {
                     .edgesIgnoringSafeArea(.all)
                 
                 ForEach(user){ user in
+                    ScrollView {
                      VStack {
+                         
                         ZStack(alignment:.center) {
                             if profileImage == nil{
                                 ProfileRingView(size: geo.size.width-90,  userData: userData)
@@ -117,6 +119,7 @@ struct EditProfile: View {
                     Spacer()
                         
                 }
+                    }
              
             }
             .padding(.horizontal)

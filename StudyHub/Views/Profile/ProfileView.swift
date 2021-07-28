@@ -36,7 +36,7 @@ import UIKit
                        }
                    }
 
-                
+                 ScrollView {
                  VStack {
                  
                     HStack {
@@ -89,6 +89,7 @@ import UIKit
                     .environmentObject(UserData.shared)
              }
         }
+     }
      }
 
     func sendData() {

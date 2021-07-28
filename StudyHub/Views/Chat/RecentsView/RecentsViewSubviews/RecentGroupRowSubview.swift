@@ -17,11 +17,18 @@ struct RecentGroupRowSubview: View {
     @State var tapped:Bool = false
     var profilePicture:Image
     @ObservedObject var userData: UserData
+    @ObservedObject var viewRouter: ViewRouter
     @State var chat = false
+    @State var show = false
     @State var sentTime = ""
     @State var messagePreview = ""
     var body: some View {
         //Chat row background
+        NavigationLink(
+           
+            destination:ChatView(userData: userData, viewRouter: viewRouter, group: $group, show: $show)
+                        
+            ){
         ZStack {
             RoundedRectangle(cornerRadius: 20)
                 .fill(Color("Card"))
@@ -65,6 +72,7 @@ struct RecentGroupRowSubview: View {
         .onAppear{
             getTimeAndMessageRecord()
         }
+            }
     }
     func getTimeAndMessageRecord(){
         let db = Firestore.firestore()

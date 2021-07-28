@@ -140,7 +140,7 @@ struct PairingListView: View {
                                         }
                                                         ){
                                            
-                                            RecentChatGroupSubview(group:group)
+                                                RecentChatGroupSubview(group: $group.wrappedValue, userData: userData, viewRouter: viewRouter)
                                                 .environmentObject(UserData.shared)
                                                 
                                         }
@@ -165,9 +165,8 @@ struct PairingListView: View {
                                                     
                                            
                                         ){
-                                    RecentChatGroupSubview(group: myMentors[i])
-                                        .environmentObject(UserData.shared)
-                                        
+                                            RecentChatGroupSubview(group: myMentors[i], userData: userData, viewRouter: viewRouter)
+                                      
                                 }
                                 }
                             }
@@ -182,15 +181,12 @@ struct PairingListView: View {
                           
                             LazyVGrid(columns: gridItemLayout, spacing: 40) {
                                 ForEach(devChats.indices) { i in//, id: \.groupID){ i in
-                                    NavigationLink(
-                                        destination:ChatView(userData: userData, viewRouter: viewRouter, group: $devChats[i], show: $show)
-                                                    
-                                           
-                                        ){
-                                    RecentChatGroupSubview(group:devChats[i])
-                                        .environmentObject(UserData.shared)
+                                   
+                                    RecentChatGroupSubview(group:devChats[i], userData: userData, viewRouter: viewRouter)
+                                   
+                                       
                                         
-                                }
+                                
                                 }
                             }
                             }

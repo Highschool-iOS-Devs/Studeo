@@ -67,7 +67,7 @@ struct tabBarView: View {
             .padding(62)
 
           .frame(height: 90)
-          .frame(width: UIDevice.current.userInterfaceIdiom == .pad && viewRouter.currentView == .chatList ? 320 : .infinity)
+          .frame(width: .infinity)
             .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
             //.background(BlurView(style: .systemMaterial).shadow(radius: 0.5))
                 .background(Color("Background").shadow(color: Color("shadow"), radius: 1.5))
