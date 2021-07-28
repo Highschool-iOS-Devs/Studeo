@@ -15,6 +15,12 @@ struct RecentChatGroupSubview: View {
     @State var show = false
     var body: some View {
         NavigationLink(destination: ChatView(userData: userData, viewRouter: viewRouter, group: $group, show: $show)
+                        .onAppear() {
+                            viewRouter.showTabBar = false
+                        }
+                        .onDisappear() {
+            viewRouter.showTabBar = true
+        }
                         ){
         ZStack {
            Color("GroupCard")

@@ -98,6 +98,9 @@ struct RecentsView2: View {
                                 LazyVGrid(columns: gridItemLayout, spacing: 40){
                                     ForEach($groupModel.allGroups, id: \.id) { $group in//, id: \.groupID){group in
                                         NavigationLink(destination: ChatView(userData: userData, viewRouter: viewRouter, group: $group, show: $show)
+                                                        .onAppear() {
+                                                            viewRouter.showTabBar = false
+                                                        }
                                                         ){
                                            
                                             RecentChatGroupSubview(group: $group.wrappedValue, userData: userData, viewRouter: viewRouter)
@@ -122,7 +125,9 @@ struct RecentsView2: View {
                                     NavigationLink(
                                         destination:ChatView(userData: userData, viewRouter: viewRouter, group: $myMentors[i], show: $show)
                                                     
-                                           
+                                            .onAppear() {
+                                                viewRouter.showTabBar = false
+                                            }
                                         ){
                                             RecentChatGroupSubview(group: myMentors[i], userData: userData, viewRouter: viewRouter)
                                        
@@ -142,7 +147,9 @@ struct RecentsView2: View {
                             LazyVGrid(columns: gridItemLayout, spacing: 40) {
                                 ForEach(devChats.indices) { i in//, id: \.groupID){ i in
                                     NavigationLink(
-                                        destination:ChatView(userData: userData, viewRouter: viewRouter, group: $devChats[i], show: $show)
+                                        destination:ChatView(userData: userData, viewRouter: viewRouter, group: $devChats[i], show: $show) .onAppear() {
+                                            viewRouter.showTabBar = false
+                                        }
                                                     
                                            
                                         ){
@@ -197,7 +204,7 @@ struct RecentsView2: View {
         .onAppear {
             
             if UIDevice.current.userInterfaceIdiom == .pad {
-                viewRouter.showTabBar = false
+                //viewRouter.showTabBar = false
                 if !groupModel.allGroups.isEmpty {
                     
                 print("iPad")

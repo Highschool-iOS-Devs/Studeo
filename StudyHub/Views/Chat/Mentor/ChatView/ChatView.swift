@@ -302,6 +302,7 @@ struct ChatView: View {
         
             .onAppear{
 #warning("WIth more messages some chats aniate in delayed")
+                
                 self.loadData()
                 self.addRecentRecord()
                 if UIDevice.current.userInterfaceIdiom == .phone {

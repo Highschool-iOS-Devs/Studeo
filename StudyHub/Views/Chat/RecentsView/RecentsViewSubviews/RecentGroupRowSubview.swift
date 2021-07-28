@@ -27,7 +27,12 @@ struct RecentGroupRowSubview: View {
         NavigationLink(
            
             destination:ChatView(userData: userData, viewRouter: viewRouter, group: $group, show: $show)
-                        
+                .onAppear() {
+                    viewRouter.showTabBar = false
+                }
+                .onDisappear() {
+    viewRouter.showTabBar = true
+}
             ){
         ZStack {
             RoundedRectangle(cornerRadius: 20)
