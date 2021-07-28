@@ -131,16 +131,19 @@ struct SettingView: View {
             }
             .alert(isPresented: $showConfirmationAlert, content: {
                 Alert(title: Text("Are you sure?"), message: Text("This action cannot be undone"), primaryButton: .destructive(Text("Confirm"), action: {
-                    signingOut = true
+                   
+                   
+                    resetUserDefaults()
+                    removeAllPendingNotifications()
+                    KingfisherManager.shared.cache.clearCache()
+                    viewRouter.currentView = .introView
                     FirebaseManager.deleteUser(userID: userData.userID) { error in
                         guard error == nil else {
                             print(error?.localizedDescription)
                             return
                         }
-                        resetUserDefaults()
-                        removeAllPendingNotifications()
-                        KingfisherManager.shared.cache.clearCache()
-                        viewRouter.updateCurrentView(view:.login)
+                        userData.userID = UUID().uuidString
+                        signingOut = true
                     }
                 }), secondaryButton: .cancel())
             })
