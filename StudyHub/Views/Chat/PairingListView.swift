@@ -128,15 +128,19 @@ struct PairingListView: View {
                                 AllGroupTextRow()
                                     
                                 LazyVGrid(columns: gridItemLayout, spacing: 40){
-                                    ForEach(groupModel.allUnjoinedGroups.indices) { i in//, id: \.groupID){group in
-                                        if (groupModel.currentUser!.interests ?? [UserInterestTypes.Algebra1] ).contains(groupModel.allUnjoinedGroups[i].interests[0] ?? UserInterestTypes.Algebra1) {
-                                            NavigationLink(destination: ChatView(userData: userData, viewRouter: viewRouter, group: $groupModel.allUnjoinedGroups[i], show: $show)
+                                    ForEach($groupModel.allUnjoinedGroups) { $group in//, id: \.groupID){group in
+                                        if (groupModel.currentUser!.interests ?? [UserInterestTypes.Algebra1] ).contains((group.interests.first ?? UserInterestTypes.Algebra1) ?? .Algebra1) {
+                                            NavigationLink(destination: ChatView(userData: userData, viewRouter: viewRouter, group: $group, show: $show)
                                                         .onAppear() {
-                                            joinExistingGroup(groupID: groupModel.allUnjoinedGroups[i].groupID)
+                                                if lookingForMentor {
+                                                    createMentorship(group: group)
+                                                } else {
+                                            joinExistingGroup(groupID: group.groupID)
+                                                }
                                         }
                                                         ){
                                            
-                                            RecentChatGroupSubview(group: groupModel.allUnjoinedGroups[i])
+                                            RecentChatGroupSubview(group:group)
                                                 .environmentObject(UserData.shared)
                                                 
                                         }
@@ -249,7 +253,15 @@ struct PairingListView: View {
         
         
     }
-
+    func createMentorship(group: Groups) {
+        let db = Firestore.firestore()
+        let ref = db.collection("groups").document(group.id)
+        do {
+        try ref.setData(from: group)
+        } catch {
+            
+        }
+    }
     func joinExistingGroup(groupID:String){
         let db = Firestore.firestore()
         let ref = db.collection("groups").document(groupID)

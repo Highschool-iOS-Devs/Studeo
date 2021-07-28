@@ -57,26 +57,27 @@ class ChatViewModel:ObservableObject{
     func getAllUnJoinedmentors(performAction: @escaping ([Groups]) -> Void){
         guard userData != nil else {return}
         let db = Firestore.firestore()
-        let docRef = db.collection("groups")
+        let docRef = db.collection("users").whereField("isMentor", isEqualTo: true).whereField("id", isNotEqualTo: userData?.userID)
         let queryParameter = docRef
         var allGroups:[Groups] = []
 
-        queryParameter.getDocuments{ (querySnapshot, error) in
+        queryParameter.getDocuments{ [self] (querySnapshot, error) in
             guard querySnapshot != nil else {
                 print("Empty snapshot")
                 return}
             for document in querySnapshot!.documents{
                 let result = Result {
-                    try document.data(as: Groups.self)
+                    try document.data(as: User.self)
                 }
                 switch result {
                     case .success(let user):
                         if let user = user {
-                            if !user.members.contains(self.userData!.userID) {
-                                if user.members.count < 3 {
-                            allGroups.append(user)
-                                }
+                            let interests =  user.mentorshipInterests?.filter { (string) -> Bool in
+                                return currentUser?.interests?.contains(string) ?? false
                             }
+                            allGroups.append(Groups(id: UUID().uuidString, groupID: UUID().uuidString, groupName: user.name + " " + (interests?.first?.rawValue ?? ""), members: [user.id.uuidString, userData?.userID ?? ""], membersCount: 1, interests: interests ?? [.Algebra1]))
+                            print(allGroups.last)
+                              
                         } else {
                             print("Document does not exist")
                         }

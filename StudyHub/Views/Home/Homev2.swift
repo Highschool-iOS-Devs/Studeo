@@ -234,6 +234,7 @@ struct Homev2: View {
                 }
                     .frame(height: 90)
             }.blur(radius: showingTimer ? 20 : 0)
+            .statusBar(hidden: true)
             .onChange(of: self.i) { newValue in
                 show = true
                dmChat = true

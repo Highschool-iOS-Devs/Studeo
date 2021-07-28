@@ -36,6 +36,7 @@ struct RecentGroupRowSubview: View {
                         Text(messagePreview).font(Font.custom("Montserrat-Medium", size: 12, relativeTo: .headline))
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .foregroundColor(Color(#colorLiteral(red: 0.18, green: 0.57, blue: 0.82, alpha: 1)))
+                            .multilineTextAlignment(.leading)
                 }
                 .padding(.vertical, 20)
                 .padding(.trailing, 15)

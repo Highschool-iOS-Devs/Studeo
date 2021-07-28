@@ -35,6 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let pushManager = PushNotificationManager(userID: userID!)
                 pushManager.registerForPushNotifications()
         }
+        
         return true
     }
 

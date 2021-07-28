@@ -51,6 +51,7 @@ struct ContentView: View {
                 .resizable()
                 .scaledToFit()
                 .padding(100)
+            
                 .onAppear{
                    
                     self.checkAuth()
