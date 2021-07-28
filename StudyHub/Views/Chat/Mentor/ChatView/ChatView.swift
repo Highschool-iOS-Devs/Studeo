@@ -107,11 +107,11 @@ struct ChatView: View {
                             presentationMode.wrappedValue.dismiss()
                             
                         }
-//                    MessageButtons(imageName: "camera.fill")
-//                        .onTapGesture {
-//
-//                            showImagePicker = true
-//                        }
+                    MessageButtons(imageName: "camera.fill")
+                        .onTapGesture {
+
+                            showImagePicker = true
+                        }
                     Spacer()
                     TextField("Enter message", text: self.$messageField)
                         .font(.custom("Montserrat", size: 15))
@@ -129,6 +129,7 @@ struct ChatView: View {
                                 id = UUID().uuidString
                                 let metadata = StorageMetadata()
                                 metadata.contentType = "image/jpeg"
+                                
                              let storage = Storage.storage().reference().child("Message_Assets/\(id)")
                              if let image = image {
                              
@@ -143,7 +144,7 @@ struct ChatView: View {
                                 }
                              }
                             }
-                            if self.messageField != ""{
+                            if self.messageField != "" {
                                 let newMessage = MessageData(messageText: self.messageField, sentBy: self.userData.userID, sentByName: self.userData.name, sentTime: Date(), assetID: id != "" ? id : "", reactions: [String]())
                                 for member in members {
                                 let sender = PushNotificationSender()
@@ -162,7 +163,7 @@ struct ChatView: View {
                     
                 }
                 .sheet(isPresented: self.$showImagePicker){
-                   // ImagePicker(isShown: self.$showImagePicker, image: self.$image, userID: $userData.userID)
+                    ImagePicker(isShown: self.$showImagePicker, image: self.$image, userID: $userData.userID, userData: userData)
                      //   
                        
                  }
@@ -263,7 +264,7 @@ struct ChatView: View {
 //                .padding(.trailing, 10)
 //            }
             if viewImage {
-               // FullImageView(id: $id, viewImage: $viewImage)
+                FullImageView(id: $id, viewImage: $viewImage)
             }
 //                if ARChat {
 //                    VStack {
@@ -333,6 +334,7 @@ struct ChatView: View {
        
         func saveMessage(outgoingMessage:MessageData){
             let db = Firestore.firestore()
+            
             let ref = db.collection("message/\(group.groupID)/messages/").document(UUID().uuidString)
             do{
                 try ref.setData(from: outgoingMessage)

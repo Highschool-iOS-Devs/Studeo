@@ -33,7 +33,7 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>To chat with others</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string></string>
+	<string>To send images</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Montserrat-Black.ttf</string>
