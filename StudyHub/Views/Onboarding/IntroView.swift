@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-
+import Combine
 
 struct IntroView: View {
     @State var interests = [String]()
@@ -16,7 +16,7 @@ struct IntroView: View {
     @ObservedObject var viewRouter: ViewRouter
     @ObservedObject var userData: UserData
 
-        
+    @State var keyboardHeight: CGFloat = 0.0
     
     var body: some View {
         ZStack {
@@ -29,16 +29,19 @@ struct IntroView: View {
                 IntroPage(titleText: "Motivate", bodyText: "Join a community deticated to motivating each other to study.", image: "timer_drawing", viewRouter: viewRouter)
                 IntroPage(titleText: "Open Sourced", bodyText: "Studeo was created by amazing volunteers...", image: "", isOpenSourceView: true, viewRouter: viewRouter)
                 RegistrationView(viewRouter: viewRouter, userData: userData)
+                    .padding(.bottom, keyboardHeight)
                     
-                    .ignoresSafeArea()
                 
             }.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
             
             .transition(.opacity)
             .animation(.easeInOut(duration: 1.5))
             .ignoresSafeArea(.all, edges: .bottom)
-
-       
+            
+            .onReceive(Publishers.keyboardHeight) { value in
+                withAnimation(.easeInOut(duration: 0.7)) { self.keyboardHeight = value }
+                
+            }
         }
     }
 }

@@ -136,7 +136,7 @@ struct SettingView: View {
                     resetUserDefaults()
                     removeAllPendingNotifications()
                     KingfisherManager.shared.cache.clearCache()
-                    viewRouter.currentView = .introView
+                    viewRouter.currentView = .registration
                     FirebaseManager.deleteUser(userID: userData.userID) { error in
                         guard error == nil else {
                             print(error?.localizedDescription)

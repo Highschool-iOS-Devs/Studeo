@@ -12,6 +12,7 @@ import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import FirebaseStorage
+import Combine
 
 struct RegistrationView: View {
     @State private var username: String = ""
@@ -24,7 +25,7 @@ struct RegistrationView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewRouter: ViewRouter
     @ObservedObject var userData: UserData
-    
+    @State var keyboardHeight: CGFloat = 0.0
     var body: some View {
         ZStack {
             
@@ -67,7 +68,10 @@ struct RegistrationView: View {
                     }, secondaryButtonAction: {self.viewRouter.updateCurrentView(view: .login)}, displayMode: .registration)
                     .padding(.top, 30)
                     .padding(.bottom, 30)
-            } .padding(.bottom, 62)
+                
+                    
+                    
+            } //.padding(.bottom, 62)
                 .blur(radius: showLoadingAnimation ? 20 : 0)
                 .onAppear{
                     viewRouter.showTabBar = false
