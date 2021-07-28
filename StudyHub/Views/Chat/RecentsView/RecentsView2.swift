@@ -15,7 +15,7 @@ struct RecentsView2: View {
 //    @State var allGroups: [Groups] = []
 //    @State var recentPeople: [User] = []
 //    @State var recentGroups: [Groups] = []
-    var gridItemLayout = [GridItem(.flexible()), GridItem(.flexible())]
+    var gridItemLayout = [GridItem(.flexible())]
     @ObservedObject var userData: UserData
     @ObservedObject var viewRouter: ViewRouter
     @StateObject var groupModel = ChatViewModel()
@@ -208,7 +208,7 @@ struct RecentsView2: View {
                 if !groupModel.allGroups.isEmpty {
                     
                 print("iPad")
-                self.gridLayout = [GridItem(), GridItem(.flexible())]
+                self.gridLayout = [GridItem(.flexible())]
                     
                 } else {
                     self.gridLayout =  [GridItem(.flexible())]

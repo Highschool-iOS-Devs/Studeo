@@ -169,6 +169,7 @@ struct ChatView: View {
                 .onReceive(Publishers.keyboardHeight){height in
                     keyboardHeight=height
                 }
+                .padding(.bottom, keyboardHeight/3)
                 .padding(.horizontal)
                 .padding(.top)
                 .padding(.bottom, 10)
@@ -176,6 +177,7 @@ struct ChatView: View {
                 
                 
             }
+           
             .blur(radius: membersList ? 8 : 0)
             .animation(.easeInOut)
             .navigationBarTitleDisplayMode(.inline)
