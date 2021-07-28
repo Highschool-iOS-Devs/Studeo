@@ -33,6 +33,7 @@ struct SettingView: View {
     @State var interests = [String]()
     @State var add = false
     @State private var signingOut = false
+    @State private var volunteers = ""
     @State private var showConfirmationAlert = false
     
     var body: some View {
@@ -67,7 +68,10 @@ struct SettingView: View {
                                     settingRowView(settingText: "Personal info", settingState: "", newView: AnyView(PersonalInfoView(userData: userData)))
                                     settingRowView(settingText: "Country", settingState: country, newView: AnyView(CountrySelectionView(userData: userData, selectedCountry: $country)))
                                     settingRowView(settingText: "Language", settingState: language, newView: AnyView(LanguageSelectionView(userData: userData, selectedLanguage: $language)))
+                                    
                                     settingRowView(settingText: "Interests", settingState: "", newView: AnyView(IntroCustomize(interestSelected: $interestSelected, userData: userData, isNotOnboarding: true, interests: $interests, settings: $settings, add: $add, viewRouter: viewRouter)))
+                                    
+                                    settingRowView(settingText: "Volunteers", settingState: volunteers, newView: AnyView(IntroPage(titleText: "Open Sourced", bodyText: "Studeo was created by amazing volunteers...", image: "", isOpenSourceView: true, viewRouter: viewRouter)))
                                     settingRowView(settingText: "Sign out", settingState: "", newView: AnyView(Text("Placeholder")), disableNavigation: true)
                                         .onTapGesture(){
                                             saveData()
