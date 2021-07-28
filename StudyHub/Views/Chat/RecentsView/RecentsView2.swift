@@ -33,6 +33,7 @@ struct RecentsView2: View {
     var body: some View {
         ZStack {
             Color("Background").edgesIgnoringSafeArea(.all)
+            #warning("stutter with the view when you scroll too far up")
         NavigationView{
            
                 VStack(spacing: 0) {

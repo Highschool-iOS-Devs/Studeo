@@ -36,8 +36,10 @@ struct MiniProfileSubview: View {
                     .clipShape(Circle())
                     .frame(minWidth:10, minHeight:10)
                     .overlay(Circle().stroke(Color("Background"), lineWidth: 1))
-                
-                   
+                    .transition(.opacity)
+#warning("Causes profile images to move weird when scrolling")
+//                    .animation(.easeInOut)
+                 
 
             }
         }

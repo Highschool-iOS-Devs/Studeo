@@ -182,9 +182,10 @@ struct ChatView: View {
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     HStack {
+                        #warning("Weird poping animation")
                         Text(group.groupName)
                             .font(.custom("Montserrat-Bold", size: 12, relativeTo: .headline))
-                            
+                            .fixedSize()
                             .foregroundColor(Color("Text"))
 
                     }
@@ -300,7 +301,7 @@ struct ChatView: View {
             }
         
             .onAppear{
-                
+#warning("WIth more messages some chats aniate in delayed")
                 self.loadData()
                 self.addRecentRecord()
                 if UIDevice.current.userInterfaceIdiom == .phone {
