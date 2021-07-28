@@ -52,7 +52,7 @@ struct ContentView: View {
                 .scaledToFit()
                 .padding(100)
             
-                .onAppear{
+                .onAppear {
                    
                     self.checkAuth()
                     self.firstLaunchAction()
