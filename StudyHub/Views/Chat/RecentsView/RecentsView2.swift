@@ -78,11 +78,11 @@ struct RecentsView2: View {
                                 AllGroupTextRow()
                                     
                                 LazyVGrid(columns: gridItemLayout, spacing: 40){
-                                    ForEach(groupModel.allGroups.indices) { i in//, id: \.groupID){group in
-                                        NavigationLink(destination: ChatView(userData: userData, viewRouter: viewRouter, group: $groupModel.allGroups[i], show: $show)
+                                    ForEach($groupModel.allGroups) { $group in//, id: \.groupID){group in
+                                        NavigationLink(destination: ChatView(userData: userData, viewRouter: viewRouter, group: $group, show: $show)
                                                         ){
                                            
-                                            RecentChatGroupSubview(group: groupModel.allGroups[i])
+                                            RecentChatGroupSubview(group: group)
                                                 .environmentObject(UserData.shared)
                                         }
                                     
