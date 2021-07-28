@@ -17,7 +17,7 @@ let screenSize = UIScreen.main.bounds.size
 struct SettingView: View {
     @ObservedObject var userData: UserData
     @ObservedObject var viewRouter: ViewRouter
-    @State private var userSettings = SettingsData(settings: [])
+    @State private var userSettings = SettingsData()
     @State private var userIsAvailable = true
     
     
@@ -32,6 +32,8 @@ struct SettingView: View {
     @State var settings = false
     @State var interests = [String]()
     @State var add = false
+    @State private var signingOut = false
+    
     var body: some View {
             NavigationView {
                 ZStack {
@@ -67,6 +69,8 @@ struct SettingView: View {
                                     settingRowView(settingText: "Interests", settingState: "", newView: AnyView(IntroCustomize(interestSelected: $interestSelected, userData: userData, isNotOnboarding: true, interests: $interests, settings: $settings, add: $add, viewRouter: viewRouter)))
                                     settingRowView(settingText: "Sign out", settingState: "", newView: AnyView(Text("Placeholder")), disableNavigation: true)
                                         .onTapGesture(){
+                                            saveData()
+                                            signingOut = true
                                             signOut()
                                             resetUserDefaults()
                                             removeAllPendingNotifications()
@@ -104,12 +108,13 @@ struct SettingView: View {
                     if let settingsData = data {
                         self.userSettings = settingsData
                     } else {
-                        self.userSettings = SettingsData.defaultSettings
+                        self.userSettings = SettingsData(id: UUID(uuidString: userData.userID)!)
                     }
                     updateUIWithData(self.userSettings)
                 }
             }
             .onDisappear{
+                guard signingOut == false else { return }
                 print("Settings disappeared, save data now.")
                 self.saveAvailability() { error in
                     if let error = error {
@@ -198,33 +203,12 @@ struct SettingView: View {
         
     }
     
-    func updateNewSettings() {
-        var newSettings = [SettingSubData]()
-        for settings in self.userSettings.settings {
-            switch settings.name {
-            case "Country":
-                newSettings.append(SettingSubData(name: settings.name, field: self.country))
-            case "Chat notifications":
-                newSettings.append(SettingSubData(name: settings.name, state: self.chatNotifications))
-            case "New group notifications":
-                newSettings.append(SettingSubData(name: settings.name, state: self.newGroupNotifications))
-            case "Personal info":
-                newSettings.append(SettingSubData(name: settings.name, state: true))
-            case "Language":
-                newSettings.append(SettingSubData(name: settings.name, field: self.language))
-            default:
-                print("Unexpected setting with name: \(settings.name)")
-            }
-        }
-        self.userSettings.settings = newSettings
-    }
-    
     func saveData() {
-        updateNewSettings()
+        self.userSettings = SettingsData(id: UUID(uuidString: userData.userID)!, country: self.country, chatNotifications: self.chatNotifications, newGroupNotifications: self.newGroupNotifications, language: self.language)
         let db = Firestore.firestore()
         let ref = db.collection("settings").document(userData.userID)
         do {
-            try ref.setData(from: self.userSettings)
+            try ref.setData(from: self.userSettings, merge: true)
             self.userData.chatNotificationsOn = chatNotifications
             self.userData.joinedGroupNotificationsOn = newGroupNotifications
         } catch let error {
@@ -233,20 +217,24 @@ struct SettingView: View {
     }
     
     func updateUIWithData(_ data: SettingsData) {
-        for settings in data.settings {
-            switch settings.name {
-            case "Country":
-                self.country = settings.field!
-            case "Chat notifications":
-                self.chatNotifications = settings.state!
-            case "New group notifications":
-                self.newGroupNotifications = settings.state!
-            case "Language":
-                self.language = settings.field!
-            default:
-                print("Unexpected setting with name: \(settings.name)")
-            }
-        }
+//        for settings in data.settings {
+//            switch settings.name {
+//            case "Country":
+//                self.country = settings.field!
+//            case "Chat notifications":
+//                self.chatNotifications = settings.state!
+//            case "New group notifications":
+//                self.newGroupNotifications = settings.state!
+//            case "Language":
+//                self.language = settings.field!
+//            default:
+//                print("Unexpected setting with name: \(settings.name)")
+//            }
+//        }
+        self.country = data.country
+        self.chatNotifications = data.chatNotifications
+        self.newGroupNotifications = data.newGroupNotifications
+        self.language = data.language
     }
     
 }

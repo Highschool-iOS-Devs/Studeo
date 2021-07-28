@@ -145,6 +145,7 @@ struct LoginView: View {
                             let didFinishOnboarding = user.finishedOnboarding ?? false
                             userData.isOnboardingCompleted = didFinishOnboarding
                             self.finishedOnboarding = didFinishOnboarding
+                            checkSettings(userID: user.id.uuidString)
                         }
                         else{
                             print("Document does not exist")
@@ -161,6 +162,39 @@ struct LoginView: View {
         }
         
     }
+    
+    func checkSettings(userID: String) {
+        let db = Firestore.firestore()
+        let ref = db.collection("settings").document(userID)
+        ref.getDocument { document, error in
+            if let document = document, document.exists {
+                let result = Result {
+                    try document.data(as: SettingsData.self)
+                }
+                switch result {
+                case .success(let settings):
+                    print("Settings exists with new model")
+                case .failure(let error):
+                    print("Settings exists with previous model")
+                    let newSettings = SettingsData(id: UUID(uuidString:userID)!)
+                    do {
+                        try ref.setData(from: newSettings)
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                }
+            } else {
+                // Document does not exist. Create new settings document
+                let newSettings = SettingsData(id: UUID(uuidString:userID)!)
+                do {
+                    try ref.setData(from: newSettings)
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+            
 }
 
 

@@ -9,17 +9,23 @@
 import SwiftUI
 
 struct SettingsData: Identifiable, Codable {
-    var id = UUID()
-    var settings:[SettingSubData]
+    var id: UUID
+//    var personalInfo: Bool
+    var country: String
+    var chatNotifications: Bool
+    var newGroupNotifications: Bool
+    var language: String
     
-    static let defaultSettings = SettingsData(settings: [SettingSubData(name: "Personal info", state: true), SettingSubData(name: "Country", field: "US"), SettingSubData(name: "Chat notifications", state: true), SettingSubData(name: "New group notifications", state: true), SettingSubData(name: "Language", field: "EN")])
+    init(id: UUID = UUID(), country: String = "US", chatNotifications: Bool = true, newGroupNotifications: Bool = true, language: String = "EN") {
+        self.id = id
+        self.country = country
+        self.chatNotifications = chatNotifications
+        self.newGroupNotifications = newGroupNotifications
+        self.language = language
+    }
 
 }
-struct SettingSubData:Codable{
-    var name:String
-    var state:Bool?
-    var field:String?
-}
+
 
 //
 //struct SettingsData: Codable {
