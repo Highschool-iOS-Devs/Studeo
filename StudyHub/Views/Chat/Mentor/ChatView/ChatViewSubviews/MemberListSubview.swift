@@ -10,6 +10,7 @@ import SwiftUI
 import Firebase
 
 struct MemberListSubview: View {
+    @Environment(\.presentationMode) var presentationMode
     @Binding var members: [User]
     @Binding var memberList: Bool
     @Binding var showFull:Bool
@@ -111,6 +112,19 @@ struct MemberListSubview: View {
                         }
                     }
                 }
+                
+                Button("Leave Group") {
+                    FirebaseManager.leaveGroup(groupID: group.groupID, userID: userData.userID) { error in
+                        if let error = error {
+                            print(error)
+                        } else {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    }
+                }
+                .buttonStyle(WhiteStyle())
+                .padding(.top)
+                .padding(.horizontal, 15)
       
     
                 Spacer()

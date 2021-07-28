@@ -33,6 +33,7 @@ struct SettingView: View {
     @State var interests = [String]()
     @State var add = false
     @State private var signingOut = false
+    @State private var showConfirmationAlert = false
     
     var body: some View {
             NavigationView {
@@ -76,6 +77,10 @@ struct SettingView: View {
                                             removeAllPendingNotifications()
                                             KingfisherManager.shared.cache.clearCache()
                                             viewRouter.updateCurrentView(view:.login)
+                                        }
+                                    settingRowView(settingText: "Delete Account", settingState: "", newView: AnyView(Text("Placeholder")), disableNavigation: true, destructive: true)
+                                        .onTapGesture(){
+                                            showConfirmationAlert = true
                                         }
                                   //  settingRowView(settingText: "Help", settingState: "", newView: AnyView(Text("")), disableNavigation: true)
                                    //     .onTapGesture {
@@ -124,6 +129,21 @@ struct SettingView: View {
                 self.saveData()
                 monitor.cancel()
             }
+            .alert(isPresented: $showConfirmationAlert, content: {
+                Alert(title: Text("Are you sure?"), message: Text("This action cannot be undone"), primaryButton: .destructive(Text("Confirm"), action: {
+                    signingOut = true
+                    FirebaseManager.deleteUser(userID: userData.userID) { error in
+                        guard error == nil else {
+                            print(error?.localizedDescription)
+                            return
+                        }
+                        resetUserDefaults()
+                        removeAllPendingNotifications()
+                        KingfisherManager.shared.cache.clearCache()
+                        viewRouter.updateCurrentView(view:.login)
+                    }
+                }), secondaryButton: .cancel())
+            })
         
         
         
@@ -268,12 +288,13 @@ struct SettingView: View {
         var settingState:String
         var newView: AnyView
         var disableNavigation:Bool = false
+        var destructive = false
         var body: some View {
                 HStack{
                     NavigationLink(destination: newView) {
                         Text(settingText)
                             .font(Font.custom("Montserrat-SemiBold", size: 12, relativeTo: .subheadline))
-                            .foregroundColor(Color("Text"))
+                            .foregroundColor(destructive ? Color.red : Color("Text"))
                             .opacity(0.9)
                             .padding()
                         
