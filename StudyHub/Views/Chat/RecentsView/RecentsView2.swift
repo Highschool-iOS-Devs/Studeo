@@ -120,15 +120,15 @@ struct RecentsView2: View {
                             } .padding()
                           
                             LazyVGrid(columns: gridItemLayout, spacing: 40) {
-                                ForEach(myMentors.indices) { i in//, id: \.groupID){ i in
+                                ForEach($myMentors) { $mentor in//, id: \.groupID){ i in
                                     NavigationLink(
-                                        destination:ChatView(userData: userData, viewRouter: viewRouter, group: $myMentors[i], show: $show)
+                                        destination:ChatView(userData: userData, viewRouter: viewRouter, group: $mentor, show: $show)
                                                     
                                             .onAppear() {
                                                 viewRouter.showTabBar = false
                                             }
                                         ){
-                                            RecentChatGroupSubview(group: myMentors[i], userData: userData, viewRouter: viewRouter)
+                                            RecentChatGroupSubview(group: mentor, userData: userData, viewRouter: viewRouter)
                                        
                                         
                                 }
@@ -221,10 +221,11 @@ struct RecentsView2: View {
             self.gridLayout =  [GridItem(.flexible())]
             }
             groupModel.userData = userData
+            withAnimation(.easeInOut) {
             groupModel.getAllGroups(){groupModel.allGroups=$0}
             groupModel.getRecentGroups{groupModel.recentGroups=$0}
             groupModel.recentPeople = groupModel.getRecentPeople()
-           
+            }
         }
        
     

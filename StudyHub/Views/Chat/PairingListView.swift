@@ -85,7 +85,7 @@ struct PairingListView: View {
                         
                         ScrollView{
 //                            RecentChatTextRow(add: $add)
-//                                
+//
                                 
                             //Spacer()
 //                            if groupModel.allUnjoinedGroups == [] {
@@ -104,7 +104,7 @@ struct PairingListView: View {
 //                                        NavigationLink(
 //
 //                                            destination:ChatView(group: $groupModel.recentGroups[i], show: $show)
-//                                                        
+//
 //                                            ){
 //
 //                                            RecentGroupRowSubview(group: groupModel.recentGroups[i], profilePicture: Image("demoprofile"))
@@ -140,7 +140,7 @@ struct PairingListView: View {
                                         }
                                                         ){
                                            
-                                                RecentChatGroupSubview(group: $group.wrappedValue, userData: userData, viewRouter: viewRouter)
+                                                RecentChatGroupSubview2(group: $group.wrappedValue, userData: userData, viewRouter: viewRouter)
                                                 .environmentObject(UserData.shared)
                                                 
                                         }
@@ -240,6 +240,11 @@ struct PairingListView: View {
                 groupModel.currentUser = value
                 selectedInterests = value.interests ?? [UserInterestTypes]()
                 interests = value.interests.map{$0.map{$0.rawValue}} ?? [String]()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                    if groupModel.allUnjoinedGroups == [] {
+                createNewGroup()
+                }
+                }
             }
 //            groupModel.getRecentGroups{groupModel.recentGroups=$0}
 //            groupModel.recentPeople = groupModel.getRecentPeople()
@@ -249,13 +254,26 @@ struct PairingListView: View {
         
         
     }
+    func createNewGroup() {
+        let interest = groupModel.currentUser?.interests?.first ?? .Algebra1
+        let group = Groups(id: UUID().uuidString, groupID: UUID().uuidString, groupName: interest.rawValue + " Group" , members: [userData.userID], membersCount: 1, interests: [interest])
+        
+        let db = Firestore.firestore()
+        let ref = db.collection("groups").document(group.groupID)
+        do {
+        try ref.setData(from: group)
+            groupModel.allUnjoinedGroups.append(group)
+        } catch {
+            print(error)
+        }
+    }
     func createMentorship(group: Groups) {
         let db = Firestore.firestore()
-        let ref = db.collection("groups").document(group.id)
+        let ref = db.collection("groups").document(group.groupID)
         do {
         try ref.setData(from: group)
         } catch {
-            
+            print(error)
         }
     }
     func joinExistingGroup(groupID:String){

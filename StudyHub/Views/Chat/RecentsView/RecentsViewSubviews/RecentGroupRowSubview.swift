@@ -43,12 +43,14 @@ struct RecentGroupRowSubview: View {
                 VStack {
                     Text(group.groupName) .font(Font.custom("Montserrat-SemiBold", size: 12, relativeTo: .headline)).foregroundColor(Color(#colorLiteral(red: 0, green: 0.6, blue: 1, alpha: 1)))
                             .textCase(.uppercase)
+                            .multilineTextAlignment(.leading)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     Spacer()
                         Text(messagePreview).font(Font.custom("Montserrat-Medium", size: 12, relativeTo: .headline))
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .foregroundColor(Color(#colorLiteral(red: 0.18, green: 0.57, blue: 0.82, alpha: 1)))
                             .multilineTextAlignment(.leading)
+                    
                 }
                 .padding(.vertical, 20)
                 .padding(.trailing, 15)

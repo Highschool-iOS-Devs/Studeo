@@ -216,7 +216,7 @@ struct Homev2: View {
                         //LineView(data: user[0].studyHours, title: "Hours Studied", legend: "", style: Styles.barChartStyleNeonBlueLight)
                                // .padding()
                         }
-                            Spacer(minLength: 500)
+                            Spacer(minLength: 200)
                    
                     
                         .transition(.move(edge: .bottom))
