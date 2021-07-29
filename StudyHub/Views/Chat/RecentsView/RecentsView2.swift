@@ -33,7 +33,6 @@ struct RecentsView2: View {
     var body: some View {
         ZStack {
             Color("Background").edgesIgnoringSafeArea(.all)
-            #warning("stutter with the view when you scroll too far up")
         NavigationView{
            
                 VStack(spacing: 0) {
@@ -193,6 +192,7 @@ struct RecentsView2: View {
                 PairingListView(userData: userData, viewRouter: viewRouter, myMentors: $myMentors, timerLog: $timerLog, devChats: $devChats)
                     
             }
+            .navigationBarHidden(true)
 
         } .navigationViewStyle(StackNavigationViewStyle()
                
