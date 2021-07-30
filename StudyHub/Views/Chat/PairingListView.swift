@@ -32,6 +32,7 @@ struct PairingListView: View {
     @State var selectedInterests:[UserInterestTypes] = []
     @State var interests:[String] = []
     @State var show = false
+    @State private var groupToShow = Groups(id: "", groupID: "", groupName: "", members: [], membersCount: 0, interests: [], recentMessage: nil, recentMessageTime: nil, userInVC: nil)
     
     var body: some View {
         NavigationView{
@@ -140,6 +141,7 @@ struct PairingListView: View {
                                                 } else {
                                                     joinExistingGroup(groupID: group.wrappedValue.groupID)
                                                 }
+                                                groupToShow = group.wrappedValue
                                                 showChat = true
                                             }) {
                                                
@@ -147,7 +149,7 @@ struct PairingListView: View {
                                                 
                                                 
                                             } .fullScreenCover(isPresented: $showChat) {
-                                                ChatView(userData: userData, viewRouter: viewRouter, group: group, show: $show, hideNavBar: .constant(false))
+                                                ChatView(userData: userData, viewRouter: viewRouter, group: $groupToShow, show: $show, hideNavBar: .constant(false))
                                                                
                                             }
                                             }
