@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
 	<key>CFBundleDisplayName</key>
 	<string>Studeo</string>
 	<key>CFBundleExecutable</key>
@@ -28,10 +30,6 @@
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSCameraUsageDescription</key>
-	<string>To chat with others</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>To chat with others</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>To send images</string>
 	<key>UIAppFonts</key>

@@ -129,7 +129,7 @@ struct PairingListView: View {
                                     
                                 LazyVGrid(columns: gridItemLayout, spacing: 40){
                                     ForEach(groupModel.allUnjoinedGroups.identifiableIndices) { groupIndex in//, id: \.groupID){group in
-                                        if (groupModel.currentUser!.interests ?? [UserInterestTypes.Algebra1] ).contains((groupModel.allUnjoinedGroups[groupIndex].interests.first ?? UserInterestTypes.Algebra1) ?? .Algebra1) {
+                                       
                                             NavigationLink(destination: ChatView(userData: userData, viewRouter: viewRouter, group: $groupModel.allUnjoinedGroups[groupIndex], show: $show)
                                                         .onAppear() {
                                                 if lookingForMentor {
@@ -141,14 +141,19 @@ struct PairingListView: View {
                                                         ){
                                            
                                                 RecentChatGroupSubview2(group: $groupModel.allUnjoinedGroups[groupIndex].wrappedValue, userData: userData, viewRouter: viewRouter)
-                                                .environmentObject(UserData.shared)
+                                               
                                                 
                                         }
                                         }
                                     
-                                    }
+                                    
                                 }
                             }
+                            } else {
+                                EmptyView()
+                                    .onAppear() {
+                                        createNewGroup()
+                                    }
                             }
                             if !myMentors.isEmpty {
                             HStack{
@@ -222,7 +227,29 @@ struct PairingListView: View {
             } .navigationBarTitle("")
                 .navigationBarHidden(true)
                 .padding(.top)
-                
+                .onAppear{
+                    groupModel.userData = userData
+                    
+                    groupModel.getCurrentOrAnyUser(userID: userData.userID) { value in
+                        groupModel.currentUser = value
+                        lookingForMentor ? groupModel.getAllUnJoinedmentors(){groupModel.allUnjoinedGroups=$0} : groupModel.getAllUnJoinedGroups(){groupModel.allUnjoinedGroups=$0}
+                        selectedInterests = value.interests ?? [UserInterestTypes]()
+                        interests = value.interests.map{$0.map{$0.rawValue}} ?? [String]()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                            if groupModel.allUnjoinedGroups == [] {
+                        createNewGroup()
+                        }
+                        }
+                    }
+        //            groupModel.getRecentGroups{groupModel.recentGroups=$0}
+        //            groupModel.recentPeople = groupModel.getRecentPeople()
+                }
+
+                .onChange(of: groupModel.allUnjoinedGroups) { value in
+                    if groupModel.allUnjoinedGroups == [] {
+                createNewGroup()
+                }
+                }
             
             .fullScreenCover(isPresented: $add){
                 IntroMentor(userData: userData, viewRouter: viewRouter, isNotOnboarding: true)
@@ -233,36 +260,20 @@ struct PairingListView: View {
         .blur(radius: showTimer ? 20 : 0)
         .accentColor(Color("Primary"))
         .animation(.none)
-        .onAppear{
-            groupModel.userData = userData
-            lookingForMentor ? groupModel.getAllUnJoinedmentors(){groupModel.allUnjoinedGroups=$0} : groupModel.getAllUnJoinedGroups(){groupModel.allUnjoinedGroups=$0}
-            groupModel.getCurrentOrAnyUser(userID: userData.userID) { value in
-                groupModel.currentUser = value
-                selectedInterests = value.interests ?? [UserInterestTypes]()
-                interests = value.interests.map{$0.map{$0.rawValue}} ?? [String]()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                    if groupModel.allUnjoinedGroups == [] {
-                createNewGroup()
-                }
-                }
-            }
-//            groupModel.getRecentGroups{groupModel.recentGroups=$0}
-//            groupModel.recentPeople = groupModel.getRecentPeople()
-        }
-
-        
+       
         
         
     }
     func createNewGroup() {
         let interest = groupModel.currentUser?.interests?.first ?? .Algebra1
-        let group = Groups(id: UUID().uuidString, groupID: UUID().uuidString, groupName: interest.rawValue + " Group" , members: [userData.userID], membersCount: 1, interests: [interest])
+        let group = Groups(id: UUID().uuidString, groupID: UUID().uuidString, groupName: interest.rawValue + " Group" , members: [], membersCount: 0, interests: [interest])
         
         let db = Firestore.firestore()
         let ref = db.collection("groups").document(group.groupID)
         do {
         try ref.setData(from: group)
             groupModel.allUnjoinedGroups.append(group)
+            
         } catch {
             print(error)
         }

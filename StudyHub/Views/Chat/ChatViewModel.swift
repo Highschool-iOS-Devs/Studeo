@@ -27,7 +27,7 @@ class ChatViewModel:ObservableObject{
         let queryParameter = docRef
         var allGroups:[Groups] = []
 
-        queryParameter.getDocuments{ (querySnapshot, error) in
+        queryParameter.getDocuments{ [self] (querySnapshot, error) in
             guard querySnapshot != nil else {
                 print("Empty snapshot")
                 return}
@@ -40,7 +40,9 @@ class ChatViewModel:ObservableObject{
                         if let user = user {
                             if !user.members.contains(self.userData!.userID) {
                                 if user.members.count < 6 {
+                                    if (self.currentUser!.interests ?? [UserInterestTypes.Algebra1] ).contains(((user.interests.first) ?? .Algebra1) ?? .Algebra1) {
                             allGroups.append(user)
+                                }
                                 }
                             }
                         } else {

@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
               else { assert(false, "Couldn't load config file") }
             FirebaseApp.configure(options: fileopts)
         #else
-            let filePath = Bundle.main.path(forResource: "GoogleService-Info-Production", ofType: "plist", inDirectory: "Google Plists")
+            let filePath = Bundle.main.path(forResource: "GoogleService-Info-Appstore", ofType: "plist", inDirectory: "Google Plists")
             guard let fileopts = FirebaseOptions(contentsOfFile: filePath!)
             else { assert(false, "Couldn't load config file"); fatalError("Loading Firebase config plist file failed.")}
             FirebaseApp.configure(options: fileopts)
