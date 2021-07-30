@@ -107,7 +107,7 @@ struct RecentsView2: View {
                                                 }
                                                 
                                             }
-                                        } .drawingGroup()
+                                        }
                                     }
                                     
                                 }
@@ -196,7 +196,9 @@ struct RecentsView2: View {
                     
                 }
                 .navigationBarHidden(hideNavBar)
-                
+                NavigationLink(destination: EmptyView()) {
+                    EmptyView()
+                }
             } .navigationViewStyle(StackNavigationViewStyle()
                                    
             )
