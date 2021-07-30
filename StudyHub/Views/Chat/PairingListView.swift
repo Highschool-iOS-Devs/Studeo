@@ -132,6 +132,8 @@ struct PairingListView: View {
                                     LazyVGrid(columns: gridItemLayout, spacing: 40){
                                         ForEach($groupModel.allUnjoinedGroups) { group in//, id: \.groupID){group in
                                             
+                                            if (groupModel.currentUser!.interests ?? [UserInterestTypes.Algebra1] ).contains(((group.wrappedValue.interests.first ?? .Chemistry) ?? .Chemistry)) {
+                                                
                                             Button(action: {
                                                 if lookingForMentor {
                                                     createMentorship(group: group.wrappedValue)
@@ -148,7 +150,7 @@ struct PairingListView: View {
                                                 ChatView(userData: userData, viewRouter: viewRouter, group: group, show: $show, hideNavBar: .constant(false))
                                                                
                                             }
-                                        
+                                            }
                                         
                                     }
                                     }
@@ -156,7 +158,14 @@ struct PairingListView: View {
                             } else {
                                 EmptyView()
                                     .onAppear() {
-                                        createNewGroup()
+//                                        for selectedInterest in selectedInterests {
+//                                            let groupInterests = groupModel.allUnjoinedGroups.map{$0.interests}
+//                                            for groupInterest in groupInterests {
+//                                            if !groupInterest.contains(selectedInterest) {
+//                                                createNewGroup(interest: selectedInterest)
+//                                            }
+//                                        }
+//                                        }
                                     }
                             }
                             if !myMentors.isEmpty {
@@ -226,7 +235,35 @@ struct PairingListView: View {
                 if settings {
                     
                     IntroCustomize(interestSelected: $selectedInterests, userData: userData, isNotOnboarding: false, interests: $interests, settings: $settings, add: $add, viewRouter: viewRouter, groupModel:groupModel)
-                    
+                        .onDisappear() {
+                           
+                            let groupInterests = groupModel.allUnjoinedGroups.map{$0.interests.map{$0}}
+                            var allInterests = selectedInterests.map{$0.rawValue}
+                            for groupInterest in (groupInterests.map{$0.map{$0?.rawValue} ?? [""]}) {
+
+                        
+                                allInterests += (groupInterest.map{$0 ?? ""})
+                            }
+                            let interestsNeedToBeCreated = allInterests.removeDuplicates()
+                            print(interestsNeedToBeCreated)
+                            for interest in interestsNeedToBeCreated {
+                                var doubleCheck = [String]()
+                                let groupInterests = groupModel.allUnjoinedGroups.map{$0.interests.map{$0}}
+                                for groupInterest in (groupInterests.map{$0.map{$0?.rawValue}}) {
+
+                            
+                                    doubleCheck += (groupInterest.map{$0 ?? ""})
+                                }
+                           
+                                if !doubleCheck.contains(interest) {
+                                    //print("Pass")
+                                createNewGroup(interest: UserInterestTypes(rawValue: interest) ?? .Chemistry)
+                                }
+                            }
+                            }
+                        
+                            
+                        
                 }
             } .navigationBarTitle("")
             .navigationBarHidden(true)
@@ -239,21 +276,13 @@ struct PairingListView: View {
                     lookingForMentor ? groupModel.getAllUnJoinedmentors(){groupModel.allUnjoinedGroups=$0} : groupModel.getAllUnJoinedGroups(){groupModel.allUnjoinedGroups=$0}
                     selectedInterests = value.interests ?? [UserInterestTypes]()
                     interests = value.interests.map{$0.map{$0.rawValue}} ?? [String]()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                        if groupModel.allUnjoinedGroups == [] {
-                            createNewGroup()
-                        }
-                    }
+                    
                 }
                 //            groupModel.getRecentGroups{groupModel.recentGroups=$0}
                 //            groupModel.recentPeople = groupModel.getRecentPeople()
             }
             
-            .onChange(of: groupModel.allUnjoinedGroups) { value in
-                if groupModel.allUnjoinedGroups == [] {
-                    createNewGroup()
-                }
-            }
+           
             
             .fullScreenCover(isPresented: $add){
                 IntroMentor(userData: userData, viewRouter: viewRouter, isNotOnboarding: true)
@@ -268,8 +297,8 @@ struct PairingListView: View {
         
         
     }
-    func createNewGroup() {
-        let interest = groupModel.currentUser?.interests?.first ?? .Algebra1
+    func createNewGroup(interest: UserInterestTypes) {
+       
         let group = Groups(id: UUID().uuidString, groupID: UUID().uuidString, groupName: interest.rawValue + " Group" , members: [], membersCount: 0, interests: [interest])
         
         let db = Firestore.firestore()

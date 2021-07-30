@@ -20,41 +20,39 @@ class ChatViewModel:ObservableObject{
     @Published var recentPeople:[User] = []
     @Published var currentUser:User?
     
-    func getAllUnJoinedGroups(performAction: @escaping ([Groups]) -> Void) {
-        guard userData != nil else { return }
-        let db = Firestore.firestore()
-        let docRef = db.collection("groups")
-        let queryParameter = docRef
-        var allGroups:[Groups] = []
-        
-        queryParameter.getDocuments { [self] (querySnapshot, error) in
-            guard querySnapshot != nil else {
-                print("Empty snapshot")
-                return}
-            for document in querySnapshot!.documents {
-                let result = Result {
-                    try document.data(as: Groups.self)
-                }
-                switch result {
-                case .success(let user):
-                    if let user = user {
-                        if !user.members.contains(self.userData!.userID) {
-                            if user.members.count < 6 {
-                                if (self.currentUser!.interests ?? [UserInterestTypes.Algebra1] ).contains(((user.interests.first) ?? .Algebra1) ?? .Algebra1) {
-                                    allGroups.append(user)
-                                }
-                            }
-                        }
-                    } else {
-                        print("Document does not exist")
+    func getAllUnJoinedGroups(performAction: @escaping ([Groups]) -> Void){
+            guard userData != nil else {return}
+            let db = Firestore.firestore()
+            let docRef = db.collection("groups")
+            let queryParameter = docRef
+            var allGroups:[Groups] = []
+
+            queryParameter.getDocuments{ (querySnapshot, error) in
+                guard querySnapshot != nil else {
+                    print("Empty snapshot")
+                    return}
+                for document in querySnapshot!.documents{
+                    let result = Result {
+                        try document.data(as: Groups.self)
                     }
-                case .failure(let error):
-                    print("Error decoding user: \(error)")
+                    switch result {
+                        case .success(let user):
+                            if let user = user {
+                                if !user.members.contains(self.userData!.userID) {
+                                    if user.members.count < 6 {
+                                allGroups.append(user)
+                                    }
+                                }
+                            } else {
+                                print("Document does not exist")
+                            }
+                        case .failure(let error):
+                            print("Error decoding user: \(error)")
+                        }
                 }
+                performAction(allGroups)
             }
-            performAction(allGroups)
         }
-    }
     
     func getAllUnJoinedmentors(performAction: @escaping ([Groups]) -> Void) {
         guard userData != nil else {return}
