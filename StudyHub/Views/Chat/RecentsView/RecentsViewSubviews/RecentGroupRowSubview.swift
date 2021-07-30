@@ -22,11 +22,12 @@ struct RecentGroupRowSubview: View {
     @State var show = false
     @State var sentTime = ""
     @State var messagePreview = ""
+    @Binding var hideNavBar: Bool
     var body: some View {
         //Chat row background
         NavigationLink(
            
-            destination:ChatView(userData: userData, viewRouter: viewRouter, group: $group, show: $show)
+            destination:ChatView(userData: userData, viewRouter: viewRouter, group: $group, show: $show, hideNavBar: $hideNavBar)
                 .onAppear() {
                     viewRouter.showTabBar = false
                 }

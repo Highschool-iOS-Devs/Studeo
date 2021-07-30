@@ -43,6 +43,7 @@ struct ChatView: View {
     @State var reactions = ["love", "thumbsup", "celebrate", "laugh"]
     @State private var lastMessageID = ""
     @State var reaction = "love"
+    @Binding var hideNavBar: Bool
     var body: some View {
         ZStack {
             Color("Background").edgesIgnoringSafeArea(.all)
@@ -104,6 +105,7 @@ struct ChatView: View {
                     MessageButtons(imageName: "xmark")
                         .onTapGesture {
                             show = false
+                            hideNavBar = true
                             presentationMode.wrappedValue.dismiss()
                             
                         }
@@ -221,14 +223,27 @@ struct ChatView: View {
 //                            }
 //
 //                        }
-                ToolbarItem(placement:.navigation){
-                        Button(action: {membersList=true}){
-                            Image(systemName: "ellipsis.circle.fill")
-                                .font(.system(size: 25))
-                                .foregroundColor(Color("Primary"))
-
+                ToolbarItem(placement:.navigationBarTrailing){
+                    Button(action: {membersList=true}){
+                        Image(systemName: "ellipsis.circle.fill")
+                            .font(.system(size: 25))
+                            .foregroundColor(Color("Primary"))
+                        
+                    }
+                }
+                
+                ToolbarItem(placement:.navigationBarLeading){
+                    Button(action: {
+                        hideNavBar = true
+                        presentationMode.wrappedValue.dismiss()
+                    }){
+                        HStack(spacing: 3) {
+                            Image(systemName: "chevron.left")
+                            Text("Back")
                         }
-                        }
+                        
+                    }
+                }
 
                     }
 //
@@ -305,7 +320,7 @@ struct ChatView: View {
         
             .onAppear{
 #warning("WIth more messages some chats aniate in delayed")
-                
+                self.hideNavBar = false
                 self.loadData()
                 self.addRecentRecord()
                 if UIDevice.current.userInterfaceIdiom == .phone {
@@ -320,9 +335,10 @@ struct ChatView: View {
             }
             .onDisappear{
                 if UIDevice.current.userInterfaceIdiom == .phone {
-                self.viewRouter.showTabBar = true
+                    self.viewRouter.showTabBar = true
                 }
             }
+        .navigationBarBackButtonHidden(true)
      
             
       

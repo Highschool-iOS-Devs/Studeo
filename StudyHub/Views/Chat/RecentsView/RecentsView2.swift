@@ -26,7 +26,8 @@ struct RecentsView2: View {
     @Binding var timerLog: [TimerLog]
     @Binding var devChats:[Groups]
     
-@State var show = false
+    @State var show = false
+    @State private var hideNavBar = true
     
     @State var gridLayout: [GridItem] = [ ]
     @State private var orientation = UIDeviceOrientation.unknown
@@ -64,7 +65,7 @@ struct RecentsView2: View {
                                             
                                        
                                             
-                                                RecentGroupRowSubview(group: groupModel.recentGroups[groupIndex], profilePicture: Image("demoprofile"), userData: userData, viewRouter: viewRouter)
+                                                RecentGroupRowSubview(group: groupModel.recentGroups[groupIndex], profilePicture: Image("demoprofile"), userData: userData, viewRouter: viewRouter, hideNavBar: $hideNavBar)
                                                 .padding(.horizontal, 20)
                                                
                                             
@@ -87,7 +88,7 @@ struct RecentsView2: View {
                                     ForEach(groupModel.allGroups.identifiableIndices) { groupIndex in//, id: \.groupID){group in
                                         
                                            
-                                        RecentChatGroupSubview(group: $groupModel.allGroups[groupIndex].wrappedValue, userData: userData, viewRouter: viewRouter)
+                                        RecentChatGroupSubview(group: $groupModel.allGroups[groupIndex].wrappedValue, userData: userData, viewRouter: viewRouter, hideNavBar: $hideNavBar)
                                                
                                         
                                     
@@ -96,13 +97,13 @@ struct RecentsView2: View {
                                     AllGroupTextRow()
                                 LazyVGrid(columns: gridItemLayout, spacing: 40){
                                     ForEach(groupModel.allGroups.identifiableIndices) { groupIndex in//, id: \.groupID){group in
-                                        NavigationLink(destination: ChatView(userData: userData, viewRouter: viewRouter, group: $groupModel.allGroups[groupIndex], show: $show)
+                                        NavigationLink(destination: ChatView(userData: userData, viewRouter: viewRouter, group: $groupModel.allGroups[groupIndex], show: $show, hideNavBar: $hideNavBar)
                                                         .onAppear() {
                                                             viewRouter.showTabBar = false
                                                         }
                                                         ){
                                            
-                                            RecentChatGroupSubview(group: $groupModel.allGroups[groupIndex].wrappedValue, userData: userData, viewRouter: viewRouter)
+                                            RecentChatGroupSubview(group: $groupModel.allGroups[groupIndex].wrappedValue, userData: userData, viewRouter: viewRouter, hideNavBar: $hideNavBar)
                                                
                                         }
                                     
@@ -122,13 +123,13 @@ struct RecentsView2: View {
                             LazyVGrid(columns: gridItemLayout, spacing: 40) {
                                 ForEach(myMentors.identifiableIndices) { mentorIndex in//, id: \.groupID){ i in
                                     NavigationLink(
-                                        destination:ChatView(userData: userData, viewRouter: viewRouter, group: $myMentors[mentorIndex], show: $show)
+                                        destination:ChatView(userData: userData, viewRouter: viewRouter, group: $myMentors[mentorIndex], show: $show, hideNavBar: $hideNavBar)
                                                     
                                             .onAppear() {
                                                 viewRouter.showTabBar = false
                                             }
                                         ){
-                                            RecentChatGroupSubview(group: myMentors[mentorIndex], userData: userData, viewRouter: viewRouter)
+                                        RecentChatGroupSubview(group: myMentors[mentorIndex], userData: userData, viewRouter: viewRouter, hideNavBar: $hideNavBar)
                                        
                                         
                                 }
@@ -146,13 +147,13 @@ struct RecentsView2: View {
                             LazyVGrid(columns: gridItemLayout, spacing: 40) {
                                 ForEach(devChats.indices) { i in//, id: \.groupID){ i in
                                     NavigationLink(
-                                        destination:ChatView(userData: userData, viewRouter: viewRouter, group: $devChats[i], show: $show) .onAppear() {
+                                        destination:ChatView(userData: userData, viewRouter: viewRouter, group: $devChats[i], show: $show, hideNavBar: $hideNavBar) .onAppear() {
                                             viewRouter.showTabBar = false
                                         }
                                                     
                                            
                                         ){
-                                            RecentChatGroupSubview(group: devChats[i], userData: userData, viewRouter: viewRouter)
+                                        RecentChatGroupSubview(group: devChats[i], userData: userData, viewRouter: viewRouter, hideNavBar: $hideNavBar)
                                        
                                         
                                 }
@@ -192,7 +193,7 @@ struct RecentsView2: View {
                 PairingListView(userData: userData, viewRouter: viewRouter, myMentors: $myMentors, timerLog: $timerLog, devChats: $devChats)
                     
             }
-            .navigationBarHidden(true)
+            .navigationBarHidden(hideNavBar)
 
         } .navigationViewStyle(StackNavigationViewStyle()
                

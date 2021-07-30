@@ -241,12 +241,12 @@ struct Homev2: View {
            }
             .fullScreenCover(isPresented: $show, content: {
                 if dmChat {
-                ChatView(userData: userData, viewRouter: viewRouter,group: $recentPeople[self.i], show: $dmChat)
+                    ChatView(userData: userData, viewRouter: viewRouter,group: $recentPeople[self.i], show: $dmChat, hideNavBar: .constant(false))
                         .onDisappear {
                             dmChat = false
                         }
                 } else {
-                    ChatView(userData: userData, viewRouter: viewRouter,group: $devGroup, show: $dmChat)
+                    ChatView(userData: userData, viewRouter: viewRouter,group: $devGroup, show: $dmChat, hideNavBar: .constant(false))
                 }
                 
             })

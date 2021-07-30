@@ -13,8 +13,9 @@ struct RecentChatGroupSubview: View {
     @ObservedObject var userData: UserData
     @ObservedObject var viewRouter: ViewRouter
     @State var show = false
+    @Binding var hideNavBar: Bool
     var body: some View {
-        NavigationLink(destination: ChatView(userData: userData, viewRouter: viewRouter, group: $group, show: $show)
+        NavigationLink(destination: ChatView(userData: userData, viewRouter: viewRouter, group: $group, show: $show, hideNavBar: $hideNavBar)
                      
                         .onAppear() {
                             viewRouter.showTabBar = false

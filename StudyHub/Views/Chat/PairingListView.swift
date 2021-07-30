@@ -130,7 +130,7 @@ struct PairingListView: View {
                                 LazyVGrid(columns: gridItemLayout, spacing: 40){
                                     ForEach(groupModel.allUnjoinedGroups.identifiableIndices) { groupIndex in//, id: \.groupID){group in
                                        
-                                            NavigationLink(destination: ChatView(userData: userData, viewRouter: viewRouter, group: $groupModel.allUnjoinedGroups[groupIndex], show: $show)
+                                        NavigationLink(destination: ChatView(userData: userData, viewRouter: viewRouter, group: $groupModel.allUnjoinedGroups[groupIndex], show: $show, hideNavBar: .constant(false))
                                                         .onAppear() {
                                                 if lookingForMentor {
                                                     createMentorship(group: groupModel.allUnjoinedGroups[groupIndex])
@@ -166,11 +166,11 @@ struct PairingListView: View {
                             LazyVGrid(columns: gridItemLayout, spacing: 40) {
                                 ForEach(myMentors.indices) { i in//, id: \.groupID){ i in
                                     NavigationLink(
-                                        destination:ChatView(userData: userData, viewRouter: viewRouter, group: $myMentors[i], show: $show)
+                                        destination:ChatView(userData: userData, viewRouter: viewRouter, group: $myMentors[i], show: $show, hideNavBar: .constant(false))
                                                     
                                            
                                         ){
-                                            RecentChatGroupSubview(group: myMentors[i], userData: userData, viewRouter: viewRouter)
+                                        RecentChatGroupSubview(group: myMentors[i], userData: userData, viewRouter: viewRouter, hideNavBar: .constant(false))
                                       
                                 }
                                 }
@@ -187,7 +187,7 @@ struct PairingListView: View {
                             LazyVGrid(columns: gridItemLayout, spacing: 40) {
                                 ForEach(devChats.indices) { i in//, id: \.groupID){ i in
                                    
-                                    RecentChatGroupSubview(group:devChats[i], userData: userData, viewRouter: viewRouter)
+                                    RecentChatGroupSubview(group:devChats[i], userData: userData, viewRouter: viewRouter, hideNavBar: .constant(false))
                                    
                                        
                                         
