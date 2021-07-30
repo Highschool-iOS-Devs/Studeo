@@ -254,7 +254,10 @@ struct PairingListView: View {
                     lookingForMentor ? groupModel.getAllUnJoinedmentors(){groupModel.allUnjoinedGroups=$0} : groupModel.getAllUnJoinedGroups(){groupModel.allUnjoinedGroups=$0}
                     selectedInterests = value.interests ?? [UserInterestTypes]()
                     interests = value.interests.map{$0.map{$0.rawValue}} ?? [String]()
-                    checkInterests()
+                    if selectedInterests.isEmpty {
+                        settings = true
+                    }
+                    //checkInterests()
                 }
                 //            groupModel.getRecentGroups{groupModel.recentGroups=$0}
                 //            groupModel.recentPeople = groupModel.getRecentPeople()
