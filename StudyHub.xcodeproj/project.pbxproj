@@ -82,8 +82,8 @@
 		BE3E16182517F96900E0A845 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E16172517F96900E0A845 /* TimerManager.swift */; };
 		BE5C7F2F259D05DB00824346 /* IntroMentor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5C7F2E259D05DB00824346 /* IntroMentor.swift */; };
 		BE5F3760259C3B9400542AA0 /* SupportDocs in Frameworks */ = {isa = PBXBuildFile; productRef = BE5F375F259C3B9400542AA0 /* SupportDocs */; };
+		BE706D1626B393E10061C512 /* IdentifiableIndices.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE706D1526B393E10061C512 /* IdentifiableIndices.swift */; };
 		E10463FA26B0A77B00C7A742 /* PairingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10463F926B0A77B00C7A742 /* PairingListView.swift */; };
-		E10C058625900A100020FD7C /* Pods_StudyHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47F4119D880B6AFBE91DBA85 /* Pods_StudyHub.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		E10C05CD259013B70020FD7C /* MemberListSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10C05CC259013B70020FD7C /* MemberListSubview.swift */; };
 		E11157A32593CF31005E9AEA /* VoiceChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11157A22593CF31005E9AEA /* VoiceChat.swift */; };
 		E12C5F8C259A26FE00D3314E /* TimerStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12C5F8B259A26FE00D3314E /* TimerStatsView.swift */; };
@@ -155,7 +155,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		47F4119D880B6AFBE91DBA85 /* Pods_StudyHub.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StudyHub.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		620590B924FDBB21001565BF /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
 		620590BA24FDBB21001565BF /* Montserrat-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.ttf"; sourceTree = "<group>"; };
 		620590BB24FDBB21001565BF /* Montserrat-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraLight.ttf"; sourceTree = "<group>"; };
@@ -231,7 +230,7 @@
 		BE167C442514333A00402C14 /* SettingsData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsData.swift; sourceTree = "<group>"; };
 		BE3E16172517F96900E0A845 /* TimerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
 		BE5C7F2E259D05DB00824346 /* IntroMentor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroMentor.swift; sourceTree = "<group>"; };
-		C7A62219EB10FE2A621A6C84 /* Pods-StudyHub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudyHub.debug.xcconfig"; path = "Target Support Files/Pods-StudyHub/Pods-StudyHub.debug.xcconfig"; sourceTree = "<group>"; };
+		BE706D1526B393E10061C512 /* IdentifiableIndices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableIndices.swift; sourceTree = "<group>"; };
 		E10463F926B0A77B00C7A742 /* PairingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingListView.swift; sourceTree = "<group>"; };
 		E10C0584259009020020FD7C /* StudyHub.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StudyHub.entitlements; sourceTree = "<group>"; };
 		E10C05CC259013B70020FD7C /* MemberListSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberListSubview.swift; sourceTree = "<group>"; };
@@ -293,7 +292,6 @@
 		E339449224F1B71600F11BA9 /* StudyHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3CA983125167D4800602EB6 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
 		E3CA983725180CAD00602EB6 /* PersonalInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoView.swift; sourceTree = "<group>"; };
-		EEC3B6AC4F1E11EB05097CA0 /* Pods-StudyHub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudyHub.release.xcconfig"; path = "Target Support Files/Pods-StudyHub/Pods-StudyHub.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -310,7 +308,6 @@
 				E193F40226A110F60050BA0E /* FirebaseStorage in Frameworks */,
 				BE5F3760259C3B9400542AA0 /* SupportDocs in Frameworks */,
 				E193F3FA26A110F60050BA0E /* FirebaseAuth in Frameworks */,
-				E10C058625900A100020FD7C /* Pods_StudyHub.framework in Frameworks */,
 				E193F3DD26A108590050BA0E /* SDWebImage in Frameworks */,
 				E1E55D0326B17CE90022B5F0 /* KingfisherSwiftUI in Frameworks */,
 				E193F3F626A110F60050BA0E /* FirebaseAnalytics in Frameworks */,
@@ -320,17 +317,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		51283CD47EB283397FC5B9FD /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				47F4119D880B6AFBE91DBA85 /* Pods_StudyHub.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		620590B624FDBB21001565BF /* StudyHub */ = {
 			isa = PBXGroup;
 			children = (
+				BE706D1526B393E10061C512 /* IdentifiableIndices.swift */,
 				62654AC525A7DB5200F7172C /* Google Plists */,
 				62654AB925A7D13300F7172C /* placeholder.pdf */,
 				E10C0584259009020020FD7C /* StudyHub.entitlements */,
@@ -606,15 +596,6 @@
 			path = Lottie;
 			sourceTree = "<group>";
 		};
-		B7119E08197EA57CF68E817D /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				C7A62219EB10FE2A621A6C84 /* Pods-StudyHub.debug.xcconfig */,
-				EEC3B6AC4F1E11EB05097CA0 /* Pods-StudyHub.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		E12C5F90259A518500D3314E /* SwiftUICharts */ = {
 			isa = PBXGroup;
 			children = (
@@ -722,8 +703,6 @@
 			children = (
 				620590B624FDBB21001565BF /* StudyHub */,
 				E339449324F1B71600F11BA9 /* Products */,
-				B7119E08197EA57CF68E817D /* Pods */,
-				51283CD47EB283397FC5B9FD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -753,7 +732,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E33944A624F1B71B00F11BA9 /* Build configuration list for PBXNativeTarget "StudyHub" */;
 			buildPhases = (
-				1E70D3268AC78E92E76A77DF /* [CP] Check Pods Manifest.lock */,
 				E339448E24F1B71600F11BA9 /* Sources */,
 				E339448F24F1B71600F11BA9 /* Frameworks */,
 				E339449024F1B71600F11BA9 /* Resources */,
@@ -848,31 +826,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		1E70D3268AC78E92E76A77DF /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-StudyHub-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		E339448E24F1B71600F11BA9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -935,6 +888,7 @@
 				6205910F24FDBB21001565BF /* AddChat.swift in Sources */,
 				62C3ED21250597A300CEA882 /* CreateGroupView.swift in Sources */,
 				6205910124FDBB21001565BF /* FirebaseManager.swift in Sources */,
+				BE706D1626B393E10061C512 /* IdentifiableIndices.swift in Sources */,
 				626EEC8C25897BC200E7A7A5 /* RecentChatTextRow.swift in Sources */,
 				6205911324FDBB21001565BF /* LeaderboardView.swift in Sources */,
 				628A12762518683B001C4B13 /* IntroView.swift in Sources */,
@@ -1128,7 +1082,6 @@
 		};
 		E33944A724F1B71B00F11BA9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C7A62219EB10FE2A621A6C84 /* Pods-StudyHub.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = StudyHub/StudyHub.entitlements;
@@ -1137,7 +1090,7 @@
 				CURRENT_PROJECT_VERSION = 14;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyHub/Preview Content\"";
-				DEVELOPMENT_TEAM = MC27HKM86M;
+				DEVELOPMENT_TEAM = S5JR4V4FC3;
 				ENABLE_PREVIEWS = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1148,7 +1101,7 @@
 					"@executable_path/Frameworks",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DDEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = com.StudyHub.Studeo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.StudyHub.StudeoAiS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTS_MACCATALYST = NO;
@@ -1159,7 +1112,6 @@
 		};
 		E33944A824F1B71B00F11BA9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EEC3B6AC4F1E11EB05097CA0 /* Pods-StudyHub.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = StudyHub/StudyHub.entitlements;
@@ -1168,7 +1120,7 @@
 				CURRENT_PROJECT_VERSION = 14;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyHub/Preview Content\"";
-				DEVELOPMENT_TEAM = MC27HKM86M;
+				DEVELOPMENT_TEAM = S5JR4V4FC3;
 				ENABLE_PREVIEWS = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1179,7 +1131,7 @@
 					"@executable_path/Frameworks",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DRELEASE";
-				PRODUCT_BUNDLE_IDENTIFIER = com.StudyHub.Studeo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.StudyHub.StudeoAiS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTS_MACCATALYST = NO;

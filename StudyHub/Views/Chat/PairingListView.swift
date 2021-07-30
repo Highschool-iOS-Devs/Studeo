@@ -128,19 +128,19 @@ struct PairingListView: View {
                                 AllGroupTextRow()
                                     
                                 LazyVGrid(columns: gridItemLayout, spacing: 40){
-                                    ForEach($groupModel.allUnjoinedGroups) { $group in//, id: \.groupID){group in
-                                        if (groupModel.currentUser!.interests ?? [UserInterestTypes.Algebra1] ).contains((group.interests.first ?? UserInterestTypes.Algebra1) ?? .Algebra1) {
-                                            NavigationLink(destination: ChatView(userData: userData, viewRouter: viewRouter, group: $group, show: $show)
+                                    ForEach(groupModel.allUnjoinedGroups.identifiableIndices) { groupIndex in//, id: \.groupID){group in
+                                        if (groupModel.currentUser!.interests ?? [UserInterestTypes.Algebra1] ).contains((groupModel.allUnjoinedGroups[groupIndex].interests.first ?? UserInterestTypes.Algebra1) ?? .Algebra1) {
+                                            NavigationLink(destination: ChatView(userData: userData, viewRouter: viewRouter, group: $groupModel.allUnjoinedGroups[groupIndex], show: $show)
                                                         .onAppear() {
                                                 if lookingForMentor {
-                                                    createMentorship(group: group)
+                                                    createMentorship(group: groupModel.allUnjoinedGroups[groupIndex])
                                                 } else {
-                                            joinExistingGroup(groupID: group.groupID)
+                                            joinExistingGroup(groupID: groupModel.allUnjoinedGroups[groupIndex].groupID)
                                                 }
                                         }
                                                         ){
                                            
-                                                RecentChatGroupSubview2(group: $group.wrappedValue, userData: userData, viewRouter: viewRouter)
+                                                RecentChatGroupSubview2(group: $groupModel.allUnjoinedGroups[groupIndex].wrappedValue, userData: userData, viewRouter: viewRouter)
                                                 .environmentObject(UserData.shared)
                                                 
                                         }
