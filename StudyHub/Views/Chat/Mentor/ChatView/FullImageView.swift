@@ -8,6 +8,7 @@
 
 import SwiftUI
 import FirebaseStorage
+
 struct FullImageView: View {
     @Binding var id: String
     @Binding var viewImage: Bool
@@ -19,42 +20,38 @@ struct FullImageView: View {
                     getProfileImage()
                 }
             if image != nil {
-            Image(uiImage: image!)
-            .resizable()
-            .scaledToFit()
+                Image(uiImage: image!)
+                    .resizable()
+                    .scaledToFit()
             }
             VStack {
                 HStack {
-                Button(action: {
-                    viewImage = false
-                }) {
-                    Image(systemName: "xmark")
+                    Button(action: {
+                        viewImage = false
+                    }) {
+                        Image(systemName: "xmark")
+                    }
+                    Spacer()
                 }
                 Spacer()
             }
-                Spacer()
-            } .padding()
-    }
+            .padding()
+        }
     }
     func getProfileImage() {
-      
-
         // Create a storage reference from our storage service
-        
-            
-      
         let storage = Storage.storage().reference().child("Message_Assets/\(id)")
         // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
         storage.getData(maxSize: 1 * 1024 * 1024) { data, error in
-          if let error = error {
-           print(error)
-          } else {
-            // Data for "images/island.jpg" is returned
-            withAnimation(.easeInOut) {
-            image = UIImage(data: data!)!
-                
+            if let error = error {
+                print(error)
+            } else {
+                // Data for "images/island.jpg" is returned
+                withAnimation(.easeInOut) {
+                    image = UIImage(data: data!)!
+                    
+                }
             }
-          }
         }
     }
 }

@@ -56,7 +56,7 @@ struct NotificationsView: View {
                     if path.status == .satisfied{
                         print("Connected")
                         networkConected = true
-
+                        
                     }
                     else{
                         networkConected = false
@@ -68,47 +68,47 @@ struct NotificationsView: View {
                 monitor.start(queue: quene)
             }
         }
-    
-}
-
-struct NotificationRow: View {
-    @ObservedObject var userData: UserData
-    var text: String
-    var subText: String
-    @Binding var settingsVar: Bool
-    @Binding var displayError:Bool
-    var body: some View {
-        HStack {
-            Toggle(isOn: $settingsVar) {
-                VStack(alignment: .leading, spacing: 5){
-                    Text(text)
-                        .foregroundColor(Color("Text"))
-                        .font(.custom("Montserrat-SemiBold", size: 14))
-                        .opacity(0.8)
-                        .lineLimit(1)
-                    Text(subText)
-                        .foregroundColor(Color("Text"))
-                        .font(.custom("Montserrat-Regular", size: 11))
-                        .opacity(0.6)
-                        .lineLimit(1)
-                }
-            }
-            .onChange(of: settingsVar){ value in
-                if networkConected == false{
-                    displayError = true
-                } else {
-                    let task = DispatchWorkItem{settingsVar.toggle()}
-                    DispatchQueue.main.asyncAfter(deadline: .now()+0.1,execute: task)
-                    task.cancel()
-                }
-            }
-        }
-        .padding(.horizontal, 15)
-        .padding(.vertical, 10)
-       
         
     }
-}
+    
+    struct NotificationRow: View {
+        @ObservedObject var userData: UserData
+        var text: String
+        var subText: String
+        @Binding var settingsVar: Bool
+        @Binding var displayError:Bool
+        var body: some View {
+            HStack {
+                Toggle(isOn: $settingsVar) {
+                    VStack(alignment: .leading, spacing: 5){
+                        Text(text)
+                            .foregroundColor(Color("Text"))
+                            .font(.custom("Montserrat-SemiBold", size: 14))
+                            .opacity(0.8)
+                            .lineLimit(1)
+                        Text(subText)
+                            .foregroundColor(Color("Text"))
+                            .font(.custom("Montserrat-Regular", size: 11))
+                            .opacity(0.6)
+                            .lineLimit(1)
+                    }
+                }
+                .onChange(of: settingsVar){ value in
+                    if networkConected == false{
+                        displayError = true
+                    } else {
+                        let task = DispatchWorkItem{settingsVar.toggle()}
+                        DispatchQueue.main.asyncAfter(deadline: .now()+0.1,execute: task)
+                        task.cancel()
+                    }
+                }
+            }
+            .padding(.horizontal, 15)
+            .padding(.vertical, 10)
+            
+            
+        }
+    }
 }
 //struct NotificationsView_Previews: PreviewProvider {
 //    static var previews: some View {

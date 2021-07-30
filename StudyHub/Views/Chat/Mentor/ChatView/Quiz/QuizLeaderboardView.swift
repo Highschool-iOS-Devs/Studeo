@@ -14,18 +14,17 @@ struct QuizLeaderboardView: View {
                 .font(.custom("Montserrat SemiBold", size: 10))
                 .foregroundColor(.white)
                 .padding()
-        List {
-            
-            ForEach(users.indices) { i in
-                QuizLeaderboardRow(user: users[i], i: i, group: group, quiz: quiz)
-        }
-    }
+            List {
+                ForEach(users.indices) { i in
+                    QuizLeaderboardRow(user: users[i], i: i, group: group, quiz: quiz)
+                }
+            }
             Button(action: {
                 quizRouter.currentView = .question
             }) {
                 Text("Next")
             } .buttonStyle(BlueStyle())
+        }
     }
-}
 }
 

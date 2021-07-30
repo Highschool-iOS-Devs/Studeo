@@ -12,9 +12,9 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 struct PairingListView: View {
-//    @State var allGroups: [Groups] = []
-//    @State var recentPeople: [User] = []
-//    @State var recentGroups: [Groups] = []
+    //    @State var allGroups: [Groups] = []
+    //    @State var recentPeople: [User] = []
+    //    @State var recentGroups: [Groups] = []
     var gridItemLayout = [GridItem(.flexible()), GridItem(.flexible())]
     @ObservedObject var userData: UserData
     @ObservedObject var viewRouter: ViewRouter
@@ -29,7 +29,7 @@ struct PairingListView: View {
     @Environment(\.presentationMode) var presentationMode
     @State var selectedInterests:[UserInterestTypes] = []
     @State var interests:[String] = []
-@State var show = false
+    @State var show = false
     
     var body: some View {
         NavigationView{
@@ -62,10 +62,10 @@ struct PairingListView: View {
                                 }
                             }
                             Spacer()
-                           
+                            
                             Button(action: {
                                 if lookingForMentor {
-                                   
+                                    
                                     viewRouter.updateCurrentView(view: .home)
                                 }
                                 presentationMode.wrappedValue.dismiss()
@@ -73,82 +73,82 @@ struct PairingListView: View {
                                 
                             }) {
                                 Image(systemName: "xmark")
-                                   
+                                    
                                     .font(.largeTitle)
                                 
                                 
                                 
                             }
-                           
+                            
                         } .padding()
-                           
+                        
                         
                         ScrollView{
-//                            RecentChatTextRow(add: $add)
-//
-                                
+                            //                            RecentChatTextRow(add: $add)
+                            //
+                            
                             //Spacer()
-//                            if groupModel.allUnjoinedGroups == [] {
-//
-//                                Text("You are not in any study group yet,\n\nUse the add button to pair. 🙌").font(Font.custom("Montserrat-Bold", size: 24, relativeTo: .headline)).foregroundColor(Color(#colorLiteral(red: 0.27, green: 0.89, blue: 0.98, alpha: 1)))
-//                                .multilineTextAlignment(.center)
-//                                    .frame(width: 250)
-//                                    .frame(height:425)
-//                            }
-//                            else{
-//                                VStack(spacing: 20) {
-//                                    if !groupModel.recentGroups.isEmpty {
-//                                        ForEach(groupModel.recentGroups.indices) { i in//, id: \.groupID){ group in
-//#warning("maybe the issue is here")
-//                                            if groupModel.recentGroups.indices.contains(i) {
-//                                        NavigationLink(
-//
-//                                            destination:ChatView(group: $groupModel.recentGroups[i], show: $show)
-//
-//                                            ){
-//
-//                                            RecentGroupRowSubview(group: groupModel.recentGroups[i], profilePicture: Image("demoprofile"))
-//                                                .padding(.horizontal, 20)
-//                                                .environmentObject(UserData.shared)
-//
-//                                        }
-//                                            }
-//
-//                                    }
-//                                    }
-//                                    Spacer()
-//                                }
-                             //   .padding(.vertical)
-                               
-                                
-//                            }
-//                            Spacer()
+                            //                            if groupModel.allUnjoinedGroups == [] {
+                            //
+                            //                                Text("You are not in any study group yet,\n\nUse the add button to pair. 🙌").font(Font.custom("Montserrat-Bold", size: 24, relativeTo: .headline)).foregroundColor(Color(#colorLiteral(red: 0.27, green: 0.89, blue: 0.98, alpha: 1)))
+                            //                                .multilineTextAlignment(.center)
+                            //                                    .frame(width: 250)
+                            //                                    .frame(height:425)
+                            //                            }
+                            //                            else{
+                            //                                VStack(spacing: 20) {
+                            //                                    if !groupModel.recentGroups.isEmpty {
+                            //                                        ForEach(groupModel.recentGroups.indices) { i in//, id: \.groupID){ group in
+                            //#warning("maybe the issue is here")
+                            //                                            if groupModel.recentGroups.indices.contains(i) {
+                            //                                        NavigationLink(
+                            //
+                            //                                            destination:ChatView(group: $groupModel.recentGroups[i], show: $show)
+                            //
+                            //                                            ){
+                            //
+                            //                                            RecentGroupRowSubview(group: groupModel.recentGroups[i], profilePicture: Image("demoprofile"))
+                            //                                                .padding(.horizontal, 20)
+                            //                                                .environmentObject(UserData.shared)
+                            //
+                            //                                        }
+                            //                                            }
+                            //
+                            //                                    }
+                            //                                    }
+                            //                                    Spacer()
+                            //                                }
+                            //   .padding(.vertical)
+                            
+                            
+                            //                            }
+                            //                            Spacer()
                             if !groupModel.allUnjoinedGroups.isEmpty {
-                            VStack{
-                                AllGroupTextRow()
+                                VStack{
+                                    AllGroupTextRow()
                                     
-                                LazyVGrid(columns: gridItemLayout, spacing: 40){
-                                    ForEach(groupModel.allUnjoinedGroups.identifiableIndices) { groupIndex in//, id: \.groupID){group in
-                                       
-                                        NavigationLink(destination: ChatView(userData: userData, viewRouter: viewRouter, group: $groupModel.allUnjoinedGroups[groupIndex], show: $show, hideNavBar: .constant(false))
-                                                        .onAppear() {
-                                                if lookingForMentor {
-                                                    createMentorship(group: groupModel.allUnjoinedGroups[groupIndex])
-                                                } else {
-                                            joinExistingGroup(groupID: groupModel.allUnjoinedGroups[groupIndex].groupID)
-                                                }
-                                        }
-                                                        ){
-                                           
-                                                RecentChatGroupSubview2(group: $groupModel.allUnjoinedGroups[groupIndex].wrappedValue, userData: userData, viewRouter: viewRouter)
-                                               
+                                    LazyVGrid(columns: gridItemLayout, spacing: 40){
+                                        ForEach(groupModel.allUnjoinedGroups.identifiableIndices) { groupIndex in//, id: \.groupID){group in
+                                            
+                                            NavigationLink(destination: ChatView(userData: userData, viewRouter: viewRouter, group: $groupModel.allUnjoinedGroups[groupIndex], show: $show, hideNavBar: .constant(false))
+                                                            .onAppear() {
+                                                                if lookingForMentor {
+                                                                    createMentorship(group: groupModel.allUnjoinedGroups[groupIndex])
+                                                                } else {
+                                                                    joinExistingGroup(groupID: groupModel.allUnjoinedGroups[groupIndex].groupID)
+                                                                }
+                                                            }
+                                            ){
                                                 
+                                                RecentChatGroupSubview2(group: $groupModel.allUnjoinedGroups[groupIndex].wrappedValue, userData: userData, viewRouter: viewRouter)
+                                                
+                                                
+                                            }
                                         }
-                                        }
-                                    
-                                    
+                                        
+                                        
+                                    }
                                 }
-                            }
                             } else {
                                 EmptyView()
                                     .onAppear() {
@@ -156,55 +156,55 @@ struct PairingListView: View {
                                     }
                             }
                             if !myMentors.isEmpty {
-                            HStack{
-                                
+                                HStack{
+                                    
                                     Text("Mentors").font(Font.custom("Montserrat-Bold", size: 24, relativeTo: .headline)).foregroundColor(Color("Primary"))
-                                Spacer()
+                                    Spacer()
+                                    
+                                } .padding()
                                 
-                            } .padding()
-                          
-                            LazyVGrid(columns: gridItemLayout, spacing: 40) {
-                                ForEach(myMentors.indices) { i in//, id: \.groupID){ i in
-                                    NavigationLink(
-                                        destination:ChatView(userData: userData, viewRouter: viewRouter, group: $myMentors[i], show: $show, hideNavBar: .constant(false))
-                                                    
-                                           
+                                LazyVGrid(columns: gridItemLayout, spacing: 40) {
+                                    ForEach(myMentors.indices) { i in//, id: \.groupID){ i in
+                                        NavigationLink(
+                                            destination:ChatView(userData: userData, viewRouter: viewRouter, group: $myMentors[i], show: $show, hideNavBar: .constant(false))
+                                            
+                                            
                                         ){
-                                        RecentChatGroupSubview(group: myMentors[i], userData: userData, viewRouter: viewRouter, hideNavBar: .constant(false))
-                                      
+                                            RecentChatGroupSubview(group: myMentors[i], userData: userData, viewRouter: viewRouter, hideNavBar: .constant(false))
+                                            
+                                        }
+                                    }
                                 }
-                                }
-                            }
                             }
                             if !devChats.isEmpty {
-                            HStack{
-                                
+                                HStack{
+                                    
                                     Text("Dev Chats").font(Font.custom("Montserrat-Bold", size: 24, relativeTo: .headline)).foregroundColor(Color("Primary"))
-                                Spacer()
+                                    Spacer()
+                                    
+                                } .padding()
                                 
-                            } .padding()
-                          
-                            LazyVGrid(columns: gridItemLayout, spacing: 40) {
-                                ForEach(devChats.indices) { i in//, id: \.groupID){ i in
-                                   
-                                    RecentChatGroupSubview(group:devChats[i], userData: userData, viewRouter: viewRouter, hideNavBar: .constant(false))
-                                   
-                                       
+                                LazyVGrid(columns: gridItemLayout, spacing: 40) {
+                                    ForEach(devChats.indices) { i in//, id: \.groupID){ i in
                                         
-                                
+                                        RecentChatGroupSubview(group:devChats[i], userData: userData, viewRouter: viewRouter, hideNavBar: .constant(false))
+                                        
+                                        
+                                        
+                                        
+                                    }
                                 }
-                            }
                             }
                             Spacer(minLength: 200)
                         }
-                      
-                    
+                        
+                        
                     }
-                   
+                    
                     .background(Color("Background"))
                     .cornerRadius(20)
                     .offset(y: 15)
-
+                    
                     if showTimer {
                         VStack {
                             TimerView(showingView: $showTimer, timerLog: $timerLog)
@@ -215,41 +215,41 @@ struct PairingListView: View {
                                 }
                                 .onDisappear {
                                     self.viewRouter.showTabBar = true
-                            }
+                                }
                         }
                     }
-            }
+                }
                 if settings {
                     
                     IntroCustomize(interestSelected: $selectedInterests, userData: userData, isNotOnboarding: false, interests: $interests, settings: $settings, add: $add, viewRouter: viewRouter, groupModel:groupModel)
                     
                 }
             } .navigationBarTitle("")
-                .navigationBarHidden(true)
-                .padding(.top)
-                .onAppear{
-                    groupModel.userData = userData
-                    
-                    groupModel.getCurrentOrAnyUser(userID: userData.userID) { value in
-                        groupModel.currentUser = value
-                        lookingForMentor ? groupModel.getAllUnJoinedmentors(){groupModel.allUnjoinedGroups=$0} : groupModel.getAllUnJoinedGroups(){groupModel.allUnjoinedGroups=$0}
-                        selectedInterests = value.interests ?? [UserInterestTypes]()
-                        interests = value.interests.map{$0.map{$0.rawValue}} ?? [String]()
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                            if groupModel.allUnjoinedGroups == [] {
-                        createNewGroup()
-                        }
+            .navigationBarHidden(true)
+            .padding(.top)
+            .onAppear{
+                groupModel.userData = userData
+                
+                groupModel.getCurrentOrAnyUser(userID: userData.userID) { value in
+                    groupModel.currentUser = value
+                    lookingForMentor ? groupModel.getAllUnJoinedmentors(){groupModel.allUnjoinedGroups=$0} : groupModel.getAllUnJoinedGroups(){groupModel.allUnjoinedGroups=$0}
+                    selectedInterests = value.interests ?? [UserInterestTypes]()
+                    interests = value.interests.map{$0.map{$0.rawValue}} ?? [String]()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                        if groupModel.allUnjoinedGroups == [] {
+                            createNewGroup()
                         }
                     }
-        //            groupModel.getRecentGroups{groupModel.recentGroups=$0}
-        //            groupModel.recentPeople = groupModel.getRecentPeople()
                 }
-
-                .onChange(of: groupModel.allUnjoinedGroups) { value in
-                    if groupModel.allUnjoinedGroups == [] {
-                createNewGroup()
+                //            groupModel.getRecentGroups{groupModel.recentGroups=$0}
+                //            groupModel.recentPeople = groupModel.getRecentPeople()
+            }
+            
+            .onChange(of: groupModel.allUnjoinedGroups) { value in
+                if groupModel.allUnjoinedGroups == [] {
+                    createNewGroup()
                 }
-                }
+            }
             
             .fullScreenCover(isPresented: $add){
                 IntroMentor(userData: userData, viewRouter: viewRouter, isNotOnboarding: true)
@@ -260,7 +260,7 @@ struct PairingListView: View {
         .blur(radius: showTimer ? 20 : 0)
         .accentColor(Color("Primary"))
         .animation(.none)
-       
+        
         
         
     }
@@ -271,7 +271,7 @@ struct PairingListView: View {
         let db = Firestore.firestore()
         let ref = db.collection("groups").document(group.groupID)
         do {
-        try ref.setData(from: group)
+            try ref.setData(from: group)
             groupModel.allUnjoinedGroups.append(group)
             
         } catch {
@@ -282,7 +282,7 @@ struct PairingListView: View {
         let db = Firestore.firestore()
         let ref = db.collection("groups").document(group.groupID)
         do {
-        try ref.setData(from: group)
+            try ref.setData(from: group)
         } catch {
             print(error)
         }
@@ -301,37 +301,37 @@ struct PairingListView: View {
     }
     func loadMessageData(){
         let db = Firestore.firestore()
-//        let docRef = db.collection("message/\(group.groupID)/messages").order(by: "sentTime", descending: true).limit(to: 1)
-//        docRef.getDocuments{ (document, error) in
-//                        if let document = document, !document.isEmpty{
-//
-//
-//                        for document in document.documents{
-//
-//                                   let result = Result {
-//                                       try document.data(as: MessageData.self)
-//                                   }
-//                                   switch result {
-//                                       case .success(let messageData):
-//                                           if let messageData = messageData {
-//                                            messageArray.append(self.parseMessageData(messageData: messageData))
-//                                           } else {
-//
-//                                               print("Document does not exist")
-//                                           }
-//                                       case .failure(let error):
-//                                           print("Error decoding user: \(error)")
-//                                       }
-//                  }
-//                }
-//                        print(messageArray)
-//                        self.messages = messageArray
-//
-//        }
+        //        let docRef = db.collection("message/\(group.groupID)/messages").order(by: "sentTime", descending: true).limit(to: 1)
+        //        docRef.getDocuments{ (document, error) in
+        //                        if let document = document, !document.isEmpty{
+        //
+        //
+        //                        for document in document.documents{
+        //
+        //                                   let result = Result {
+        //                                       try document.data(as: MessageData.self)
+        //                                   }
+        //                                   switch result {
+        //                                       case .success(let messageData):
+        //                                           if let messageData = messageData {
+        //                                            messageArray.append(self.parseMessageData(messageData: messageData))
+        //                                           } else {
+        //
+        //                                               print("Document does not exist")
+        //                                           }
+        //                                       case .failure(let error):
+        //                                           print("Error decoding user: \(error)")
+        //                                       }
+        //                  }
+        //                }
+        //                        print(messageArray)
+        //                        self.messages = messageArray
+        //
+        //        }
     }
-
-
-
-        
-        
-    }
+    
+    
+    
+    
+    
+}

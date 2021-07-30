@@ -21,14 +21,14 @@ struct CTA: View {
                 Spacer()
                 HStack {
                     Spacer()
-            Image(imgName)
-                
-                .renderingMode(.original)
-           
-                .resizable()
-               // .frame(width: 350, height: 350)
-                
-                .scaledToFill()
+                    Image(imgName)
+                        
+                        .renderingMode(.original)
+                        
+                        .resizable()
+                        // .frame(width: 350, height: 350)
+                        
+                        .scaledToFill()
                     Spacer()
                 }
                 Spacer()
@@ -42,11 +42,8 @@ struct CTA: View {
                         self.userData.tappedCTA = true
                         if self.cta == "Find Study Partners" {
                             self.tabRouter.currentView = .chatList
-                            
-                            
                         } else if self.cta == "Add Group" {
                             self.tabRouter.currentView = .chatList
-                            
                         } else if self.cta == "Find a Mentor" {
                             self.tabRouter.currentView = .mentor
                         } else {
@@ -57,14 +54,14 @@ struct CTA: View {
                     }) {
                         
                         Text(cta)
-                        
+                            
                             .multilineTextAlignment(.trailing)
                         
                         
                         
                     } .buttonStyle(BlueStyle())
-                   
-                        
+                    
+                    
                 }
             } .padding(.horizontal, 22)
         }

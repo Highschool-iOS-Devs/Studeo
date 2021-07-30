@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct QuizAddRow: View {
-   
+    
     @State var answer1 = ""
     @State var answer2 = ""
     @State var answer3 = ""
@@ -17,9 +17,9 @@ struct QuizAddRow: View {
     @Binding var quiz: Quiz
     var body: some View {
         VStack {
-           
+            
             QuizInputFieldView(text: $question.question, isQuestion: true, quiz: $quiz, question: $question)
-                
+            
             
             Spacer()
             ForEach(self.question.answers.indices) { i in

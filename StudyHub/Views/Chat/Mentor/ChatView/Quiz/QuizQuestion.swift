@@ -8,18 +8,18 @@
 import SwiftUI
 
 struct QuizQuestion: View {
-   @Binding var question: Question
+    @Binding var question: Question
     @Binding var i: Int
     @State var text = "Term"
     @State var image = UIImage()
     var body: some View {
-     
-            
+        
+        
         Text(question.question)
-           .font(.custom("Montserrat Bold", size: 18)).foregroundColor(Color("Primary"))
+            .font(.custom("Montserrat Bold", size: 18)).foregroundColor(Color("Primary"))
             .multilineTextAlignment(.center)
-            
-            
+        
+        
     }
 }
 

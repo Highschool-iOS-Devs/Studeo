@@ -53,7 +53,7 @@ struct PersonalInfoView: View {
                     }
                     .buttonStyle(WhiteStyle())
                     .padding(.horizontal, 45)
-
+                    
                 }
                 .padding(.vertical)
                 .background(Color("Background"))

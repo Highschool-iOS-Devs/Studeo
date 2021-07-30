@@ -19,28 +19,29 @@ struct MiniProfileSubview: View {
     @State var profileImages:[URL] = []
     var gridItemLayout = [GridItem(.flexible()), GridItem(.flexible())]
     var group:Groups
+    
     var body: some View {
-        LazyVGrid(columns: gridItemLayout){
+        LazyVGrid(columns: gridItemLayout) {
             ForEach(profileImages, id: \.self){ image in
                 KFImage(image, options: [.transition(.fade(0.5)), .processor(DownsamplingImageProcessor(size: CGSize(width: 60, height: 60))), .cacheOriginalImage])
                     .onSuccess { r in
-                         // r: RetrieveImageResult
-                         //print("success: \(r)")
-                     }
-                     .onFailure { e in
-                         // e: KingfisherError
-                         print("failure: \(e)")
-                     }
+                        // r: RetrieveImageResult
+                        //print("success: \(r)")
+                    }
+                    .onFailure { e in
+                        // e: KingfisherError
+                        print("failure: \(e)")
+                    }
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .clipShape(Circle())
                     .frame(minWidth:10, minHeight:10)
                     .overlay(Circle().stroke(Color("Background"), lineWidth: 1))
                     .transition(.opacity)
-#warning("Causes profile images to move weird when scrolling")
-//                    .animation(.easeInOut)
-                 
-
+                #warning("Causes profile images to move weird when scrolling")
+                //                    .animation(.easeInOut)
+                
+                
             }
         }
         .transition(.opacity)
@@ -67,8 +68,8 @@ struct MiniProfileSubview: View {
                 }
             }
         }
-    
-      
+        
+        
     }
 }
 

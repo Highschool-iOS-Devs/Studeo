@@ -19,7 +19,7 @@ struct LottieView:UIViewRepresentable{
         animationView.animation = animation
         animationView.contentMode = .scaleAspectFit
         if loop {
-        animationView.loopMode = .loop
+            animationView.loopMode = .loop
         } else {
             animationView.loopMode = .playOnce
         }

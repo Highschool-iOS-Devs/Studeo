@@ -28,8 +28,8 @@ struct LoginView: View {
         ZStack {
             
             VStack {
-            TitleSubview(titleText: "Login", image: "login_drawing")
-               InputFieldSubview(password: $password, email: $email)
+                TitleSubview(titleText: "Login", image: "login_drawing")
+                InputFieldSubview(password: $password, email: $email)
                     .padding(.top,30)
                 Spacer()
                 ButtonsSubview(mainButtonAction: {showError()},
@@ -40,8 +40,8 @@ struct LoginView: View {
             .padding(.bottom, 22)
             .blur(radius: showLoadingAnimation ? 20 : 0)
             
-      
-            if showLoadingAnimation{
+            
+            if showLoadingAnimation {
                 VStack{
                     LottieUIView()
                         .animation(.easeInOut)
@@ -57,11 +57,10 @@ struct LoginView: View {
                 .animation(.easeInOut)
                 
             }
-            if self.displayError{
+            if self.displayError {
                 VStack {
                     ErrorMessage(errorObject: self.errorObject, displayError: self.displayError)
-                        .onAppear{
-                            
+                        .onAppear {
                             DispatchQueue.main.asyncAfter(deadline: .now()+3){
                                 self.displayError = false
                             }
@@ -71,7 +70,7 @@ struct LoginView: View {
                 
             }
         }
-        .onAppear{
+        .onAppear {
             viewRouter.showTabBar = false
         }
         .background(
@@ -82,38 +81,38 @@ struct LoginView: View {
             }
         )
     }
-    func showError() -> Void{
-            self.showLoadingAnimation = true
-            DispatchQueue.main.asyncAfter(deadline: .now()+2){
-                self.sendData{error, authResult in
-                    guard error.errorState == false else {
-                        self.errorObject = error
-                        self.displayError = true
-                        return
-                    }
-                    if self.finishedOnboarding {
-                        self.viewRouter.updateCurrentView(view: .home)
-                        self.viewRouter.showTabBar = true
-                    } else {
-                        self.viewRouter.updateCurrentView(view: .mentorCustom)
-                    }
+    func showError() -> Void {
+        self.showLoadingAnimation = true
+        DispatchQueue.main.asyncAfter(deadline: .now()+2) {
+            self.sendData{error, authResult in
+                guard error.errorState == false else {
+                    self.errorObject = error
+                    self.displayError = true
+                    return
+                }
+                if self.finishedOnboarding {
+                    self.viewRouter.updateCurrentView(view: .home)
+                    self.viewRouter.showTabBar = true
+                } else {
+                    self.viewRouter.updateCurrentView(view: .mentorCustom)
                 }
             }
+        }
         
         
     }
     func downloadImage() {
-
-             let metadata = StorageMetadata()
-          let storage = Storage.storage().reference().child("User_Profile/\(userData.userID)")
-                storage.downloadURL { url, error in
-                    if let error = error {
-                      print("Error downloading image, \(error)")
-                    } else {
-                        userData.profilePictureURL = url!.absoluteString
-                    }
-                  }
-             }
+        
+        let metadata = StorageMetadata()
+        let storage = Storage.storage().reference().child("User_Profile/\(userData.userID)")
+        storage.downloadURL { url, error in
+            if let error = error {
+                print("Error downloading image, \(error)")
+            } else {
+                userData.profilePictureURL = url!.absoluteString
+            }
+        }
+    }
     func sendData(performActions: @escaping (ErrorModel, AuthDataResult?) -> Void) {
         Auth.auth().signIn(withEmail: self.email, password: self.password) { [] authResult, error in
             
@@ -126,13 +125,13 @@ struct LoginView: View {
             let db = Firestore.firestore()
             let ref = db.collection("users")
             let query = ref.whereField("firebaseID", isEqualTo: authRusult.user.uid)
-            query.getDocuments{snapshot, error in
+            query.getDocuments { snapshot, error in
                 if let error = error {
                     print("Error getting documents: \(error)")
                 } else {
                     let document = snapshot!.documents[0]
-                let result = Result{
-                    try document.data(as: User.self)
+                    let result = Result {
+                        try document.data(as: User.self)
                     }
                     switch result{
                     case .success(let user):
@@ -140,8 +139,8 @@ struct LoginView: View {
                             self.userData.userID = user.id.uuidString
                             self.userData.name = user.name
                             let pushManager = PushNotificationManager(userID: user.id.uuidString)
-                                    pushManager.registerForPushNotifications()
-                          downloadImage()
+                            pushManager.registerForPushNotifications()
+                            downloadImage()
                             let didFinishOnboarding = user.finishedOnboarding ?? false
                             userData.isOnboardingCompleted = didFinishOnboarding
                             self.finishedOnboarding = didFinishOnboarding
@@ -194,7 +193,7 @@ struct LoginView: View {
             }
         }
     }
-            
+    
 }
 
 

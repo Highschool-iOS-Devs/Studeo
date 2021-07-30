@@ -15,7 +15,7 @@ struct Quiz: Identifiable, Hashable, Codable {
     var groupID: String
 }
 
-struct Question: Identifiable, Codable, Hashable{
+struct Question: Identifiable, Codable, Hashable {
     var id: String
     var question: String
     var answers: [String]
@@ -23,7 +23,7 @@ struct Question: Identifiable, Codable, Hashable{
     var selected: String
     var quizID: String
 }
-struct Question2: Identifiable{
+struct Question2: Identifiable {
     var id: String
     var question: String
     var answers: [String]

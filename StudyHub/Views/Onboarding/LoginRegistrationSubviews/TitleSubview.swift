@@ -19,10 +19,10 @@ struct TitleSubview: View {
             Image(decorative: image)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                //.frame(height: 220)
+            //.frame(height: 220)
         } .padding(.top)
     }
-        
-        
+    
+    
 }
 

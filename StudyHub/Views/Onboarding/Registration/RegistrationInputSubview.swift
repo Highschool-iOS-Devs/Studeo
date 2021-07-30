@@ -33,7 +33,7 @@ struct RegistrationInputSubview: View {
                     .frame(height: 44)
                     .padding(.trailing, 15)
                     .accessibility(hint: Text("Enter the username for your new account"))
-
+                
             }
             Divider().padding(.leading, 80).padding(.trailing, 15)
             HStack {
@@ -76,9 +76,9 @@ struct RegistrationInputSubview: View {
                     .frame(height: 44)
                     .textContentType(.newPassword)
                     .padding(.trailing, 15)
-
+                
             }
-
+            
         }
         .frame(maxWidth: .infinity)
         .frame(height:204)
@@ -87,7 +87,7 @@ struct RegistrationInputSubview: View {
         .padding(.horizontal, 45)
         //.shadow(color: Color("aqua dark").opacity(0.1), radius: 15)
         .shadow(color: Color("Primary").opacity(0.2), radius: 30, x: 0, y: 30)
-       
+        
         .overlay(
             HStack {
                 Spacer()
@@ -101,6 +101,6 @@ struct RegistrationInputSubview: View {
                 }
             }
         )
-    
+        
     }
 }

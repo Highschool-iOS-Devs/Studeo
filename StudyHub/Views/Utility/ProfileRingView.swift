@@ -39,7 +39,7 @@ struct ProfileRingView: View {
                     .overlay(Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 2.5))
             }
         }
-   
+        
         
         
     }

@@ -33,34 +33,34 @@ struct IntroCustomize: View {
         ZStack {
             Color("Background").edgesIgnoringSafeArea(.all)
                 .onAppear() {
-                  
+                    
                 }
             VStack {
                 if !isNotOnboarding {
-        
-            HStack {
-                Button(action: {
-                   
-                    if !settings {
-                        add = false
-                    }
-                    if settings {
-                        settings = false
-                    }
-                   
                     
-                }) {
-                Image(systemName: "xmark")
-                    .font(.largeTitle)
-                
-                
-                
-            }
-                Spacer()
-            } .padding()
-            
-        
-            }
+                    HStack {
+                        Button(action: {
+                            
+                            if !settings {
+                                add = false
+                            }
+                            if settings {
+                                settings = false
+                            }
+                            
+                            
+                        }) {
+                            Image(systemName: "xmark")
+                                .font(.largeTitle)
+                            
+                            
+                            
+                        }
+                        Spacer()
+                    } .padding()
+                    
+                    
+                }
                 HStack {
                     Text("Customization")
                         .font(.custom("Montserrat-Bold", size: 25))
@@ -73,54 +73,54 @@ struct IntroCustomize: View {
                     .padding(.bottom, 30)
                     .padding(.horizontal, 20)
                 ScrollView {
-                VStack(spacing: 10) {
-                    ForEach(UserInterestTypes.allCases, id:\.self){name in
-                        InterestSelectRow(interestSelected: $interestSelected, interestName: name)
+                    VStack(spacing: 10) {
+                        ForEach(UserInterestTypes.allCases, id:\.self){name in
+                            InterestSelectRow(interestSelected: $interestSelected, interestName: name)
                             
+                        }
                     }
-                }
                     Spacer(minLength: 200)
                 }
                 Spacer()
-            
+                
                 if isNotOnboarding {
-               
-              
-             //   Text("Skip for now")
-                  //  .font(.custom("Montserrat-Regular", size: 17))
+                    
+                    
+                    //   Text("Skip for now")
+                    //  .font(.custom("Montserrat-Regular", size: 17))
                     //.foregroundColor(Color.black.opacity(0.5))
-                   // .padding(.bottom, 10)
-                Button(action: {
-                    if interestSelected != [] {
-                        do{
-                            try saveData()
-                            userData.isOnboardingCompleted = true
-                            self.viewRouter.currentView = .home
-                        }
-                        catch{
-                            print("Failed saving user interest data, \(error)")
+                    // .padding(.bottom, 10)
+                    Button(action: {
+                        if interestSelected != [] {
+                            do{
+                                try saveData()
+                                userData.isOnboardingCompleted = true
+                                self.viewRouter.currentView = .home
+                            }
+                            catch{
+                                print("Failed saving user interest data, \(error)")
+                            }
+                            
                         }
                         
+                    }) {
+                        Text("Finish")
+                            .font(.custom("Montserrat-SemiBold", size: 18))
                     }
+                    .buttonStyle(BlueStyle())
+                    .padding(.bottom, 125)
+                    .padding(.horizontal, 35)
                     
-                }) {
-                    Text("Finish")
-                        .font(.custom("Montserrat-SemiBold", size: 18))
                 }
-                .buttonStyle(BlueStyle())
-                .padding(.bottom, 125)
-                .padding(.horizontal, 35)
                 
-                }
-                   
             } .padding(.top)
         }
         .animation(.easeInOut)
         .onAppear{
-//            if let groupModel = groupModel{
-//                getInterests(model: groupModel)
-//
-//            }
+            //            if let groupModel = groupModel{
+            //                getInterests(model: groupModel)
+            //
+            //            }
         }
         .onDisappear {
             interestSelected = interestSelected.removeDuplicates()
@@ -129,24 +129,24 @@ struct IntroCustomize: View {
                 interests.append(interest.rawValue)
                 do {
                     
-               try saveData()
+                    try saveData()
                 } catch {
                     print("error")
                 }
+            }
+            
+            
+            
         }
-       
-        
-        
-    }
     }
     
-//    func getInterests(model:ChatViewModel){
-//        for interest in model.currentUser?.interests ?? []{
-//            existingInterests.append(interest)
-//        }
-//        
-//    }
-    func saveData() throws -> Void{
+    //    func getInterests(model:ChatViewModel){
+    //        for interest in model.currentUser?.interests ?? []{
+    //            existingInterests.append(interest)
+    //        }
+    //
+    //    }
+    func saveData() throws -> Void {
         let db = Firestore.firestore()
         let docRef = db.collection("users").document(userData.userID)
         try docRef.setData(from: ["interests": interestSelected], merge: true)
@@ -156,7 +156,7 @@ struct IntroCustomize: View {
             }
         }
         if isNotOnboarding {
-        self.viewRouter.updateCurrentView(view: .home)
+            self.viewRouter.updateCurrentView(view: .home)
         }
     }
     
@@ -170,16 +170,16 @@ struct InterestSelectRow: View {
     var interestName:UserInterestTypes
     @State var selected = false
     
-        var body: some View {
-        HStack{
+    var body: some View {
+        HStack {
             Text(interestName.rawValue)
                 .font(.custom("Montserrat-regular", size: 16))
                 .foregroundColor(selected ? Color.white: Color.black.opacity(0.5))
-//                .onAppear() {
-//                    if interests.contains(interestArray[index].interestName) {
-//                        selected = true
-//                    }
-//                }
+                //                .onAppear() {
+                //                    if interests.contains(interestArray[index].interestName) {
+                //                        selected = true
+                //                    }
+                //                }
                 .padding(.leading, 30)
             Spacer()
             Circle()
@@ -201,28 +201,28 @@ struct InterestSelectRow: View {
         )
         .clipShape(RoundedRectangle(cornerRadius: 30))
         .padding(.horizontal, 10)
-        .onAppear{
+        .onAppear {
             if interestSelected.contains(interestName){
                 selected = true
             }
         }
-        .onTapGesture(){
-            if selected{
-               interestSelected = interestSelected.filter {$0 != interestName}
+        .onTapGesture {
+            if selected {
+                interestSelected = interestSelected.filter {$0 != interestName}
             }
-            else{
+            else {
                 interestSelected.append(interestName)
             }
             selected.toggle()
-//            interests.append(interestArray[index].interestName)
-//                        let db = Firestore.firestore()
-//            let docRef = db.collection("users").document(userData.userID)
-//            docRef.updateData(
-//                  [
-//                      "interests": interests
-//                  ]
-//              )
-//            self.interestArray[index].selected = true
+            //            interests.append(interestArray[index].interestName)
+            //                        let db = Firestore.firestore()
+            //            let docRef = db.collection("users").document(userData.userID)
+            //            docRef.updateData(
+            //                  [
+            //                      "interests": interests
+            //                  ]
+            //              )
+            //            self.interestArray[index].selected = true
             hapticEngine(style: .light)
         }
         .animation(.easeInOut)

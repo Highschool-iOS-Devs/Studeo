@@ -28,13 +28,13 @@ class ViewRouter:ObservableObject{
     }
     @Published var currentView = Views.registration
     @Published var showChatView = false {
-        willSet{
+        willSet {
             showTabBar.toggle()
         }
     }
     @Published var showTabBar = false
     public static let shared = ViewRouter()
-    func updateCurrentView(view:Views){
+    func updateCurrentView(view:Views) {
         self.currentView = view
     }
 }
@@ -47,12 +47,11 @@ class QuizRouter: ObservableObject{
     enum Views {
         case leaderboard
         case question
-       
     }
     @Published var currentView = Views.question
     @Published var nextView = Views.leaderboard
     public static let shared = QuizRouter()
-    func updateCurrentView(view: Views){
+    func updateCurrentView(view: Views) {
         self.currentView = view
     }
 }

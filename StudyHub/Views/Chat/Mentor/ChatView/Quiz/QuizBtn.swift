@@ -21,7 +21,7 @@ struct QuizBtn: View {
     @Binding var quiz: Quiz
     @ObservedObject var quizRouter: QuizRouter
     var body: some View {
-      
+        
         Button(action: {
             question.selected = text
             questionL.selected = text
@@ -31,7 +31,7 @@ struct QuizBtn: View {
                 if isIndexValid {
                     
                     
-              i += 1
+                    i += 1
                 }
                 quizRouter.currentView = .leaderboard
                 let db = Firestore.firestore()
@@ -39,21 +39,21 @@ struct QuizBtn: View {
                     "points":  points + 1,
                     
                 ]) { err in
-                   if let err = err {
-                       print("Error updating document: \(err)")
-                   } else {
+                    if let err = err {
+                        print("Error updating document: \(err)")
+                    } else {
                         print("Document successfully updated")
                     }
                 }
             }
             
-          
+            
             
         }) {
             Text(text)
                 .font(.custom("Montserrat Bold", size: 18))
                 .padding(.horizontal, screenSize.width/3)
-             //   .foregroundColor(questionL.selected != "" ? Color("Primary") : .white)
+            //   .foregroundColor(questionL.selected != "" ? Color("Primary") : .white)
         } //.disabled(question.selected != "" ? true : false)
         
         .buttonStyle(BlueStyle())
@@ -62,5 +62,5 @@ struct QuizBtn: View {
     func saveScore() {
         
     }
-    }
+}
 

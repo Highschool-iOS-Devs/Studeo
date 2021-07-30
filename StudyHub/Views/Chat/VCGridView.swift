@@ -23,41 +23,42 @@ struct VCGridView: View {
     @Binding var users: [User]
     @Binding var isMuted: Bool
     //@Binding var agoraKit: AgoraRtcEngineKit
-   
+    
     var body: some View {
         ZStack {
             Color.clear
                 .onAppear() {
                     users = users.removeDuplicates()
                 }
-        VStack {
-            Spacer()
-            ForEach(users, id: \.id.uuidString){ user in
-                ProfilePic(name: "", id: user.id.uuidString)
-                    .id(user.firebaseID)
-                    .aspectRatio(contentMode: .fill)
-                    .clipShape(Circle())
-                    .frame(maxWidth:75, maxHeight:75)
-                    .overlay(Circle().stroke(Color("Background"), lineWidth: 1))
-                    .animation(.easeInOut)
-                    .transition(.opacity)
+            VStack {
+                Spacer()
+                ForEach(users, id: \.id.uuidString) { user in
+                    ProfilePic(name: "", id: user.id.uuidString)
+                        .id(user.firebaseID)
+                        .aspectRatio(contentMode: .fill)
+                        .clipShape(Circle())
+                        .frame(maxWidth:75, maxHeight:75)
+                        .overlay(Circle().stroke(Color("Background"), lineWidth: 1))
+                        .animation(.easeInOut)
+                        .transition(.opacity)
                     
+                }
+                
+                
             }
-           
-          
-        } .animation(.easeInOut)
-        .transition(.opacity)
-        
-       
-        .padding()
-        .onAppear{
-           // getProfileImage()
+            .animation(.easeInOut)
+            .transition(.opacity)
+            
+            
+            .padding()
+            .onAppear{
+                // getProfileImage()
+            }
+            .onChange(of: users, perform: { value in
+                // getProfileImage()
+            })
+            
         }
-        .onChange(of: users, perform: { value in
-           // getProfileImage()
-        })
-        
-    }
     }
     func getProfileImage(){
         if profileImages == []{
@@ -73,8 +74,8 @@ struct VCGridView: View {
                 }
             }
         }
-    
-       
+        
+        
     }
 }
 

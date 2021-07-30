@@ -17,8 +17,5 @@ struct Categories: Identifiable {
         self.id = id
         self.name = name
         self.count = count
-        
-        
-        
     }
 }

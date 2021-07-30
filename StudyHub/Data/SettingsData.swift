@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SettingsData: Identifiable, Codable {
     var id: UUID
-//    var personalInfo: Bool
+    //    var personalInfo: Bool
     var country: String
     var chatNotifications: Bool
     var newGroupNotifications: Bool
@@ -23,7 +23,7 @@ struct SettingsData: Identifiable, Codable {
         self.newGroupNotifications = newGroupNotifications
         self.language = language
     }
-
+    
 }
 
 

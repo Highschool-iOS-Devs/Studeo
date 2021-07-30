@@ -17,31 +17,31 @@ struct AddQuiz: View {
                 .padding()
             ForEach(self.quiz.questions.indices, id: \.self) { i in
                 QuizAddRow(question: $quiz.questions[i], quiz: $quiz)
-            
-        }
+                
+            }
             VStack {
-            Spacer()
-            Button(action: {
-                quiz.questions.append(Question(id: UUID().uuidString, question: "", answers: ["Answer1", "Answer2", "Answer3"], answer: "", selected: "", quizID: quiz.id))
-                let db = Firestore.firestore()
-                for question in quiz.questions {
-                    let docRef = db.collection("quizzes/questions/\(quiz.id)").document(question.id)
-                do{
-                    try docRef.setData(from: question)
-                    
-                } catch {
-                    print("Error writing to database, \(error)")
-                }
-                }
-            }) {
-                Image(systemName: "plus")
-            } .buttonStyle(BlueStyle())
-            .padding()
-        }
+                Spacer()
+                Button(action: {
+                    quiz.questions.append(Question(id: UUID().uuidString, question: "", answers: ["Answer1", "Answer2", "Answer3"], answer: "", selected: "", quizID: quiz.id))
+                    let db = Firestore.firestore()
+                    for question in quiz.questions {
+                        let docRef = db.collection("quizzes/questions/\(quiz.id)").document(question.id)
+                        do{
+                            try docRef.setData(from: question)
+                            
+                        } catch {
+                            print("Error writing to database, \(error)")
+                        }
+                    }
+                }) {
+                    Image(systemName: "plus")
+                } .buttonStyle(BlueStyle())
+                .padding()
+            }
         } .onAppear() {
             let db = Firestore.firestore()
-           
-                let docRef = db.collection("quizzes").document(quiz.id)
+            
+            let docRef = db.collection("quizzes").document(quiz.id)
             do{
                 try docRef.setData(from: quiz)
                 
@@ -49,17 +49,17 @@ struct AddQuiz: View {
                 print("Error writing to database, \(error)")
             }
             
-    }
+        }
         .onDisappear() {
             let db = Firestore.firestore()
             for question in quiz.questions {
                 let docRef = db.collection("quizzes/questions/\(quiz.id)").document(question.id)
-            do{
-                try docRef.setData(from: question)
-                
-            } catch {
-                print("Error writing to database, \(error)")
-            }
+                do{
+                    try docRef.setData(from: question)
+                    
+                } catch {
+                    print("Error writing to database, \(error)")
+                }
             }
         }
     }

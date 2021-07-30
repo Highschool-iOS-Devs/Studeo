@@ -30,7 +30,7 @@ struct RegistrationView: View {
         ZStack {
             
             VStack {
-                    TitleSubview(titleText: "Registration", image: "registration_drawing")
+                TitleSubview(titleText: "Registration", image: "registration_drawing")
                 
                 TextField("Name".uppercased(), text: $username)
                     .lineLimit(nil)
@@ -52,7 +52,7 @@ struct RegistrationView: View {
                     .textContentType(.emailAddress)
                     .padding(.trailing, 15)
                     .accessibility(hint: Text("Enter the email address for your new account"))
-                   
+                
                 
                 SecureField("Password".uppercased(), text: $password)
                     .lineLimit(nil)
@@ -62,22 +62,22 @@ struct RegistrationView: View {
                     .frame(height: 44)
                     .textContentType(.newPassword)
                     .padding(.trailing, 15)
-                    Spacer()
-                    ButtonsSubview(mainButtonAction: {
-                      parseData()
-                    }, secondaryButtonAction: {self.viewRouter.updateCurrentView(view: .login)}, displayMode: .registration)
-                    .padding(.top, 30)
-                    .padding(.bottom, 30)
+                Spacer()
+                ButtonsSubview(mainButtonAction: {
+                    parseData()
+                }, secondaryButtonAction: { self.viewRouter.updateCurrentView(view: .login)}, displayMode: .registration)
+                .padding(.top, 30)
+                .padding(.bottom, 30)
                 
-                    
-                    
+                
+                
             } //.padding(.bottom, 62)
-                .blur(radius: showLoadingAnimation ? 20 : 0)
-                .onAppear{
-                    viewRouter.showTabBar = false
-                }
-                    
-            if showLoadingAnimation{
+            .blur(radius: showLoadingAnimation ? 20 : 0)
+            .onAppear{
+                viewRouter.showTabBar = false
+            }
+            
+            if showLoadingAnimation {
                 VStack{
                     LottieUIView()
                         .animation(.easeInOut)
@@ -94,7 +94,7 @@ struct RegistrationView: View {
                 
             }
             VStack{
-                if self.displayError{
+                if self.displayError {
                     ErrorMessage(errorObject: self.errorObject, displayError: self.displayError)
                         .onAppear{
                             DispatchQueue.main.asyncAfter(deadline: .now()+3){
@@ -116,22 +116,22 @@ struct RegistrationView: View {
         
     }
     func parseData(){
-            self.showLoadingAnimation = true
-            self.sendData{error, authResult in
-                guard error.errorState == false else {
-                    self.errorObject = error
-                    self.displayError = true
-                    return
-                }
-                self.userData.userID = authResult!.id.uuidString
-                self.userData.name = authResult!.name
-                uploadImage()
-                self.viewRouter.updateCurrentView(view: .mentorCustom)
-               // self.viewRouter.showTabBar = true
+        self.showLoadingAnimation = true
+        self.sendData{error, authResult in
+            guard error.errorState == false else {
+                self.errorObject = error
+                self.displayError = true
+                return
+            }
+            self.userData.userID = authResult!.id.uuidString
+            self.userData.name = authResult!.name
+            uploadImage()
+            self.viewRouter.updateCurrentView(view: .mentorCustom)
+            // self.viewRouter.showTabBar = true
         }
-
-    }
         
+    }
+    
     func sendData(performActions: @escaping (ErrorModel, User?) -> Void) {
         Auth.auth().createUser(withEmail: self.email, password: self.password) { authResult, error in
             guard authResult != nil else {
@@ -143,62 +143,62 @@ struct RegistrationView: View {
             let db = Firestore.firestore()
             let newUserID = UUID()
             let newUserSettings = SettingsData(id: newUserID)
-
+            
             let newUser = User(id: newUserID, firebaseID: authResult!.user.uid, name: self.username, email: self.email, isMentor: false, studyHours: [0], studyDate: ["9-16-2020"], all: 0, month: 0, day: 0, description: "Edit your bio", isAvailable: true, finishedOnboarding: false)
-
-                    userData.userID = newUser.id.uuidString
+            
+            userData.userID = newUser.id.uuidString
             
             let pushManager = PushNotificationManager(userID: newUser.id.uuidString)
-                    pushManager.registerForPushNotifications()
+            pushManager.registerForPushNotifications()
             do{
                 try db.collection("settings").document(newUser.id.uuidString).setData(from: newUserSettings)
-                do{
+                do {
                     try db.collection("users").document(newUser.id.uuidString).setData(from: newUser)
                 }
-                catch{
+                catch {
                     print("Error user to database, \(error)")
                 }
             }
-            catch{
+            catch {
                 print("Error setting to database, \(error)")
             }
-                   
-                        
-                
-                self.showLoadingAnimation = false
-
-                performActions(ErrorModel(errorMessage: "", errorState: false), newUser)
-        }
             
-           
+            
+            
+            self.showLoadingAnimation = false
+            
+            performActions(ErrorModel(errorMessage: "", errorState: false), newUser)
+        }
+        
+        
     }
     
-        
+    
     func uploadImage() {
-
-             let metadata = StorageMetadata()
-             metadata.contentType = "image/jpeg"
-          let storage = Storage.storage().reference().child("User_Profile/\(userData.userID)")
-            let imagePlaceholder = UIImage(named: "placeholder")!
-
-              storage.putData(imagePlaceholder.pngData()!, metadata: metadata) { meta, error in
-                if let error = error{
-                    print("Error uploading image, \(error)")
-                    return
-                }
-                storage.downloadURL { url, error in
-                    if let error = error {
-                      print("Error downloading image, \(error)")
-                    } else {
-                        userData.profilePictureURL = url!.absoluteString
-                    }
-                  }
-             }
-          
-       }
         
-
-
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+        let storage = Storage.storage().reference().child("User_Profile/\(userData.userID)")
+        let imagePlaceholder = UIImage(named: "placeholder")!
+        
+        storage.putData(imagePlaceholder.pngData()!, metadata: metadata) { meta, error in
+            if let error = error{
+                print("Error uploading image, \(error)")
+                return
+            }
+            storage.downloadURL { url, error in
+                if let error = error {
+                    print("Error downloading image, \(error)")
+                } else {
+                    userData.profilePictureURL = url!.absoluteString
+                }
+            }
+        }
+        
+    }
+    
+    
+    
 }
 
 

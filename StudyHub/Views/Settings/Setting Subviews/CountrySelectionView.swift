@@ -79,7 +79,7 @@ struct CountryRow: View {
                 .resizable()
                 .scaledToFit()
                 .frame(maxWidth: 40, maxHeight: 40)
-                Spacer()
+            Spacer()
             Text(country)
                 .font(.custom("Montserrat-SemiBold", size: 15))
                 .foregroundColor(Color(.white))

@@ -22,93 +22,94 @@ struct OtherUserProfileView: View {
     @Binding var showMemberList:Bool
     var body: some View {
         GeometryReader { geo in
-             ZStack {
+            ZStack {
                 Color("Background")
                     .edgesIgnoringSafeArea(.all)
                 
-                 VStack {
+                VStack {
                     
-                     ProfileRingView(imageURL:profileImageURL, size: geo.size.width-100, userData: userData)
-
+                    ProfileRingView(imageURL:profileImageURL, size: geo.size.width-100, userData: userData)
+                    
                     Text(user.name)
                         // .frame(minWidth: 100, alignment: .leading)
                         .font(Font.custom("Montserrat-SemiBold", size: 22, relativeTo: .headline))
-                         .foregroundColor(Color("Text"))
-                         .multilineTextAlignment(.leading)
+                        .foregroundColor(Color("Text"))
+                        .multilineTextAlignment(.leading)
                         .padding(.vertical, 15)
                     
                     Divider()
                         .foregroundColor(Color("Primary"))
                     
-                     HStack {
-                       
+                    HStack {
+                        
                         ProfileStats(allNum: 0, all: true)
                         ProfileStats(monthNum: 0, month: true)
                         ProfileStats(dayNum: 0, day: true)
-                       
-                     }
-                     .padding(.bottom, 15)
-                     .padding(.top, 40)
+                        
+                    }
+                    .padding(.bottom, 15)
+                    .padding(.top, 40)
                     
                     Text(user.description)
-                         .frame(minWidth: 100, alignment: .center)
+                        .frame(minWidth: 100, alignment: .center)
                         .font(Font.custom("Montserrat-SemiBold", size: 16, relativeTo: .headline))
-                         .foregroundColor(Color("Text"))
-                         .multilineTextAlignment(.center)
+                        .foregroundColor(Color("Text"))
+                        .multilineTextAlignment(.center)
                         .padding(.bottom, 22)
                     //if !alreadyHaveDM{
-//                        Button(action: {
-//                            let groupMemberIDs = [user.id.uuidString, userData.userID]
-//                            let id = UUID().uuidString
-//                            let newGroup = Groups(id: id,
-//                                                  groupID: id,
-//                                              groupName: String(describing: userData.name + " and " + user.name),
-//                                              members: groupMemberIDs,
-//                                              membersCount: groupMemberIDs.count,
-//                                              interests: [nil], userInVC: [String]())
-//
-//                                self.joinGroup(newGroup: newGroup)
-//                            presentationMode.wrappedValue.dismiss()
-//                            showMemberList = false
-//    //                        group = newGroup
-//    //                        messages.removeAll()
-//
-//                        }){
-//                            Text("Private message")
-//                                .font(Font.custom("Montserrat-Bold", size: 16, relativeTo: .headline))
-//                        }
-//                        .frame(height:50)
-//                        .buttonStyle(BlueStyle())
-//                        .padding(.bottom)
-                   // }
-          
-                   Spacer()
-                 }
-                 .padding(.horizontal)
+                    //                        Button(action: {
+                    //                            let groupMemberIDs = [user.id.uuidString, userData.userID]
+                    //                            let id = UUID().uuidString
+                    //                            let newGroup = Groups(id: id,
+                    //                                                  groupID: id,
+                    //                                              groupName: String(describing: userData.name + " and " + user.name),
+                    //                                              members: groupMemberIDs,
+                    //                                              membersCount: groupMemberIDs.count,
+                    //                                              interests: [nil], userInVC: [String]())
+                    //
+                    //                                self.joinGroup(newGroup: newGroup)
+                    //                            presentationMode.wrappedValue.dismiss()
+                    //                            showMemberList = false
+                    //    //                        group = newGroup
+                    //    //                        messages.removeAll()
+                    //
+                    //                        }){
+                    //                            Text("Private message")
+                    //                                .font(Font.custom("Montserrat-Bold", size: 16, relativeTo: .headline))
+                    //                        }
+                    //                        .frame(height:50)
+                    //                        .buttonStyle(BlueStyle())
+                    //                        .padding(.bottom)
+                    // }
+                    
+                    Spacer()
+                }
+                .padding(.horizontal)
                 
-             }
-        }.onAppear{
+            }
+        }
+        .onAppear {
             downloadImages()
             checkIfAlreadyDM()
             
         }
     }
-        func downloadImages(){
-             let metadata = StorageMetadata()
-             metadata.contentType = "image/jpeg"
-    
-             let storage = Storage.storage()
-            let pathReference = storage.reference(forURL: "gs://study-hub-7540b.appspot.com/User_Profile/\(user.id)")
-            pathReference.downloadURL { url, error in
-                if let error = error {
-                  print("Error downloading image, \(error)")
-                } else {
-                    profileImageURL = url!
-                }
-              }
-    
-         }
-    func checkIfAlreadyDM(){
+    func downloadImages() {
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+        
+        let storage = Storage.storage()
+        let pathReference = storage.reference(forURL: "gs://study-hub-7540b.appspot.com/User_Profile/\(user.id)")
+        pathReference.downloadURL { url, error in
+            if let error = error {
+                print("Error downloading image, \(error)")
+            } else {
+                profileImageURL = url!
+            }
+        }
+        
+    }
+    func checkIfAlreadyDM() {
         let db = Firestore.firestore()
         let docRef = db.collection("users").document(userData.userID)
         docRef.getDocument{document, error in
@@ -118,21 +119,21 @@ struct OtherUserProfileView: View {
                     try document.data(as: User.self)
                 }
                 switch result {
-                    case .success(let user):
-                        if let userDM = user?.dms {
-                            if userDM.contains(self.user.id.uuidString){
-                                alreadyHaveDM = true
-                            }
-                            else{
-                                alreadyHaveDM = false
-                            }
-
-                        } else {
-                            print("Document does not exist")
+                case .success(let user):
+                    if let userDM = user?.dms {
+                        if userDM.contains(self.user.id.uuidString){
+                            alreadyHaveDM = true
                         }
-                    case .failure(let error):
-                        print("Error decoding user: \(error)")
+                        else{
+                            alreadyHaveDM = false
+                        }
+                        
+                    } else {
+                        print("Document does not exist")
                     }
+                case .failure(let error):
+                    print("Error decoding user: \(error)")
+                }
             }
             
         }
@@ -150,35 +151,36 @@ struct OtherUserProfileView: View {
         
         for member in newGroup.members {
             print(member)
-        let ref2 = db.collection("users").document(member)
-        ref2.getDocument{document, error in
-            
-            if let document = document, document.exists {
+            let ref2 = db.collection("users").document(member)
+            ref2.getDocument{document, error in
                 
-         
-                let groupListCast = document.data()?["dms"] as? [String]
-                
-                if var currentGroups = groupListCast{
+                if let document = document, document.exists {
                     
-                    guard !(groupListCast?.contains(newGroup.groupID))! else{return}
-                    currentGroups.append(newGroup.groupID)
-                    ref2.updateData(
-                        [
-                            "dms":currentGroups
-                        ]
-                    )
+                    
+                    let groupListCast = document.data()?["dms"] as? [String]
+                    
+                    if var currentGroups = groupListCast{
+                        
+                        guard !(groupListCast?.contains(newGroup.groupID))! else{return}
+                        currentGroups.append(newGroup.groupID)
+                        ref2.updateData(
+                            [
+                                "dms":currentGroups
+                            ]
+                        )
+                    } else {
+                        ref2.updateData(
+                            [
+                                "dms":[newGroup.groupID]
+                            ]
+                        )
+                    }
                 } else {
-                    ref2.updateData(
-                        [
-                            "dms":[newGroup.groupID]
-                        ]
-                    )
+                    print("Error getting user data, \(error!)")
                 }
-            } else {
-                print("Error getting user data, \(error!)")
             }
         }
-    }    }
-
+    }
+    
 }
 

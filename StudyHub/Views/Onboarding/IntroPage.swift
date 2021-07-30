@@ -50,30 +50,30 @@ struct IntroPage: View {
             VStack {
                 HStack {
                     if animate1 {
-                    Text(titleText)
-                        .font(Font.custom("Montserrat-Bold", size: 25, relativeTo: .headline))
-                        .foregroundColor(Color("Text"))
-                        .padding(.vertical, 20)
-                        .transition(.opacity)
-                        .animation(.easeInOut(duration: 1.5))
-                     
-                }
+                        Text(titleText)
+                            .font(Font.custom("Montserrat-Bold", size: 25, relativeTo: .headline))
+                            .foregroundColor(Color("Text"))
+                            .padding(.vertical, 20)
+                            .transition(.opacity)
+                            .animation(.easeInOut(duration: 1.5))
+                        
+                    }
                 }
                 if animate2 {
-                Spacer()
+                    Spacer()
                 }
                 if animate3 {
-                Text(bodyText)
-                    .multilineTextAlignment(.center)
-                    .font(Font.custom("Montserrat-Light", size: 15, relativeTo: .headline))
-                  
-                    .padding(.horizontal, 20)
-                    .foregroundColor(Color("Text"))
-                    .transition(.opacity)
-                    .animation(.easeInOut(duration: 1.5))
+                    Text(bodyText)
+                        .multilineTextAlignment(.center)
+                        .font(Font.custom("Montserrat-Light", size: 15, relativeTo: .headline))
+                        
+                        .padding(.horizontal, 20)
+                        .foregroundColor(Color("Text"))
+                        .transition(.opacity)
+                        .animation(.easeInOut(duration: 1.5))
                 }
                 if animate4 {
-                Spacer()
+                    Spacer()
                 }
                 if animate5 {
                     if isOpenSourceView {
@@ -81,59 +81,59 @@ struct IntroPage: View {
                             
                             ForEach(devs) { dev in
                                 VStack {
-                                Text(dev.name)
-                                    .multilineTextAlignment(.center)
-                                    .font(Font.custom("Montserrat-Light", size: 15, relativeTo: .headline))
-                                    .padding()
-                                    .foregroundColor(Color("Text"))
-                                HStack {
-                                if !dev.website.isEmpty {
-                                    Button(action: {
-                                        if let url = URL(string: dev.website) {
-                                            UIApplication.shared.open(url)
+                                    Text(dev.name)
+                                        .multilineTextAlignment(.center)
+                                        .font(Font.custom("Montserrat-Light", size: 15, relativeTo: .headline))
+                                        .padding()
+                                        .foregroundColor(Color("Text"))
+                                    HStack {
+                                        if !dev.website.isEmpty {
+                                            Button(action: {
+                                                if let url = URL(string: dev.website) {
+                                                    UIApplication.shared.open(url)
+                                                }
+                                            }) {
+                                                Image("website")
+                                                    .resizable()
+                                                    .scaledToFit()
+                                                    .frame(width: 50, height: 50)
+                                            }
+                                        } else {
+                                            Button(action: {
+                                                if let url = URL(string: dev.github) {
+                                                    UIApplication.shared.open(url)
+                                                }
+                                            }) {
+                                                Image("github")
+                                                    .resizable()
+                                                    .scaledToFit()
+                                                    .frame(width: 50, height: 50)
+                                            }
                                         }
-                                    }) {
-                                        Image("website")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 50, height: 50)
                                     }
-                                } else {
-                                    Button(action: {
-                                        if let url = URL(string: dev.github) {
-                                            UIApplication.shared.open(url)
-                                        }
-                                    }) {
-                                        Image("github")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 50, height: 50)
-                                    }
-                                }
-                                }
                                 }
                             }
                         }
                     } else {
-                Image(decorative: image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: screenSize.width-40, height:screenSize.height/2.3)
-                    .transition(.opacity)
-                    .animation(.easeInOut(duration: 1.5))
+                        Image(decorative: image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: screenSize.width-40, height:screenSize.height/2.3)
+                            .transition(.opacity)
+                            .animation(.easeInOut(duration: 1.5))
                     }
                     if animate6 {
                         
                         
-                Spacer()
+                        Spacer()
                     }
                 }
-               // Text("Skip for now")
-                  //  .font(.custom("Montserrat-Regular", size: 17))
-                   // .foregroundColor(Color.black.opacity(0.5))
-                    //.padding(.bottom, 10)
-
-           
+                // Text("Skip for now")
+                //  .font(.custom("Montserrat-Regular", size: 17))
+                // .foregroundColor(Color.black.opacity(0.5))
+                //.padding(.bottom, 10)
+                
+                
             }
             
         }

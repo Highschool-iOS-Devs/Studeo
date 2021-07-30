@@ -14,14 +14,14 @@ struct Homev2: View {
     var columns = [
         GridItem(.fixed(250)),
         GridItem(.flexible()),
-       
+        
     ]
     var columns2 = [
         GridItem(.fixed(200)),
         GridItem(.flexible()),
-       
+        
     ]
-   
+    
     @ObservedObject var userData: UserData
     @ObservedObject var viewRouter:ViewRouter
     @State var columns3 = [GridItem]()
@@ -52,229 +52,229 @@ struct Homev2: View {
     @State var gridLayout: [GridItem] = [ ]
     @State private var orientation = UIDeviceOrientation.unknown
     var body: some View {
-     
         
-            ZStack(alignment: .top) {
-                Color("Background").edgesIgnoringSafeArea(.all)
-                    .onAppear() {
-                        if UIDevice.current.userInterfaceIdiom == .pad {
-                            print("iPad")
-                            self.gridLayout = [GridItem(), GridItem(.flexible())]
-                        } else {
+        
+        ZStack(alignment: .top) {
+            Color("Background").edgesIgnoringSafeArea(.all)
+                .onAppear() {
+                    if UIDevice.current.userInterfaceIdiom == .pad {
+                        print("iPad")
+                        self.gridLayout = [GridItem(), GridItem(.flexible())]
+                    } else {
                         self.gridLayout =  [GridItem(.flexible())]
-                        }
-                       // userData.hasDev = false
-                        recommendGroups.removeAll()
-                        if !user.isEmpty {
+                    }
+                    // userData.hasDev = false
+                    recommendGroups.removeAll()
+                    if !user.isEmpty {
                         if !user[0].studyHours.isEmpty {
-                        
-                        sum = user[0].studyHours.reduce(0, +)
+                            
+                            sum = user[0].studyHours.reduce(0, +)
                             
                             
                         }
                     }
-                        for group in recentPeople {
-                            for user in group.members {
-                                if user != userData.userID {
-                                    users.append(user)
-                                    print(user)
-                                }
+                    for group in recentPeople {
+                        for user in group.members {
+                            if user != userData.userID {
+                                users.append(user)
+                                print(user)
                             }
                         }
-                        ready = true
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                            withAnimation(.easeInOut(duration: 1.0)) {
-                              //  animation.toggle()
-                            }
+                    }
+                    ready = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                        withAnimation(.easeInOut(duration: 1.0)) {
+                            //  animation.toggle()
+                        }
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             withAnimation(.easeInOut(duration: 1.0)) {
-                               // if userData.uses == 2 || userData.uses == 3 || userData.uses == 10 {
-                                    if !userData.hasDev {
-                        animate = true
-                                    }
-                       // }
+                                // if userData.uses == 2 || userData.uses == 3 || userData.uses == 10 {
+                                if !userData.hasDev {
+                                    animate = true
+                                }
+                                // }
                             }
                         }
-                        }
                     }
-                    .onRotate { newOrientation in
-                                orientation = newOrientation
-                        if UIDevice.current.userInterfaceIdiom == .phone {
+                }
+                .onRotate { newOrientation in
+                    orientation = newOrientation
+                    if UIDevice.current.userInterfaceIdiom == .phone {
                         if !orientation.isFlat {
-                        self.gridLayout = (orientation.isLandscape) ? [GridItem(), GridItem(.flexible())] :  [GridItem(.flexible())]
+                            self.gridLayout = (orientation.isLandscape) ? [GridItem(), GridItem(.flexible())] :  [GridItem(.flexible())]
                         }
-                            }
                     }
-                if animation {
-                    VStack(spacing: 0) {
-                       
-                        ScrollView(showsIndicators: false) {
-                            Spacer(minLength: 50)
-                    LazyVGrid(columns: gridLayout, spacing: 30) {
-                        
-                   
+                }
+            if animation {
+                VStack(spacing: 0) {
                     
-                   
-//                        if !userData.hasDev {
-//                        if animate {
-//                           
-//                            DevChatBanner(devGroup: $devGroup, show: $show)
-//                                .frame(width: geo.size.width, height: geo.size.height/3)
-//                                .transition(.identity)
-//                               
-//                            }
-//                        }
-                       
-                        if !recentPeople.isEmpty {
-                            if !users.isEmpty {
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack {
-                                
-                                ForEach(recentPeople.indices, id:\.self){ i in
-                                    Button(action: {
-                                        
-                                        self.i = i
-                                        self.group = recentPeople[i]
-                                        
-                                       
-                                        
-                                        
-                                    }) {
-                                        ProfilePic(name: recentPeople[i].groupName, id: users[i])
-                                        
-                                    }
-                                
-                                   
-                                    //ProfilePic(name: groups.groupName, size: 70)
-                                   
-                                      
-                                    
-                                        
-                                
-                                }
-                               
-                                Spacer()
-                            }
-                            .padding(.horizontal)
-                        } 
-                        Divider()
+                    ScrollView(showsIndicators: false) {
+                        Spacer(minLength: 50)
+                        LazyVGrid(columns: gridLayout, spacing: 30) {
                             
-                            }
-                        }
-                        
-                        if recommendGroups.isEmpty {
                             
-                        } else {
-                            if !disable {
-                        HStack {
-                            Text("Recommended")
-                                .font(.custom("Montserrat Bold", size: 18, relativeTo: .headline)).foregroundColor(Color("Primary"))
-                            Spacer()
-                        }.padding()
-                       
-                        
-                       
-                        ScrollView(.horizontal, showsIndicators: false) {
-                                HStack {
-                                    ForEach(Array(recommendGroups.enumerated()), id: \.element) { i, group in
-                    
-                                        GroupsView(imgName: imgs[i], cta: "Join", name: group.groupName, userData: userData, tabRouter: viewRouter, group: $group)
-                                            .onAppear() {
-                                             //  self.group = group
+                            
+                            
+                            //                        if !userData.hasDev {
+                            //                        if animate {
+                            //
+                            //                            DevChatBanner(devGroup: $devGroup, show: $show)
+                            //                                .frame(width: geo.size.width, height: geo.size.height/3)
+                            //                                .transition(.identity)
+                            //
+                            //                            }
+                            //                        }
+                            
+                            if !recentPeople.isEmpty {
+                                if !users.isEmpty {
+                                    ScrollView(.horizontal, showsIndicators: false) {
+                                        HStack {
+                                            
+                                            ForEach(recentPeople.indices, id:\.self){ i in
+                                                Button(action: {
+                                                    
+                                                    self.i = i
+                                                    self.group = recentPeople[i]
+                                                    
+                                                    
+                                                    
+                                                    
+                                                }) {
+                                                    ProfilePic(name: recentPeople[i].groupName, id: users[i])
+                                                    
+                                                }
+                                                
+                                                
+                                                //ProfilePic(name: groups.groupName, size: 70)
+                                                
+                                                
+                                                
+                                                
+                                                
                                             }
-                                        .padding()
-                                   
+                                            
+                                            Spacer()
+                                        }
+                                        .padding(.horizontal)
                                     }
-                                    Spacer(minLength: 110)
+                                    Divider()
+                                    
                                 }
                             }
-                        }
-                        }
-
-                           
-                        if user.isEmpty {
                             
-                        } else {
-//                            SelfRankView(hours: sum, id: user[0].id.uuidString)
-//                                .padding()
-//                                .onTapGesture {
-//                                    viewRouter.updateCurrentView(view: .leaderboard)
-//                                }
-                        }
-                        if recentPeople.isEmpty {
-                        CTA(imgName: "friends", cta: "Find Study Partners", tabRouter: viewRouter, userData: userData)
-                        }
+                            if recommendGroups.isEmpty {
+                                
+                            } else {
+                                if !disable {
+                                    HStack {
+                                        Text("Recommended")
+                                            .font(.custom("Montserrat Bold", size: 18, relativeTo: .headline)).foregroundColor(Color("Primary"))
+                                        Spacer()
+                                    }.padding()
+                                    
+                                    
+                                    
+                                    ScrollView(.horizontal, showsIndicators: false) {
+                                        HStack {
+                                            ForEach(Array(recommendGroups.enumerated()), id: \.element) { i, group in
+                                                
+                                                GroupsView(imgName: imgs[i], cta: "Join", name: group.groupName, userData: userData, tabRouter: viewRouter, group: $group)
+                                                    .onAppear() {
+                                                        //  self.group = group
+                                                    }
+                                                    .padding()
+                                                
+                                            }
+                                            Spacer(minLength: 110)
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            
+                            if user.isEmpty {
+                                
+                            } else {
+                                //                            SelfRankView(hours: sum, id: user[0].id.uuidString)
+                                //                                .padding()
+                                //                                .onTapGesture {
+                                //                                    viewRouter.updateCurrentView(view: .leaderboard)
+                                //                                }
+                            }
+                            if recentPeople.isEmpty {
+                                CTA(imgName: "friends", cta: "Find Study Partners", tabRouter: viewRouter, userData: userData)
+                            }
                             CTA(imgName: "mentor", cta: "Find a Mentor", tabRouter: viewRouter, userData: userData)
-                               
-                             
-                         //   CTA(imgName: "study", cta: "Compete")
-                           //     .padding()
-                        if user.isEmpty {
                             
-                        } else {
-                        //LineView(data: user[0].studyHours, title: "Hours Studied", legend: "", style: Styles.barChartStyleNeonBlueLight)
-                               // .padding()
-                        }
+                            
+                            //   CTA(imgName: "study", cta: "Compete")
+                            //     .padding()
+                            if user.isEmpty {
+                                
+                            } else {
+                                //LineView(data: user[0].studyHours, title: "Hours Studied", legend: "", style: Styles.barChartStyleNeonBlueLight)
+                                // .padding()
+                            }
                             Spacer(minLength: 200)
-                   
-                    
-                        .transition(.move(edge: .bottom))
-                        .zIndex(1)
-                        .edgesIgnoringSafeArea(.all)
-                        
-                    }.disabled(showingTimer ? true : false)
-        }
+                                
+                                
+                                .transition(.move(edge: .bottom))
+                                .zIndex(1)
+                                .edgesIgnoringSafeArea(.all)
+                            
+                        }.disabled(showingTimer ? true : false)
                     }
-                     
-                }
-                VStack {
-                Header(userData: userData, viewRouter: viewRouter, showTimer: $showingTimer)
-                    Spacer()
-                }
-                    .frame(height: 90)
-            }.blur(radius: showingTimer ? 20 : 0)
-            .statusBar(hidden: true)
-            .onChange(of: self.i) { newValue in
-                show = true
-               dmChat = true
-           }
-            .fullScreenCover(isPresented: $show, content: {
-                if dmChat {
-                    ChatView(userData: userData, viewRouter: viewRouter,group: $recentPeople[self.i], show: $dmChat, hideNavBar: .constant(false))
-                        .onDisappear {
-                            dmChat = false
-                        }
-                } else {
-                    ChatView(userData: userData, viewRouter: viewRouter,group: $devGroup, show: $dmChat, hideNavBar: .constant(false))
                 }
                 
-            })
-            if showingTimer {
-                VStack {
-                    TimerView(showingView: $showingTimer, timerLog: $timerLog)
-                        .transition(.move(edge: .bottom))
-                        .onAppear {
-                            self.viewRouter.showTabBar = false
-                        }
-                        .onDisappear {
-                            self.viewRouter.showTabBar = true
-                    
-                }
             }
-       
+            VStack {
+                Header(userData: userData, viewRouter: viewRouter, showTimer: $showingTimer)
+                Spacer()
+            }
+            .frame(height: 90)
+        }.blur(radius: showingTimer ? 20 : 0)
+        .statusBar(hidden: true)
+        .onChange(of: self.i) { newValue in
+            show = true
+            dmChat = true
+        }
+        .fullScreenCover(isPresented: $show, content: {
+            if dmChat {
+                ChatView(userData: userData, viewRouter: viewRouter,group: $recentPeople[self.i], show: $dmChat, hideNavBar: .constant(false))
+                    .onDisappear {
+                        dmChat = false
+                    }
+            } else {
+                ChatView(userData: userData, viewRouter: viewRouter,group: $devGroup, show: $dmChat, hideNavBar: .constant(false))
+            }
+            
+        })
+        if showingTimer {
+            VStack {
+                TimerView(showingView: $showingTimer, timerLog: $timerLog)
+                    .transition(.move(edge: .bottom))
+                    .onAppear {
+                        self.viewRouter.showTabBar = false
+                    }
+                    .onDisappear {
+                        self.viewRouter.showTabBar = true
+                        
+                    }
+            }
+            
+            
+            
+            
+            
+            //            if show {
+            //                ChatView(group: devGroup, show: $show)
+            //            }
+            
+        }
         
         
-       
-    
-//            if show {
-//                ChatView(group: devGroup, show: $show)
-//            }
-
-}
-       
-
-  
-    
-}
+        
+        
+    }
 }

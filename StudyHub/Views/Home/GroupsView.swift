@@ -20,25 +20,25 @@ struct GroupsView: View {
     let screenSize = UIScreen.main.bounds
     var body: some View {
         ZStack {
-        
-        Image(imgName)
-            .resizable()
-            .scaledToFit()
-            .frame(width: screenSize.width/1.5, height: screenSize.width/1.5)
-            .clipShape(RoundedRectangle(cornerRadius: 25.0))
-            .padding(.top, 22)
+            
+            Image(imgName)
+                .resizable()
+                .scaledToFit()
+                .frame(width: screenSize.width/1.5, height: screenSize.width/1.5)
+                .clipShape(RoundedRectangle(cornerRadius: 25.0))
+                .padding(.top, 22)
             VStack {
-            HStack {
-            Text(name)
-                .foregroundColor(Color("Text"))
-                .font(.headline)
+                HStack {
+                    Text(name)
+                        .foregroundColor(Color("Text"))
+                        .font(.headline)
+                    Spacer()
+                }
                 Spacer()
             }
-                Spacer()
-            }
             VStack {
                 Spacer()
-               
+                
                 HStack {
                     Spacer()
                         .padding(.leading, 30)
@@ -57,10 +57,10 @@ struct GroupsView: View {
                     .shadow(radius: 5)
                     .offset(y: -30)
                 }
-                        
-                }
+                
+            }
             
-           
+            
         }
     }
     func joinGroup(newGroup: Groups) {
@@ -80,7 +80,7 @@ struct GroupsView: View {
             
             if let document = document, document.exists {
                 
-         
+                
                 let groupListCast = document.data()?["groups"] as? [String]
                 
                 if var currentGroups = groupListCast {

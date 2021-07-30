@@ -37,70 +37,70 @@ struct SettingView: View {
     @State private var showConfirmationAlert = false
     
     var body: some View {
-            NavigationView {
-                ZStack {
-                    ScrollView(showsIndicators: false) {
+        NavigationView {
+            ZStack {
+                ScrollView(showsIndicators: false) {
+                    VStack {
                         VStack {
-                            VStack {
-                                ProfileRingView(size: 100, userData: userData)
-                                Text(userData.name)
+                            ProfileRingView(size: 100, userData: userData)
+                            Text(userData.name)
                                 .font(.custom("Montserrat-Bold", size: 28))
                                 .padding(.top, 10)
                                 .foregroundColor(Color("Text"))
-                            }.padding(.top, 20)
-                           
+                        }.padding(.top, 20)
+                        
+                        
+                        Spacer(minLength: 50)
+                        
+                        VStack(alignment:.leading) {
                             
-                            Spacer(minLength: 50)
-                            
-                            VStack(alignment:.leading) {
+                            Text("Account Settings")
+                                .font(.custom("Montserrat-Bold", size: 20))
+                                .foregroundColor(Color("Text"))
+                                .padding(.bottom, 40)
+                                .padding(.top, 40)
+                                .padding(.horizontal, 22)
+                            VStack(spacing: 30) {
+                                availabilityRowView(settingText: "Available for new pairings", userAvailable: $userIsAvailable)
+                                // appearanceRowView()
+                                //
+                                settingRowView(settingText: "Notifications", settingState: ((!chatNotifications && !newGroupNotifications) ? "Off" : "On"), newView: AnyView(NotificationsView(userData: userData, chatNotifications: $chatNotifications, groupNotifications: $newGroupNotifications)))
+                                settingRowView(settingText: "Personal info", settingState: "", newView: AnyView(PersonalInfoView(userData: userData)))
+                                settingRowView(settingText: "Country", settingState: country, newView: AnyView(CountrySelectionView(userData: userData, selectedCountry: $country)))
+                                settingRowView(settingText: "Language", settingState: language, newView: AnyView(LanguageSelectionView(userData: userData, selectedLanguage: $language)))
                                 
-                                Text("Account Settings")
-                                    .font(.custom("Montserrat-Bold", size: 20))
-                                    .foregroundColor(Color("Text"))
-                                    .padding(.bottom, 40)
-                                    .padding(.top, 40)
-                                    .padding(.horizontal, 22)
-                                VStack(spacing: 30) {
-                                    availabilityRowView(settingText: "Available for new pairings", userAvailable: $userIsAvailable)
-                                   // appearanceRowView()
-                                    //    
-                                    settingRowView(settingText: "Notifications", settingState: ((!chatNotifications && !newGroupNotifications) ? "Off" : "On"), newView: AnyView(NotificationsView(userData: userData, chatNotifications: $chatNotifications, groupNotifications: $newGroupNotifications)))
-                                    settingRowView(settingText: "Personal info", settingState: "", newView: AnyView(PersonalInfoView(userData: userData)))
-                                    settingRowView(settingText: "Country", settingState: country, newView: AnyView(CountrySelectionView(userData: userData, selectedCountry: $country)))
-                                    settingRowView(settingText: "Language", settingState: language, newView: AnyView(LanguageSelectionView(userData: userData, selectedLanguage: $language)))
-                                    
-                                    settingRowView(settingText: "Interests", settingState: "", newView: AnyView(IntroCustomize(interestSelected: $interestSelected, userData: userData, isNotOnboarding: true, interests: $interests, settings: $settings, add: $add, viewRouter: viewRouter)))
-                                    
-                                    settingRowView(settingText: "Volunteers", settingState: volunteers, newView: AnyView(IntroPage(titleText: "Open Sourced", bodyText: "Studeo was created by amazing volunteers...", image: "", isOpenSourceView: true, viewRouter: viewRouter)))
-                                    settingRowView(settingText: "Sign out", settingState: "", newView: AnyView(Text("Placeholder")), disableNavigation: true)
-                                        .onTapGesture(){
-                                            saveData()
-                                            signingOut = true
-                                            signOut()
-                                            resetUserDefaults()
-                                            removeAllPendingNotifications()
-                                            KingfisherManager.shared.cache.clearCache()
-                                            viewRouter.updateCurrentView(view:.login)
-                                        }
-                                    settingRowView(settingText: "Delete Account", settingState: "", newView: AnyView(Text("Placeholder")), disableNavigation: true, destructive: true)
-                                        .onTapGesture(){
-                                            showConfirmationAlert = true
-                                        }
-                                  //  settingRowView(settingText: "Help", settingState: "", newView: AnyView(Text("")), disableNavigation: true)
-                                   //     .onTapGesture {
-                                    //        self.showHelp = true
-                                     //   }
-                                }
-                                Spacer()
+                                settingRowView(settingText: "Interests", settingState: "", newView: AnyView(IntroCustomize(interestSelected: $interestSelected, userData: userData, isNotOnboarding: true, interests: $interests, settings: $settings, add: $add, viewRouter: viewRouter)))
+                                
+                                settingRowView(settingText: "Volunteers", settingState: volunteers, newView: AnyView(IntroPage(titleText: "Open Sourced", bodyText: "Studeo was created by amazing volunteers...", image: "", isOpenSourceView: true, viewRouter: viewRouter)))
+                                settingRowView(settingText: "Sign out", settingState: "", newView: AnyView(Text("Placeholder")), disableNavigation: true)
+                                    .onTapGesture(){
+                                        saveData()
+                                        signingOut = true
+                                        signOut()
+                                        resetUserDefaults()
+                                        removeAllPendingNotifications()
+                                        KingfisherManager.shared.cache.clearCache()
+                                        viewRouter.updateCurrentView(view:.login)
+                                    }
+                                settingRowView(settingText: "Delete Account", settingState: "", newView: AnyView(Text("Placeholder")), disableNavigation: true, destructive: true)
+                                    .onTapGesture(){
+                                        showConfirmationAlert = true
+                                    }
+                                //  settingRowView(settingText: "Help", settingState: "", newView: AnyView(Text("")), disableNavigation: true)
+                                //     .onTapGesture {
+                                //        self.showHelp = true
+                                //   }
                             }
-                           
-                            .background(Color("Background"))
-                            .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
-                            .shadow(color: Color("shadow") ,radius: 5)
-                            .padding(.horizontal, 10)
-                            
+                            Spacer()
                         }
-                        .padding(.top, 50)
+                        
+                        .background(Color("Background"))
+                        .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
+                        .shadow(color: Color("shadow") ,radius: 5)
+                        .padding(.horizontal, 10)
+                        
+                    }
+                    .padding(.top, 50)
                     Spacer(minLength: 200)
                 }
                 .background(Color("Background"))
@@ -122,7 +122,7 @@ struct SettingView: View {
                     updateUIWithData(self.userSettings)
                 }
             }
-            .onDisappear{
+            .onDisappear {
                 guard signingOut == false else { return }
                 print("Settings disappeared, save data now.")
                 self.saveAvailability() { error in
@@ -135,8 +135,8 @@ struct SettingView: View {
             }
             .alert(isPresented: $showConfirmationAlert, content: {
                 Alert(title: Text("Are you sure?"), message: Text("This action cannot be undone"), primaryButton: .destructive(Text("Confirm"), action: {
-                   
-                   
+                    
+                    
                     resetUserDefaults()
                     removeAllPendingNotifications()
                     KingfisherManager.shared.cache.clearCache()
@@ -151,9 +151,9 @@ struct SettingView: View {
                     }
                 }), secondaryButton: .cancel())
             })
-        
-            }
-            .navigationViewStyle(StackNavigationViewStyle())
+            
+        }
+        .navigationViewStyle(StackNavigationViewStyle())
         
     }
     
@@ -212,9 +212,9 @@ struct SettingView: View {
         let ref = db.collection("settings").document(userData.userID)
         ref.getDocument { (document, error) in
             if let document = document {
-            let result = Result {
-                try document.data(as: SettingsData.self)
-            }
+                let result = Result {
+                    try document.data(as: SettingsData.self)
+                }
                 switch result {
                 case .success(let settings):
                     print("Success decoding settings")
@@ -244,20 +244,6 @@ struct SettingView: View {
     }
     
     func updateUIWithData(_ data: SettingsData) {
-//        for settings in data.settings {
-//            switch settings.name {
-//            case "Country":
-//                self.country = settings.field!
-//            case "Chat notifications":
-//                self.chatNotifications = settings.state!
-//            case "New group notifications":
-//                self.newGroupNotifications = settings.state!
-//            case "Language":
-//                self.language = settings.field!
-//            default:
-//                print("Unexpected setting with name: \(settings.name)")
-//            }
-//        }
         self.country = data.country
         self.chatNotifications = data.chatNotifications
         self.newGroupNotifications = data.newGroupNotifications
@@ -265,110 +251,110 @@ struct SettingView: View {
     }
     
 }
-    
-    
-   
-    
-    struct profilePictureCircle: View {
-        var body: some View {
-            Circle()
-                .fill(Color.black.opacity(0.1))
-                .frame(width: 52, height: 52)
-                .overlay(
-                    Circle()
-                        .fill(LinearGradient(gradient: Gradient(colors: [Color.gradientLight, Color.gradientDark]), startPoint: .top, endPoint: .bottom))
-                        .frame(width: 50, height: 50)
-                        .overlay(Image("demoprofile")
-                            
-                            .resizable()
-                            .clipShape(Circle())
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 45, height: 45)
-                            
+
+
+
+
+struct profilePictureCircle: View {
+    var body: some View {
+        Circle()
+            .fill(Color.black.opacity(0.1))
+            .frame(width: 52, height: 52)
+            .overlay(
+                Circle()
+                    .fill(LinearGradient(gradient: Gradient(colors: [Color.gradientLight, Color.gradientDark]), startPoint: .top, endPoint: .bottom))
+                    .frame(width: 50, height: 50)
+                    .overlay(Image("demoprofile")
+                                
+                                .resizable()
+                                .clipShape(Circle())
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 45, height: 45)
+                             
                     )
             )
-        }
     }
-    
-    struct settingRowView: View {
-        var settingText:String
-        var settingState:String
-        var newView: AnyView
-        var disableNavigation:Bool = false
-        var destructive = false
-        var body: some View {
-                HStack{
-                    NavigationLink(destination: newView) {
-                        Text(settingText)
-                            .font(Font.custom("Montserrat-SemiBold", size: 12, relativeTo: .subheadline))
-                            .foregroundColor(destructive ? Color.red : Color("Text"))
-                            .opacity(0.9)
-                            .padding()
-                        
-                        Spacer()
-                        Text(settingState)
-                            .font(Font.custom("Montserrat-SemiBold", size: 12, relativeTo: .subheadline))
-                            .lineLimit(1)
-                            .foregroundColor(Color("Text"))
-                            .opacity(0.4)
-                            
-                        if !disableNavigation {
-                        Image(systemName: "chevron.right")
-                            .foregroundColor(Color("barCenter"))
-                            .font(Font.system(size: 13).weight(.semibold))
-                            .padding()
-                        }
-                    }.disabled(disableNavigation)
-                    
-                }
-            
-            
-           
-            
-        }
-    }
-    
-    struct availabilityRowView: View {
-        var settingText: String
-        @Binding var userAvailable: Bool
-        var body: some View {
-                HStack{
-                    Text(settingText)
-                        .font(.custom("Montserrat-SemiBold", size: 12))
-                        .foregroundColor(Color("Text"))
-                        .opacity(0.9)
-                        .padding()
-                    Spacer()
-                    
-                    Toggle("Availability for pairing", isOn: $userAvailable)
-                        .labelsHidden()
+}
+
+struct settingRowView: View {
+    var settingText:String
+    var settingState:String
+    var newView: AnyView
+    var disableNavigation:Bool = false
+    var destructive = false
+    var body: some View {
+        HStack{
+            NavigationLink(destination: newView) {
+                Text(settingText)
+                    .font(Font.custom("Montserrat-SemiBold", size: 12, relativeTo: .subheadline))
+                    .foregroundColor(destructive ? Color.red : Color("Text"))
+                    .opacity(0.9)
+                    .padding()
+                
+                Spacer()
+                Text(settingState)
+                    .font(Font.custom("Montserrat-SemiBold", size: 12, relativeTo: .subheadline))
+                    .lineLimit(1)
+                    .foregroundColor(Color("Text"))
+                    .opacity(0.4)
+                
+                if !disableNavigation {
+                    Image(systemName: "chevron.right")
+                        .foregroundColor(Color("barCenter"))
+                        .font(Font.system(size: 13).weight(.semibold))
                         .padding()
                 }
-            
-            
-           
+            }.disabled(disableNavigation)
             
         }
+        
+        
+        
+        
     }
+}
+
+struct availabilityRowView: View {
+    var settingText: String
+    @Binding var userAvailable: Bool
+    var body: some View {
+        HStack{
+            Text(settingText)
+                .font(.custom("Montserrat-SemiBold", size: 12))
+                .foregroundColor(Color("Text"))
+                .opacity(0.9)
+                .padding()
+            Spacer()
+            
+            Toggle("Availability for pairing", isOn: $userAvailable)
+                .labelsHidden()
+                .padding()
+        }
+        
+        
+        
+        
+    }
+}
 
 struct appearanceRowView: View {
     @ObservedObject var userData: UserData
     var body: some View {
-            HStack{
-                Text("Dark Mode")
-                    .font(.custom("Montserrat-SemiBold", size: 12))
-                    .foregroundColor(Color("Text"))
-                    .opacity(0.9)
-                    .padding()
-                Spacer()
-                
-                Toggle("Dark Mode", isOn: $userData.darkModeOn)
-                    .labelsHidden()
-                    .padding()
-            }
+        HStack{
+            Text("Dark Mode")
+                .font(.custom("Montserrat-SemiBold", size: 12))
+                .foregroundColor(Color("Text"))
+                .opacity(0.9)
+                .padding()
+            Spacer()
+            
+            Toggle("Dark Mode", isOn: $userData.darkModeOn)
+                .labelsHidden()
+                .padding()
+        }
         
         
-       
+        
         
     }
 }

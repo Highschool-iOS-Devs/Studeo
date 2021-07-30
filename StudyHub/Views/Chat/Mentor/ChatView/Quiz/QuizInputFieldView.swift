@@ -21,13 +21,13 @@ struct QuizInputFieldView: View {
             HStack {
                 if isQuestion {
                     TextField("Question", text: $question.question)
-                    .font(.subheadline)
-                    .foregroundColor(Color(#colorLiteral(red: 0.6549019608, green: 0.7137254902, blue: 0.862745098, alpha: 1)))
-                    .padding(.horizontal)
-                    .frame(height: 44)
-                    .autocapitalization(.none)
-                   
-                   
+                        .font(.subheadline)
+                        .foregroundColor(Color(#colorLiteral(red: 0.6549019608, green: 0.7137254902, blue: 0.862745098, alpha: 1)))
+                        .padding(.horizontal)
+                        .frame(height: 44)
+                        .autocapitalization(.none)
+                    
+                    
                 } else {
                     TextField("Answer", text: $text)
                         .font(.subheadline)
@@ -35,8 +35,8 @@ struct QuizInputFieldView: View {
                         .padding(.horizontal)
                         .frame(height: 44)
                         .autocapitalization(.none)
-                        
-                
+                    
+                    
                     
                     Toggle(isOn: $isAnswer) {
                         Text("Answer?")
@@ -47,29 +47,29 @@ struct QuizInputFieldView: View {
                             question.answer = text
                             sendData()
                         }
-                                }
+                    }
                 }
-        
                 
-
+                
+                
             }
             //Divider().padding(.leading, 80).padding(.trailing, 15)
-      
-
+            
+            
         }
         .frame(maxWidth: .infinity)
         .frame(height:136)
         .background(BlurView(style: .systemMaterial))
         .clipShape(RoundedRectangle(cornerRadius: 15))
-       
+        
         .shadow(color: Color("Primary").opacity(0.1), radius: 15)
         .shadow(color: Color("Primary").opacity(0.2), radius: 25, x: 0, y: 20)
-
+        
     }
-       
-
     
-
+    
+    
+    
     
     func sendData() {
         let db = Firestore.firestore()

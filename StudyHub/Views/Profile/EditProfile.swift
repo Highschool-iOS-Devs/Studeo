@@ -24,10 +24,10 @@ struct EditProfile: View {
     @State var description: String = ""
     @State var name: String = ""
     @ObservedObject var userData: UserData
-       @State private var image : UIImage? = nil
+    @State private var image : UIImage? = nil
     @Environment(\.presentationMode) var presentationMode
     var imagePlaceholder = Image(systemName: "person.circle.fill")
-
+    
     var body: some View {
         GeometryReader { geo in
             ZStack {
@@ -37,100 +37,101 @@ struct EditProfile: View {
                 
                 ForEach(user){ user in
                     ScrollView {
-                     VStack {
-                         
-                        ZStack(alignment:.center) {
-                            if profileImage == nil{
-                                ProfileRingView(size: geo.size.width-90,  userData: userData)
-                                    .opacity(0.5)
-                            }
-                            else{
-                                Image(uiImage: profileImage!)
-                                    .renderingMode(.original)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: geo.size.width-90, height: geo.size.width-90)
-                                    .clipShape(Circle())
-                                    .overlay(
+                        VStack {
+                            
+                            ZStack(alignment:.center) {
+                                if profileImage == nil{
+                                    ProfileRingView(size: geo.size.width-90,  userData: userData)
+                                        .opacity(0.5)
+                                }
+                                else {
+                                    Image(uiImage: profileImage!)
+                                        .renderingMode(.original)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: geo.size.width-90, height: geo.size.width-90)
+                                        .clipShape(Circle())
+                                        .overlay(
                                             Circle().stroke(LinearGradient(gradient: Gradient(colors: [.gradientLight, .gradientDark]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 5)
-                                    )
-                                    .opacity(0.5)
-
-            
-                            }
-                            Text("Tap to choose")
-                                .font(.custom("Montserrat-Bold", size: 30))
-                                .foregroundColor(Color("Primary"))
+                                        )
+                                        .opacity(0.5)
+                                    
+                                    
+                                }
+                                Text("Tap to choose")
+                                    .font(.custom("Montserrat-Bold", size: 30))
+                                    .foregroundColor(Color("Primary"))
                             }
                             .padding(.top, 20)
                             .onTapGesture {
                                 showImagePicker = true
-                             }
+                            }
                             .sheet(isPresented: self.$showImagePicker){
                                 ImagePicker(isShown: self.$showImagePicker, image: self.$image, userID: $userData.userID, userData: userData)
                                     
                                     .onDisappear() {
                                         profileImage = image ?? profileImage
                                     }
-                             }
+                            }
                             .padding(.horizontal, 42)
-
-                    VStack(alignment: .center){
-                        
-                        TextField(user.name, text: $name)
-                         .font(.custom("Montserrat-Semibold", size: 22))
-                         .foregroundColor(Color("Text"))
-                         .multilineTextAlignment(.center)
-
-                         HStack {
-                           
-                            ProfileStats(allNum: user.all, all: true)
-                            ProfileStats(monthNum: user.month, month: true)
-                            ProfileStats(dayNum: user.day, day: true)
-                           
-                          
-                           
-                         } .padding(.vertical, 22)
-                     
-                        TextField(user.description, text: $description)
-                             .frame(minWidth: 100, alignment: .leading)
-                             .font(.custom("Montserrat-Semibold", size: 18))
-                             .foregroundColor(Color("Text"))
-                             .multilineTextAlignment(.center)
-                       
+                            
+                            VStack(alignment: .center) {
+                                
+                                TextField(user.name, text: $name)
+                                    .font(.custom("Montserrat-Semibold", size: 22))
+                                    .foregroundColor(Color("Text"))
+                                    .multilineTextAlignment(.center)
+                                
+                                HStack {
+                                    
+                                    ProfileStats(allNum: user.all, all: true)
+                                    ProfileStats(monthNum: user.month, month: true)
+                                    ProfileStats(dayNum: user.day, day: true)
+                                    
+                                    
+                                    
+                                }
+                                .padding(.vertical, 22)
+                                
+                                TextField(user.description, text: $description)
+                                    .frame(minWidth: 100, alignment: .leading)
+                                    .font(.custom("Montserrat-Semibold", size: 18))
+                                    .foregroundColor(Color("Text"))
+                                    .multilineTextAlignment(.center)
+                                
+                            }
+                            .padding()
+                            .padding(.bottom, 22)
+                            .padding(.horizontal, 22)
+                            
+                            Button(action: {
+                                sendData()
+                                resizeImage()
+                                uploadImage()
+                                //downloadImages()
+                                
+                            }) {
+                                Text("Save")
+                                    .font(Font.custom("Montserrat-SemiBold", size: 14.0))
+                            }
+                            .buttonStyle(BlueStyle())
+                            .padding()
+                            .padding(.horizontal, 22)
+                            Spacer()
+                            
+                        }
                     }
-                    .padding()
-                    .padding(.bottom, 22)
-                    .padding(.horizontal, 22)
-                  
-                    Button(action: {
-                        sendData()
-                        resizeImage()
-                        uploadImage()
-                        //downloadImages()
-                
-                    }) {
-                        Text("Save")
-                            .font(Font.custom("Montserrat-SemiBold", size: 14.0))
-                    }
-                    .buttonStyle(BlueStyle())
-                    .padding()
-                    .padding(.horizontal, 22)
-                    Spacer()
-                        
+                    
                 }
-                    }
-             
-            }
-            .padding(.horizontal)
-     
-        } .frame(width: geo.size.width)
+                .padding(.horizontal)
+                
+            } .frame(width: geo.size.width)
         }
-}
-
-    func resizeImage(){
-        if var image = profileImage{
-            while image.getSizeIn(.megabyte)! >= Double(2){
+    }
+    
+    func resizeImage() {
+        if var image = profileImage {
+            while image.getSizeIn(.megabyte)! >= Double(2) {
                 image = image.resizeWithPercent(percentage: 0.8)!
             }
             profileImage = image
@@ -138,72 +139,72 @@ struct EditProfile: View {
         
     }
     func uploadImage() {
-      
-           let metadata = StorageMetadata()
-           metadata.contentType = "image/jpeg"
+        
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
         let storage = Storage.storage().reference().child("User_Profile/\(userData.userID)")
         if let image = profileImage{
-        
+            
             storage.putData(image.jpegData(compressionQuality: 100)!, metadata: metadata) { meta, error in
-               if let error = error {
-                   print(error)
-                   return
-               }
-
+                if let error = error {
+                    print(error)
+                    return
+                }
+                
                 KingfisherManager.shared.cache.clearCache()
-
-           }
+                
+            }
         }
-     
+        
     }
     func sendData() {
-       
-                let db = Firestore.firestore()
-               
-      
-       
-      
+        
+        let db = Firestore.firestore()
+        
+        
+        
+        
         if name == "" {
             name = userData.name
         }
         if description == "" {
             description = userData.description
         }
-                      
-                            db.collection("users").document(userData.userID).updateData([
-                                "description":  self.description,
-                                "name":  self.name
-                            ]) { err in
-                                if let err = err {
-                                    print("Error updating document: \(err)")
-                                } else {
-                                    print("Document successfully updated")
-                                    
-                                    self.userData.description = self.description
-                                        self.userData.name = self.name
-                                    self.presentationMode.wrappedValue.dismiss()
-                                }
-                            }
-                           
-                    
+        
+        db.collection("users").document(userData.userID).updateData([
+            "description":  self.description,
+            "name":  self.name
+        ]) { err in
+            if let err = err {
+                print("Error updating document: \(err)")
+            } else {
+                print("Document successfully updated")
+                
+                self.userData.description = self.description
+                self.userData.name = self.name
+                self.presentationMode.wrappedValue.dismiss()
             }
-               
-            }
-            
-extension UIImage {
+        }
+        
+        
+    }
+    
+}
 
+extension UIImage {
+    
     public enum DataUnits: String {
         case byte, kilobyte, megabyte, gigabyte
     }
-
-    func getSizeIn(_ type: DataUnits)-> Double? {
-
+    
+    func getSizeIn(_ type: DataUnits) -> Double? {
+        
         guard let data = self.pngData() else {
             return nil
         }
-
+        
         var size: Double = 0.0
-
+        
         switch type {
         case .byte:
             size = Double(data.count)
@@ -214,7 +215,7 @@ extension UIImage {
         case .gigabyte:
             size = Double(data.count) / 1024 / 1024 / 1024
         }
-
+        
         return size
     }
     func resizeWithPercent(percentage: CGFloat) -> UIImage? {

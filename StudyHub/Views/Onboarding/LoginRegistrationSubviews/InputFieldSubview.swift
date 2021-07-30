@@ -32,9 +32,11 @@ struct InputFieldSubview: View {
                     .autocapitalization(.none)
                     .textContentType(.emailAddress)
                     .padding(.trailing, 15)
-
+                
             }
-            Divider().padding(.leading, 80).padding(.trailing, 15)
+            Divider()
+                .padding(.leading, 80)
+                .padding(.trailing, 15)
             HStack {
                 Image(systemName: "lock.fill")
                     .foregroundColor(Color(#colorLiteral(red: 0.6549019608, green: 0.7137254902, blue: 0.862745098, alpha: 1)))
@@ -52,9 +54,9 @@ struct InputFieldSubview: View {
                     .frame(height: 44)
                     .textContentType(.password)
                     .padding(.trailing, 15)
-
+                
             }
-
+            
         }
         .frame(maxWidth: .infinity)
         .frame(height:136)
@@ -63,29 +65,29 @@ struct InputFieldSubview: View {
         .padding(.horizontal, 45)
         .shadow(color: Color("Primary").opacity(0.1), radius: 15)
         .shadow(color: Color("Primary").opacity(0.2), radius: 25, x: 0, y: 20)
-
+        
         .overlay(
             HStack {
                 Spacer()
                 VStack{
                     Spacer()
-                        Text("Forgot password?")
-                            .foregroundColor(Color("Text").opacity(0.8))
-                                    .font(.custom("Montserrat-semibold", size: 14))
-                            .padding(.trailing, 45)
-                            .offset(y:35)
-                            .onTapGesture {
-                                isPresented.toggle()
-                            }
-                 
-                
+                    Text("Forgot password?")
+                        .foregroundColor(Color("Text").opacity(0.8))
+                        .font(.custom("Montserrat-semibold", size: 14))
+                        .padding(.trailing, 45)
+                        .offset(y:35)
+                        .onTapGesture {
+                            isPresented.toggle()
+                        }
+                    
+                    
                 }
             }
         )
         .fullScreenCover(isPresented: $isPresented, content: PasswordResetView.init)
-
-    
-
+        
+        
+        
     }
 }
 

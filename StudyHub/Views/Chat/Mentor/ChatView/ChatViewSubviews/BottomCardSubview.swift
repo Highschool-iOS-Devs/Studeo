@@ -18,10 +18,10 @@ struct BottomCardSubview: View {
         ZStack{
             Color("Background")
                 .edgesIgnoringSafeArea(.all)
-                
+            
             displayView
                 .padding(.top,20)
-
+            
             VStack{
                 Capsule()
                     .fill(Color("Text").opacity(0.3))
@@ -47,30 +47,30 @@ struct BottomCardSubview: View {
                     else{
                         self.bottomState = value.translation
                     }
-
+                    
                     if self.bottomState.height < -300 {
                         self.bottomState.height = -300
                     }
-              
-            }
-            .onEnded { value in
-                if value.translation.height < -300 {
-                    self.bottomState.height = -300
+                    
                 }
-                if self.bottomState.height > 50 {
-                    self.showCard = false
-                    showFull = false
-                    self.bottomState = .zero
+                .onEnded { value in
+                    if value.translation.height < -300 {
+                        self.bottomState.height = -300
+                    }
+                    if self.bottomState.height > 50 {
+                        self.showCard = false
+                        showFull = false
+                        self.bottomState = .zero
+                    }
+                    else {
+                        self.bottomState = .zero
+                        
+                    }
                 }
-                else{
-                    self.bottomState = .zero
-
-                }
-            }
         )
-
+        
         .animation(.timingCurve(0.2, 0.8, 0.2, 1, duration:0.8))
-  
+        
     }
 }
 

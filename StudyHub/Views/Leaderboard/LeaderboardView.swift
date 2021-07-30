@@ -40,53 +40,53 @@ struct LeaderboardView: View {
                     .padding(.vertical, 22)
                 dateSelectionView(currentDateTab: $leaderboardTab.currentDateTab)
                     .onAppear() {
-                        self.loadData(){userData in
+                        self.loadData() { userData in
                             //Get completion handler data results from loadData function and set it as the recentPeople local variable
                             self.people = userData
                             
                             
                         }
-                        self.loadDataMonth(){userData in
+                        self.loadDataMonth() { userData in
                             //Get completion handler data results from loadData function and set it as the recentPeople local variable
                             self.peopleMonth = userData
                             
                             
                         }
-                        self.loadDataDay(){userData in
+                        self.loadDataDay() { userData in
                             //Get completion handler data results from loadData function and set it as the recentPeople local variable
                             self.peopleDay = userData
                             
                             
                         }
-                        self.loadLeaderData(){userData in
+                        self.loadLeaderData() { userData in
                             //Get completion handler data results from loadData function and set it as the recentPeople local variable
                             self.leaders = userData
                             self.leadersHasLoaded = true
                         }
-                        self.loadLeaderDataMonth(){userData in
+                        self.loadLeaderDataMonth() { userData in
                             //Get completion handler data results from loadData function and set it as the recentPeople local variable
                             self.leadersMonth = userData
                             self.leadersMonthHasLoaded = true
                         }
-                        self.loadLeaderDataDay(){userData in
+                        self.loadLeaderDataDay() { userData in
                             //Get completion handler data results from loadData function and set it as the recentPeople local variable
                             self.leadersDay = userData
                             self.leadersDayHasLoaded = true
                         }
                         
-                        self.loadUserData(){userData in
+                        self.loadUserData() { userData in
                             //Get completion handler data results from loadData function and set it as the recentPeople local variable
                             self.user = userData
                             showLoadingAnimation = false
                             //self.leadersHasLoaded = true
                             
                             user[0].all = user[0].studyHours.reduce(0, +)
-                           
+                            
                         }
                     }
                 
                 HStack {
-                    ForEach(user){user in
+                    ForEach(user) { user in
                         SelfRankView(hours: user.all, id: user.id.uuidString)
                             .padding(.top, 20)
                             .onAppear {
@@ -122,47 +122,47 @@ struct LeaderboardView: View {
                     }
                     
                 }
-//                } else if leaderboardTab.currentDateTab == .month {
-//
-//                    Spacer()
-//                    if self.leadersMonthHasLoaded {
-//                        LeadersStack(leaders: self.leadersMonth)
-//                    }
-//                    ScrollView {
-//                        VStack(spacing: 30) {
-//                            ForEach(peopleMonth){ user in
-//                                LeaderboardRow(name: user.name, hours: user.month)
-//                                    .onAppear() {
-//                                        print(user.name)
-//                                    }
-//                            }
-//
-//                        }
-//                        .padding(.top, 22)
-//                        .padding(.bottom, 110)
-//                    }
-//                } else if leaderboardTab.currentDateTab == .today {
-//
-//                    Spacer()
-//                    if self.leadersDayHasLoaded {
-//                        LeadersStack(leaders: self.leadersDay)
-//                    }
-//                    ScrollView {
-//                        VStack(spacing: 30) {
-//                            ForEach(peopleDay){user in
-//                                LeaderboardRow(name: user.name, hours: user.day)
-//                                    .onAppear() {
-//                                        print(user.name)
-//                                    }
-//                            }
-//
-//                        }
-//                        .padding(.top, 22)
-//                        .padding(.bottom, 110)
-//                    }
-//
-//                }
-//                Spacer(minLength: 120)
+                //                } else if leaderboardTab.currentDateTab == .month {
+                //
+                //                    Spacer()
+                //                    if self.leadersMonthHasLoaded {
+                //                        LeadersStack(leaders: self.leadersMonth)
+                //                    }
+                //                    ScrollView {
+                //                        VStack(spacing: 30) {
+                //                            ForEach(peopleMonth){ user in
+                //                                LeaderboardRow(name: user.name, hours: user.month)
+                //                                    .onAppear() {
+                //                                        print(user.name)
+                //                                    }
+                //                            }
+                //
+                //                        }
+                //                        .padding(.top, 22)
+                //                        .padding(.bottom, 110)
+                //                    }
+                //                } else if leaderboardTab.currentDateTab == .today {
+                //
+                //                    Spacer()
+                //                    if self.leadersDayHasLoaded {
+                //                        LeadersStack(leaders: self.leadersDay)
+                //                    }
+                //                    ScrollView {
+                //                        VStack(spacing: 30) {
+                //                            ForEach(peopleDay){user in
+                //                                LeaderboardRow(name: user.name, hours: user.day)
+                //                                    .onAppear() {
+                //                                        print(user.name)
+                //                                    }
+                //                            }
+                //
+                //                        }
+                //                        .padding(.top, 22)
+                //                        .padding(.bottom, 110)
+                //                    }
+                //
+                //                }
+                //                Spacer(minLength: 120)
             }
             .font(.custom("Montserrat-SemiBold", size: 16))
             .foregroundColor(.white)
@@ -186,14 +186,14 @@ struct LeaderboardView: View {
             }
         }
     }
-    func loadData(performAction: @escaping ([User]) -> Void){
+    func loadData(performAction: @escaping ([User]) -> Void) {
         let db = Firestore.firestore()
         let docRef = db.collection("users")
         var userList:[User] = []
         //Get every single document under collection users
         let queryParameter = docRef.order(by: "studyHours", descending: true).limit(to: 100)
-        queryParameter.getDocuments{ (querySnapshot, error) in
-            for document in querySnapshot!.documents{
+        queryParameter.getDocuments { (querySnapshot, error) in
+            for document in querySnapshot!.documents {
                 let result = Result {
                     try document.data(as: User.self)
                 }
@@ -217,14 +217,14 @@ struct LeaderboardView: View {
         
         
     }
-    func loadDataDay(performAction: @escaping ([User]) -> Void){
+    func loadDataDay(performAction: @escaping ([User]) -> Void) {
         let db = Firestore.firestore()
         let docRef = db.collection("users")
         var userList:[User] = []
         //Get every single document under collection users
         let queryParameter = docRef.order(by: "day", descending: true).limit(to: 100)
-        queryParameter.getDocuments{ (querySnapshot, error) in
-            for document in querySnapshot!.documents{
+        queryParameter.getDocuments { (querySnapshot, error) in
+            for document in querySnapshot!.documents {
                 let result = Result {
                     try document.data(as: User.self)
                 }
@@ -248,13 +248,13 @@ struct LeaderboardView: View {
         
         
     }
-    func loadDataMonth(performAction: @escaping ([User]) -> Void){
+    func loadDataMonth(performAction: @escaping ([User]) -> Void) {
         let db = Firestore.firestore()
         let docRef = db.collection("users")
         var userList:[User] = []
         //Get every single document under collection users
         let queryParameter = docRef.order(by: "month", descending: true).limit(to: 100)
-        queryParameter.getDocuments{ (querySnapshot, error) in
+        queryParameter.getDocuments { (querySnapshot, error) in
             for document in querySnapshot!.documents{
                 let result = Result {
                     try document.data(as: User.self)
@@ -279,14 +279,14 @@ struct LeaderboardView: View {
         
         
     }
-    func loadLeaderData(performAction: @escaping ([User]) -> Void){
+    func loadLeaderData(performAction: @escaping ([User]) -> Void) {
         let db = Firestore.firestore()
         let docRef = db.collection("users")
         var userList:[User] = []
         let queryParameter = docRef.order(by: "studyHours", descending: true).limit(to: 3)
         //Get every single document under collection users
-        queryParameter.getDocuments{ (querySnapshot, error) in
-            for document in querySnapshot!.documents{
+        queryParameter.getDocuments { (querySnapshot, error) in
+            for document in querySnapshot!.documents {
                 let result = Result {
                     try document.data(as: User.self)
                 }
@@ -313,14 +313,14 @@ struct LeaderboardView: View {
         
         
     }
-    func loadLeaderDataDay(performAction: @escaping ([User]) -> Void){
+    func loadLeaderDataDay(performAction: @escaping ([User]) -> Void) {
         let db = Firestore.firestore()
         let docRef = db.collection("users")
         var userList:[User] = []
         let queryParameter = docRef.order(by: "day", descending: true).limit(to: 3)
         //Get every single document under collection users
-        queryParameter.getDocuments{ (querySnapshot, error) in
-            for document in querySnapshot!.documents{
+        queryParameter.getDocuments { (querySnapshot, error) in
+            for document in querySnapshot!.documents {
                 let result = Result {
                     try document.data(as: User.self)
                 }
@@ -347,14 +347,14 @@ struct LeaderboardView: View {
         
         
     }
-    func loadLeaderDataMonth(performAction: @escaping ([User]) -> Void){
+    func loadLeaderDataMonth(performAction: @escaping ([User]) -> Void) {
         let db = Firestore.firestore()
         let docRef = db.collection("users")
         var userList:[User] = []
         let queryParameter = docRef.order(by: "month", descending: true).limit(to: 3)
         //Get every single document under collection users
-        queryParameter.getDocuments{ (querySnapshot, error) in
-            for document in querySnapshot!.documents{
+        queryParameter.getDocuments { (querySnapshot, error) in
+            for document in querySnapshot!.documents {
                 let result = Result {
                     try document.data(as: User.self)
                 }
@@ -381,13 +381,13 @@ struct LeaderboardView: View {
         
         
     }
-    func loadUserData(performAction: @escaping ([User]) -> Void){
+    func loadUserData(performAction: @escaping ([User]) -> Void) {
         let db = Firestore.firestore()
         let docRef = db.collection("users").document(self.userData.userID)
         var userList:[User] = []
         //Get every single document under collection users
         
-        docRef.getDocument{ (document, error) in
+        docRef.getDocument { (document, error) in
             
             let result = Result {
                 try document?.data(as: User.self)

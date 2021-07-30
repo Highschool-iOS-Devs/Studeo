@@ -12,7 +12,7 @@ struct FloatingBlobSubview: View {
     @State var show = false
     @State var duration = 90.0
     var body: some View {
-        ZStack{
+        ZStack {
             VectorImageRepresentable(image: #imageLiteral(resourceName: "blob_blue"), imageColor: Color("Primary"))
                 .frame(width: 600, height: 600)
                 .rotationEffect(.degrees(show ? 360 : 0))
@@ -20,7 +20,7 @@ struct FloatingBlobSubview: View {
                 .animation(Animation.linear(duration: duration).repeatForever(autoreverses: false))
                 .onAppear{show=true}
                 .opacity(0.85)
-
+            
             VectorImageRepresentable(image: #imageLiteral(resourceName: "blob_blue"), imageColor: Color("Primary"))
                 .frame(width: 600, height: 600)
                 .rotationEffect(.degrees(show ? 360+90 : 90))
@@ -28,7 +28,7 @@ struct FloatingBlobSubview: View {
                 .blendMode(.hardLight)
                 .animation(Animation.linear(duration: duration).repeatForever(autoreverses: false))
                 .opacity(0.85)
-
+            
         }
     }
 }

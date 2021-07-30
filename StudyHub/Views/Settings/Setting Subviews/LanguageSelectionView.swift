@@ -62,7 +62,7 @@ struct LanguageSelectionView: View {
                 .shadow(color: Color("shadow"), radius: 5)
                 .padding()
                 
-               
+                
             }
         }
         Spacer()
@@ -89,7 +89,7 @@ struct LanguageRow: View {
                 .resizable()
                 .scaledToFit()
                 .frame(maxWidth: 40, maxHeight: 40)
-                Spacer()
+            Spacer()
             Text(language)
                 .font(.custom("Montserrat-SemiBold", size: 15))
                 .foregroundColor(Color(.white))

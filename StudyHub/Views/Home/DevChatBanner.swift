@@ -21,7 +21,7 @@ struct DevChatBanner: View {
         NavigationView{
             ZStack {
                 Color("Primary")
-                
+                    
                     .ignoresSafeArea()
                     
                     .onAppear() {
@@ -29,12 +29,12 @@ struct DevChatBanner: View {
                     }
                 HStack {
                     VStack {
-                    Text("Have a question or feedback?")
-                        .font(Font.custom("Montserrat-Bold", size: 16, relativeTo: .subheadline))
-                        .foregroundColor(.white)
-                        .multilineTextAlignment(.center)
-                        .padding()
-                       
+                        Text("Have a question or feedback?")
+                            .font(Font.custom("Montserrat-Bold", size: 16, relativeTo: .subheadline))
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.center)
+                            .padding()
+                        
                         ///NavigationLink that takes user directly to the talk with developer chat, without going through viewRouter
                         Button(action: {
                             joinGroup(newGroup: devGroup)
@@ -42,29 +42,29 @@ struct DevChatBanner: View {
                             self.userData.hasDev = true
                         }) {
                             
-                        
-                           
-                                Text("Talk directly to a developer of this app")
-                                    .font(Font.custom("Montserrat-SemiBold", size: 14, relativeTo: .subheadline))
-                                    .foregroundColor(Color("Primary"))
-                                    .padding()
-                                    .background(RoundedRectangle(cornerRadius: 25).foregroundColor(.white))
-                                    .multilineTextAlignment(.center)
-                            .padding()
+                            
+                            
+                            Text("Talk directly to a developer of this app")
+                                .font(Font.custom("Montserrat-SemiBold", size: 14, relativeTo: .subheadline))
+                                .foregroundColor(Color("Primary"))
+                                .padding()
+                                .background(RoundedRectangle(cornerRadius: 25).foregroundColor(.white))
+                                .multilineTextAlignment(.center)
+                                .padding()
                         } 
                         
                         .navigationTitle("")
                         .navigationBarHidden(true)
-                      
                         
-                        }
-                   
+                        
+                    }
+                    
                 } // .animation(.linear(duration: 2.0))
             }
         } .frame(maxHeight: 400)
         
-       
-    
+        
+        
     }
     func joinGroup(newGroup: Groups) {
         let db = Firestore.firestore()
@@ -80,38 +80,38 @@ struct DevChatBanner: View {
         }
         
         
-      
+        
         for member in devGroup.members {
             print(member)
-        let ref2 = db.collection("users").document(member)
-        ref2.getDocument{document, error in
-            
-            if let document = document, document.exists {
+            let ref2 = db.collection("users").document(member)
+            ref2.getDocument{document, error in
                 
-         
-                let groupListCast = document.data()?["groups"] as? [String]
-                
-                if var currentGroups = groupListCast{
+                if let document = document, document.exists {
                     
-                    guard !(groupListCast?.contains(newGroup.groupID))! else{return}
-                    currentGroups.append(newGroup.groupID)
-                    ref2.updateData(
-                        [
-                            "groups":currentGroups
-                        ]
-                    )
+                    
+                    let groupListCast = document.data()?["groups"] as? [String]
+                    
+                    if var currentGroups = groupListCast{
+                        
+                        guard !(groupListCast?.contains(newGroup.groupID))! else{return}
+                        currentGroups.append(newGroup.groupID)
+                        ref2.updateData(
+                            [
+                                "groups":currentGroups
+                            ]
+                        )
+                    } else {
+                        ref2.updateData(
+                            [
+                                "groups":[newGroup.groupID]
+                            ]
+                        )
+                    }
                 } else {
-                    ref2.updateData(
-                        [
-                            "groups":[newGroup.groupID]
-                        ]
-                    )
+                    print("Error getting user data, \(error)")
                 }
-            } else {
-                print("Error getting user data, \(error)")
             }
         }
-    }
     }
 }
 

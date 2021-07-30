@@ -9,13 +9,13 @@
 import SwiftUI
 import Foundation
 
-class LeaderBoardTabRouter:ObservableObject{
-    enum tabViews{
-           case today
-           case month
-           case allTime
-       }
+class LeaderBoardTabRouter: ObservableObject {
+    enum tabViews {
+        case today
+        case month
+        case allTime
+    }
     @Published var currentDateTab = tabViews.allTime
 }
 
-   
+

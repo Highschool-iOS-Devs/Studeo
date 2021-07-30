@@ -8,6 +8,6 @@
 
 import Foundation
 struct ErrorModel {
-    var errorMessage:String
-    var errorState:Bool
+    var errorMessage: String
+    var errorState: Bool
 }

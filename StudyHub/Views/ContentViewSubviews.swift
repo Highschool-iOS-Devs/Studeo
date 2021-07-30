@@ -52,112 +52,112 @@ struct ContentViewSubviews: View {
             PairingListView(userData: userData, viewRouter: viewRouter, myMentors: $myMentors, timerLog: $timerLog, devChats: $devChats, lookingForMentor: true)
         case .registration:
             RegistrationView(viewRouter: viewRouter, userData: userData)
-        
-case .login:
-    LoginView(userData: userData, viewRouter: viewRouter)
-   
-case .chatList:
-    RecentsView2(userData: userData, viewRouter: viewRouter, myMentors: $myMentors, timerLog: $timerLog, devChats: $devChats)
-        
-        
-        .onAppear() {
-            viewRouter.showTabBar = true
-        }
-case .profile:
+            
+        case .login:
+            LoginView(userData: userData, viewRouter: viewRouter)
+            
+        case .chatList:
+            RecentsView2(userData: userData, viewRouter: viewRouter, myMentors: $myMentors, timerLog: $timerLog, devChats: $devChats)
+                
+                
+                .onAppear() {
+                    viewRouter.showTabBar = true
+                }
+        case .profile:
             ProfileView(user: $user, userData: userData, viewRouter: viewRouter)
-        
-        
-        .onAppear() {
-            viewRouter.showTabBar = true
-        }
-case .home:
-    if userData.uses == 1 {
-        Homev2(userData: userData, viewRouter: viewRouter, recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user, timerLog: $timerLog, devGroup: $devGroup)
-           
-            .onAppear() {
-                viewRouter.showTabBar = true
+                
+                
+                .onAppear() {
+                    viewRouter.showTabBar = true
+                }
+        case .home:
+            if userData.uses == 1 {
+                Homev2(userData: userData, viewRouter: viewRouter, recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user, timerLog: $timerLog, devGroup: $devGroup)
+                    
+                    .onAppear() {
+                        viewRouter.showTabBar = true
+                    }
+            } else {
+                //Home(timerLog: $timerLog)
+                Homev2(userData: userData, viewRouter: viewRouter, recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user, timerLog: $timerLog, devGroup: $devGroup)
+                    
+                    .onAppear() {
+                        viewRouter.showTabBar = true
+                    }
+                
+                
+                
+                
             }
-    } else {
-        //Home(timerLog: $timerLog)
-        Homev2(userData: userData, viewRouter: viewRouter, recentPeople: $recentPeople, recommendGroups: $recommendGroups, user: $user, timerLog: $timerLog, devGroup: $devGroup)
-          
-                                            .onAppear() {
-                viewRouter.showTabBar = true
-            }
-        
-        
-
-         
-    }
-case .custom:
+        case .custom:
             IntroCustomize(interestSelected: $interestSelected, userData: userData, isNotOnboarding: true, interests: $interests, settings: $settings, add: $add, viewRouter: viewRouter)
-        .onAppear {
-            viewRouter.showTabBar = false
-        }
-        .onDisappear() {
-            viewRouter.showTabBar = true
-        }
+                .onAppear {
+                    viewRouter.showTabBar = false
+                }
+                .onDisappear() {
+                    viewRouter.showTabBar = true
+                }
         case .mentorCustom:
             IntroMentor(userData: userData, viewRouter: viewRouter)
                 .onAppear() {
                     viewRouter.showTabBar = false
                 }
-case .settings:
-    SettingView(userData: userData, viewRouter: viewRouter)
-        
-        
-        .onAppear() {
-            viewRouter.showTabBar = true
-        }
-case .leaderboard:
-    LeaderboardView(userData: userData)
-        
-        
-        .onAppear() {
-            viewRouter.showTabBar = true
-        }
-case .introView:
+        case .settings:
+            SettingView(userData: userData, viewRouter: viewRouter)
+                
+                
+                .onAppear() {
+                    viewRouter.showTabBar = true
+                }
+        case .leaderboard:
+            LeaderboardView(userData: userData)
+                
+                
+                .onAppear() {
+                    viewRouter.showTabBar = true
+                }
+        case .introView:
             IntroView(viewRouter: viewRouter, userData: userData)
-               
-        .transition(.opacity)
-        .animation(.easeInOut)
-        .onAppear() {
-            viewRouter.showTabBar = false
-        }
-        
-case .quizList:
+                
+                .transition(.opacity)
+                .animation(.easeInOut)
+                .onAppear() {
+                    viewRouter.showTabBar = false
+                }
+            
+        case .quizList:
             IntroView(viewRouter: viewRouter, userData: userData)
-}
+        }
     }
     func loadUserData(performAction: @escaping ([User]) -> Void) {
         let db = Firestore.firestore()
-     let docRef = db.collection("users").document(self.userData.userID)
+        let docRef = db.collection("users").document(self.userData.userID)
         var userList:[User] = []
         //Get every single document under collection users
-    
-     docRef.addSnapshotListener{ (document, error) in
-         
-                let result = Result {
-                 try document?.data(as: User.self)
-                }
-                switch result {
-                    case .success(let user):
-                        if let user = user {
-                            userList.append(user)
-                 
-                        } else {
-                            
-                            print("Document does not exist")
-                        }
-                    case .failure(let error):
-                        print("Error decoding user: \(error)")
-                    }
-     
+        
+        docRef.addSnapshotListener{ (document, error) in
             
-              performAction(userList)
+            let result = Result {
+                try document?.data(as: User.self)
+            }
+            switch result {
+            case .success(let user):
+                if let user = user {
+                    userList.append(user)
+                    
+                } else {
+                    
+                    print("Document does not exist")
+                }
+            case .failure(let error):
+                print("Error decoding user: \(error)")
+            }
+            
+            
+            performAction(userList)
         }
     }
-   
+    
     func loadMyMentorsData(performAction: @escaping ([Groups]?) -> Void) {
         let db = Firestore.firestore()
         let docRef = db.collection("mentorships")
@@ -166,11 +166,11 @@ case .quizList:
         let queryParameter = docRef.whereField("members", arrayContains: userData.userID)
         queryParameter.addSnapshotListener(){ (querySnapshot, error) in
             if let querySnapshot = querySnapshot,!querySnapshot.isEmpty{
-            for document in querySnapshot.documents{
-                let result = Result {
-                    try document.data(as: Groups.self)
-                }
-                switch result {
+                for document in querySnapshot.documents{
+                    let result = Result {
+                        try document.data(as: Groups.self)
+                    }
+                    switch result {
                     case .success(let group):
                         if var group = group {
                             i = 0
@@ -179,8 +179,8 @@ case .quizList:
                                 if a == userData.name {
                                     print(i)
                                     if i < array.count {
-                                    array.remove(at: i)
-                                }
+                                        array.remove(at: i)
+                                    }
                                 }
                                 i += 1
                             }
@@ -194,14 +194,14 @@ case .quizList:
                     case .failure(let error):
                         print("Error decoding user: \(error)")
                     }
-                
-              
-            }
+                    
+                    
+                }
             }
             else{
                 performAction(nil)
             }
-              performAction(groupList)
+            performAction(groupList)
         }
         
         
@@ -214,11 +214,11 @@ case .quizList:
         let queryParameter = docRef.whereField("members", arrayContains: userData.userID)
         queryParameter.addSnapshotListener{ (querySnapshot, error) in
             if let querySnapshot = querySnapshot,!querySnapshot.isEmpty{
-            for document in querySnapshot.documents{
-                let result = Result {
-                    try document.data(as: Groups.self)
-                }
-                switch result {
+                for document in querySnapshot.documents{
+                    let result = Result {
+                        try document.data(as: Groups.self)
+                    }
+                    switch result {
                     case .success(let group):
                         if var group = group {
                             i = 0
@@ -227,8 +227,8 @@ case .quizList:
                                 if a == userData.name {
                                     print(i)
                                     if i < array.count {
-                                    array.remove(at: i)
-                                }
+                                        array.remove(at: i)
+                                    }
                                 }
                                 i += 1
                             }
@@ -242,14 +242,14 @@ case .quizList:
                     case .failure(let error):
                         print("Error decoding user: \(error)")
                     }
-                
-              
-            }
+                    
+                    
+                }
             }
             else{
                 performAction(nil)
             }
-              performAction(groupList)
+            performAction(groupList)
         }
         
         
@@ -262,11 +262,11 @@ case .quizList:
         let queryParameter = docRef.whereField("members", arrayContains: userData.userID)
         queryParameter.addSnapshotListener{ (querySnapshot, error) in
             if let querySnapshot = querySnapshot,!querySnapshot.isEmpty{
-            for document in querySnapshot.documents{
-                let result = Result {
-                    try document.data(as: Groups.self)
-                }
-                switch result {
+                for document in querySnapshot.documents{
+                    let result = Result {
+                        try document.data(as: Groups.self)
+                    }
+                    switch result {
                     case .success(let group):
                         if var group = group {
                             i = 0
@@ -275,8 +275,8 @@ case .quizList:
                                 if a == userData.name {
                                     print(i)
                                     if i < array.count {
-                                    array.remove(at: i)
-                                }
+                                        array.remove(at: i)
+                                    }
                                 }
                                 i += 1
                             }
@@ -290,14 +290,14 @@ case .quizList:
                     case .failure(let error):
                         print("Error decoding user: \(error)")
                     }
-                
-              
-            }
+                    
+                    
+                }
             }
             else{
                 performAction(nil)
             }
-              performAction(groupList)
+            performAction(groupList)
         }
         
         
@@ -308,18 +308,18 @@ case .quizList:
         let docRef = db.collection("timerLog").whereField("userID", isEqualTo: userData.userID)
         var userList:[TimerLog] = []
         //Get every single document under collection users
-    
-     docRef.addSnapshotListener { (document, error) in
-        if let document = document, !document.isEmpty {
-        for document in document.documents {
-                let result = Result {
-                 try document.data(as: TimerLog.self)
-                }
-                switch result {
+        
+        docRef.addSnapshotListener { (document, error) in
+            if let document = document, !document.isEmpty {
+                for document in document.documents {
+                    let result = Result {
+                        try document.data(as: TimerLog.self)
+                    }
+                    switch result {
                     case .success(let user):
                         if let user = user {
                             userList.append(user)
-                 
+                            
                         } else {
                             
                             print("Document does not exist")
@@ -327,12 +327,12 @@ case .quizList:
                     case .failure(let error):
                         print("Error decoding user: \(error)")
                     }
-     
-            
-              performAction(userList)
+                    
+                    
+                    performAction(userList)
+                }
+            }
         }
-        }
-     }
     }
     func loadGroupsData(performAction: @escaping ([Groups]?) -> Void) {
         let db = Firestore.firestore()
@@ -415,62 +415,62 @@ case .quizList:
             print(0)
             for members in people.members {
                 if members != userData.userID {
-                print(1)
-           
-                
-            
-        let metadata = StorageMetadata()
-        metadata.contentType = "image/jpeg"
-
-        let storage = Storage.storage()
-        let pathReference = storage.reference(withPath: members)
-       
-       // gs://study-hub-7540b.appspot.com/images
-        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
-        pathReference.getData(maxSize: 1 * 5000 * 5000) { data, error in
-          if let error = error {
-            print(error)
-            // Uh-oh, an error occurred!
-          } else {
-            // Data for "images/island.jpg" is returned
-            var image = UIImage(data: data!)
-            images.append(image!)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
-            //showLoadingAnimation = false
-            }
-          }
-        }
-        }
+                    print(1)
+                    
+                    
+                    
+                    let metadata = StorageMetadata()
+                    metadata.contentType = "image/jpeg"
+                    
+                    let storage = Storage.storage()
+                    let pathReference = storage.reference(withPath: members)
+                    
+                    // gs://study-hub-7540b.appspot.com/images
+                    // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
+                    pathReference.getData(maxSize: 1 * 5000 * 5000) { data, error in
+                        if let error = error {
+                            print(error)
+                            // Uh-oh, an error occurred!
+                        } else {
+                            // Data for "images/island.jpg" is returned
+                            var image = UIImage(data: data!)
+                            images.append(image!)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
+                                //showLoadingAnimation = false
+                            }
+                        }
+                    }
+                }
             }
         }
         
     }
     func checkAuth(){
-
-            Auth.auth().addStateDidChangeListener { (auth, user) in
-                if user != nil{
-                    if userData.isOnboardingCompleted {
-                        withAnimation(.easeOut(duration: 1.0)) {
+        
+        Auth.auth().addStateDidChangeListener { (auth, user) in
+            if user != nil{
+                if userData.isOnboardingCompleted {
+                    withAnimation(.easeOut(duration: 1.0)) {
                         self.viewRouter.currentView = .home
-                        }
                     }
-                    else{
-                        self.viewRouter.showTabBar = false
-                        self.viewRouter.currentView = .custom
-                    }
-                    self.hasCheckedAuth = true
-
-                
                 }
-                else {
-                    withAnimation(.easeInOut(duration: 1.5)) {
+                else{
+                    self.viewRouter.showTabBar = false
+                    self.viewRouter.currentView = .custom
+                }
+                self.hasCheckedAuth = true
+                
+                
+            }
+            else {
+                withAnimation(.easeInOut(duration: 1.5)) {
                     self.viewRouter.currentView = .introView
                     self.hasCheckedAuth = true
                 }
-                }
             }
+        }
         
-         
+        
     }
     
     func firstLaunchAction() {

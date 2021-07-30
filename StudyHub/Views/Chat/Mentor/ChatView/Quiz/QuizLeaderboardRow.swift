@@ -25,17 +25,17 @@ struct QuizLeaderboardRow: View {
         }
     }
     func loadUserData() {
-       
+        
         let db = Firestore.firestore()
         let docRef = db.collection("quizzes").document("\(group.id)/\(quiz.id)/\(user.id.uuidString)")
         docRef.getDocument(source: .default) { (document, error) in
-                    if let document = document {
-                        points = document.get("points") as? Int ?? 0
-                        
-                    } else {
-                        print("Document does not exist in cache")
-                    }
-                }
+            if let document = document {
+                points = document.get("points") as? Int ?? 0
+                
+            } else {
+                print("Document does not exist in cache")
+            }
+        }
     }
 }
 

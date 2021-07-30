@@ -38,7 +38,7 @@ extension Color {
     }
     public static var gradientLight: Color {
         return Color(#colorLiteral(red: 0, green: 0.9333333333, blue: 1, alpha: 1))
-       }
+    }
     public static var gradientDark: Color {
         return Color(#colorLiteral(red: 0, green: 0.5843137255, blue: 1, alpha: 1))
     }
@@ -55,13 +55,13 @@ extension Double {
 extension Array where Element:Equatable {
     func removeDuplicates() -> [Element] {
         var result = [Element]()
-
+        
         for value in self {
             if result.contains(value) == false {
                 result.append(value)
             }
         }
-
+        
         return result
     }
 }
@@ -69,7 +69,7 @@ extension Date {
     func get(_ components: Calendar.Component..., calendar: Calendar = Calendar.current) -> DateComponents {
         return calendar.dateComponents(Set(components), from: self)
     }
-
+    
     func get(_ component: Calendar.Component, calendar: Calendar = Calendar.current) -> Int {
         return calendar.component(component, from: self)
     }
@@ -83,11 +83,11 @@ struct AccumulateSequence<T: Sequence>: Sequence, IteratorProtocol
 where T.Element: Accumulatable {
     var iterator: T.Iterator
     var accumulatedValue: T.Element?
-
+    
     init(_ sequence: T) {
         self.iterator = sequence.makeIterator()
     }
-
+    
     mutating func next() -> T.Element? {
         if let val = iterator.next() {
             if accumulatedValue == nil {
@@ -95,7 +95,7 @@ where T.Element: Accumulatable {
             }
             else { defer { accumulatedValue = accumulatedValue! + val } }
             return accumulatedValue
-
+            
         }
         return nil
     }
@@ -125,7 +125,7 @@ extension Notification {
 
 struct DeviceRotationViewModifier: ViewModifier {
     let action: (UIDeviceOrientation) -> Void
-
+    
     func body(content: Content) -> some View {
         content
             .onAppear()

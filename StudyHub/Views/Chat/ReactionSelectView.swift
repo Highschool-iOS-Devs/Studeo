@@ -11,60 +11,60 @@ import Firebase
 import FirebaseFirestoreSwift
 struct ReactionSelectView: View {
     @State var reactions = ["love", "thumbsup", "celebrate", "laugh"]
- 
+    
     
     @Binding var message: MessageData
     @Binding var toggleReaction: Bool
     @State var group: Groups
+    
     var body: some View {
+        
         HStack {
-           
-        ForEach(reactions, id: \.self) { (reaction) in
-            if reaction == "love" {
-                Button(action: {
+            ForEach(reactions, id: \.self) { (reaction) in
+                if reaction == "love" {
+                    Button(action: {
+                        
+                        message.reactions.append(reaction)
+                        saveMessage(outgoingMessage: message)
+                        toggleReaction = false
+                    }) {
+                        Text("❤️")
+                    }
                     
-                    message.reactions.append(reaction)
-                    saveMessage(outgoingMessage: message)
-                    toggleReaction = false
-                }) {
-                    Text("❤️")
-                }
-                
-            } else
-            if reaction == "thumbsup" {
-                Button(action: {
+                } else
+                if reaction == "thumbsup" {
+                    Button(action: {
+                        
+                        message.reactions.append(reaction)
+                        saveMessage(outgoingMessage: message)
+                        toggleReaction = false
+                    }) {
+                        Text("👍")
+                    }
                     
-                    message.reactions.append(reaction)
-                    saveMessage(outgoingMessage: message)
-                    toggleReaction = false
-                }) {
-                    Text("👍")
-                }
-                
-            } else
-            if reaction == "laugh" {
-             
-                Button(action: {
+                } else if reaction == "laugh" {
                     
-                    message.reactions.append(reaction)
-                    saveMessage(outgoingMessage: message)
-                    toggleReaction = false
-                }) {
-                    Text("🤣")
-                }
-            } else
-            if reaction == "celebrate" {
-                
-                Button(action: {
-                   
-                    message.reactions.append(reaction)
-                    saveMessage(outgoingMessage: message)
-                    toggleReaction = false
-                }) {
-                    Text("🎉")
+                    Button(action: {
+                        
+                        message.reactions.append(reaction)
+                        saveMessage(outgoingMessage: message)
+                        toggleReaction = false
+                    }) {
+                        Text("🤣")
+                    }
+                } else
+                if reaction == "celebrate" {
+                    
+                    Button(action: {
+                        
+                        message.reactions.append(reaction)
+                        saveMessage(outgoingMessage: message)
+                        toggleReaction = false
+                    }) {
+                        Text("🎉")
+                    }
                 }
             }
-        }
         } 
     }
     func saveMessage(outgoingMessage:MessageData){

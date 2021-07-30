@@ -11,17 +11,17 @@ import UIKit
 import Firebase
 struct ImagePicker : UIViewControllerRepresentable {
     
-    @Binding var isShown    : Bool
-    @Binding var image      : UIImage?
-    @Binding var userID    : String
+    @Binding var isShown: Bool
+    @Binding var image: UIImage?
+    @Binding var userID: String
     @ObservedObject var userData: UserData
     func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<ImagePicker>) {
-       
+        
     }
     
     func makeCoordinator() -> ImagePickerCordinator {
         return ImagePickerCordinator(isShown: $isShown, image: $image, userID: $userData.userID)
-          
+        
     }
     
     func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
@@ -30,14 +30,14 @@ struct ImagePicker : UIViewControllerRepresentable {
         return picker
     }
     func uploadImage() {
-   
-      
-       
-  
-}
+        
+        
+        
+        
+    }
 }
 class ImagePickerCordinator : NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate{
-   
+    
     @Binding var isShown    : Bool
     @Binding var image      : UIImage?
     @Binding var userID    : String
@@ -53,9 +53,9 @@ class ImagePickerCordinator : NSObject, UINavigationControllerDelegate, UIImageP
         image =  uiImage
         isShown = false
         
-
-           
-        }
+        
+        
+    }
     
     
     //Image selection got cancel

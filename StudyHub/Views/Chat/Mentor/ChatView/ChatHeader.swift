@@ -13,12 +13,13 @@ struct ChatHeader: View {
     @Binding var isDMs: Bool
     var body: some View {
         if isDMs {
-        HStack {
-            Text(group.groupName)
-                .font(.custom("Montserrat Bold", size: 14))
-        Spacer()
-        } .padding()
+            HStack {
+                Text(group.groupName)
+                    .font(.custom("Montserrat Bold", size: 14))
+                Spacer()
+            }
+            .padding()
+        }
     }
-}
 }
 

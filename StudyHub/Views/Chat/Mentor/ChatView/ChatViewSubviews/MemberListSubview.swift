@@ -29,7 +29,7 @@ struct MemberListSubview: View {
         ZStack{
             VStack {
                 HStack {
-               
+                    
                     Spacer()
                     
                     Text(group.groupName)
@@ -39,21 +39,21 @@ struct MemberListSubview: View {
                 }
                 .padding(.horizontal)
                 
-                HStack{
-                   Text("Tap on a member to view detail")
-                    .foregroundColor(Color("Primary"))
+                HStack {
+                    Text("Tap on a member to view detail")
+                        .foregroundColor(Color("Primary"))
+                        
+                        .font(Font.custom("Montserrat-SemiBold", size: 15, relativeTo: .subheadline))
                     
-                    .font(Font.custom("Montserrat-SemiBold", size: 15, relativeTo: .subheadline))
-
                 }
                 .padding(.top, 5)
                 .padding(.bottom, 2)
-                HStack{
+                HStack {
                     Spacer()
                     Text("\(members.count-1) studymates")
                         .foregroundColor(Color("Secondary"))
                         .font(Font.custom("Montserrat-SemiBold", size: 15, relativeTo: .subheadline))
-
+                    
                     
                     Spacer()
                 }
@@ -65,12 +65,12 @@ struct MemberListSubview: View {
                                     ProfilePic(name: "", id: member.id.uuidString)
                                         .frame(width: 75, height: 75)
                                         .padding(5)
-                                Text(member.name)
-                                    .minimumScaleFactor(0.001)
-                                    .font(Font.custom("Montserrat-SemiBold", size: 15, relativeTo: .subheadline))
-                                    .foregroundColor(Color("Text"))
-                                    .lineLimit(1)
-
+                                    Text(member.name)
+                                        .minimumScaleFactor(0.001)
+                                        .font(Font.custom("Montserrat-SemiBold", size: 15, relativeTo: .subheadline))
+                                        .foregroundColor(Color("Text"))
+                                        .lineLimit(1)
+                                    
                                 }
                                 .frame(maxWidth:.infinity)
                                 
@@ -79,25 +79,25 @@ struct MemberListSubview: View {
                                     showFull = true
                                 }
                             }
-
-                           
+                            
+                            
                         }
                     }
                     
                 }
-                else{
-                    LazyVGrid(columns: columns){
+                else {
+                    LazyVGrid(columns: columns) {
                         ForEach(members) { member in
                             if member.id.uuidString != self.userData.userID{
                                 VStack {
                                     ProfilePic(name: "", id: member.id.uuidString)
-                                Text(member.name)
-                                    .minimumScaleFactor(0.001)
-                                    .font(Font.custom("Montserrat-SemiBold", size: 12, relativeTo: .subheadline))
-                                    .foregroundColor(Color("Text"))
-                                    .padding(.top, 10)
-                                    .lineLimit(1)
-
+                                    Text(member.name)
+                                        .minimumScaleFactor(0.001)
+                                        .font(Font.custom("Montserrat-SemiBold", size: 12, relativeTo: .subheadline))
+                                        .foregroundColor(Color("Text"))
+                                        .padding(.top, 10)
+                                        .lineLimit(1)
+                                    
                                 }
                                 .frame(maxWidth:.infinity)
                                 .padding(.top, 20)
@@ -105,10 +105,10 @@ struct MemberListSubview: View {
                                     self.member = member
                                     showFull = true
                                 }
-
-                            }
                                 
-                           
+                            }
+                            
+                            
                         }
                     }
                 }
@@ -125,11 +125,11 @@ struct MemberListSubview: View {
                 .buttonStyle(WhiteStyle())
                 .padding(.top)
                 .padding(.horizontal, 15)
-      
-    
+                
+                
                 Spacer()
             }
-            if showFull{
+            if showFull {
                 withAnimation(Animation.easeInOut.speed(0.8)){
                     ZStack{
                         OtherUserProfileView(user: member!, userData: userData, showMemberList: $memberList)
@@ -143,21 +143,21 @@ struct MemberListSubview: View {
                                         .foregroundColor(Color("Primary"))
                                 }
                                 .padding()
-                               Spacer()
+                                Spacer()
                             }
                             Spacer()
                         }
-                  
+                        
                     }
                     .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .top)))
-                
+                    
                 }
-               
-
+                
+                
             }
-        
+            
         }
-        .onAppear{
+        .onAppear {
             for index in 0..<members.count {
                 downloadImages(for: members[index].id.uuidString) {
                     members[index].profileImageURL = $0
@@ -165,8 +165,8 @@ struct MemberListSubview: View {
                 
             }
         }
-
-   
+        
+        
     }
     func downloadImages(for userID:String, completion: @escaping (URL) -> Void){
         let metadata = StorageMetadata()
@@ -183,7 +183,7 @@ struct MemberListSubview: View {
         }
         
     }
-
+    
 }
 
 
