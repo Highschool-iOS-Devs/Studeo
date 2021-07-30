@@ -130,7 +130,7 @@ struct PairingListView: View {
                                     AllGroupTextRow()
                                     
                                     LazyVGrid(columns: gridItemLayout, spacing: 40){
-                                        ForEach($groupModel.allUnjoinedGroups) { group in//, id: \.groupID){group in
+                                        ForEach($groupModel.allUnjoinedGroups) { _, group in//, id: \.groupID){group in
                                             
                                             if (groupModel.currentUser!.interests ?? [UserInterestTypes.Algebra1] ).contains(((group.wrappedValue.interests.first ?? .Chemistry) ?? .Chemistry)) {
                                                 
