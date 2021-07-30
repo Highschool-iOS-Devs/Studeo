@@ -21,6 +21,8 @@ struct PairingListView: View {
     @StateObject var groupModel = ChatViewModel()
     @State var add: Bool = false
     @State var settings: Bool = false
+    @State var showChat: Bool = false
+
     @State var showTimer = false
     @Binding var myMentors:[Groups]
     @Binding var timerLog: [TimerLog]
@@ -128,25 +130,27 @@ struct PairingListView: View {
                                     AllGroupTextRow()
                                     
                                     LazyVGrid(columns: gridItemLayout, spacing: 40){
-                                        ForEach(groupModel.allUnjoinedGroups.identifiableIndices) { groupIndex in//, id: \.groupID){group in
+                                        ForEach($groupModel.allUnjoinedGroups) { group in//, id: \.groupID){group in
                                             
-                                            NavigationLink(destination: ChatView(userData: userData, viewRouter: viewRouter, group: $groupModel.allUnjoinedGroups[groupIndex], show: $show, hideNavBar: .constant(false))
-                                                            .onAppear() {
-                                                                if lookingForMentor {
-                                                                    createMentorship(group: groupModel.allUnjoinedGroups[groupIndex])
-                                                                } else {
-                                                                    joinExistingGroup(groupID: groupModel.allUnjoinedGroups[groupIndex].groupID)
-                                                                }
-                                                            }
-                                            ){
+                                            Button(action: {
+                                                if lookingForMentor {
+                                                    createMentorship(group: group.wrappedValue)
+                                                } else {
+                                                    joinExistingGroup(groupID: group.wrappedValue.groupID)
+                                                }
+                                                showChat = true
+                                            }) {
+                                               
+                                                RecentChatGroupSubview2(group: group.wrappedValue, userData: userData, viewRouter: viewRouter)
                                                 
-                                                RecentChatGroupSubview2(group: $groupModel.allUnjoinedGroups[groupIndex].wrappedValue, userData: userData, viewRouter: viewRouter)
                                                 
-                                                
+                                            } .fullScreenCover(isPresented: $showChat) {
+                                                ChatView(userData: userData, viewRouter: viewRouter, group: group, show: $show, hideNavBar: .constant(false))
+                                                               
                                             }
-                                        }
                                         
                                         
+                                    }
                                     }
                                 }
                             } else {

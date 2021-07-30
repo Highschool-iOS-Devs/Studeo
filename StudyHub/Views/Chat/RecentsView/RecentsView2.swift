@@ -60,12 +60,12 @@ struct RecentsView2: View {
                                 
                                 if !groupModel.recentGroups.isEmpty {
                                     VStack {
-                                        ForEach(groupModel.recentGroups.identifiableIndices) { groupIndex in//, id: \.groupID){ group in
+                                        ForEach($groupModel.recentGroups) { group in//, id: \.groupID){ group in
                                             #warning("maybe the issue is here")
                                             
                                             
                                             
-                                            RecentGroupRowSubview(group: groupModel.recentGroups[groupIndex], profilePicture: Image("demoprofile"), userData: userData, viewRouter: viewRouter, hideNavBar: $hideNavBar)
+                                            RecentGroupRowSubview(group: group.wrappedValue, profilePicture: Image("demoprofile"), userData: userData, viewRouter: viewRouter, hideNavBar: $hideNavBar)
                                                 .padding(.horizontal, 20)
                                             
                                             
@@ -85,10 +85,10 @@ struct RecentsView2: View {
                                     if !orientation.isPortrait {
                                         
                                         
-                                        ForEach(groupModel.allGroups.identifiableIndices) { groupIndex in//, id: \.groupID){group in
+                                        ForEach($groupModel.allGroups) { group in//, id: \.groupID){group in
                                             
                                             
-                                            RecentChatGroupSubview(group: $groupModel.allGroups[groupIndex].wrappedValue, userData: userData, viewRouter: viewRouter, hideNavBar: $hideNavBar)
+                                            RecentChatGroupSubview(group: group.wrappedValue, userData: userData, viewRouter: viewRouter, hideNavBar: $hideNavBar)
                                             
                                             
                                             
@@ -96,14 +96,14 @@ struct RecentsView2: View {
                                     } else {
                                         AllGroupTextRow()
                                         LazyVGrid(columns: gridItemLayout, spacing: 40){
-                                            ForEach(groupModel.allGroups.identifiableIndices) { groupIndex in//, id: \.groupID){group in
-                                                NavigationLink(destination: ChatView(userData: userData, viewRouter: viewRouter, group: $groupModel.allGroups[groupIndex], show: $show, hideNavBar: $hideNavBar)
+                                            ForEach($groupModel.allGroups) { group in//, id: \.groupID){group in
+                                                NavigationLink(destination: ChatView(userData: userData, viewRouter: viewRouter, group: group, show: $show, hideNavBar: $hideNavBar)
                                                                 .onAppear() {
                                                                     viewRouter.showTabBar = false
                                                                 }
                                                 ){
                                                     
-                                                    RecentChatGroupSubview(group: $groupModel.allGroups[groupIndex].wrappedValue, userData: userData, viewRouter: viewRouter, hideNavBar: $hideNavBar)
+                                                    RecentChatGroupSubview(group: group.wrappedValue, userData: userData, viewRouter: viewRouter, hideNavBar: $hideNavBar)
                                                     
                                                 }
                                                 
