@@ -236,30 +236,8 @@ struct PairingListView: View {
                     
                     IntroCustomize(interestSelected: $selectedInterests, userData: userData, isNotOnboarding: false, interests: $interests, settings: $settings, add: $add, viewRouter: viewRouter, groupModel:groupModel)
                         .onDisappear() {
-                           
-                            let groupInterests = groupModel.allUnjoinedGroups.map{$0.interests.map{$0}}
-                            var allInterests = selectedInterests.map{$0.rawValue}
-                            for groupInterest in (groupInterests.map{$0.map{$0?.rawValue} ?? [""]}) {
-
-                        
-                                allInterests += (groupInterest.map{$0 ?? ""})
-                            }
-                            let interestsNeedToBeCreated = allInterests.removeDuplicates()
-                            print(interestsNeedToBeCreated)
-                            for interest in interestsNeedToBeCreated {
-                                var doubleCheck = [String]()
-                                let groupInterests = groupModel.allUnjoinedGroups.map{$0.interests.map{$0}}
-                                for groupInterest in (groupInterests.map{$0.map{$0?.rawValue}}) {
-
-                            
-                                    doubleCheck += (groupInterest.map{$0 ?? ""})
-                                }
-                           
-                                if !doubleCheck.contains(interest) {
-                                    //print("Pass")
-                                createNewGroup(interest: UserInterestTypes(rawValue: interest) ?? .Chemistry)
-                                }
-                            }
+                            checkInterests()
+                          
                             }
                         
                             
@@ -276,7 +254,7 @@ struct PairingListView: View {
                     lookingForMentor ? groupModel.getAllUnJoinedmentors(){groupModel.allUnjoinedGroups=$0} : groupModel.getAllUnJoinedGroups(){groupModel.allUnjoinedGroups=$0}
                     selectedInterests = value.interests ?? [UserInterestTypes]()
                     interests = value.interests.map{$0.map{$0.rawValue}} ?? [String]()
-                    
+                    checkInterests()
                 }
                 //            groupModel.getRecentGroups{groupModel.recentGroups=$0}
                 //            groupModel.recentPeople = groupModel.getRecentPeople()
@@ -296,6 +274,31 @@ struct PairingListView: View {
         
         
         
+    }
+    func checkInterests() {
+        let groupInterests = groupModel.allUnjoinedGroups.map{$0.interests.map{$0}}
+        var allInterests = selectedInterests.map{$0.rawValue}
+        for groupInterest in (groupInterests.map{$0.map{$0?.rawValue} ?? [""]}) {
+
+    
+            allInterests += (groupInterest.map{$0 ?? ""})
+        }
+        let interestsNeedToBeCreated = allInterests.removeDuplicates()
+        print(interestsNeedToBeCreated)
+        for interest in interestsNeedToBeCreated {
+            var doubleCheck = [String]()
+            let groupInterests = groupModel.allUnjoinedGroups.map{$0.interests.map{$0}}
+            for groupInterest in (groupInterests.map{$0.map{$0?.rawValue}}) {
+
+        
+                doubleCheck += (groupInterest.map{$0 ?? ""})
+            }
+       
+            if !doubleCheck.contains(interest) {
+                //print("Pass")
+            createNewGroup(interest: UserInterestTypes(rawValue: interest) ?? .Chemistry)
+            }
+        }
     }
     func createNewGroup(interest: UserInterestTypes) {
        
